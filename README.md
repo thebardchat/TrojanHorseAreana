@@ -41,6 +41,9 @@ School Colors: **Red (#CC0000)** and **Black (#1A1A1A)**
 - `render_entrance.png` — Front entrance perspective
 - `render_arena.png` — Interior arena view showing championship mat
 
+### FreeCAD Conversion
+- `import_to_freecad.py` — Macro to import STEP into FreeCAD and save as `.FCStd`
+
 ### Source Scripts
 - `build_3d_model.py` — CadQuery parametric 3D model generator (produces STEP & STL)
 - `render_floorplan.py` — matplotlib 2D floor plan renderer
@@ -62,6 +65,9 @@ python3 render_floorplan.py
 
 # Generate 3D rendered views
 python3 render_3d_views.py
+
+# Convert STEP to FreeCAD native format (run inside FreeCAD)
+# Open FreeCAD > Macro > Execute Macro > select import_to_freecad.py
 ```
 
 ---
