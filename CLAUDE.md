@@ -73,3 +73,8 @@ Built with Claude (Anthropic) · Runs on Raspberry Pi 5 + Pironman 5-MAX
 ---
 
 *Created for Hazel Green Trojans — [@thebardchat](https://github.com/thebardchat) · Hazel Green, Alabama*
+
+## Claude Code Rules
+- Commit and push directly to `claude/trojans-sports-complex-3d-r07Pw`. Do NOT create branches.
+- Run build/test commands before committing.
+- Update CLAUDE.md session log before final commit.
