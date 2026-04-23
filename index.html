@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Trojan Horse Arena</title>
+<meta name="description" content="A strategy battle arena built in the ShaneBrain ecosystem."/>
+<style>
+:root{--c:#ff073a;--a:#ffe600;--bg:#080c10;--panel:#0d1520;--border:#1a2d40;--dim:#7a9ab8;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Courier New',monospace;background:var(--bg);color:#e8f4fd;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+nav{position:sticky;top:0;z-index:100;background:rgba(8,12,16,0.93);border-bottom:1px solid var(--c);backdrop-filter:blur(12px);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;}
+.logo{font-size:0.9rem;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;color:var(--c);text-shadow:0 0 10px var(--c);}
+.nav-link{color:var(--dim);text-decoration:none;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;}
+.nav-link:hover{color:var(--c);}
+.hero{position:relative;z-index:1;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;}
+.hero-icon{font-size:3.5rem;margin-bottom:1rem;}
+.hero-badge{display:inline-block;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--a);border:1px solid var(--a);padding:0.25rem 0.9rem;margin-bottom:1.5rem;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 4px var(--a);}50%{box-shadow:0 0 16px var(--a);}}
+h1{font-size:clamp(2rem,6vw,4.5rem);font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;color:var(--c);text-shadow:0 0 20px var(--c),0 0 60px color-mix(in srgb,var(--c) 30%,transparent);margin-bottom:0.75rem;}
+.subtitle{font-size:clamp(0.9rem,2vw,1.15rem);color:var(--dim);max-width:580px;line-height:1.65;margin-bottom:0.75rem;}
+.tagline{font-size:clamp(1rem,2.5vw,1.3rem);color:var(--a);text-shadow:0 0 8px var(--a);margin-bottom:1.5rem;font-weight:700;}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;}
+.btn{padding:0.75rem 2rem;font-family:inherit;font-size:0.85rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.2s;}
+.btn-primary{background:var(--c);color:#080c10;border:none;box-shadow:0 0 18px color-mix(in srgb,var(--c) 40%,transparent);}
+.btn-primary:hover{filter:brightness(1.2);box-shadow:0 0 30px var(--c);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:#e8f4fd;border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--c);color:var(--c);}
+.stats{position:relative;z-index:1;background:var(--panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.25rem 2rem;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;}
+.stat-num{font-size:1.8rem;font-weight:900;color:var(--c);text-shadow:0 0 8px var(--c);}
+.stat-lbl{font-size:0.65rem;color:var(--dim);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.15rem;}
+section{position:relative;z-index:1;padding:4rem 2rem;max-width:1000px;margin:0 auto;}
+.sec-label{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--a);margin-bottom:0.6rem;}
+.sec-title{font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:900;text-transform:uppercase;margin-bottom:2rem;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;}
+.feature-card{background:var(--panel);border:1px solid var(--border);padding:1.75rem 1.5rem;border-left:3px solid var(--fc,var(--c));transition:transform 0.2s,border-color 0.2s;}
+.feature-card:hover{transform:translateY(-3px);border-color:var(--fc,var(--c));}
+.feature-title{font-size:0.88rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem;color:#e8f4fd;}
+.feature-desc{font-size:0.82rem;color:var(--dim);line-height:1.6;}
+.neon-divider{position:relative;z-index:1;height:1px;background:linear-gradient(90deg,transparent,var(--c),transparent);opacity:0.25;}
+footer{position:relative;z-index:1;background:var(--panel);border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;}
+.footer-logo{font-size:1rem;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;color:var(--c);text-shadow:0 0 8px var(--c);}
+.footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:1.25rem 0;}
+.footer-links a{color:var(--dim);text-decoration:none;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;}
+.footer-links a:hover{color:var(--c);}
+.footer-copy{font-size:0.68rem;color:#3a5570;margin-top:1rem;line-height:1.8;}
+.referral{margin-top:0.75rem;font-size:0.68rem;color:var(--dim);}
+.referral a{color:var(--c);text-decoration:none;}
+@media(max-width:600px){nav .nav-link{display:none;}.stats{gap:2rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">🏟️ Trojan Horse Arena</div>
+  <a class="nav-link" href="https://github.com/thebardchat/TrojanHorseAreana" target="_blank">GitHub</a>
+</nav>
+<div class="hero">
+  <div class="hero-icon">🏟️</div>
+  <div class="hero-badge">⚡ ShaneBrain Ecosystem</div>
+  <h1>Trojan Horse Arena</h1>
+  <div class="tagline">Strategy. Deception. Victory.</div>
+  <p class="subtitle">A strategy battle arena built in the ShaneBrain ecosystem.</p>
+  <div class="cta-row">
+    <a href="https://github.com/thebardchat/TrojanHorseAreana" class="btn btn-primary" target="_blank">View on GitHub</a>
+    <a href="https://thebardchat.github.io" class="btn btn-ghost">ShaneBrain Hub</a>
+  </div>
+</div>
+<div class="neon-divider"></div>
+<section>
+  <p class="sec-label">// Core Features</p>
+  <h2 class="sec-title">What this does.</h2>
+  <div class="features-grid">
+        <div class="feature-card" style="--fc:#ff073a">
+          <div class="feature-title">Strategy Core</div>
+          <div class="feature-desc">Turn-based arena gameplay built around the Trojan Horse concept.</div>
+        </div>
+        <div class="feature-card" style="--fc:#ffe600">
+          <div class="feature-title">ShaneBrain Powered</div>
+          <div class="feature-desc">AI opponents and game logic run through the ShaneBrain infrastructure.</div>
+        </div>
+        <div class="feature-card" style="--fc:#39ff14">
+          <div class="feature-title">Sports Complex Vision</div>
+          <div class="feature-desc">A full 3D sports complex concept in development.</div>
+        </div>
+        <div class="feature-card" style="--fc:#b44fff">
+          <div class="feature-title">Open Arena</div>
+          <div class="feature-desc">Game design docs, mechanics, and concept art — open to contributors.</div>
+        </div>
+  </div>
+</section>
+<div class="neon-divider"></div>
+<footer>
+  <div class="footer-logo">🏟️ Trojan Horse Arena</div>
+  <div class="footer-links">
+    <a href="https://github.com/thebardchat/TrojanHorseAreana" target="_blank">GitHub</a>
+    <a href="https://github.com/thebardchat" target="_blank">TheBardChat</a>
+    <a href="https://thebardchat.github.io" target="_blank">ShaneBrain Hub</a>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 Shane Brazelton &amp; Claude (Anthropic) — Built together, not alone.<br/>
+    ShaneBrain Ecosystem | Hazel Green, AL
+  </div>
+  <div class="referral">
+    Powered by AI: <a href="https://claude.ai/referral/4fAMYN9Ing" target="_blank">Try Claude — the AI that helped build this</a>
+  </div>
+</footer>
+</body>
+</html>
