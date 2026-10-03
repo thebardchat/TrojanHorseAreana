@@ -1,0 +1,40 @@
+# BACKLOG — KEYSTONE
+
+Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done. One ticket IN PROGRESS at a time.
+
+**Phase 1 (priority)**
+- [x] **P1-T-000** Environment check → ENVIRONMENT.md; clone; branch `grok/keystone`; create `ARENA\_KEYSTONE`; first STATUS (YELLOW, "bootstrapping")
+- [ ] **P1-T-001** Inventory `Desktop\ARENA` → `ASSETS.md`; then `phase1.yaml` v1 from intake + assets; everything unknown = TBD
+- [ ] **P1-T-002** Send Shane the measurement + photo checklist (room L×W×H, doors, windows, outlets, existing fixtures, where water leaks show, wall material, walk-through room layout)
+- [ ] **P1-T-003** R-001 wall pads + R-003 single-user restroom ADA minimums
+- [ ] **P1-T-004** P1-G-001 one-page scope sheet (can ship before measurements — uses TBDs)
+- [ ] **P1-T-005** P1-A-101 existing conditions (needs measurements)
+- [ ] **P1-T-006** P1-A-102 remodel plan (restroom split, pad extents)
+- [ ] **P1-T-007** P1-A-201 wall pad elevations
+- [ ] **P1-T-008** P1-P-001 plumbing scope narrative
+- [ ] **P1-T-009** R-002 + R-004 approval/donation path → add "Who approves" to G-001
+- [ ] **P1-T-010** Bundle `THA_Phase1_Remodel_RevA.pdf` → PR to `main`
+
+**Phase 2 (after P1-T-010)**
+- [ ] **P2-T-001** `phase2.yaml` v1 from Section 3 Phase 2 table
+- [ ] **P2-T-002** `validate.py` + `calcs.py` Phase 2 checks
+- [ ] **P2-T-003** R-005 NFHS mats → do 4 mats fit 22,000 SF?
+- [ ] **P2-T-004** A-101 overall floor plan
+- [ ] **P2-T-005** A-102 mat + seating + conversion overlays
+- [ ] **P2-T-006** C-101 campus diagram (SITE TBD)
+- [ ] **P2-T-007** R-006…R-009 → G-002 code analysis
+- [ ] **P2-T-008** A-111 life safety
+- [ ] **P2-T-009** A-201 elevations (south portal) + A-301 sections
+- [ ] **P2-T-010** A-401 enlarged plans incl. 4 event locker rooms
+- [ ] **P2-T-011** 3D model + A-901 renders
+- [ ] **P2-T-012** G-001 cover + bundle `THA_Phase2_SD_RevA.pdf` → PR
+
+**Done = Phase 1:** P1 sheets exist as PDF + DXF from `phase1.yaml`, validate passes, every code/rule line cites an R-file, bundle PDF in a PR.
+**Done = Phase 2:** same standard across the Phase 2 sheet list.
+
+---
+
+## Status notes (KEYSTONE, not part of the Section 15 text)
+
+- P1-T-000 done 2026-10-03. Exception: the `ARENA\_KEYSTONE` folder on pulsar00100 was NOT created this session. KEYSTONE ran on a separate Linux box and was told not to touch Shane's Windows PC (see ENVIRONMENT.md). Bridge files live in `blueprints/STATUS.json` + `STATUS.md`. The GitHub mirror is the source of truth until `_KEYSTONE` exists.
+- **P1-T-001 IN PROGRESS.**

@@ -1,0 +1,22 @@
+{
+  "agent": "KEYSTONE",
+  "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
+  "schema_version": 2,
+  "updated_at": "2026-10-03T17:00:20-05:00",
+  "health": "YELLOW",
+  "active_phase": "P1",
+  "phase1_percent": 2,
+  "phase2_percent": 0,
+  "current_ticket": "P1-T-001",
+  "current_ticket_title": "Inventory ARENA folder + phase1.yaml v1",
+  "sheets_done": [],
+  "sheets_in_progress": [],
+  "last_commit": "8a2f4c6",
+  "branch": "grok/keystone",
+  "open_decisions": 15,
+  "blocked_on": "Room measurements and photos from Shane",
+  "what_changed": "Bootstrapping: blueprints/ tree, backlog, decisions log, environment check.",
+  "what_to_verify": "Intake header says MOVIE MAKER INTAKE; content is KEYSTONE's. Label slip?",
+  "next_action": "P1-T-001 asset inventory + phase1.yaml v1",
+  "question_for_shane": "Can you tape-measure the wrestling room and walk-through room and snap photos this week?"
+}
