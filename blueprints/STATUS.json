@@ -2,7 +2,7 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-03T18:26:17-05:00",
+  "updated_at": "2026-10-03T18:26:24-05:00",
   "health": "YELLOW",
   "active_phase": "P1",
   "phase1_percent": 20,
@@ -13,7 +13,7 @@
     "P1-G-001"
   ],
   "sheets_in_progress": [],
-  "last_commit": "feced57",
+  "last_commit": "f002dff",
   "branch": "grok/keystone",
   "open_decisions": 16,
   "blocked_on": "Room measurements and photos from Shane",
