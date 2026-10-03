@@ -4,4 +4,3 @@ WHAT CHANGED: Bootstrap done. blueprints/ tree, ASSETS.md inventory, phase1.yaml
 WHAT TO VERIFY: Principal's name spelling for the scope sheet: Headen or Hedden?
 NEXT ACTION: P1-T-003 research R-001 wall pads + R-003 ADA single-user restroom
 QUESTION FOR SHANE: Can you tape-measure the wrestling room and walk-through room and snap photos this week?
-BLOCKED ON: Room measurements and photos from Shane
