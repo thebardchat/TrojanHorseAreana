@@ -8,17 +8,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 
     <style>
-        body { margin: 0; overflow: hidden; background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%); font-family: 'Inter', sans-serif; }
+        body { margin: 0; overflow: hidden; background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); font-family: 'Inter', sans-serif; }
         #canvas-container { width: 100vw; height: 100vh; display: block; }
 
         .glass-panel {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
         #tooltip {
@@ -39,11 +45,11 @@
 </head>
 <body class="text-white">
 
-    <!-- Loading Screen -->
+    <!-- Loading -->
     <div id="loading" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
         <div class="loader mb-6"></div>
-        <h2 class="text-2xl font-bold tracking-wider">Building 3D Maquette...</h2>
-        <p class="text-sm text-gray-400 mt-2">Rendering architectural geometry</p>
+        <h2 class="text-2xl font-bold tracking-wider">Rendering Athletic Complex...</h2>
+        <p class="text-sm text-gray-400 mt-2">Bloom effects enabled</p>
     </div>
 
     <!-- Canvas -->
@@ -93,87 +99,88 @@
     </div>
 
     <script>
-        // ============================================================================
-        // ZONE DEFINITIONS — MATCHES PHYSICAL MAQUETTE PROPORTIONS & COLORS
-        // ============================================================================
         const ZONE_DATA = {
             arena: {
                 name: 'Championship Wrestling Arena',
                 sf: '22,000 SF',
-                desc: 'Central competition floor (22,000 SF) with four (4) wrestling mats arranged in a 2×2 grid. Surrounded by 2,200-capacity tiered stadium seating. Floor converts for basketball, volleyball, martial arts, and ceremonial events.',
-                color: 0xf8f8f8,
-                highlight: 0xffffff
+                desc: 'Central competition floor with four (4) wrestling mats arranged in a 2×2 grid. Surrounded by 2,200-capacity tiered stadium seating. Floor converts for basketball, volleyball, martial arts, and ceremonial events.'
             },
             seating: {
                 name: 'Stadium Seating',
                 sf: '2,200 Capacity',
-                desc: 'Tiered seating (3 sides) provides clear sightlines. Dark crimson seats with structured rows. Separate competition locker rooms beneath the bowl for tournament visitors.',
-                color: 0x7f1d1d,
-                highlight: 0xdc2626
+                desc: 'Tiered seating (3 sides) provides clear sightlines. Structural seating with separate competition locker rooms beneath the bowl for tournament visitors.'
             },
             strength: {
                 name: 'Strength & Conditioning',
                 sf: '6,000 SF',
-                desc: 'Northwest corner. Olympic lifting platforms, sport-specific turf lanes, plyometric jump zone, coaches' observation deck overlooking competition floor. Film review room adjacent.',
-                color: 0x4b5563,
-                highlight: 0x6b7280
+                desc: 'Northwest corner. Olympic lifting platforms, sport-specific turf lanes, plyometric jump zone, coaches' observation deck overlooking competition floor. Film review room adjacent.'
             },
             crossTraining: {
                 name: 'Cross-Training Mat Area',
                 sf: '4,000 SF',
-                desc: 'Dedicated practice surface. Yoga, functional fitness, martial arts drills. Completely separate from spectator flows. Elevated coaches' observation.',
-                color: 0x9ca3af,
-                highlight: 0xd1d5db
+                desc: 'Dedicated practice surface. Yoga, functional fitness, martial arts drills. Completely separate from spectator flows. Elevated coaches' observation.'
             },
             boysLocker: {
                 name: 'Boys Locker Room',
                 sf: '3,500 SF',
-                desc: 'Everyday athlete suite on west side. Locker rows, showers, dedicated restrooms. Separate from event-day competition suites.',
-                color: 0x3b82f6,
-                highlight: 0x60a5fa
+                desc: 'Everyday athlete suite on west side. Locker rows, showers, dedicated restrooms. Separate from event-day competition suites.'
             },
             girlsLocker: {
                 name: 'Girls Locker Room',
                 sf: '3,503 SF',
-                desc: 'Everyday athlete suite directly below boys room. Identical layout with dedicated facilities. Separate from event-day competition suites.',
-                color: 0xec4899,
-                highlight: 0xf472b6
+                desc: 'Everyday athlete suite directly below boys room. Identical layout with dedicated facilities. Separate from event-day competition suites.'
             },
             concourse: {
                 name: 'Public Concourse & Hall of Champions',
                 sf: 'Main Corridor',
-                desc: 'Circulation spine designed as trophy lobby. Lit visibly from U.S. 231 at night. Keeps spectator paths clear of athlete flow. Grand portal entry frames the arena.',
-                color: 0xd4d4d8,
-                highlight: 0xf5f5f5
+                desc: 'Circulation spine designed as trophy lobby. Lit visibly from U.S. 231 at night. Keeps spectator paths clear of athlete flow. Grand portal entry frames the arena.'
             },
             portal: {
                 name: 'Grand Portal Entry',
                 sf: 'Limestone Arch',
-                desc: 'Monumental entry feature. Limestone exterior, crimson interior, gold soffit. Visible from highway. Frames championship arena entrance. Architectural signature.',
-                color: 0x27272a,
-                highlight: 0x52525b
+                desc: 'Monumental entry feature. Limestone exterior, crimson interior, gold soffit. Visible from highway. Frames championship arena entrance. Architectural signature.'
             }
         };
 
-        // ============================================================================
-        // THREE.JS SCENE SETUP
-        // ============================================================================
-        const canvas = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x1a1a1a);
-        scene.fog = new THREE.Fog(0x1a1a1a, 400, 800);
+        let scene, camera, renderer, composer, controls;
+        let raycaster, mouse;
+        const allMeshes = [];
+        let hoveredMesh = null;
 
-        const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 2000);
+        const canvas = document.getElementById('canvas-container');
+
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a0a0a);
+        scene.fog = new THREE.Fog(0x0a0a0a, 400, 800);
+
+        camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 2000);
         camera.position.set(100, 150, 120);
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFShadowShadowMap;
         renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.toneMapping = THREE.ReinhardToneMapping;
         canvas.appendChild(renderer.domElement);
 
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        // POST-PROCESSING: BLOOM
+        const renderPass = new THREE.RenderPass(scene, camera);
+        const bloomPass = new THREE.UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight),
+            1.2,
+            0.4,
+            0.85
+        );
+        bloomPass.threshold = 0.3;
+        bloomPass.strength = 1.5;
+        bloomPass.radius = 0.5;
+
+        composer = new THREE.EffectComposer(renderer);
+        composer.addPass(renderPass);
+        composer.addPass(bloomPass);
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.autoRotate = true;
@@ -181,13 +188,11 @@
         controls.minDistance = 50;
         controls.maxDistance = 500;
 
-        // ============================================================================
-        // LIGHTING SETUP
-        // ============================================================================
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        // LIGHTING
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
         scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.1);
         directionalLight.position.set(150, 200, 100);
         directionalLight.castShadow = true;
         directionalLight.shadow.mapSize.width = 2048;
@@ -199,23 +204,22 @@
         directionalLight.shadow.camera.bottom = -300;
         scene.add(directionalLight);
 
-        const rimLight = new THREE.DirectionalLight(0xffcc88, 0.3);
+        const rimLight = new THREE.DirectionalLight(0xffcc88, 0.35);
         rimLight.position.set(-100, 150, -100);
         scene.add(rimLight);
 
-        // ============================================================================
-        // BUILD FLOOR PLAN GEOMETRY
-        // ============================================================================
+        // BUILD GEOMETRY
         const zoneGroup = new THREE.Group();
         scene.add(zoneGroup);
 
-        // Helper: Create a box with material
         function createBox(x, y, z, width, depth, height, colorHex, name) {
             const geom = new THREE.BoxGeometry(width, height, depth);
             const mat = new THREE.MeshStandardMaterial({
                 color: colorHex,
-                metalness: 0.05,
-                roughness: 0.6
+                metalness: 0.06,
+                roughness: 0.65,
+                emissive: colorHex,
+                emissiveIntensity: 0.1
             });
             const mesh = new THREE.Mesh(geom, mat);
             mesh.position.set(x, height / 2, z);
@@ -223,10 +227,10 @@
             mesh.receiveShadow = true;
             mesh.userData = { name };
             zoneGroup.add(mesh);
+            allMeshes.push(mesh);
             return mesh;
         }
 
-        // Helper: Create tiered seating geometry
         function createTieredSeating(x, z, width, depth, rowCount, heightPerRow) {
             const group = new THREE.Group();
             const rowWidth = width / rowCount;
@@ -237,39 +241,42 @@
                 const geom = new THREE.BoxGeometry(rowWidth - 0.5, rowHeight, depth);
                 const mat = new THREE.MeshStandardMaterial({
                     color: 0x7f1d1d,
-                    metalness: 0.02,
-                    roughness: 0.7
+                    metalness: 0.03,
+                    roughness: 0.75,
+                    emissive: 0x3d0d0d,
+                    emissiveIntensity: 0.08
                 });
                 const mesh = new THREE.Mesh(geom, mat);
                 mesh.position.set(rowX, rowHeight / 2, z);
                 mesh.castShadow = true;
                 mesh.receiveShadow = true;
                 group.add(mesh);
+                allMeshes.push(mesh);
             }
 
             group.userData = { name: 'seating' };
             return group;
         }
 
-        // Helper: Create wrestling mat circles
         function createWrestlingMat(x, z, matRadius) {
             const geom = new THREE.CylinderGeometry(matRadius, matRadius, 0.3, 64);
             const mat = new THREE.MeshStandardMaterial({
                 color: 0x1a1a1a,
-                metalness: 0,
-                roughness: 0.8
+                metalness: 0.01,
+                roughness: 0.85
             });
             const mesh = new THREE.Mesh(geom, mat);
             mesh.position.set(x, 0.15, z);
             mesh.castShadow = true;
             mesh.receiveShadow = true;
 
-            // Add decorative ring
             const ringGeom = new THREE.TorusGeometry(matRadius, 0.3, 16, 100);
             const ringMat = new THREE.MeshStandardMaterial({
                 color: 0xdc2626,
-                metalness: 0.3,
-                roughness: 0.5
+                metalness: 0.35,
+                roughness: 0.55,
+                emissive: 0x8b1818,
+                emissiveIntensity: 0.2
             });
             const ring = new THREE.Mesh(ringGeom, ringMat);
             ring.position.set(0, 0.5, 0);
@@ -277,19 +284,17 @@
             ring.castShadow = true;
             mesh.add(ring);
 
+            mesh.userData = { name: 'arena' };
+            allMeshes.push(mesh);
             return mesh;
         }
 
-        // ============================================================================
-        // FLOOR PLAN LAYOUT (Based on maquette proportions)
-        // ============================================================================
-
-        // Foundation floor (all 55,000 SF base)
+        // FLOOR
         const floorGeom = new THREE.PlaneGeometry(240, 180);
         const floorMat = new THREE.MeshStandardMaterial({
             color: 0x2a2a2a,
             metalness: 0.05,
-            roughness: 0.8
+            roughness: 0.85
         });
         const floor = new THREE.Mesh(floorGeom, floorMat);
         floor.rotation.x = -Math.PI / 2;
@@ -297,12 +302,14 @@
         floor.receiveShadow = true;
         zoneGroup.add(floor);
 
-        // GRAND PORTAL (South Entry) — Limestone arch
+        // PORTAL (South Entry)
         const portalGeom = new THREE.BoxGeometry(40, 45, 8);
         const portalMat = new THREE.MeshStandardMaterial({
             color: 0x27272a,
-            metalness: 0.1,
-            roughness: 0.4
+            metalness: 0.12,
+            roughness: 0.45,
+            emissive: 0x1a1a1a,
+            emissiveIntensity: 0.05
         });
         const portal = new THREE.Mesh(portalGeom, portalMat);
         portal.position.set(0, 22.5, -85);
@@ -310,55 +317,37 @@
         portal.receiveShadow = true;
         portal.userData = { name: 'portal' };
         zoneGroup.add(portal);
+        allMeshes.push(portal);
 
-        // CONCOURSE (Main circulation spine)
+        // CONCOURSE
         const concourse = createBox(0, 0, -40, 240, 30, 2, 0xd4d4d8, 'concourse');
 
-        // CHAMPIONSHIP ARENA (Center-right) — 22,000 SF
+        // CHAMPIONSHIP ARENA
         const arenaFloor = createBox(20, 0, 15, 90, 80, 1, 0xf8f8f8, 'arena');
 
-        // Four wrestling mats (2×2 grid within arena)
+        // WRESTLING MATS
         const matRadius = 13;
         const matSpacing = 35;
-        const mat1 = createWrestlingMat(20 - matSpacing / 2, 15 - matSpacing / 2, matRadius);
-        const mat2 = createWrestlingMat(20 + matSpacing / 2, 15 - matSpacing / 2, matRadius);
-        const mat3 = createWrestlingMat(20 - matSpacing / 2, 15 + matSpacing / 2, matRadius);
-        const mat4 = createWrestlingMat(20 + matSpacing / 2, 15 + matSpacing / 2, matRadius);
-        mat1.userData = { name: 'arena' };
-        mat2.userData = { name: 'arena' };
-        mat3.userData = { name: 'arena' };
-        mat4.userData = { name: 'arena' };
-        zoneGroup.add(mat1, mat2, mat3, mat4);
+        createWrestlingMat(20 - matSpacing / 2, 15 - matSpacing / 2, matRadius);
+        createWrestlingMat(20 + matSpacing / 2, 15 - matSpacing / 2, matRadius);
+        createWrestlingMat(20 - matSpacing / 2, 15 + matSpacing / 2, matRadius);
+        createWrestlingMat(20 + matSpacing / 2, 15 + matSpacing / 2, matRadius);
 
-        // TIERED SEATING (East side of arena)
+        // TIERED SEATING
         const tieredSeating = createTieredSeating(60, 15, 45, 80, 12, 2.5);
         zoneGroup.add(tieredSeating);
 
-        // BOYS LOCKER ROOM (West side, top)
+        // LOCKERS
         const boysLocker = createBox(-70, 0, 25, 35, 40, 2, 0x3b82f6, 'boysLocker');
-
-        // GIRLS LOCKER ROOM (West side, bottom)
         const girlsLocker = createBox(-70, 0, -25, 35, 40, 2, 0xec4899, 'girlsLocker');
 
-        // STRENGTH & CONDITIONING (Northwest corner)
+        // STRENGTH & CROSS-TRAINING
         const strength = createBox(-60, 0, 60, 50, 50, 2, 0x4b5563, 'strength');
-
-        // CROSS-TRAINING (North, between strength and concourse)
         const crossTraining = createBox(0, 0, 70, 60, 40, 2, 0x9ca3af, 'crossTraining');
 
-        // ============================================================================
-        // RAYCASTING FOR INTERACTIVITY
-        // ============================================================================
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-        const allMeshes = [];
-        zoneGroup.traverse((child) => {
-            if (child instanceof THREE.Mesh && child !== floor) {
-                allMeshes.push(child);
-            }
-        });
-
-        let hoveredMesh = null;
+        // INTERACTIVITY
+        raycaster = new THREE.Raycaster();
+        mouse = new THREE.Vector2();
 
         window.addEventListener('mousemove', (event) => {
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -370,7 +359,7 @@
             if (hoveredMesh) {
                 const originalColor = hoveredMesh.userData.originalColor;
                 hoveredMesh.material.color.setHex(originalColor);
-                hoveredMesh.material.emissive.setHex(0x000000);
+                hoveredMesh.material.emissiveIntensity = 0.1;
             }
 
             if (intersects.length > 0) {
@@ -381,18 +370,15 @@
                 if (zoneInfo) {
                     hoveredMesh = intersected;
                     hoveredMesh.userData.originalColor = hoveredMesh.material.color.getHex();
-                    hoveredMesh.material.color.setHex(zoneInfo.highlight);
-                    hoveredMesh.material.emissive.setHex(zoneInfo.highlight);
-                    hoveredMesh.material.emissiveIntensity = 0.15;
+                    hoveredMesh.material.color.setHex(zoneInfo.highlight || 0xffffff);
+                    hoveredMesh.material.emissiveIntensity = 0.25;
 
-                    // Show tooltip
                     const tooltip = document.getElementById('tooltip');
                     tooltip.textContent = zoneInfo.name;
                     tooltip.style.left = event.clientX + 'px';
                     tooltip.style.top = event.clientY + 'px';
                     tooltip.style.opacity = '1';
 
-                    // Update info panel
                     document.getElementById('info-title').textContent = zoneInfo.name;
                     document.getElementById('info-sf').textContent = zoneInfo.sf;
                     document.getElementById('info-desc').textContent = zoneInfo.desc;
@@ -405,27 +391,42 @@
             }
         });
 
-        // ============================================================================
-        // ANIMATION LOOP
-        // ============================================================================
+        // ANIMATION
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
-            renderer.render(scene, camera);
+            composer.render();
         }
 
-        // Remove loading screen and start animation
         window.addEventListener('load', () => {
             document.getElementById('loading').style.display = 'none';
             animate();
         });
 
-        // Handle window resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
         });
+
+        // EXPORT FUNCTION FOR RENDERS
+        window.captureView = function(filename, cameraPos) {
+            if (cameraPos) {
+                camera.position.copy(cameraPos);
+                controls.target.set(0, 0, 0);
+                camera.lookAt(0, 0, 0);
+            }
+            composer.render();
+            renderer.domElement.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        };
     </script>
 
 </body>
