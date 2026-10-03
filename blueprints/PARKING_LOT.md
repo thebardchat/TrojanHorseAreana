@@ -3,6 +3,7 @@
 Ideas that don't serve the current mission go here. Nothing on this list gets drawn, sized, or put in a params file until Shane promotes it in writing.
 
 ## Sustainability inspiration (parked per prompt §4)
+- 2026-10-03: MOVIE MAKER brief reports Shane cut the retractable roof and said YES to solar + stormwater storage. Not promoted; see D-018.
 
 The concept compares Phase 2 to **Mercedes-Benz Stadium**. **These are that stadium's numbers, not this project's.** Don't draw them, size them, or put them in `phase2.yaml`.
 
