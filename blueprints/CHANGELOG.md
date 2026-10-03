@@ -49,3 +49,6 @@
 
 ## 2026-10-03 17:53 CT
 - D-018 logged (solar + stormwater per MOVIE MAKER brief; stays parked). Look reference: /workspace/trojan-horse-arena/ (MOVIE MAKER, read-only).
+
+## 2026-10-03 17:57 CT
+- CHANGE APPROVED (Shane): solar + stormwater storage into Phase 2 as design intent, unsized. Retractable roof CUT. D-018 DECIDED. phase2.yaml `sustainability` added.

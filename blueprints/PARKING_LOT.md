@@ -3,11 +3,11 @@
 Ideas that don't serve the current mission go here. Nothing on this list gets drawn, sized, or put in a params file until Shane promotes it in writing.
 
 ## Sustainability inspiration (parked per prompt §4)
-- 2026-10-03: MOVIE MAKER brief reports Shane cut the retractable roof and said YES to solar + stormwater storage. Not promoted; see D-018.
+- 2026-10-03: **D-018 DECIDED.** Rooftop solar + stormwater storage PROMOTED to Phase 2 as design intent (phase2.yaml `sustainability`, unsized). Retractable roof CUT. The stadium numbers below stay reference only and never go in params.
 
 The concept compares Phase 2 to **Mercedes-Benz Stadium**. **These are that stadium's numbers, not this project's.** Don't draw them, size them, or put them in `phase2.yaml`.
 
-- Retractable 8-petal ETFE roof
+- Retractable 8-petal ETFE roof (CUT per D-018)
 - 4,000+ solar panels
 - 680,000-gallon cistern
 - 2.1M-gallon vault

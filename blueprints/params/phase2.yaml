@@ -206,6 +206,22 @@ design_rules:
     shown_on_reference_plan: TBD
     source: "concept sheet"
 
+sustainability:
+  # Design intent only. No sizes, panel counts, or gallons until a cited R-file sizes them for THIS building.
+  - id: rooftop_solar
+    status: design intent
+    size: TBD
+    sized_by: TBD (future R-file)
+    source: "D-018; Shane, CHANGE APPROVED 2026-10-03"
+  - id: stormwater_storage
+    status: design intent
+    size: TBD
+    sized_by: TBD (future R-file)
+    source: "D-018; Shane, CHANGE APPROVED 2026-10-03"
+  - id: retractable_roof
+    status: CUT
+    source: "D-018; Shane, CHANGE APPROVED 2026-10-03"
+
 campus:
   search_acres_min: 25
   search_acres_max: 30
