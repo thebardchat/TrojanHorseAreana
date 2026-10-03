@@ -4,7 +4,7 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 
 **Phase 1 (priority)**
 - [x] **P1-T-000** Environment check → ENVIRONMENT.md; clone; branch `grok/keystone`; create `ARENA\_KEYSTONE`; first STATUS (YELLOW, "bootstrapping")
-- [ ] **P1-T-001** Inventory `Desktop\ARENA` → `ASSETS.md`; then `phase1.yaml` v1 from intake + assets; everything unknown = TBD
+- [x] **P1-T-001** Inventory `Desktop\ARENA` → `ASSETS.md`; then `phase1.yaml` v1 from intake + assets; everything unknown = TBD
 - [ ] **P1-T-002** Send Shane the measurement + photo checklist (room L×W×H, doors, windows, outlets, existing fixtures, where water leaks show, wall material, walk-through room layout)
 - [ ] **P1-T-003** R-001 wall pads + R-003 single-user restroom ADA minimums
 - [ ] **P1-T-004** P1-G-001 one-page scope sheet (can ship before measurements — uses TBDs)
@@ -37,4 +37,5 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 ## Status notes (KEYSTONE, not part of the Section 15 text)
 
 - P1-T-000 done 2026-10-03. Exception: the `ARENA\_KEYSTONE` folder on pulsar00100 was NOT created this session. KEYSTONE ran on a separate Linux box and was told not to touch Shane's Windows PC (see ENVIRONMENT.md). Bridge files live in `blueprints/STATUS.json` + `STATUS.md`. The GitHub mirror is the source of truth until `_KEYSTONE` exists.
-- **P1-T-001 IN PROGRESS.**
+- P1-T-001 done 2026-10-03: ASSETS.md, params/phase1.yaml v1, shared/validate.py (passes).
+- **P1-T-002 IN PROGRESS:** checklist written at `blueprints/phase1/MEASUREMENT_CHECKLIST.md`. Still needs to go to Shane. Done when Shane has it.

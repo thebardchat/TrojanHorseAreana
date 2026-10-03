@@ -1,0 +1,132 @@
+# phase1.yaml: SINGLE SOURCE OF TRUTH for Phase 1 (remodel of the existing high school wrestling room)
+# Rules (KEYSTONE prompt v1.1 §8): every value carries `source`. Unknown = TBD, drawn as TBD, logged OPEN in DECISIONS.md.
+# Phase 2 (new building) values never appear in this file. Superseded Feb 2026 concept values never appear anywhere.
+# Sources used: "concept sheet" | "Shane" | "Shane measure" (pending) | "Claude session" | "Grok session" | "intake 2026-10-03" | R-### | D-###
+
+meta:
+  project: Hazel Green Regional Athletic Complex
+  project_alt_title: North Alabama Regional Athletic Complex
+  arena_name: Trojan Horse Arena
+  phase: 1
+  type: remodel
+  units: feet
+  version: 1
+  version_date: "2026-10-03"
+  sheet_size: "11x17 tabloid"
+  sheet_date: October 2026
+  stamp: "PRELIMINARY — CONCEPTUAL DESIGN — NOT FOR CONSTRUCTION"
+  drawn_by: "Drawn by KEYSTONE (AI) for Shane Brazelton"
+  source: "Shane (KEYSTONE prompt v1.1 §3, §8, §9) + concept sheet"
+
+brand:
+  color_primary: "#CC0000"
+  color_secondary: "#1A1A1A"
+  use: covers and renders only; technical sheets black on white
+  tagline: "Building Champions, One Mat at a Time"
+  source: "Shane (colors); repo (tagline); prompt §9 (use)"
+
+site:
+  owner: Public high school property, Madison County
+  owner_detail: Madison County Schools
+  district: Madison County District 1
+  location: Hazel Green, Madison County, Alabama
+  building: existing high school building
+  rooms_in_scope: existing wrestling room + adjacent walk-through room
+  room_location_in_building: TBD
+  source: "concept sheet; intake 2026-10-03 (owner_detail; room location UNKNOWN → D-001)"
+
+existing:
+  wrestling_room:
+    length: TBD
+    width: TBD
+    ceiling: TBD
+    wall_material: TBD
+    doors: TBD          # location, width, swing for each
+    windows: TBD
+    wall_devices: TBD   # outlets, switches, thermostats on walls to be padded
+    existing_pads: TBD
+    source: "Shane measure (pending, D-001; checklist phase1/MEASUREMENT_CHECKLIST.md)"
+  walkthrough_room:
+    length: TBD
+    width: TBD
+    ceiling: TBD
+    layout: TBD
+    doors: TBD
+    role: open walk-through room on the route to the training room
+    source: "concept sheet (role); Shane measure pending for the rest (D-001)"
+  plumbing:
+    failure_location: TBD
+    leak_or_damage_spots: TBD
+    existing_fixtures: TBD
+    water_lines: TBD
+    drain_lines: TBD
+    condition: plumbing already failing in the existing building
+    source: "concept sheet (condition); Shane photos pending for the rest (D-002)"
+
+work_items:
+  - id: W1
+    name: Wall padding
+    description: proper training wall pads on the wrestling room walls; finish work, not new construction
+    walls: TBD
+    pad_height: TBD
+    pad_thickness: TBD
+    fire_rating: TBD
+    supplied_by: TBD    # school purchase, donated, or fundraised
+    source: "concept sheet; walls/height/supplier → D-003; height/thickness/fire rating → R-001 (not yet researched)"
+  - id: W2
+    name: Plumbing repair
+    location: TBD
+    scope: repair failing plumbing in the existing building
+    design_by: BY LICENSED PLUMBER / ENGINEER OF RECORD
+    keystone_output: scope narrative + fixture list only (no plumbing design)
+    source: "concept sheet (scope); Shane (prompt §2: design_by, keystone_output); location → D-002"
+  - id: W3
+    name: Restroom split
+    result: 1 male + 1 female athlete restroom
+    reason: the route to the training room is an open walk-through room
+    restroom_type: TBD
+    accessibility_minimums: TBD
+    location: TBD
+    source: "concept sheet (result, reason); restroom_type/location → D-001, D-002; accessibility → R-003 (not yet researched)"
+
+not_in_phase1:
+  items:
+    - the Phase 2 new building complex
+    - stadium seats
+    - any new structure
+  source: "concept sheet"
+
+contacts:
+  principal:
+    name: "TBD (Headen or Hedden, unconfirmed)"
+    title: Principal (Dr.)
+    email: TBD
+    phone: TBD
+    source: "Claude session (Headen); earlier HGTYW email (Hedden); spelling → D-005"
+  facilities_manager:
+    name: TBD
+    email: TBD
+    phone: TBD
+    source: "Claude/Grok sessions (role only); intake 2026-10-03 (name UNKNOWN)"
+  athletic_director:
+    name: TBD
+    email: TBD
+    phone: TBD
+    source: "Claude/Grok sessions (role only)"
+
+approvals:
+  chain: TBD          # principal → district facilities → anyone else
+  donated_labor_materials_allowed: TBD
+  source: "D-004; research → R-002, R-004 (not yet researched)"
+
+schedule:
+  scope_confirmation_expected: "~end of October 2026"
+  confirming_parties: principal + facilities
+  package_target: before end of October 2026
+  source: "Claude session (confirmation); prompt §1 (package target)"
+
+funding:
+  budget: TBD
+  pad_funding: TBD
+  paths_mentioned: SRM divisions pitch, school board (nothing committed)
+  source: "intake 2026-10-03 (budget UNKNOWN; paths from Claude session); pad_funding → D-003"
