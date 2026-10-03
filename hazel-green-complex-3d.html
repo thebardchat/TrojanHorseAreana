@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>North Alabama Interactive Diorama</title>
     
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Load Three.js (r128) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Load OrbitControls -->
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Load EffectComposer and Passes for Bloom -->
     <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
@@ -22,20 +26,20 @@
         #canvas-container:active { cursor: grabbing; }
         
         .glass-panel {
-            background: rgba(20, 20, 20, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             color: #fff;
-            border-radius: 8px;
+            border-radius: 12px;
         }
 
         #drop-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 170, 255, 0.1);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 170, 255, 0.15);
+            backdrop-filter: blur(6px);
             border: 4px dashed rgba(0, 170, 255, 0.8);
             z-index: 50;
             display: flex;
@@ -58,42 +62,44 @@
 </head>
 <body>
 
+    <!-- 3D Canvas Container -->
     <div id="canvas-container"></div>
 
     <!-- Drag & Drop Overlay -->
     <div id="drop-overlay">
         <svg class="w-24 h-24 text-blue-400 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-        <h2 class="text-4xl font-bold text-white neon-text">Drop Image Here</h2>
-        <p class="text-blue-200 mt-2 text-lg">Update the diorama texture instantly</p>
+        <h2 class="text-4xl font-bold text-white neon-text">Drop Master Plan Here</h2>
+        <p class="text-blue-200 mt-2 text-lg">The layout will perfectly snap to the architectural board.</p>
     </div>
 
-    <!-- Instructions Plaque -->
-    <div class="absolute top-6 left-1/2 transform -translate-x-1/2 pointer-events-none z-10 w-[90%] max-w-2xl text-center">
-        <div class="glass-panel p-4">
-            <h1 class="text-xl md:text-2xl font-bold tracking-wider text-gray-100 uppercase">
+    <!-- Top Instructions Plaque -->
+    <div class="absolute top-6 left-1/2 transform -translate-x-1/2 pointer-events-none z-10 w-[90%] max-w-3xl text-center">
+        <div class="glass-panel p-5">
+            <h1 class="text-xl md:text-3xl font-bold tracking-widest text-gray-100 uppercase">
                 Interactive Architectural Diorama
             </h1>
-            <p class="text-sm text-gray-400 mt-1">
-                Drag & Drop your <span class="text-blue-400">Master Floor Plan image</span> anywhere on the screen to load it onto the board. Hover over zones to activate neon highlights.
+            <p class="text-sm md:text-base text-gray-400 mt-2">
+                Drag & Drop your <span class="text-blue-400 font-semibold">Master Floor Plan image</span> anywhere on the screen. Hover over layout zones to activate neon analysis.
             </p>
         </div>
     </div>
 
     <!-- Info Panel (Bottom Right) -->
-    <div class="absolute bottom-6 right-6 w-80 pointer-events-none z-10 transition-all duration-300 transform translate-y-4 opacity-0" id="info-panel">
+    <div class="absolute bottom-8 right-8 w-80 pointer-events-none z-10 transition-all duration-300 transform translate-y-4 opacity-0" id="info-panel">
         <div class="glass-panel p-6 relative overflow-hidden">
             <!-- Dynamic Neon Glow Bar -->
-            <div id="info-glow-bar" class="absolute top-0 left-0 w-full h-1 bg-white shadow-[0_0_15px_currentColor]"></div>
+            <div id="info-glow-bar" class="absolute top-0 left-0 w-full h-1.5 bg-white shadow-[0_0_20px_currentColor]"></div>
             
-            <h3 class="font-bold text-2xl text-white mt-1" id="info-title">Zone Name</h3>
-            <p class="text-lg font-semibold text-gray-300 mt-1" id="info-sf">0 SF</p>
-            <p class="text-sm text-gray-400 mt-3 leading-relaxed border-t border-gray-700 pt-3" id="info-desc">Description goes here.</p>
+            <h3 class="font-bold text-2xl text-white mt-2" id="info-title">Zone Name</h3>
+            <div class="flex items-center mt-2">
+                <span class="px-2 py-1 bg-white/10 rounded text-sm font-mono text-gray-200" id="info-sf">0 SF</span>
+            </div>
+            <p class="text-sm text-gray-400 mt-4 leading-relaxed border-t border-gray-700/50 pt-4" id="info-desc">Description goes here.</p>
         </div>
     </div>
 
     <script>
         // Zone configuration matching the layout proportions
-        // x and z are relative to the board center. w and d are width and depth.
         const ZONE_DATA = [
             { id: 'arena', name: 'Championship Arena', sf: '22,000 SF', desc: 'Central competition floor accommodating 4 regulation wrestling mats. Permanent stadium seating surrounds the lowered event floor.', color: 0xff1111, x: 23, z: 2.5, w: 42, d: 43 },
             { id: 'boysLocker', name: 'Boys Locker Room', sf: '3,500 SF', desc: 'Primary daily training and physical education locker suite featuring dedicated showers and restroom facilities.', color: 0x00aaff, x: -28, z: 1.5, w: 28, d: 11.5 },
@@ -114,72 +120,72 @@
         function init() {
             const container = document.getElementById('canvas-container');
 
-            // 1. Scene Setup
+            // Scene Setup
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x050505);
+            scene.background = new THREE.Color(0x0a0a0a);
+            scene.fog = new THREE.Fog(0x0a0a0a, 100, 300); // Add subtle depth
 
-            // 2. Camera setup to mimic a person looking down at a table
+            // Camera Setup
             camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
             camera.position.set(0, 80, 70); 
 
-            // 3. Renderer setup
-            renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance", alpha: false });
+            // Renderer Setup
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.shadowMap.enabled = true;
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-            renderer.toneMapping = THREE.ReinhardToneMapping;
-            renderer.toneMappingExposure = 1.2;
+            
+            // CRITICAL FIX: Proper color encoding and tone mapping for accurate image colors
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.0; 
+            
             container.appendChild(renderer.domElement);
 
             const renderScene = new THREE.RenderPass(scene, camera);
             
-            // Bloom Pass: Ensures the neon highlights look exactly like glowing LEDs
-            const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
-            bloomPass.threshold = 0.2; // Lower threshold so our emissive colors catch the bloom
-            bloomPass.strength = 1.2; // Glowing strength
+            // CRITICAL FIX: High threshold (1.5) ensures white backgrounds do NOT bloom.
+            // Only emissive objects with intensity > 1.5 will glow.
+            const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 1.5);
+            bloomPass.strength = 1.5;
             bloomPass.radius = 0.5;
 
             composer = new THREE.EffectComposer(renderer);
             composer.addPass(renderScene);
             composer.addPass(bloomPass);
 
-            // 4. Orbit Controls for interactivity
+            // Orbit Controls
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true;
             controls.dampingFactor = 0.05;
-            controls.maxPolarAngle = Math.PI / 2 - 0.05; // Prevent looking from below
+            controls.maxPolarAngle = Math.PI / 2 - 0.05;
             controls.minDistance = 30;
             controls.maxDistance = 150;
             controls.target.set(0, 0, 0);
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+            // Lighting Setup - Kept moderate to avoid blowing out white textures
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
             scene.add(ambientLight);
 
-            // Main spotlight mimicking indoor overhead lighting
-            const spotLight = new THREE.SpotLight(0xffffff, 1.2);
+            const spotLight = new THREE.SpotLight(0xffffff, 1.0);
             spotLight.position.set(20, 100, 40);
             spotLight.angle = Math.PI / 4;
-            spotLight.penumbra = 0.2;
+            spotLight.penumbra = 0.5;
             spotLight.castShadow = true;
             spotLight.shadow.mapSize.width = 2048;
             spotLight.shadow.mapSize.height = 2048;
             spotLight.shadow.bias = -0.0001;
             scene.add(spotLight);
 
-            // Sunset/Warm fill light from the "window" in the background
-            const warmLight = new THREE.DirectionalLight(0xffa877, 0.5);
-            warmLight.position.set(-50, 20, -50);
-            scene.add(warmLight);
-
-            const coolLight = new THREE.DirectionalLight(0x77a8ff, 0.3);
-            coolLight.position.set(50, 30, 50);
-            scene.add(coolLight);
+            const fillLight = new THREE.DirectionalLight(0x77a8ff, 0.3);
+            fillLight.position.set(-50, 30, -50);
+            scene.add(fillLight);
 
             buildDioramaBoard();
             buildInteractiveZones();
 
-            // 5. Interaction Setup
+            // Interaction
             raycaster = new THREE.Raycaster();
             mouse = new THREE.Vector2();
 
@@ -192,15 +198,13 @@
         function generatePlaceholderTexture() {
             const canvas = document.createElement('canvas');
             canvas.width = 2048;
-            canvas.height = 1228; // ~ 1.66 aspect ratio matching 100x60
+            canvas.height = 1228;
             const ctx = canvas.getContext('2d');
             
-            // Background
-            ctx.fillStyle = '#1a1a1a';
+            ctx.fillStyle = '#111111';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Grid pattern
-            ctx.strokeStyle = '#2a2a2a';
+            ctx.strokeStyle = '#222222';
             ctx.lineWidth = 2;
             for(let i=0; i<canvas.width; i+=40) {
                 ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
@@ -209,18 +213,18 @@
                 ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
             }
 
-            // Text
             ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 80px Inter, sans-serif';
+            ctx.font = 'bold 70px Inter, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText('DROP MASTER FLOOR PLAN IMAGE HERE', canvas.width/2, canvas.height/2 - 40);
+            ctx.fillText('DRAG & DROP MASTER FLOOR PLAN HERE', canvas.width/2, canvas.height/2 - 40);
             
-            ctx.fillStyle = '#888888';
-            ctx.font = '40px Inter, sans-serif';
-            ctx.fillText('The image will automatically map to this board', canvas.width/2, canvas.height/2 + 40);
+            ctx.fillStyle = '#666666';
+            ctx.font = '36px Inter, sans-serif';
+            ctx.fillText('Image will map onto the presentation board automatically', canvas.width/2, canvas.height/2 + 40);
             
             const tex = new THREE.CanvasTexture(canvas);
+            tex.encoding = THREE.sRGBEncoding; // Ensure proper color mapping
             tex.generateMipmaps = true;
             tex.minFilter = THREE.LinearMipmapLinearFilter;
             return tex;
@@ -231,41 +235,31 @@
             const boardDepth = 60;
             const boardHeight = 3;
 
-            // Geometry
             const boardGeo = new THREE.BoxGeometry(boardWidth, boardHeight, boardDepth);
             
-            // Side material (Metallic/Acrylic look)
             const sideMat = new THREE.MeshStandardMaterial({ 
-                color: 0x111111,
+                color: 0x1a1a1a,
                 metalness: 0.8,
                 roughness: 0.2
             });
 
-            // Top material (Will hold the image)
+            // CRITICAL FIX: Base material properties setup to prevent bloom on white backgrounds.
             boardTopMaterial = new THREE.MeshStandardMaterial({
                 map: generatePlaceholderTexture(),
-                metalness: 0.1,
-                roughness: 0.4,
-                color: 0xdddddd // Slight brightener
+                color: 0xffffff,
+                emissive: 0x000000,
+                roughness: 0.8,
+                metalness: 0.1
             });
 
-            // Materials array mapping to BoxGeometry faces
-            const materials = [
-                sideMat, // right
-                sideMat, // left
-                boardTopMaterial, // top
-                sideMat, // bottom
-                sideMat, // front
-                sideMat  // back
-            ];
-
+            const materials = [ sideMat, sideMat, boardTopMaterial, sideMat, sideMat, sideMat ];
             const board = new THREE.Mesh(boardGeo, materials);
-            board.position.y = 0; // Center is at 0, top face is at y = 1.5
+            board.position.y = 0; 
             board.receiveShadow = true;
             board.castShadow = true;
             scene.add(board);
 
-            // Add a subtle shadow plane underneath for realism
+            // Shadow plane
             const shadowPlane = new THREE.Mesh(
                 new THREE.PlaneGeometry(300, 300),
                 new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 1 })
@@ -277,26 +271,24 @@
         }
 
         function buildInteractiveZones() {
-            // These zones sit just infinitesimally above the board (board top is at y=1.5)
-            const zoneY = 1.55; 
+            const zoneY = 1.55; // Just slightly above the board
 
             ZONE_DATA.forEach(zone => {
                 const geo = new THREE.BoxGeometry(zone.w, 0.2, zone.d);
                 
-                // Material that glows brightly on hover
+                // CRITICAL FIX: The base material for zones is completely transparent and non-emissive
                 const mat = new THREE.MeshStandardMaterial({
                     color: zone.color,
                     emissive: zone.color,
-                    emissiveIntensity: 0.0, // Invisible initially
+                    emissiveIntensity: 0.0,
                     transparent: true,
-                    opacity: 0.0, // Invisible initially
+                    opacity: 0.0,
                     depthWrite: false
                 });
 
                 const mesh = new THREE.Mesh(geo, mat);
                 mesh.position.set(zone.x, zoneY, zone.z);
                 
-                // Store data for raycaster and UI
                 mesh.userData = { 
                     ...zone, 
                     baseColor: zone.color 
@@ -308,7 +300,6 @@
         }
 
         function onMouseMove(event) {
-            // Normalize mouse coordinates for raycasting
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -319,7 +310,6 @@
                 const object = intersects[0].object;
                 
                 if (hoveredObj !== object) {
-                    // Reset previous object
                     if (hoveredObj) {
                         hoveredObj.material.emissiveIntensity = 0.0;
                         hoveredObj.material.opacity = 0.0;
@@ -328,15 +318,14 @@
                     hoveredObj = object;
                     document.body.style.cursor = 'pointer';
                     
-                    // Highlight new object - triggers bloom
-                    hoveredObj.material.emissiveIntensity = 2.0; 
-                    hoveredObj.material.opacity = 0.5;
+                    // CRITICAL FIX: Push emissive intensity to 10.0 so it exceeds the bloom threshold of 1.5
+                    hoveredObj.material.emissiveIntensity = 10.0; 
+                    hoveredObj.material.opacity = 0.6;
                     
                     updateInfoPanel(hoveredObj.userData);
                 }
             } else {
                 if (hoveredObj) {
-                    // Reset
                     hoveredObj.material.emissiveIntensity = 0.0;
                     hoveredObj.material.opacity = 0.0;
                     hoveredObj = null;
@@ -355,10 +344,9 @@
             document.getElementById('info-sf').innerText = data.sf;
             document.getElementById('info-desc').innerText = data.desc;
             
-            // Convert hex color to CSS color for the glow bar
             const colorHex = '#' + data.baseColor.toString(16).padStart(6, '0');
             glowBar.style.backgroundColor = colorHex;
-            glowBar.style.color = colorHex; // for the box-shadow currentColor
+            glowBar.style.color = colorHex; 
 
             panel.classList.remove('opacity-0', 'translate-y-4');
             panel.classList.add('opacity-100', 'translate-y-0');
@@ -380,7 +368,6 @@
 
             window.addEventListener('dragleave', (e) => {
                 e.preventDefault();
-                // Check if we are really leaving the window
                 if (e.relatedTarget === null) {
                     overlay.classList.remove('active');
                 }
@@ -393,22 +380,28 @@
                 if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
                     const file = e.dataTransfer.files[0];
                     
-                    // Only process images
                     if (file.type.startsWith('image/')) {
                         const reader = new FileReader();
                         
                         reader.onload = function(event) {
                             const img = new Image();
                             img.onload = function() {
-                                // Create new texture from dropped image
                                 const texture = new THREE.Texture(img);
+                                
+                                // CRITICAL FIX: Ensure the texture renders in correct color space
+                                // Using sRGBEncoding for r128 compatibility
+                                texture.encoding = THREE.sRGBEncoding; 
                                 texture.needsUpdate = true;
                                 texture.generateMipmaps = true;
                                 texture.minFilter = THREE.LinearMipmapLinearFilter;
-                                // Apply to board
+                                
+                                // CRITICAL FIX: Ensure material params are strict
                                 boardTopMaterial.map = texture;
+                                boardTopMaterial.color.setHex(0xffffff);
+                                boardTopMaterial.emissive.setHex(0x000000);
+                                boardTopMaterial.roughness = 0.8;
+                                boardTopMaterial.metalness = 0.1;
                                 boardTopMaterial.needsUpdate = true;
-                                boardTopMaterial.color.setHex(0xffffff); // Ensure base color is white to show true image colors
                             };
                             img.src = event.target.result;
                         };
@@ -429,8 +422,6 @@
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
-            
-            // Render scene through the EffectComposer to apply the Neon Bloom
             composer.render();
         }
     </script>
