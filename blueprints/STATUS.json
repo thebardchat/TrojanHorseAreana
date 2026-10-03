@@ -2,21 +2,23 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-03T18:01:26-05:00",
+  "updated_at": "2026-10-03T18:26:17-05:00",
   "health": "YELLOW",
   "active_phase": "P1",
-  "phase1_percent": 10,
+  "phase1_percent": 20,
   "phase2_percent": 2,
-  "current_ticket": "P1-T-004",
-  "current_ticket_title": "P1-G-001 one-page scope sheet",
-  "sheets_done": [],
+  "current_ticket": "P1-T-009",
+  "current_ticket_title": "R-002 + R-004 approval/donation path → fill 'Who approves' on G-001",
+  "sheets_done": [
+    "P1-G-001"
+  ],
   "sheets_in_progress": [],
   "last_commit": "feced57",
   "branch": "grok/keystone",
   "open_decisions": 16,
   "blocked_on": "Room measurements and photos from Shane",
-  "what_changed": "R-001 wall pads + R-003 ADA single-user restroom researched with cited sources. Foam wall pads must be an NFPA 286-tested assembly (IBC 803.4/2603.9); ADA key numbers are in phase1.yaml standards.",
-  "what_to_verify": "Principal's name spelling for the scope sheet: Headen or Hedden? Wall pad height ~6 ft is NFHS guidance only; confirm with Shane/coach (D-003).",
-  "next_action": "P1-T-004: draw P1-G-001 one-page scope sheet with TBDs; room plans wait on measurements.",
-  "question_for_shane": "Can you tape-measure the wrestling room and walk-through room and snap photos this week?"
+  "what_changed": "P1-G-001 one-page scope sheet v1 (rev A) shipped as PDF + DXF from phase1.yaml. Decided: full ADA on both restrooms (D-019); NFPA 286 pad note on the sheet (D-020). Pad height still open: 6 ft proposed.",
+  "what_to_verify": "Scope sheet wording before it goes to the principal",
+  "next_action": "P1-T-009: research R-002 + R-004 (approval and donation path on school property) and fill 'Who approves' on P1-G-001. P1-T-005..008 wait on measurements.",
+  "question_for_shane": "Can you tape-measure the wrestling room and walk-through room, snap photos, and get the coach's call on pad height (6 ft or ___ ft)?"
 }

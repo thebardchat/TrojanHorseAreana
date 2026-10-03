@@ -69,10 +69,15 @@ work_items:
     description: proper training wall pads on the wrestling room walls; finish work, not new construction
     walls: TBD
     pad_height: TBD
+    pad_height_proposed_ft: 6   # proposed only, NOT decided (D-003 OPEN)
+    pad_height_note: proposed 6 ft per R-001 guidance, coach to confirm
+    pad_height_sheet_label: "6 ft proposed (R-001 guidance), coach to confirm"
     pad_thickness: TBD
     fire_rating: TBD    # must meet standards.wall_pads.spec_basis (R-001)
     supplied_by: TBD    # school purchase, donated, or fundraised
-    source: "concept sheet; walls/height/supplier → D-003; guidance + fire rule in standards.wall_pads (R-001, 2026-10-03); product choice still TBD"
+    supplied_by_options: school purchase, donation, or fundraiser
+    purchase_note: "Wall pads must have an NFPA 286 assembly test report — not a foam-only rating. Ask the vendor before purchase."
+    source: "concept sheet; walls/height/supplier → D-003 (OPEN; 6 ft proposed, coach to confirm); purchase_note verbatim → D-020 (Shane, chat 2026-10-03); fire rule in standards.wall_pads (R-001); product choice still TBD"
   - id: W2
     name: Plumbing repair
     location: TBD
@@ -83,11 +88,12 @@ work_items:
   - id: W3
     name: Restroom split
     result: 1 male + 1 female athlete restroom
+    ada_compliance: full 2010 ADA Standards, BOTH rooms
     reason: the route to the training room is an open walk-through room
-    restroom_type: TBD
+    restroom_type: single-user, one per sex
     accessibility_minimums: see standards.ada_single_user_restroom (R-003)
     location: TBD
-    source: "concept sheet (result, reason); restroom_type/location → D-001, D-002; accessibility minimums in standards.ada_single_user_restroom (R-003, 2026-10-03)"
+    source: "concept sheet (result, reason); restroom_type + ada_compliance → D-019 (Shane, chat 2026-10-03); location → D-001, D-002; accessibility minimums in standards.ada_single_user_restroom (R-003)"
 
 not_in_phase1:
   items:
@@ -116,6 +122,11 @@ contacts:
 
 approvals:
   chain: TBD          # principal → district facilities → anyone else
+  chain_shown:        # draft order shown on P1-G-001 until R-002/R-004 + D-004 settle it
+    - Principal (name spelling TBD)
+    - District facilities (Madison County Schools)
+    - TBD
+  research_pending: [R-002, R-004]
   donated_labor_materials_allowed: TBD
   source: "D-004; research → R-002, R-004 (not yet researched)"
 
@@ -156,6 +167,7 @@ standards:
     doors_and_hardware: recess from wall surface where possible; walls flat, no bump-outs
     competition_runoff_to_padded_wall_ft: 10   # meets only (KHSAA citing NFHS POE); NOT applied to Phase 1 practice room without Shane
     confidence: "fire rule HIGH; height/thickness guidance MEDIUM; F2440 detail LOW"
+    sheet_basis: "R-001: 2021 IBC 806.2 and 803.4 → 2603.9 (Alabama Building Code via DCM)"
     source: "R-001"
   ada_single_user_restroom:
     turning_space_diameter_in: 60          # 304.3.1 (or T-shape in 60 in square, 304.3.2)
@@ -191,5 +203,42 @@ standards:
     door_swing_rule: may swing into turning space; not into fixture clearances (603.2.3 Exc. 2 allows it with 30x48 in clear space beyond the arc)
     tactile_sign_baseline_height_in: [48, 60]   # 703.4.1, latch side (703.4.2)
     unisex_room_rule: privacy latch; max 1 lav + 2 WC or 1 WC + 1 urinal (213.2.1)
-    both_rooms_comply: "assumed YES (213.2 Exc. 4 read conservatively; confirm)"
+    both_rooms_comply: "YES, full 2010 ADA on both rooms (D-019, Shane 2026-10-03)"
     source: "R-003 (2010 ADA Standards via access-board.gov / ada.gov, retrieved 2026-10-03)"
+    cites:                                  # 2010 ADA section for each value (used on P1-G-001 table)
+      turning_space_diameter_in: "304.3"
+      wc_clearance: "604.3.1"
+      wc_centerline: "604.2"
+      wc_seat_height: "604.4"
+      grab_bar_side: "604.5.1"
+      grab_bar_rear: "604.5.2"
+      grab_bar_height: "609.4"
+      lav_clear_floor_space_in: "305.3, 606.2"
+      lav_rim_height_max_in: "606.3"
+      mirror_bottom_over_lav_max_in: "603.3"
+      door_clear_width_min_in: "404.2.3"
+      door_hardware_height_in: "404.2.7"
+      door_swing_rule: "603.2.3"
+      tactile_sign_baseline_height_in: "703.4"
+      source: "R-003 (section numbers per 2010 ADA Standards)"
+
+# ---------------------------------------------------------------------------
+# Sheet register (title block data). Drawing code reads these; nothing hard-coded.
+sheets:
+  P1-G-001:
+    title: SCOPE SHEET
+    subtitle: "PHASE 1 — REMODEL OF EXISTING WRESTLING ROOM"
+    scale: NTS
+    revision: A
+    revision_note: first issue for review
+    size: "11x17 tabloid, landscape"
+    audience: principal + district facilities
+    waiting_on:
+      - "Room measurements + photos: wrestling room and walk-through room (Shane) — D-001"
+      - "Pad height: 6 ft proposed, coach's call — D-003"
+      - "Which walls get pads, and who buys or donates them — D-003"
+      - "Where the plumbing fails + photos — D-002"
+      - "Principal's name spelling — D-005"
+      - "Approval path: who signs off, donated work allowed? — D-004 (R-002, R-004)"
+    photo_boxes: [Wrestling room, Walk-through room]
+    source: "prompt §9 (sheet list, title block fields, 11x17); Shane chat 2026-10-03 (P1-T-004 content + subtitle)"

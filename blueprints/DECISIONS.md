@@ -10,7 +10,7 @@ Source for D-001…D-012: KEYSTONE_ARCHITECT_PROMPT.md v1.1 Section 5. D-013…D
 |---|---|---|---|
 | D-001 | Existing room dimensions, ceiling height, door locations, wall material (needs Shane's tape measure + photos) | OPEN | phase1.yaml `existing.*`. Checklist: phase1/MEASUREMENT_CHECKLIST.md |
 | D-002 | Where the plumbing fails, what fixtures exist, where water/drain lines run | OPEN | phase1.yaml `existing.plumbing`, work item W2 |
-| D-003 | Which walls get pads, pad height, and whether pads are bought by the school, donated, or fundraised | OPEN | phase1.yaml W1 + `funding`. Pad height guidance → R-001 |
+| D-003 | Which walls get pads, pad height, and whether pads are bought by the school, donated, or fundraised | OPEN | phase1.yaml W1 + `funding`. Pad height guidance → R-001. 2026-10-03: Shane sent back the pad-height template unfilled ("[6 ft is right / use ___ ft] — coach's call"), so it is still NOT decided. phase1.yaml `pad_height` stays TBD, noted "proposed 6 ft per R-001 guidance, coach to confirm". The sheet shows "6 ft proposed (R-001 guidance), coach to confirm" |
 | D-004 | Who must approve work on school property (principal → district facilities → anyone else) | OPEN | phase1.yaml `approvals`. Research → R-002, R-004. Legal/procurement advice is out of scope for KEYSTONE |
 | D-005 | Principal's name spelling (Headen or Hedden) | OPEN | phase1.yaml `contacts.principal`. Claude session says Headen. Earlier HGTYW email says Hedden |
 
@@ -41,3 +41,10 @@ Source for D-001…D-012: KEYSTONE_ARCHITECT_PROMPT.md v1.1 Section 5. D-013…D
 | D-016 | Reference plan seating labels: north bank 3,200, south bank 2,200. Locked: 2,200 total (Shane 2026-10-03). Which label is wrong, and is 2,200 the total or per bank? | OPEN | phase2.yaml `spaces.seating`. The reference plan legend also says "Arena Capacity: 2,200 Spectators." The tabletop render swaps the two labels. Keep 2,200 total until Shane answers |
 | D-017 | Which image is the Phase 2 reference plan, and what may be taken from it? | DECIDED | DECIDED 2026-10-03 — Phase 2 reference plan = Phase2-floor-plan-flat.png; use zones, adjacencies, 5 SF tags, room list; ignore dimension strings, scale bar, garbled text, green/gold legend — "Shane, chat". Diorama demoted to secondary; `Phase2-floor-plan.jpeg` is presentation only, not a source |
 | D-018 | Promote rooftop solar + stormwater storage into Phase 2? Retractable roof? | DECIDED | DECIDED 2026-10-03 — Solar + stormwater storage promoted to Phase 2 as design intent only (no sizes, panel counts, or gallons until a cited R-file sizes them for this building). Retractable roof CUT. — "CHANGE APPROVED", Shane, chat. Applied in phase2.yaml `sustainability` |
+
+## Logged at R-001/R-003 approval (2026-10-03)
+
+| ID | Question | Status | Notes / feeds |
+|---|---|---|---|
+| D-019 | Must both new athlete restrooms (1 male + 1 female, single-user) meet full 2010 ADA, or only some (2010 ADA 213.2 Exception 4)? | DECIDED | DECIDED 2026-10-03 — Full 2010 ADA compliance on BOTH new restrooms — "Shane, chat". Resolves the R-003 Exception 4 question. Applied in phase1.yaml W3 + `standards.ada_single_user_restroom.both_rooms_comply` |
+| D-020 | Wall pad fire-test wording on the scope sheet | DECIDED | DECIDED 2026-10-03 — Scope sheet must include, verbatim: "Wall pads must have an NFPA 286 assembly test report — not a foam-only rating. Ask the vendor before purchase." — "Shane, chat". Applied in phase1.yaml W1 `purchase_note` (basis: R-001) |

@@ -66,3 +66,26 @@
   - Flags: 213.2 Exc. 4 read conservatively (both rooms comply); path of travel may be triggered.
 - `params/phase1.yaml`: new `standards` group (governing codes, wall_pads, ada_single_user_restroom), with `source: R-001` / `R-003`. Reference values only. No room dimensions. W1/W3 still TBD.
 - BACKLOG: P1-T-003 done, P1-T-004 next. STATUS → P1-T-004, P1 10%, YELLOW, waiting on measurements.
+
+## 2026-10-03 · R-001/R-003 approval: decisions recorded
+- D-019 DECIDED (Shane, chat): full 2010 ADA compliance on BOTH new restrooms. This settles the 213.2 Exc. 4 question. phase1.yaml W3 `ada_compliance`, `restroom_type: single-user, one per sex`, `both_rooms_comply: YES`.
+- D-020 DECIDED (Shane, chat): the scope sheet carries the NFPA 286 note verbatim. phase1.yaml W1 `purchase_note`.
+- D-003 stays OPEN. Shane returned the pad-height template unfilled ("coach's call"). `pad_height: TBD`, with a note and sheet label "6 ft proposed (R-001 guidance), coach to confirm".
+- Open decisions: 16, unchanged.
+
+## 2026-10-03 · P1-T-004 · P1-G-001 scope sheet v1 (rev A)
+- New `shared/titleblock.py`: one layout model renders to both a vector PDF (matplotlib, embedded searchable TrueType) and a DXF (ezdxf, inches). It draws the standard border, the PRELIMINARY stamp band and the title block (prompt §9).
+- New `phase1/src/p1_g_001.py`: 11x17 landscape scope sheet built from phase1.yaml.
+  - Work items W1, W2 and W3. W3 includes a 14-row 2010 ADA key-number table with section cites.
+  - Sections: NOT INCLUDED, WHO APPROVES (draft/TBD), WAITING ON, and 2 "PHOTOS TBD" boxes.
+  - The Phase 2 total is read from phase2.yaml for the NOT INCLUDED line.
+  - The script exits non-zero if text runs past any box.
+- Outputs: `phase1/out/pdf/P1-G-001.pdf`, `phase1/out/dxf/P1-G-001.dxf` (layers G-ANNO-TTLB, A-ANNO-TEXT). PNG preview kept outside the repo at /workspace/keystone_previews/P1-G-001.png.
+- phase1.yaml additions:
+  - `sheets.P1-G-001`: title block data, waiting_on, photo boxes
+  - `approvals.chain_shown` / `research_pending`
+  - `standards.wall_pads.sheet_basis`
+  - `standards.ada_single_user_restroom.cites`
+  - W1 `supplied_by_options`
+  - No room dimensions added.
+- Validate: the PDF stamp check is now non-vacuous and passes.
