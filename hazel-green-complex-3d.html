@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Hazel Green Regional Athletic Complex - 3D Floor Plan</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #1a1a1a; font-family: 'Inter', sans-serif; }
+        #canvas-container { width: 100vw; height: 100vh; display: block; }
+
+        /* UI Overlay styles */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #tooltip {
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.1s ease;
+        }
+
+        /* Loading spinner */
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #ef4444; /* Crimson */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Loading Screen -->
+    <div id="loading" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-gray-900">
+        <div class="loader mb-4"></div>
+        <h2 class="text-xl font-semibold tracking-wider">Generating 3D Maquette...</h2>
+    </div>
+
+    <!-- Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- UI Overlay: Header -->
+    <header class="absolute top-0 left-0 w-full p-6 pointer-events-none z-10 flex justify-between items-start">
+        <div class="glass-panel rounded-xl p-4 shadow-2xl pointer-events-auto max-w-md">
+            <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-yellow-500">
+                Hazel Green Regional Athletic Complex
+            </h1>
+            <p class="text-sm text-gray-300 mt-1 uppercase tracking-widest">Master Floor Plan Concept</p>
+        </div>
+
+        <div class="glass-panel rounded-xl p-3 shadow-2xl pointer-events-auto hidden sm:block">
+            <p class="text-xs text-gray-300 flex items-center gap-2">
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                Left Click + Drag to Rotate
+            </p>
+            <p class="text-xs text-gray-300 flex items-center gap-2 mt-1">
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                Scroll to Zoom
+            </p>
+        </div>
+    </header>
+
+    <!-- UI Overlay: Info Panel (Bottom/Side) -->
+    <div class="absolute bottom-0 left-0 w-full sm:w-auto sm:bottom-6 sm:left-6 p-4 sm:p-0 pointer-events-none z-10">
+        <div id="info-panel" class="glass-panel rounded-xl p-6 shadow-2xl pointer-events-auto w-full sm:w-80 transform transition-transform duration-300 translate-y-full sm:translate-y-0 sm:opacity-0">
+            <div class="flex items-center justify-between mb-2">
+                <h2 id="info-title" class="text-xl font-bold text-white">Select a Zone</h2>
+                <span id="info-sf" class="text-sm font-semibold text-red-400 bg-red-400/10 px-2 py-1 rounded">-- SF</span>
+            </div>
+            <p id="info-desc" class="text-sm text-gray-400 leading-relaxed">
+                Hover over or click a zone on the floor plan to view its architectural details and spatial layout.
+            </p>
+        </div>
+    </div>
+
+    <!-- Hover Tooltip -->
+    <div id="tooltip" class="absolute z-20 opacity-0 bg-black/80 text-white text-xs font-semibold px-3 py-2 rounded pointer-events-none border border-gray-700 shadow-lg transform -translate-x-1/2 -translate-y-full mt-[-10px]">
+        Zone Name
+    </div>
+
+    <script>
+        // Data Configuration for Zones based on requirements
+        const ZONE_DATA = {
+            arena: { name: 'Championship Arena', sf: '22,000 SF', desc: 'Central competition floor featuring four wrestling mats. Can be converted for basketball, volleyball, or martial arts. Surrounded by 2,200 capacity stadium seating.', color: 0xf3f4f6, highlight: 0xffffff },
+            seating: { name: 'Stadium Seating', sf: '2,200 Capacity', desc: 'Tiered seating flanking the championship arena on three sides, providing clear sightlines for all spectators.', color: 0x991b1b, highlight: 0xdc2626 },
+            crossTraining: { name: 'Cross-Training Mat Area', sf: '4,000 SF', desc: 'Elevated practice and cross-training surface situated between the concourse and strength center.', color: 0x6b7280, highlight: 0x9ca3af },
+            strength: { name: 'Strength & Conditioning', sf: '6,000 SF', desc: 'Dedicated physical development center located on the northwest corner, separate from spectator flows.', color: 0x4b5563, highlight: 0x6b7280 },
+            boysLocker: { name: 'Boys Locker Room', sf: '3,500 SF', desc: 'Everyday athlete locker room suite including lockers, showers, and dedicated restrooms.', color: 0x3b82f6, highlight: 0x60a5fa },
+            girlsLocker: { name: 'Girls Locker Room', sf: '3,503 SF', desc: 'Everyday athlete locker room suite with dedicated facilities, mirroring the boys layout.', color: 0xec4899, highlight: 0xf472b6 },
+            concourse: { name: 'Public Concourse', sf: 'Common Area', desc: 'The main artery of the complex, designed as a "hall of champions" keeping spectator paths clear of the athlete flow.', color: 0xd4d4d8, highlight: 0xe4e4e7 },
+            portal: { name: 'Grand Portal & Entry', sf: 'Entrance', desc: 'A striking limestone and crimson archway framing the south entry, lit to be visible from U.S. 231.', color: 0x27272a, highlight: 0x3f3f46 }
+        };
+
+        // Three.js Setup Variables
+        let scene, camera, renderer, controls;
+        let raycaster, mouse;
+        const interactableObjects = [];
+        let hoveredObject = null;
+        let selectedObject = null;
+
+        // UI Elements
+        const tooltip = document.getElementById('tooltip');
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title');
+        const infoSf = document.getElementById('info-sf');
+        const infoDesc = document.getElementById('info-desc');
+
+        init();
+        animate();
+
+        function init() {
+            const container = document.getElementById('canvas-container');
+
+            // 1. Scene Setup
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a1a);
+            scene.fog = new THREE.Fog(0x1a1a1a, 50, 150);
+
+            // 2. Camera Setup
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.set(0, 70, 90); // Elevated isometric view
+
+            // 3. Renderer Setup
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            // 4. Controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxPolarAngle = Math.PI / 2 - 0.05; // Don't go below ground
+            controls.minDistance = 20;
+            controls.maxDistance = 150;
+            controls.target.set(0, 0, 0);
+
+            // 5. Lighting (Architectural Maquette Style)
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xfff0dd, 0.8);
+            dirLight.position.set(50, 80, 40);
+            dirLight.castShadow = true;
+            dirLight.shadow.mapSize.width = 2048;
+            dirLight.shadow.mapSize.height = 2048;
+            dirLight.shadow.camera.left = -60;
+            dirLight.shadow.camera.right = 60;
+            dirLight.shadow.camera.top = 60;
+            dirLight.shadow.camera.bottom = -60;
+            dirLight.shadow.camera.near = 0.1;
+            dirLight.shadow.camera.far = 200;
+            scene.add(dirLight);
+
+            const fillLight = new THREE.DirectionalLight(0xaabbff, 0.3);
+            fillLight.position.set(-50, 40, -40);
+            scene.add(fillLight);
+
+            // 6. Base / Ground Plane
+            const planeGeo = new THREE.PlaneGeometry(200, 200);
+            const planeMat = new THREE.MeshStandardMaterial({
+                color: 0x222222,
+                roughness: 0.8,
+                metalness: 0.2
+            });
+            const plane = new THREE.Mesh(planeGeo, planeMat);
+            plane.rotation.x = -Math.PI / 2;
+            plane.position.y = -0.5;
+            plane.receiveShadow = true;
+            scene.add(plane);
+
+            // Grid Helper for technical look
+            const gridHelper = new THREE.GridHelper(150, 30, 0x444444, 0x333333);
+            gridHelper.position.y = -0.4;
+            scene.add(gridHelper);
+
+            // Build the building geometry
+            buildFloorPlan();
+
+            // Setup Raycaster
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('click', onClick);
+            window.addEventListener('touchstart', onTouchStart, { passive: false });
+
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                // Show info panel slightly
+                infoPanel.classList.remove('sm:opacity-0');
+            }, 1000);
+        }
+
+        function createZone(id, w, h, d, x, y, z) {
+            const data = ZONE_DATA[id];
+            const geo = new THREE.BoxGeometry(w, h, d);
+            const mat = new THREE.MeshStandardMaterial({
+                color: data.color,
+                roughness: 0.7,
+                metalness: 0.1
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.set(x, y, z);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+
+            // Attach metadata for interaction
+            mesh.userData = {
+                id: id,
+                ...data,
+                baseMat: mat,
+                originalColor: new THREE.Color(data.color),
+                highlightColor: new THREE.Color(data.highlight)
+            };
+
+            scene.add(mesh);
+            interactableObjects.push(mesh);
+            return mesh;
+        }
+
+        function buildFloorPlan() {
+            const floorY = 0.5;
+
+            // 1. Championship Arena (Center-Right)
+            // Main floor
+            const arena = createZone('arena', 40, 1, 40, 20, floorY, 0);
+
+            // Add Wrestling Mats (Decorative, attached to Arena zone)
+            const matGeo = new THREE.CylinderGeometry(4, 4, 0.1, 32);
+            const matMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 });
+            const matPositions = [
+                {x: 10, z: -10}, {x: 30, z: -10},
+                {x: 10, z: 10}, {x: 30, z: 10}
+            ];
+            matPositions.forEach(pos => {
+                const circle = new THREE.Mesh(matGeo, matMat);
+                circle.position.set(pos.x, floorY + 0.55, pos.z);
+                circle.receiveShadow = true;
+
+                // Add inner circle lines (crimson)
+                const lineGeo = new THREE.RingGeometry(2.8, 3, 32);
+                const lineMat = new THREE.MeshBasicMaterial({ color: 0x991b1b, side: THREE.DoubleSide });
+                const line = new THREE.Mesh(lineGeo, lineMat);
+                line.rotation.x = -Math.PI / 2;
+                line.position.set(pos.x, floorY + 0.61, pos.z);
+
+                scene.add(circle);
+                scene.add(line);
+            });
+
+            // 2. Stadium Seating (U-Shape around Arena)
+            // Top Seating
+            createZone('seating', 44, 4, 10, 20, 2, -25);
+            // Bottom Seating
+            createZone('seating', 44, 4, 10, 20, 2, 25);
+            // Right Seating
+            createZone('seating', 10, 4, 60, 47, 2, 0);
+
+            // Add tiered steps detail to seating (purely visual)
+            const tierMat = new THREE.MeshStandardMaterial({ color: 0x991b1b });
+            for(let i=1; i<=3; i++) {
+                // Top tiers
+                const t1 = new THREE.Mesh(new THREE.BoxGeometry(44, 1, 10 - i*2), tierMat);
+                t1.position.set(20, 2 + i*0.8, -25 - i*1);
+                scene.add(t1);
+                // Bottom tiers
+                const t2 = new THREE.Mesh(new THREE.BoxGeometry(44, 1, 10 - i*2), tierMat);
+                t2.position.set(20, 2 + i*0.8, 25 + i*1);
+                scene.add(t2);
+                // Right tiers
+                const t3 = new THREE.Mesh(new THREE.BoxGeometry(10 - i*2, 1, 60), tierMat);
+                t3.position.set(47 + i*1, 2 + i*0.8, 0);
+                scene.add(t3);
+            }
+
+            // 3. Cross-Training Mat Area
+            createZone('crossTraining', 25, 1.5, 20, -15, 0.75, -15);
+
+            // 4. Strength & Conditioning
+            createZone('strength', 22, 5, 25, -40, 2.5, -12.5);
+
+            // 5. Boys Locker Room
+            createZone('boysLocker', 22, 5, 16, -40, 2.5, 9);
+
+            // 6. Girls Locker Room
+            createZone('girlsLocker', 22, 5, 16, -40, 2.5, 26);
+
+            // 7. Concourse / Corridors
+            // Main vertical corridor
+            createZone('concourse', 15, 0.5, 60, -15, floorY - 0.2, 10);
+            // Horizontal entry corridor
+            createZone('concourse', 30, 0.5, 15, -15, floorY - 0.2, 45);
+
+            // 8. The Grand Portal
+            const portalBase = createZone('portal', 12, 1, 6, -15, 0, 55);
+
+            // Decorative Portal Arch (visual only, non-interactable)
+            const archMat = new THREE.MeshStandardMaterial({ color: 0xe5e7eb, roughness: 0.9 }); // Limestone
+            const crimsonMat = new THREE.MeshStandardMaterial({ color: 0x991b1b });
+
+            // Left Pillar
+            const p1 = new THREE.Mesh(new THREE.BoxGeometry(3, 12, 6), archMat);
+            p1.position.set(-19.5, 6, 55);
+            p1.castShadow = true;
+            scene.add(p1);
+
+            // Right Pillar
+            const p2 = new THREE.Mesh(new THREE.BoxGeometry(3, 12, 6), archMat);
+            p2.position.set(-10.5, 6, 55);
+            p2.castShadow = true;
+            scene.add(p2);
+
+            // Top Beam
+            const top = new THREE.Mesh(new THREE.BoxGeometry(12, 3, 6), archMat);
+            top.position.set(-15, 13.5, 55);
+            top.castShadow = true;
+            scene.add(top);
+
+            // Inner Arch Accent (Crimson)
+            const accent = new THREE.Mesh(new THREE.BoxGeometry(6, 0.5, 6), crimsonMat);
+            accent.position.set(-15, 11.75, 55);
+            scene.add(accent);
+        }
+
+        function onMouseMove(event) {
+            // Calculate mouse position in normalized device coordinates (-1 to +1)
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycast();
+
+            // Update tooltip position
+            if (hoveredObject) {
+                tooltip.style.opacity = '1';
+                tooltip.style.left = event.clientX + 'px';
+                tooltip.style.top = event.clientY + 'px';
+                tooltip.innerHTML = hoveredObject.userData.name;
+            } else {
+                tooltip.style.opacity = '0';
+            }
+        }
+
+        function onTouchStart(event) {
+            if(event.touches.length > 0) {
+                mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+                raycast();
+                onClick(); // Trigger click logic on touch
+            }
+        }
+
+        function raycast() {
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(interactableObjects);
+
+            if (intersects.length > 0) {
+                const object = intersects[0].object;
+
+                if (hoveredObject !== object) {
+                    // Reset previous hover
+                    if (hoveredObject && hoveredObject !== selectedObject) {
+                        resetObjectColor(hoveredObject);
+                    }
+
+                    hoveredObject = object;
+                    document.body.style.cursor = 'pointer';
+
+                    // Highlight new hover
+                    if (hoveredObject !== selectedObject) {
+                        hoveredObject.material.color.copy(hoveredObject.userData.highlightColor);
+                    }
+                }
+            } else {
+                if (hoveredObject) {
+                    if (hoveredObject !== selectedObject) {
+                        resetObjectColor(hoveredObject);
+                    }
+                    hoveredObject = null;
+                    document.body.style.cursor = 'auto';
+                }
+            }
+        }
+
+        function onClick() {
+            if (hoveredObject) {
+                // Deselect previous
+                if (selectedObject) {
+                    resetObjectColor(selectedObject);
+                }
+
+                selectedObject = hoveredObject;
+
+                // Emphasize selection (make it slightly emissive)
+                interactableObjects.forEach(obj => {
+                    obj.material.emissive.setHex(0x000000);
+                });
+                selectedObject.material.color.copy(selectedObject.userData.highlightColor);
+                selectedObject.material.emissive.copy(selectedObject.userData.highlightColor).multiplyScalar(0.2);
+
+                // Update UI
+                updateInfoPanel(selectedObject.userData);
+
+                // Optional: Slight camera bump towards selection
+                // const targetX = selectedObject.position.x;
+                // const targetZ = selectedObject.position.z;
+                // ... animation logic could go here ...
+            } else {
+                // Clicked outside
+                if (selectedObject) {
+                    resetObjectColor(selectedObject);
+                    selectedObject.material.emissive.setHex(0x000000);
+                    selectedObject = null;
+
+                    // Reset UI
+                    infoTitle.innerText = "Select a Zone";
+                    infoSf.innerText = "-- SF";
+                    infoDesc.innerText = "Hover over or click a zone on the floor plan to view its architectural details and spatial layout.";
+
+                    // Remove translate to hide panel on mobile when deselected
+                    if(window.innerWidth < 640) {
+                        infoPanel.classList.add('translate-y-full');
+                    }
+                }
+            }
+        }
+
+        function resetObjectColor(object) {
+            object.material.color.copy(object.userData.originalColor);
+        }
+
+        function updateInfoPanel(data) {
+            infoTitle.innerText = data.name;
+            infoSf.innerText = data.sf;
+            infoDesc.innerText = data.desc;
+
+            // Show panel on mobile
+            infoPanel.classList.remove('translate-y-full');
+            infoPanel.classList.remove('sm:opacity-0');
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Required if controls.enableDamping or controls.autoRotate are set
+            controls.update();
+
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>
