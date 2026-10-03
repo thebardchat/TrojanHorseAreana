@@ -52,3 +52,17 @@
 
 ## 2026-10-03 17:57 CT
 - CHANGE APPROVED (Shane): solar + stormwater storage into Phase 2 as design intent, unsized. Retractable roof CUT. D-018 DECIDED. phase2.yaml `sustainability` added.
+
+## 2026-10-03 · P1-T-003 · R-001 wall pads + R-003 ADA single-user restroom
+- `research/R-001-wall-pads.md`:
+  - NFHS guidance (HST 2022): about 6 ft high, 2 in pads, recessed door hardware.
+  - The NFHS rules book is paywalled, so no NFHS *rule* on practice-room pads was verified.
+  - IBC 2021 806.2 makes pads interior finish. 803.4 → 2603.9 means foam pads need a large-scale test of the finished assembly (NFPA 286 or equal). Table 803.13 room minimum is Class C, but the foam rule governs.
+  - Alabama DCM adopts the 2021 IBC/IEBC/IFC for K-12.
+  - Flag: some common pads are "foam core not fire-rated" or E84-only.
+- `research/R-003-ada-single-user-restroom.md`:
+  - 2010 ADA governs (Title II alteration; DCM says ADA supersedes IBC/A117.1).
+  - Key-numbers table with section cites: 304, 305/306, 404, 603, 604, 606, 609, 703.
+  - Flags: 213.2 Exc. 4 read conservatively (both rooms comply); path of travel may be triggered.
+- `params/phase1.yaml`: new `standards` group (governing codes, wall_pads, ada_single_user_restroom), with `source: R-001` / `R-003`. Reference values only. No room dimensions. W1/W3 still TBD.
+- BACKLOG: P1-T-003 done, P1-T-004 next. STATUS → P1-T-004, P1 10%, YELLOW, waiting on measurements.

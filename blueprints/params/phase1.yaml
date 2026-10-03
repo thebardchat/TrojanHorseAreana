@@ -70,9 +70,9 @@ work_items:
     walls: TBD
     pad_height: TBD
     pad_thickness: TBD
-    fire_rating: TBD
+    fire_rating: TBD    # must meet standards.wall_pads.spec_basis (R-001)
     supplied_by: TBD    # school purchase, donated, or fundraised
-    source: "concept sheet; walls/height/supplier → D-003; height/thickness/fire rating → R-001 (not yet researched)"
+    source: "concept sheet; walls/height/supplier → D-003; guidance + fire rule in standards.wall_pads (R-001, 2026-10-03); product choice still TBD"
   - id: W2
     name: Plumbing repair
     location: TBD
@@ -85,9 +85,9 @@ work_items:
     result: 1 male + 1 female athlete restroom
     reason: the route to the training room is an open walk-through room
     restroom_type: TBD
-    accessibility_minimums: TBD
+    accessibility_minimums: see standards.ada_single_user_restroom (R-003)
     location: TBD
-    source: "concept sheet (result, reason); restroom_type/location → D-001, D-002; accessibility → R-003 (not yet researched)"
+    source: "concept sheet (result, reason); restroom_type/location → D-001, D-002; accessibility minimums in standards.ada_single_user_restroom (R-003, 2026-10-03)"
 
 not_in_phase1:
   items:
@@ -130,3 +130,66 @@ funding:
   pad_funding: TBD
   paths_mentioned: SRM divisions pitch, school board (nothing committed)
   source: "intake 2026-10-03 (budget UNKNOWN; paths from Claude session); pad_funding → D-003"
+
+# ---------------------------------------------------------------------------
+# Reference parameters from research (P1-T-003, 2026-10-03). These are code /
+# guidance VALUES ONLY. They set limits for drawings; they are NOT room
+# dimensions and do not decide D-001/D-003. Units in inches (in) unless noted.
+standards:
+  governing:
+    building_code: 2021 IBC (Alabama State Building Code, DCM; amended 2025-03-17, no Ch. 8 changes)
+    existing_building_code: 2021 IEBC
+    fire_code: 2021 IFC
+    plumbing_code: 2021 IPC
+    accessibility: 2010 ADA Standards (supersede IBC / A117.1 accessibility per DCM)
+    applies_to: all work on public K-12 schools
+    source: "R-001 (R-001.3); R-003 (S3): dcm.alabama.gov/bldg_code.aspx retrieved 2026-10-03"
+  wall_pads:
+    code_classification: interior finish (IBC 2021 806.2)
+    room_min_flame_spread_class: C   # Table 803.13, rooms in Groups E and A-3, sprinklered or not
+    foam_rule: "foam plastic finish only per IBC 803.4 → 2603.9: large-scale test of finished assembly (e.g. NFPA 286 per 803.1.1.1)"
+    spec_basis: complete pad assembly tested to NFPA 286 (or AHJ-approved equal); component-only E84 ratings not sufficient
+    guidance_height_ft_approx: 6          # NFHS HST 2022 article, guidance not rule; final height TBD (D-003)
+    guidance_thickness_in: 2              # NFHS HST 2022 example + manufacturer data
+    guidance_bottom_gap_max_in: 4         # Porter white paper citing ASTM F2440 (second-hand, LOW confidence)
+    impact_standard: ASTM F2440 (cited by manufacturers; not verified)
+    doors_and_hardware: recess from wall surface where possible; walls flat, no bump-outs
+    competition_runoff_to_padded_wall_ft: 10   # meets only (KHSAA citing NFHS POE); NOT applied to Phase 1 practice room without Shane
+    confidence: "fire rule HIGH; height/thickness guidance MEDIUM; F2440 detail LOW"
+    source: "R-001"
+  ada_single_user_restroom:
+    turning_space_diameter_in: 60          # 304.3.1 (or T-shape in 60 in square, 304.3.2)
+    wc_clearance_from_side_wall_in: 60     # 604.3.1
+    wc_clearance_from_rear_wall_in: 56     # 604.3.1
+    wc_centerline_from_side_wall_min_in: 16   # 604.2
+    wc_centerline_from_side_wall_max_in: 18   # 604.2
+    wc_seat_height_min_in: 17              # 604.4
+    wc_seat_height_max_in: 19              # 604.4
+    grab_bar_side_length_min_in: 42        # 604.5.1
+    grab_bar_side_max_from_rear_wall_in: 12   # 604.5.1
+    grab_bar_side_extend_from_rear_wall_min_in: 54   # 604.5.1
+    grab_bar_rear_length_min_in: 36        # 604.5.2
+    grab_bar_rear_past_centerline_min_in: [12, 24]   # 604.5.2 (one side / other side)
+    grab_bar_height_min_in: 33             # 609.4
+    grab_bar_height_max_in: 36             # 609.4
+    grab_bar_wall_gap_in: 1.5              # 609.3
+    grab_bar_load_lbf: 250                 # 609.8
+    tp_dispenser_in_front_of_wc_in: [7, 9] # 604.7
+    tp_outlet_height_in: [15, 48]          # 604.7
+    lav_clear_floor_space_in: [30, 48]     # 606.2 / 305.3, forward approach
+    lav_rim_height_max_in: 34              # 606.3
+    lav_knee_clearance_zone_in: [9, 27]    # 306.3
+    lav_knee_clearance_width_min_in: 30    # 306.3.5
+    mirror_bottom_over_lav_max_in: 40      # 603.3
+    shelf_height_in: [40, 48]              # 603.4
+    door_clear_width_min_in: 32            # 404.2.3
+    door_maneuver_front_pull_in: [60, 18]  # Table 404.2.4.1 (perpendicular, beyond latch)
+    door_maneuver_front_push_in: [48, 0]   # Table 404.2.4.1 (+12 beyond latch if closer AND latch)
+    door_hardware_height_in: [34, 48]      # 404.2.7
+    door_opening_force_max_lbf: 5          # 404.2.9 (interior hinged)
+    threshold_max_in: 0.5                  # 404.2.5
+    door_swing_rule: may swing into turning space; not into fixture clearances (603.2.3 Exc. 2 allows it with 30x48 in clear space beyond the arc)
+    tactile_sign_baseline_height_in: [48, 60]   # 703.4.1, latch side (703.4.2)
+    unisex_room_rule: privacy latch; max 1 lav + 2 WC or 1 WC + 1 urinal (213.2.1)
+    both_rooms_comply: "assumed YES (213.2 Exc. 4 read conservatively; confirm)"
+    source: "R-003 (2010 ADA Standards via access-board.gov / ada.gov, retrieved 2026-10-03)"
