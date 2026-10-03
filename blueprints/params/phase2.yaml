@@ -1,0 +1,253 @@
+# phase2.yaml: SINGLE SOURCE OF TRUTH for Phase 2 (new building + campus)
+# v1 SEED, 2026-10-03: P2-T-001 pulled forward at Shane's request, only to hold his data. Phase 1 still first.
+# Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
+# the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
+# Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
+# Phase 1 (remodel) values never appear here. Superseded Feb 2026 concept values never appear anywhere.
+
+meta:
+  project: Hazel Green Regional Athletic Complex
+  project_alt_title: North Alabama Regional Athletic Complex
+  arena_name: Trojan Horse Arena
+  phase: 2
+  type: new building + campus
+  units: feet
+  version: 1
+  version_date: "2026-10-03"
+  status: v1 seed (P2-T-001 pulled forward at Shane's request; Phase 1 still first)
+  sheet_size: "ARCH D 24x36 landscape"
+  stamp: "PRELIMINARY — CONCEPTUAL DESIGN — NOT FOR CONSTRUCTION"
+  source: "Shane (prompt v1.1 §3, §8, §9); Shane 2026-10-03 (seed request)"
+
+reference_plan:
+  file: Phase2-floor-plan-flat.png
+  same_file_as: arenav1-floor-plan.png
+  sha256: d030dcb46a65d98e47b2c0041a20554dc38465aa0028c8130b196723f880bd54
+  location: C:\Users\Hubby\Desktop\ARENA\ (not committed to repo)
+  role: Phase 2 REFERENCE PLAN (primary)
+  use: [zone layout, adjacencies, 5 main SF tags, room list]
+  ignore: [dimension strings, scale bar, garbled text, green/gold legend]
+  secondary: north_alabama_3d_diorama.html (presentation viewer)
+  not_a_source: Phase2-floor-plan.jpeg (tabletop render; wrong labels)
+  source: "Shane 2026-10-03 (D-017)"
+
+brand:
+  color_primary: "#CC0000"
+  color_secondary: "#1A1A1A"
+  accent: gold only at the south portal soffit (not a team color)
+  rule: red, never green; reference plan's green/gold legend ignored
+  source: "Shane (colors, rule); concept sheet (accent); D-017"
+
+building:
+  total_sf: 55000
+  stories: TBD
+  structure: TBD
+  clear_span: TBD
+  north: up (same as the floor plan)
+  source: "concept sheet; reference plan legend agrees (digits partly garbled)"
+
+spaces:
+  arena:
+    name: Championship Wrestling Arena
+    sf: 22000
+    mats: 4
+    mat_labels: [Wrestling Mat 1, Wrestling Mat 2, Wrestling Mat 3, Wrestling Mat 4]
+    mat_size: TBD
+    location: east / center-right of the building
+    floor_converts: mats up → court or martial-arts surface down; seats stay
+    event_floor_daily_practice: false
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); mat_size → D-014 / R-005"
+  courts:
+    basketball_full_courts: 1
+    basketball_second_court: TBD
+    volleyball_courts: TBD
+    note: 1 basketball court claimed; a 2nd only after clear span is measured; volleyball count waits on striping + clearance
+    source: "concept sheet; R-012 (not yet researched)"
+  seating:
+    total: 2200
+    placement: outside the 22,000 SF competition floor
+    banks_on_plan: north, south, east, plus short corner banks flanking the stage on the west
+    type: TBD
+    conflict_note: "Reference plan labels say north bank 3,200 / south bank 2,200; legend says 2,200 spectators. Locked total stays 2,200 (D-016 OPEN)"
+    source: "concept sheet; Shane 2026-10-03 (2,200 total stays locked); reference plan (banks); type → D-009"
+  boys_locker:
+    name: Boys Locker Room
+    sf: 3500
+    location: west side, directly above (north of) girls locker
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+  girls_locker:
+    name: Girls Locker Room
+    sf_tagged: 3503
+    location: west side, directly below (south of) boys locker
+    draw_rule: draw equal to boys_locker until D-013 is decided
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); D-013 (draw equal)"
+  strength_conditioning:
+    name: Strength & Conditioning Center
+    sf: 6000
+    location: northwest corner
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+  cross_training:
+    name: Cross-Training Mat Area
+    sf: 4000
+    location: north center, north of concourse, east of S&C (open mat)
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+  concourse:
+    name: Concourse / hall of champions spine
+    sf: TBD
+    role: public spine; spectators kept off the athlete path
+    location: center, between the locker/S&C wing and the arena
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+  foyer:
+    name: Hall of champions trophy lobby
+    sf: TBD
+    lighting: lit to read from U.S. 231 at night
+    source: "concept sheet"
+  entry:
+    name: South portal / Public Entry
+    form: one limestone arch, crimson inside, gold soffit
+    site_rule: drive kept clear, cars to the side
+    location: south center
+    source: "concept sheet; reference plan (location)"
+
+support_rooms:
+  - id: stage
+    name: Stage
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: west edge of the arena, facing the concourse
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: concession_stand
+    name: Concession Stand
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: concourse core, center
+    scope: TBD
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03; scope → D-011"
+  - id: public_restroom
+    name: Public Restroom
+    count: 2
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: one in the concourse core, one southwest of the concourse
+    fixture_count: TBD
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03; fixtures → R-009"
+  - id: first_aid
+    name: First Aid
+    count: TBD
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    note: plan shows two 'First Aid' rooms in the SW block plus a 'First Aid Room' further south by the entry; count TBD
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: admin_office
+    name: Administrative Office
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: southwest of the concourse, near the entry
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: equipment_storage
+    name: Equipment Storage
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: northeast corner
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: equipment_room
+    name: Equipment Room
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: south edge service strip, under the south seating
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: utility
+    name: Utility Room
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: south edge service strip, east of the entry
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: mechanical
+    name: Mechanical
+    count: 2
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: south edge ('Mechanical / Electrical Room') and southeast corner ('Mechanical / Storage / Utility')
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+
+flow:
+  types: [athlete flow, spectator flow]
+  rule: kept separate
+  on_plan: solid gray arrows = athlete flow; dashed arrows = spectator flow (drawn red)
+  source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+
+design_rules:
+  - id: DR1
+    rule: keep athlete/spectator split
+    shown_on_reference_plan: partly (flow arrows); verify at A-101
+    source: "concept sheet"
+  - id: DR2
+    rule: event floor does not host daily practice
+    shown_on_reference_plan: TBD
+    source: "concept sheet"
+  - id: DR3
+    rule: add event/visitor locker rooms under the bowl
+    count: 4
+    shown_on_reference_plan: false
+    sf: TBD
+    source: "concept sheet; reference plan check 2026-10-03 (not shown yet)"
+  - id: DR4
+    rule: mezzanine overlook on daily mat
+    shown_on_reference_plan: false
+    source: "concept sheet; reference plan check 2026-10-03 (not shown yet)"
+  - id: DR5
+    rule: foyer as hall of champions
+    shown_on_reference_plan: TBD
+    source: "concept sheet"
+
+campus:
+  search_acres_min: 25
+  search_acres_max: 30
+  highway: south side
+  highway_named: U.S. 231
+  parcel: TBD
+  address: TBD
+  north: up (same as the floor plan)
+  field_pads_acres_approx: 15
+  field_pads_note: ~15 acres of field pads + building + south parking lot
+  source: "concept sheet; intake 2026-10-03 (U.S. 231); parcel → D-006"
+  fields:
+    - id: football
+      count: 1
+      acres_approx: 2.5
+      location: north side, against the building
+      track: false
+      source: "concept sheet"
+    - id: soccer
+      count: 2
+      acres_approx_each: 2
+      runoff: included
+      location: one west of the lockers, one east of the arena
+      source: "concept sheet"
+    - id: baseball_softball
+      count: 2
+      shared: true
+      acres_approx_total: 8
+      location: NW and NE corners, home plate faces the building
+      base_path_baseball_ft: 90
+      base_path_softball_ft: 60
+      simultaneous_use_one_diamond: false
+      source: "concept sheet"
+  not_included:
+    items: [track, stands at fields, 3rd soccer field]
+    reason: need more land
+    source: "concept sheet"
+
+open_items:
+  owner_of_record: TBD
+  ahj: TBD
+  budget: TBD
+  seating_type: TBD
+  concessions_scope: TBD
+  source: "D-007, D-008, D-012, D-009, D-011"

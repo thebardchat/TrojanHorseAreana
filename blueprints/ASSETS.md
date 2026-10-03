@@ -1,18 +1,21 @@
 # ASSETS — KEYSTONE inventory
 
-Inventory date: 2026-10-03 (P1-T-001). Times are Central (CT).
+Inventory date: 2026-10-03 (P1-T-001). Updated 2026-10-03 ~5:50 PM CT (reference plan intake, P2-T-001 seed). Times are Central (CT).
 Rule: Shane's files are read-only. **None of Shane's originals are committed to this repo.**
 
 ## 1. Shane's ARENA folder: `C:\Users\Hubby\Desktop\ARENA\` (pulsar00100)
 
-Per Shane, the folder holds **exactly 4 files**. KEYSTONE read the box copies in `/workspace/arena_src/`. Byte sizes match Shane's list.
+Per Shane, the folder first held **exactly 4 files**. On 2026-10-03 Shane added 2 images, and a byte-identical copy of the reference plan was saved there as `Phase2-floor-plan-flat.png`. **The folder now holds 7 files.** KEYSTONE read the box copies in `/workspace/arena_src/` and got nothing from Shane's PC. Sizes/times for the 3 new files: box copies, plus Shane's info.
 
 | File | Type | Size | Modified (CT) | What it is / shows | Phase |
 |---|---|---|---|---|---|
 | `KEYSTONE_ARCHITECT_PROMPT.md` | Markdown | 26,643 B | 2026-10-03 4:08 PM | KEYSTONE standing instructions, prompt v1.1: locked facts, repo contract, backlog, status bridge | Both (governing doc) |
 | `KEYSTONE_INTAKE_2026-10-03.md` | Markdown | 4,901 B | 2026-10-03 4:08 PM | First-session intake compiled from the Gemini, Grok, and Claude sessions. **Header says "MOVIE MAKER INTAKE," but the content is KEYSTONE's** (D-015) | Both |
 | `keystone_status.sh` | Bash script | 3,360 B | 2026-10-03 4:08 PM | Pi-side ShaneBrain preflight reader. Reads STATUS.json from pulsar00100 over SSH, falls back to the GitHub raw mirror on `grok/keystone`, flags stale after 26 h, always exits 0. Has a `KEYSTONE_LOCAL_FILE` test override | Bridge (both) |
-| `north_alabama_3d_diorama.html` | HTML + Three.js r128 (CDN) | 19,103 B | 2026-10-03 4:02 PM | Interactive 3D diorama, see §1a | **Phase 2** |
+| `north_alabama_3d_diorama.html` | HTML + Three.js r128 (CDN) | 19,103 B | 2026-10-03 4:02 PM | Interactive 3D diorama, see §1a. **Demoted to secondary 2026-10-03:** presentation viewer, not the layout source | Phase 2 (secondary) |
+| `Phase2-floor-plan-flat.png` | PNG, 1024×687 | 744,067 B | 2026-10-03, time not given (copy saved on Shane's PC) | Byte-identical copy of `arenav1-floor-plan.png` (sha256 `d030dcb4…bd54`). **Phase 2 REFERENCE PLAN (primary), designated by Shane 2026-10-03.** See §1b | **Phase 2 (primary reference)** |
+| `arenav1-floor-plan.png` | PNG, 1024×687 | 744,067 B | 2026-10-03, time not given (added by Shane) | Flat color-coded "HAZEL GREEN REGIONAL ATHLETIC COMPLEX - Master Floor Plan." sha256 `d030dcb46a65d98e47b2c0041a20554dc38465aa0028c8130b196723f880bd54`. **Phase 2 REFERENCE PLAN (primary), designated by Shane 2026-10-03** (D-017). See §1b | **Phase 2 (primary reference)** |
+| `Phase2-floor-plan.jpeg` | Image, 1024×687. **The file is WebP-encoded despite the .jpeg name** | 105,532 B | 2026-10-03, time not given (added by Shane) | Photo-style render of a lit 3D tabletop model of the same plan in a lobby. sha256 `528414ead71092ce357e592dc0028bdb06672a901a6de23ce2094a853aba1b20`. **Presentation render only, NOT a source.** Its text is wrong: boys 3,900, girls 3,500, seating labels swapped (north 2,200 / south 3,200), and a "Conversion" legend (Wrestling 15,000 / Jiujitsu 36,000 / Basketball 25,000 / Volleyball 15,000 SF) that conflicts with the 22,000 SF floor | Phase 2 (presentation only) |
 
 ### 1a. What the diorama shows (`north_alabama_3d_diorama.html`)
 
@@ -31,11 +34,38 @@ Per Shane, the folder holds **exactly 4 files**. KEYSTONE read the box copies in
   - "4 regulation wrestling mats" is unverified (D-014 / R-005).
   - Zone glow colors include blue and pink. That's a viewer UI choice, not a brand color, but brand colors are red/black (prompt §3).
 
+### 1b. Phase 2 reference plan: what it shows (`Phase2-floor-plan-flat.png` = `arenav1-floor-plan.png`)
+
+Shane's rule (D-017): **USE** zones, adjacencies, the 5 SF tags, and the room list. **IGNORE** dimension strings, scale bar, garbled text (e.g. "CENTEB," "ETAKD"), and the green/gold legend (red/black is locked). North is taken as up per prompt §3. The north arrow sits bottom-right but its direction isn't legible at this resolution.
+
+**SF tags used:** Championship Wrestling Arena 22,000 · Boys Locker Room 3,500 · Girls Locker Room 3,503 · Strength & Conditioning 6,000 · Cross-Training Mat Area 4,000. Legend: "Total Square Footage 55,0?0 SF" (digits garbled) and "Arena Capacity: 2,200 Spectators."
+
+**Adjacencies as drawn (objective read):**
+- **Northwest:** Strength & Conditioning.
+- **North center:** Cross-Training Mat Area, east of S&C.
+- **West side:** Boys Locker Room directly above (north of) Girls Locker Room, under S&C. A north–south athlete corridor (solid gray arrows) runs on their east side.
+- **Center:** concourse / concession core. A "Concession Stand" with a counter and seating sits next to a "Public Restroom" (flanked by two small fixture rooms labeled "RR"/"RM," garbled). The **Stage** is on the arena's west edge, facing the concourse.
+- **East:** the arena, 4 mats labeled Wrestling Mat 1–4 in a 2×2 grid, on a red floor border. Seating banks on the **north** ("Stadium Seating (3,200 Capacity)"), **south** ("(2,200 Capacity)"), and **east** (no label). Short curved banks wrap the NW and SW corners and flank the stage on the west.
+- **South center:** Public Entry. Dashed red spectator-flow arrows go from the entry north into the concourse and east into the arena. More dashed arrows run east–west along the north concourse between the Cross-Training door and the arena's NW corner.
+- **Southwest of the concourse:** "Public Restroom," two "First Aid" rooms, an "Administrative Office," and a "First Aid Room" further south by the entry.
+- **South edge, east of entry** (service strip under the south seating): an unlabeled room with toilets/sinks, an unlabeled room with a table, "Utility Room," "Administrative Storage," "Equipment Room," and "Mechanical / Electrical Room."
+- **Northeast corner:** "Equipment Storage."
+- **Southeast corner:** "Mechanical / Storage / Utility."
+- Other small rooms: a fixture room at the north wall between Cross-Training and the arena (label garbled "P&D #08"), and a small room SW of the stage with a stair/lift-like symbol (label garbled).
+
+**Observations (nothing changed):**
+- **No 4 event/visitor locker rooms** under the bowl are shown yet, and **no mezzanine overlook** on the daily mat. Both are §3 design rules (3) and (4) still to add.
+- The plan shows a **"Public Restroom" in the concourse core and another "Public Restroom" SW.** That's two, matching Shane's x2.
+- Seating labels: north 3,200 vs south 2,200, while the legend says arena capacity 2,200. Locked value stays **2,200 total** (D-016 OPEN).
+- The legend calls spectator arrows "Dashed Gold," but they're drawn red. The legend calls the arena "Nelly Green/Gold," but the arena is drawn red. Ignored per D-017.
+- A gray athlete-flow arrow runs east–west from the locker corridor into the concourse, where the dashed spectator arrows also run. Whether the athlete/spectator split holds (§3 design rule 1) needs checking at A-101. No change made.
+- Dimension strings and scale bar are inconsistent (e.g., overall "27.30'"). Ignored per D-017.
+
 ## 2. Assets referenced but NOT in the ARENA folder
 
 | Asset | Status | Action |
 |---|---|---|
-| **Phase 2 master floor plan image** (55,000 SF, color-coded). Base reference for Phase 2 layout | **Not in the ARENA folder.** Logged as **needed from Shane** | Ask Shane for the original file/path. Needed before P2-T-004, not for Phase 1 |
+| **Phase 2 master floor plan image** (55,000 SF, color-coded). Base reference for Phase 2 layout | **RECEIVED 2026-10-03:** `arenav1-floor-plan.png`, saved in ARENA as `Phase2-floor-plan-flat.png` (§1, §1b) | Use per D-017. Phase 1 still first |
 | Grok session "Wrestling Facility Phase One Remodel Planning": proposal page with `/model.html` maquette | **Location unknown.** Not on this box. pulsar00100 not searched (see ENVIRONMENT.md) | Ask Shane where it's hosted/saved |
 | Google Drive: "Trojan Horse Arena Trailer v2 - Widescreen.m4v", "Trojan Horse Arena Trailer v2 - Vertical.m4v" | Exist per intake. **Not inspected** | Reference only. Not needed for drawings |
 
@@ -47,7 +77,8 @@ Per Shane, the folder holds **exactly 4 files**. KEYSTONE read the box copies in
   - one seating sign reads "3,200"
   - legend says "Neily Green/Gold"
   - a "Conversion" legend lists SF numbers that don't match the 22,000 SF floor
-  Per the intake: **don't copy text from renders.** Shane should send the original master floor plan.
+  Per the intake: **don't copy text from renders.**
+  **Update 2026-10-03:** this file (sha256 `39467dabdc8caef54f9fb200ae9b3d450c934e6afa3465d8030adc2263ec07f3`) is a **different file from both** new ARENA images. It's the same tabletop render as `Phase2-floor-plan.jpeg` (pixel mean difference ~0.8/255, i.e. a re-encode), with the same wrong labels. **Still unused.** The reference plan is `Phase2-floor-plan-flat.png`.
 - `/workspace/trojan-horse-arena/loudon/` is a clone of `thebardchat/loudon-desarro` ("Loudon / DeSarro Athletic Complex," 50,000 SF). Its `wrestling_facility_phase1.py` describes a *new* 10,000 SF metal building as "Phase 1." **That's a different, older concept.** It doesn't match the locked Phase 1 (remodel) or Phase 2 (55,000 SF). Ignored.
 
 ## 3. Repo root inventory: `thebardchat/TrojanHorseAreana` @ `main` 8a2f4c6 (read-only)

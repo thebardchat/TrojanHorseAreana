@@ -4,16 +4,19 @@
 Usage (from repo root):  python blueprints/shared/validate.py
 Needs: pyyaml. Optional: pdftotext (poppler-utils) for the PDF stamp check.
 
-Checks (v1, Phase 1 bootstrap):
-  1. params/phase1.yaml exists and parses (phase2.yaml too, if present)
-  2. Every mapping that holds values carries a non-empty `source`
+Checks (v2, 2026-10-03: phase2.yaml seed added):
+  1. params/phase1.yaml exists and parses; phase2.yaml too, if present
+  2. Every mapping that holds values carries a non-empty `source` (both files)
   3. No superseded Feb 2026 concept numbers in any params file
-  4. No Phase 2 program numbers in phase1.yaml
-  5. Every PDF in phase*/out/pdf contains the PRELIMINARY stamp text (passes if no PDFs)
-  6. STATUS.json (if present) matches schema_version 2 and its open_decisions
+  4. No Phase 2 program numbers in phase1.yaml; no Phase 1 values in phase2.yaml
+  5. phase2.yaml locked values unchanged (55,000 SF total, 22,000 SF arena,
+     2,200 seats total) and the girls locker carries the D-013 draw-equal rule
+  6. Every PDF in phase*/out/pdf contains the PRELIMINARY stamp text (passes if no PDFs)
+  7. STATUS.json (if present) matches schema_version 2 and its open_decisions
      equals the OPEN count in DECISIONS.md
-Not yet built: room overlap, area reconciliation, locker parity, mat fit,
-occupant-load factor checks. Those come with drawings (P2-T-002 for Phase 2).
+SKIPPED for now: Phase 2 area reconciliation (55,000 vs room sum). Most support
+room SFs are TBD. Not yet built: room overlap, mat fit, occupant-load factor
+checks. Those come with drawings (P2-T-002).
 """
 import json
 import re
@@ -49,6 +52,25 @@ PHASE2_ONLY = [
     (r"\b3,?50[03]\b", "locker SF"),
     (r"\b6,?000\s*SF\b", "6,000 SF S&C"),
     (r"\b4,?000\s*SF\b", "4,000 SF cross-training"),
+]
+# Phase 1 (remodel) values that must never sit in phase2.yaml.
+PHASE1_ONLY = [
+    (r"walk-?through\s+room", "Phase 1 walk-through room"),
+    (r"wrestling[_ ]room", "Phase 1 wrestling room"),
+    (r"wall\s+pad", "Phase 1 wall pads"),
+    (r"\bHeaden\b|\bHedden\b", "Phase 1 school contact"),
+    (r"11\s*x\s*17", "Phase 1 sheet size"),
+    (r"\bid:\s*W[123]\b", "Phase 1 work item"),
+]
+# Locked Phase 2 values (prompt §3; Shane 2026-10-03). Change only with "CHANGE APPROVED".
+PHASE2_LOCKED = [
+    (("building", "total_sf"), 55000),
+    (("spaces", "arena", "sf"), 22000),
+    (("spaces", "arena", "mats"), 4),
+    (("spaces", "seating", "total"), 2200),
+    (("spaces", "boys_locker", "sf"), 3500),
+    (("spaces", "strength_conditioning", "sf"), 6000),
+    (("spaces", "cross_training", "sf"), 4000),
 ]
 STATUS_KEYS = [
     "agent", "project", "schema_version", "updated_at", "health", "active_phase",
@@ -124,7 +146,35 @@ def check_params():
                 for m in re.finditer(pat, text, flags=re.IGNORECASE):
                     line = text.count("\n", 0, m.start()) + 1
                     fail(f"{f.name}:{line} Phase 2 value in Phase 1 params ({label}): '{m.group(0)}'")
+        if f.name == "phase2.yaml":
+            for pat, label in PHASE1_ONLY:
+                for m in re.finditer(pat, text, flags=re.IGNORECASE):
+                    line = text.count("\n", 0, m.start()) + 1
+                    fail(f"{f.name}:{line} Phase 1 value in Phase 2 params ({label}): '{m.group(0)}'")
+            check_phase2_locked(data)
     ok("superseded / cross-phase number scan done")
+
+
+def dig(d, keys):
+    for k in keys:
+        if not isinstance(d, dict) or k not in d:
+            return None
+        d = d[k]
+    return d
+
+
+def check_phase2_locked(data):
+    before = len(failures)
+    for keys, want in PHASE2_LOCKED:
+        got = dig(data, keys)
+        if got != want:
+            fail(f"phase2.yaml {'.'.join(keys)} = {got!r}, locked value is {want!r}")
+    girls = dig(data, ("spaces", "girls_locker")) or {}
+    if "D-013" not in str(girls.get("draw_rule", "")):
+        fail("phase2.yaml spaces.girls_locker needs a draw_rule citing D-013 (draw equal)")
+    if len(failures) == before:
+        ok("phase2.yaml locked values intact; girls locker D-013 draw-equal rule present")
+    ok("phase2.yaml area reconciliation (55,000 SF vs room sum) SKIPPED: support room SFs are TBD")
 
 
 def pdf_text(pdf):

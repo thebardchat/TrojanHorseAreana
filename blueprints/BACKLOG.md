@@ -16,7 +16,7 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - [ ] **P1-T-010** Bundle `THA_Phase1_Remodel_RevA.pdf` → PR to `main`
 
 **Phase 2 (after P1-T-010)**
-- [ ] **P2-T-001** `phase2.yaml` v1 from Section 3 Phase 2 table
+- [ ] **P2-T-001** `phase2.yaml` v1 from Section 3 Phase 2 table — *v1 seeded 2026-10-03 at Shane's request; Phase 1 still first*
 - [ ] **P2-T-002** `validate.py` + `calcs.py` Phase 2 checks
 - [ ] **P2-T-003** R-005 NFHS mats → do 4 mats fit 22,000 SF?
 - [ ] **P2-T-004** A-101 overall floor plan
@@ -38,4 +38,5 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 
 - P1-T-000 done 2026-10-03. Exception: the `ARENA\_KEYSTONE` folder on pulsar00100 was NOT created this session. KEYSTONE ran on a separate Linux box and was told not to touch Shane's Windows PC (see ENVIRONMENT.md). Bridge files live in `blueprints/STATUS.json` + `STATUS.md`. The GitHub mirror is the source of truth until `_KEYSTONE` exists.
 - P1-T-001 done 2026-10-03: ASSETS.md, params/phase1.yaml v1, shared/validate.py (passes).
-- **P1-T-002 IN PROGRESS:** checklist written at `blueprints/phase1/MEASUREMENT_CHECKLIST.md`. Still needs to go to Shane. Done when Shane has it.
+- P1-T-002 done 2026-10-03: checklist (`blueprints/phase1/MEASUREMENT_CHECKLIST.md`) sent to Shane in chat.
+- P2-T-001 v1 seeded 2026-10-03 at Shane's request, only to hold the reference plan data (`params/phase2.yaml`). Not the active ticket. **P1-T-003 is next. Phase 1 still first.**

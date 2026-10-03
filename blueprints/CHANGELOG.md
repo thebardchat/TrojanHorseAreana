@@ -24,3 +24,25 @@
 
 ## 2026-10-03 17:01 CT
 - P1-T-002: checklist sent to Shane in chat. Daily 6:00 AM CT scheduled run created. STATUS -> P1-T-003.
+
+## 2026-10-03 ~5:50 PM CT · P2-T-001 (seed only) · reference plan intake + phase2.yaml v1 seed
+- Shane added 2 images to ARENA. **Phase 2 REFERENCE PLAN = `Phase2-floor-plan-flat.png`** (= `arenav1-floor-plan.png`, sha256 d030dcb4…bd54), designated by Shane (D-017 DECIDED). The diorama is demoted to secondary. `Phase2-floor-plan.jpeg` is the tabletop render (WebP inside a .jpeg name), with wrong labels. Not a source.
+- ASSETS.md:
+  - folder now 7 files
+  - §1b describes the reference plan's zones/adjacencies and observations (no event lockers or mezzanine shown yet; 2 public restrooms)
+  - §2 master plan → RECEIVED
+  - §2a: the box's `floorplan_src.png` (39467dab…) is a re-encode of the tabletop render, still unused
+- `params/phase2.yaml` v1 seed:
+  - prompt §3 Phase 2 table + reference plan
+  - seating 2,200 total locked
+  - girls 3,503 tag with D-013 draw-equal rule
+  - 9 support rooms "shown on reference plan, SF TBD"
+  - no dimensions
+- `shared/validate.py` v2:
+  - parses phase2.yaml with the same source/superseded checks
+  - blocks Phase 1 values in phase2.yaml
+  - checks locked Phase 2 values
+  - area reconciliation SKIPPED until SFs exist
+  Passes. Negative test confirmed it fails on bad input.
+- DECISIONS: D-016 OPEN (seating labels 3,200 vs 2,200). D-017 DECIDED. D-009 now points to D-016. 16 OPEN.
+- BACKLOG: P2-T-001 marked "v1 seeded… Phase 1 still first." Active ticket stays **P1-T-003**.
