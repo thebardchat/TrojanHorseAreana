@@ -530,7 +530,7 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - **Research:** R-022 §5 "Decided" added with the as-drawn numbers. R-023 marked APPROVED.
 - **Frozen check:** the newly frozen revs were re-rendered and compared: A-101 E, A-102 E, G-003 H, A-201 F, A-301 C, A-302 B, C-101 B and P1-G-001 E. Results are in the commit message / report.
 
-## 2026-10-04 ~11:10 AM CT · C-12 closed (D-063) + P2-G-002 Rev A code analysis
+## 2026-10-04 ~10:58 AM CT · C-12 closed (D-063) + P2-G-002 Rev A code analysis
 - **C-12 / D-063 (rule, v1.3 §15):** the 250 / 150 / 50 / 276.85 ft labels on Shane's Google measure markup are ignored and never used as dimensions.
   - Logged in DECISIONS (D-063 DECIDED).
   - ASSETS #11 / §1a / §1c are marked.
