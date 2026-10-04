@@ -6,9 +6,9 @@
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
-  "phase2_percent": 79,
-  "current_ticket": "P2-T-005",
-  "current_ticket_title": "P2-A-103 Rev A floor overlays on plan Rev G: wrestling 4 x 42 ft mats (NFHS), 1 basketball court, telescopic open vs closed, G-002 floor cases (D-054 OPEN)",
+  "phase2_percent": 82,
+  "current_ticket": "P2-T-011",
+  "current_ticket_title": "P2-A-901 Rev A 3D massing model + 5 labelled NTS views (PRELIMINARY, massing only) from current params; D-054 / 064 / 065 / 066 OPEN, nothing modelled as a choice",
   "sheets_done": [
     "P1-G-001 Rev E (principal, approved)",
     "P1-A-101 Rev A (approved)",
@@ -20,16 +20,16 @@
     "P2-A-301 Rev D + P2-A-302 Rev C (in review)",
     "P2-C-101 Rev C (in review)",
     "P2-G-002 Rev A + P2-A-111 Rev A (in review)",
-    "P2-A-401 Rev A (in review; locker rooms only)",
-    "P2-A-103 Rev A (in review; floor overlays)"
+    "P2-A-401 Rev A + P2-A-103 Rev A (in review)",
+    "P2-A-901 Rev A (in review; massing + OBJ model)"
   ],
   "sheets_in_progress": [],
   "last_commit": "3d8e77e",
   "branch": "grok/keystone",
   "open_decisions": 20,
   "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012); trademark (D-042); brick pricing (D-044); floor uses (D-054); restrooms (D-064); checkpoint (D-065); discharge (D-066).",
-  "what_changed": "A-103 Rev A overlays on plan Rev G: 4 x 42 ft mats 2 x 2, NFHS clearances all PASS (10 / 10 / 16 / 25 ft; table 10.5, bench 10.5 / 10); 1 court (params), volleyball TBD; tier open 17,280 vs closed 20,689 SF; G-002 cases 329 / 1,095 / 2,346 / 3,284 hatched.",
-  "what_to_verify": "Zero margin at 7'-6\": upper-tier structure 1'-6\" ASSUMED (structural engineer). Door widths ASSUMED 64 in/pair. Locker fixtures ASSUMED (ADA minimums). NFHS rules from the 2014-15 / 2012-13 books (current paywalled). Mat tables / benches ASSUMED. ARENA naming ASSUMED.",
-  "next_action": "Next BACKLOG item: P2-T-011 3D massing model + P2-A-901 renders, Rev A (from plan Rev G / A-102 Rev F, A-301 Rev D heights).",
+  "what_changed": "A-901 Rev A massing: aerials SW / SE / NW, cutaway at L2 FF 17'-9\", portal + Champion Walk; model phase2/out/3d/P2-A-901_RevA_massing.obj. No checkpoint, no added restroom volume, walk at drawn 28 ft with D-066 note.",
+  "what_to_verify": "Roof heights 32.75 / 42 ft ASSUMED (A-201 Rev G). Colour hex swatches ASSUMED. Door symbol 6 x 8 ft ASSUMED. Upper-tier structure 1'-6\" ASSUMED (structural engineer). Door widths ASSUMED 64 in/pair. NFHS books 2014-15 / 2012-13. ARENA naming ASSUMED.",
+  "next_action": "Next BACKLOG item: P2-T-012 G-001 cover sheet + Phase 2 SD bundle THA_Phase2_SD_RevA.pdf -> PR (Rev A).",
   "question_for_shane": "D-065 security checkpoint: Option 1 (side bay of the lobby, 38.9 ft clear to the E1 bank) or Option 2 (outdoors on the entry plaza)? D-064 restrooms, D-066 discharge and D-054 floor uses also wait on you."
 }

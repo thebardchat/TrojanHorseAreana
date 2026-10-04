@@ -1,0 +1,75 @@
+# phase2_massing.yaml: P2-A-901 MASSING MODEL + VIEWS, Rev A (Phase 2, BACKLOG P2-T-011). Read by phase2/src/p2_a_901.py.
+# Rev A, 2026-10-04 (Shane 12:10 PM CT): 3D massing from current params only. Geometry is NOT re-entered here: the script reads
+# it from the files under `inputs` (plan Rev G L1 + Rev F L2 levels, A-201 Rev G heights / portal / brand / walk, C-101 Rev C site,
+# A-302 / A-301 tier basis). This file holds only the view set-up, the colour mapping, labels and notes.
+# D-054 / D-064 / D-065 / D-066 stay OPEN: nothing is modelled that implies a choice (no security checkpoint, no extra restrooms,
+# no widened plaza: the walk stays at the drawn 28 ft, with a note).
+# Units: feet; origin = SW building corner, x east, y north, z up from L1 FF.
+
+meta:
+  sheet: P2-A-901
+  title: "3D MASSING MODEL — VIEWS"
+  revision: A
+  file: P2-A-901_RevA
+  model_file: P2-A-901_RevA_massing
+  size: "17 x 11 in (tabloid), landscape"
+  scale_text: "NTS"
+  disclaimer: "MASSING ONLY. Volumes from the current schematic params; materials, openings, parapets, roof equipment and structure are not designed. Every height not marked DECIDED is ASSUMED (P2-A-201 Rev G). Not a rendering of a final design."
+  source: "Shane 2026-10-04 12:10 PM CT (next standard step P2-T-011: 3D massing model + P2-A-901 Rev A views from current params; D-054 / 064 / 065 / 066 stay OPEN, show nothing that implies a choice; massing only; PRELIMINARY stamp; label views; no invented numbers)"
+
+inputs:
+  plan_l1: params/phase2_plan_rev_g.yaml
+  plan_l1_text: "P2-A-101 Rev G (building 210 x 252 + NE stair tower, E1 8-pair bank, doors, tiers, floor, mats)"
+  plan_l2_text: "P2-A-102 Rev F (Level 2 = Rev F, identical in phase2_plan_rev_g.yaml level_2: loop, open-to-below)"
+  elev: params/phase2_elev_rev_g.yaml
+  elev_base: params/phase2_elev.yaml
+  elev_text: "P2-A-201 Rev G (L2 FF 17'-9\" DECIDED; ring roof 32.75', arena roof 42' ASSUMED; arena volume rect; portal 44 x 50 x 6, crown 34, springline 22.1; badge 11 ft; side panel; walk 28 x 30)"
+  site: params/phase2_site.yaml
+  site_text: "P2-C-101 Rev C (portal 30 ft in front of the doors, walk rect, bus drop loop diagram, service apron, road line; site TBD, D-006)"
+  sect: params/phase2_sect.yaml
+  sect_text: "P2-A-301 Rev D / P2-A-302 Rev C (lower tier 6 rows x 24 in at 11-5/8 in rise, deck = (k-1) x rise; upper tier 5 rows x 36 in, 21 in risers, front row 9.0 ft)"
+  source: "phase2.yaml sheets P2-A-101 Rev G, P2-A-102 Rev F, P2-A-201 Rev G, P2-A-301 Rev D, P2-A-302 Rev C, P2-C-101 Rev C"
+
+model:
+  door_height_ft: 8
+  door_width_ft: 6
+  door_basis: "door symbols 6' x 8' ASSUMED (P2-A-201 Rev G doors note); E1 = the 8-pair bank x 87.25-138.75 (P2-A-101 Rev G) at the same 8' symbol height"
+  cut_z_ft: 17.75
+  cut_basis: "cutaway at L2 FF 17'-9\" (D-061 DECIDED): Level 1 support ring shown as solid mass to the L2 floor (rooms not modelled), open to below at the lobby (P2-A-102 Rev F) and the arena; roofs removed"
+  spandrel_slices: 14
+  spandrel_basis: "the semi-elliptical arch (half-span 14 ft, rise 11.9 ft from springline 22.1 ft, P2-A-201 Rev G) is drawn as a 56-segment polyline (4 x 14) on the portal faces"
+  source: "P2-A-201 Rev G (doors, portal); P2-A-101 Rev G (E1 bank); D-061; KEYSTONE drafting choices"
+
+colors:
+  wall: {finish: wall, note: "WALL MATERIAL TBD", source: "phase2_elev.yaml finishes"}
+  arena: {finish: arena, note: "ARENA VOLUME — WALL / ROOF TBD", source: "phase2_elev.yaml finishes"}
+  portal: {finish: limestone, note: "LIMESTONE (portal)", source: "phase2_elev.yaml finishes"}
+  soffit: {finish: crimson, note: "arch underside crimson (D-045)", source: "phase2_elev.yaml finishes; D-045"}
+  trim: {finish: gold, note: "gold trim (D-045)", source: "phase2_elev.yaml finishes; D-045"}
+  glazing: {finish: glazing, note: "E1 entry (glazing TBD)", source: "phase2_elev.yaml finishes"}
+  door: {finish: brand_black, note: "door symbols", source: "phase2_elev.yaml finishes (brand black #1A1A1A, D-041)"}
+  floor: {hex: "#F2EBDD", note: "event floor (surface TBD) — light drafting tone", source: "KEYSTONE drafting tone (no material implied)"}
+  tier_lower: {hex: "#B8B8B8", note: "telescopic lower tier (extended)", source: "KEYSTONE drafting tone"}
+  tier_upper: {hex: "#9C9C9C", note: "fixed upper tier", source: "KEYSTONE drafting tone"}
+  slab: {hex: "#D6D6D6", note: "L1 support ring cut at L2 FF", source: "KEYSTONE drafting tone"}
+  mat: {hex: "#E9D3A6", note: "4 x 42 ft mats (P2-A-103 Rev A)", source: "KEYSTONE drafting tone"}
+  ground_line: {hex: "#777777", note: "site diagram lines", source: "KEYSTONE drafting tone"}
+  shade: {top: 1.0, S: 0.9, W: 0.8, E: 0.72, N: 0.66, B: 0.6, source: "KEYSTONE flat shading factors by face direction (no light study)"}
+
+views:
+  - {id: V1, title: "AERIAL FROM SOUTHWEST", az: 225, el: 30, mode: exterior, site: true, box: [0.6, 5.35, 8.15, 10.0], source: "KEYSTONE view set-up"}
+  - {id: V2, title: "CUTAWAY AT L2 FF 17'-9\" FROM SOUTHWEST — ROOFS REMOVED", az: 235, el: 38, mode: cutaway, site: false, box: [0.6, 2.05, 8.15, 5.0], source: "KEYSTONE view set-up"}
+  - {id: V3, title: "AERIAL FROM SOUTHEAST", az: 315, el: 28, mode: exterior, site: false, box: [8.45, 6.35, 12.35, 10.0], source: "KEYSTONE view set-up"}
+  - {id: V4, title: "AERIAL FROM NORTHWEST (SERVICE SIDE, S1)", az: 135, el: 28, mode: exterior, site: false, box: [8.45, 2.05, 12.35, 5.85], source: "KEYSTONE view set-up"}
+  - {id: V5, title: "PORTAL + CHAMPION WALK FROM SOUTH-SOUTHWEST", az: 250, el: 14, mode: portal, site: false, box: [12.6, 6.35, 16.45, 10.0], crop: [70, -60, -2, 160, 6, 56], source: "KEYSTONE view set-up (crop = x0, y0, z0, x1, y1, z1 of the modelled items shown)"}
+
+open_items:
+  - {id: D-054, text: "Floor uses beyond sports: OPEN — no stage, no floor seating modelled", source: "DECISIONS.md D-054"}
+  - {id: D-064, text: "Restrooms at the worst case: OPEN — no added restroom volume", source: "DECISIONS.md D-064"}
+  - {id: D-065, text: "Checkpoint vs egress: OPEN — no checkpoint modelled", source: "DECISIONS.md D-065"}
+  - {id: D-066, text: "Exit discharge from E1: OPEN — Champion Walk shown at the drawn 28 ft; discharge width (>= 466.5 in) not resolved", source: "DECISIONS.md D-066"}
+
+not_shown: "NOT MODELLED: parapets (TBD), rooftop units, structure, windows / cladding, grading, landscaping, lighting, parking (site TBD, D-006), signage content (signage zone TBD), interior rooms."
+not_shown_source: "phase2_elev.yaml (parapet TBD); P2-A-201 Rev G NOT SHOWN note; D-006"
+
+source: "KEYSTONE 2026-10-04 (Shane 12:10 PM CT); inputs above"

@@ -632,3 +632,12 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
   - Flag (no new program): chair / table / stage storage is not in the program (TBD, D-054).
 - **Research:** R-007.5 addendum (1004.9, 1030.1.1, 1030.1.1.1, 1030.9.1, 1030.13.1, 1030.13.2, 1030.13.2.1).
 - **Frozen check:** every other revision re-renders byte-identical.
+
+## 2026-10-04 12:10 PM CT — P2-A-901 Rev A 3D massing model + views (P2-T-011)
+- D-054, D-064, D-065 and D-066 stay OPEN. Nothing on the sheet or in the model implies a choice: no checkpoint modelled (D-065), no added restroom volume (D-064), no floor-use staging (D-054), Champion Walk shown at the drawn 28 ft with a D-066 note. Open count stays 20.
+- **P2-A-901 Rev A** (new `params/phase2_massing.yaml`, `phase2/src/p2_a_901.py`; `phase2.yaml` v21): MASSING ONLY, PRELIMINARY, NTS axonometric views built from the current params (plan Rev G L1 / Rev F L2, A-201 Rev G heights / portal / brand / walk, A-301 Rev D / A-302 Rev C sections, C-101 Rev C site; D-041, D-043, D-046, D-047, D-050).
+  - V1 aerial from the SW (with site: walk, bus loop diagram, road, service apron); V2 cutaway at L2 FF 17'-9" from the SW (roofs removed: tiers, event floor + mats, lobby open to below); V3 aerial from the SE; V4 aerial from the NW (service side, S1); V5 portal + Champion Walk from the SSW.
+  - Heights are only those already in params (L2 FF 17'-9" DECIDED; ring roof 32.75 ft / arena roof 42 ft ASSUMED per A-201 Rev G; portal 50 ft max, crown 34 ft, springline 22'-1"). Door 6 × 8 ft drawn symbol ASSUMED. Colours: finish ids from `phase2_elev.yaml` (hex ASSUMED swatches).
+  - Not modelled: parapets, rooftop units, structure, windows / cladding, grading, landscaping, lighting, parking (site TBD, D-006), signage content.
+  - **Model file:** `phase2/out/3d/P2-A-901_RevA_massing.obj` + `.mtl` (feet, Y-up; deterministic, byte-identical on re-run).
+- **Frozen check:** every other revision re-renders byte-identical.

@@ -417,3 +417,10 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **Research:** `research/R-007-occupancy-and-occupant-load.md` §R-007.5 (sections quoted from `research_src/upc_ibc10.txt`).
 - **New file in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-103_RevA.pdf`.
 - **Preview (box only):** `/workspace/keystone_previews/P2-A-103.png` / `.pdf`.
+
+## 2026-10-04 additions (12:10 PM CT session, P2-A-901 Rev A massing)
+- **New data:** `params/phase2_massing.yaml` holds the model inputs (references to the plan / elevation / site / section params), the drawn door symbol (ASSUMED), colours by finish id, the 5 view definitions and the open-item notes. `phase2.yaml` is now v21.
+- **New sheet (repo):** `phase2/out/{pdf,dxf}/P2-A-901_RevA` (PDF sha256 `a0f3068b3eb344f0…`).
+- **New model files (repo):** `phase2/out/3d/P2-A-901_RevA_massing.obj` (sha256 `692f1826f68a56a5…`) + `.mtl` (sha256 `ad45ca9ed684bc36…`); feet, Y-up, massing only.
+- **New file in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-901_RevA.pdf`.
+- **Preview (box only):** `/workspace/keystone_previews/P2-A-901.png` / `.pdf`.
