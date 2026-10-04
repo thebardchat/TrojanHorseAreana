@@ -1,6 +1,6 @@
 # KEYSTONE — 2026-10-03
-HEALTH: YELLOW · P1 45% · P2 4% · Ticket P2-T-003
-WHAT CHANGED: Shane approved P1-G-001 Rev D + P1-A-101 Rev A (D-025/D-026), both frozen. Door spots + outward exit swings confirmed. Phase 1 package PDF built (2 pages, 11x17). R-005 NFHS mat research written.
-WHAT TO VERIFY: R-005: NFHS 28-ft circle + 5-ft safety area (38 ft mat), 10-ft clear space; current rulebook paywalled, wording UNVERIFIED. Package PDF page order. Hallway door swing + south exit single/pair still assumed.
-NEXT ACTION: Shane reviews R-005 (D-014 stays open). Finish P1-A-101 support wing once measured; then P1-A-102, A-201, P-001 and P1-T-010 bundle. Approval path needs district confirmation.
-QUESTION FOR SHANE: For the Phase 2 arena, plan on 38x38 ft mats (NFHS minimum) or 42x42 ft (concept notes), and will it host AHSAA tournaments or mainly duals and 4-mat events?
+HEALTH: YELLOW · P1 45% · P2 10% · Ticket P2-T-003b
+WHAT CHANGED: Phase 2 active in parallel; Shane's build, not a school project. Mats 42x42 decided. P2-G-003 test-fit: program needs ~86,100 GSF (lean ~71,800) vs 55,000, so it does not fit. Options A/B/C priced. R-008/009/012/014 written.
+WHAT TO VERIFY: P2-G-003 assumptions: 6.0 SF/seat, 1.25 gross-up, 50 SF/fixture, event floor at 50 SF/person, 4 staff per visiting team, 25% of fans on concourse. Code edition: county page says IBC 2018, Shane said 2021.
+NEXT ACTION: Shane picks a direction on D-030 (grow, shrink floor, cut seats, mix, or 2nd level). Then P2-T-004 floor plan. Phase 1 resumes first when Dr. Headen's data arrives.
+QUESTION FOR SHANE: Is 55,000 SF a hard cap on total floor area, or could the building go two levels (rooms under the seating, mezzanine) or grow to ~72,000-86,000 SF to keep 2,200 seats and the 22,000 SF floor?

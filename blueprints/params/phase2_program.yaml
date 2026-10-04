@@ -1,0 +1,112 @@
+# phase2_program.yaml: P2-T-003b PROGRAM TEST-FIT inputs (Phase 2). Read by phase2/src/p2_g_003.py.
+# A test-fit, NOT a floor plan and NOT a decision. Locked values (building, arena, seats, 5 SF tags)
+# are read from phase2.yaml and never repeated here. Every factor carries `source`.
+# Status words: CITED (a published source gives the number) · ASSUMED (KEYSTONE choice, verify) · TBD (no number; left out of totals).
+# Confidence: HIGH / MEDIUM / LOW.
+
+meta:
+  ticket: P2-T-003b
+  sheet: P2-G-003
+  title: PROGRAM TEST-FIT
+  subtitle: "AREA ARITHMETIC, NOT A PLAN"
+  revision: A
+  file: P2-G-003_RevA
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: one-level area arithmetic; no stacking (mezzanine, rooms under the seating bowl) is credited
+  source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: area table, seating, fixtures, gross-up, fit check, options A/B/C, sheet P2-G-003)"
+
+code_basis:
+  edition_used: "IBC 2021 / IPC 2021 (per Shane 10:45 PM CT)"
+  edition_conflict: "Madison County's building-codes page lists the 2018 IBC/IPC (effective Jan 2021) for county permits. AHJ is OPEN (D-008). The 2018 Table 2902.1 assembly row checked reads the same as 2021."
+  assembly_section_2021: "IBC 2021 numbers the assembly egress section 1030 (it was 1029 in the 2018 edition)"
+  occupancy_assumed: "A-4 (indoor arena with spectator seating) for the event bowl — ASSUMED pending R-007"
+  source: "Shane 2026-10-03 10:45 PM CT; Madison County AL, Building Codes page (retrieved 2026-10-03); UpCodes IBC 2021 (Alabama) + IBC 2018 (Texas) text; R-009"
+
+factors:
+  gross_up:
+    base: 1.25
+    lean: 1.15
+    base_basis: "+25% for walls, structure and circulation (Groton MA feasibility study, Reinhardt Assoc.); Loudoun County 2014 Recreation Center standard uses 80% efficiency (÷0.80 = ×1.25) for program space incl. gymnasium"
+    lean_basis: "Loudoun County 2014 'Gross Building Area Allowance' 15% (walls/structure only); used as a LOW-end check that assumes the programmed concourse carries all circulation"
+    status: CITED
+    confidence: MEDIUM
+    source: "R-014 (Loudoun County Capital Facilities Manual 2014 §4.3; Town of Groton MA Senior Center feasibility study)"
+  mechanical:
+    share_of_gross: 0.05
+    basis: "HVAC equipment area 'typically 5 percent of gross floor space' (MIL-HDBK-1027/4A, in UFC 4-171-01N); electrical not separately sized"
+    status: CITED
+    confidence: LOW
+    source: "R-014 (MIL-HDBK-1027/4A via UFC 4-171-01N); different building type (training facility)"
+  seating:
+    base_sf_per_seat: 6.0
+    base_basis: "Loudoun County 2014 Recreation Center standard: spectator/team seating area per seat (elevated seating) = 6.0 SF/seat"
+    lean_seat_width_in: 18
+    lean_row_depth_in: 24
+    lean_seats_between_aisles: 21
+    lean_aisle_in: 48
+    lean_basis: "telescopic bleacher geometry: 18 in per person (IBC 1004.6; Hussey net-capacity basis), 24 in row spacing (Hussey MAXAM standard option), 48 in stepped aisle with seats both sides (IBC 2021 1030.9.1), 21 seats max between aisles for 12 in accessway, seats without backrests (IBC 2021 1030.13.2.1). Excludes front walkway, cross aisles, wheelchair spaces."
+    status: CITED (factors) / KEYSTONE arithmetic (lean geometry)
+    confidence: MEDIUM
+    source: "R-008"
+  occupant_load:
+    spectators: seats (IBC 2021 1004.6 fixed seating = number of seats)
+    event_floor_sf_per_occupant: 50
+    event_floor_basis: "IBC Table 1004.5 'Exercise rooms 50 gross' chosen for the competition floor — function choice ASSUMED (building official decides, 1004.5)"
+    status: CITED factor / ASSUMED function
+    confidence: MEDIUM
+    source: "R-009 (IBC 2021 Table 1004.5, 1004.6)"
+  restrooms:
+    table: "IBC 2021 Table 2902.1, Assembly — coliseums, arenas … indoor sporting events"
+    wc_male: "1 per 75 for the first 1,500 + 1 per 120 for the remainder"
+    wc_female: "1 per 40 for the first 1,520 + 1 per 60 for the remainder"
+    lav_male: "1 per 200"
+    lav_female: "1 per 150"
+    drinking_fountain: "1 per 1,000"
+    service_sink: 1
+    split: "occupant load divided in half (IBC 2902.1.1); fractions rounded up"
+    urinals: "may replace up to 67% of required male water closets in assembly (IPC 2021 424.2)"
+    sf_per_fixture: 50
+    sf_per_fixture_status: ASSUMED
+    sf_per_fixture_check: "a bare water-closet module from cited minimums is ~27 SF (36x60 in stall + 48 in aisle in front); 50 SF/fixture adds lavatory clear floor space, accessible stalls, entries and chases — ASSUMED, verify"
+    counted_in_sf: [water closets incl. urinals, lavatories]
+    not_in_sf: [drinking fountains (concourse alcoves), service sink (utility room, TBD)]
+    confidence: "HIGH (fixture ratios) / LOW (SF per fixture)"
+    source: "R-009 (IBC 2021 Table 2902.1, 2902.1.1, 2903.1.1; IPC 2021 424.2; ASI restroom layout guide for stall sizes)"
+
+# Rooms. method: tag (from phase2.yaml) | each (sf_each x count) | seating | restrooms | mechanical | concourse | locker_load | tbd
+rooms:
+  - {id: arena, short: "phase2.yaml tag (concept sheet)", group: main, name: Championship Wrestling Arena (event floor), method: tag, tag_path: spaces.arena.sf, status: TAG, confidence: HIGH, source: "phase2.yaml (concept sheet / reference plan)"}
+  - {id: boys_locker, short: "phase2.yaml tag", group: main, name: Boys Locker Room, method: tag, tag_path: spaces.boys_locker.sf, status: TAG, confidence: HIGH, source: "phase2.yaml"}
+  - {id: girls_locker, short: "phase2.yaml tag; D-013 open", group: main, name: Girls Locker Room (as tagged; D-013), method: tag, tag_path: spaces.girls_locker.sf_tagged, status: TAG, confidence: HIGH, source: "phase2.yaml; D-013 open (draw equal)"}
+  - {id: strength_conditioning, short: "phase2.yaml tag", group: main, name: Strength & Conditioning, method: tag, tag_path: spaces.strength_conditioning.sf, status: TAG, confidence: HIGH, source: "phase2.yaml"}
+  - {id: cross_training, short: "phase2.yaml tag", group: main, name: Cross-Training Mat Area, method: tag, tag_path: spaces.cross_training.sf, status: TAG, confidence: HIGH, source: "phase2.yaml"}
+  - {id: seating, short: "2,200 x 6.0 SF/seat (Loudoun 2014)", group: bowl, name: "Spectator seating (2,200 seats)", method: seating, status: CITED, confidence: MEDIUM, source: "R-008"}
+  - {id: event_lockers, short: "4 x (14 wrestlers + 4 staff) x 50 SF", group: bowl, name: Event / visitor locker rooms (DR3), count: 4, method: locker_load, team_wrestlers: 14, team_staff: 4, sf_per_occupant: 50, basis: "14 = AHSAA 2026-27 high school weight classes; 4 staff per team ASSUMED; 50 gross SF/occupant = IBC Table 1004.5 locker rooms (an egress factor used here as a sizing yardstick — ASSUMED method)", status: ASSUMED, confidence: LOW, source: "AHSAA 2026-27 Wrestling handbook item 7; IBC 2021 Table 1004.5; R-014"}
+  - {id: concourse, short: "25% of seats x 5 SF standing (T1004.5)", group: public, name: Concourse / hall of champions spine, method: concourse, peak_share: 0.25, sf_per_person: 5, basis: "IBC Table 1004.5 standing space 5 net SF/person (CITED) x 25% of spectators on the concourse at peak (ASSUMED)", status: ASSUMED, confidence: LOW, source: "IBC 2021 Table 1004.5; share ASSUMED by KEYSTONE; R-014"}
+  - {id: foyer, short: "200 + 400 + 200 (Loudoun 2014)", group: public, name: Foyer / trophy lobby (hall of champions), method: parts, parts_sf: [200, 400, 200], basis: "Loudoun 2014 rec center: vestibule 200, lobby 400, customer service desk/control 200", status: CITED, confidence: MEDIUM, source: "R-014 (Loudoun County 2014 §4.3)"}
+  - {id: public_restroom, short: "fixtures (T2902.1) x 50 SF", group: support, name: Public restrooms (2 on plan), method: restrooms, status: CITED fixtures / ASSUMED SF, confidence: MEDIUM, source: "R-009"}
+  - {id: concession_stand, short: "Loudoun kitchen proxy; D-011", group: support, name: Concession stand, method: each, count: 1, sf_each: 275, basis: "Loudoun 2014 rec center kitchen 275 SF (nearest cited room); scope OPEN (D-011)", status: CITED (proxy), confidence: LOW, source: "R-014; D-011"}
+  - {id: first_aid, short: "Loudoun 2014; 1 room counted", group: support, name: First aid, method: each, count: 1, sf_each: 120, basis: "Loudoun 2014 first-aid room 120 SF; plan shows 2-3 rooms, count TBD — 1 counted", status: CITED, confidence: MEDIUM, source: "R-014"}
+  - {id: admin_office, short: "150 + 120 + 200 (Loudoun 2014)", group: support, name: Administrative office, method: parts, parts_sf: [150, 120, 200], basis: "Loudoun 2014: manager office 150 + assistant office 120 + office storage/workroom 200 (mix ASSUMED)", status: CITED sizes / ASSUMED mix, confidence: LOW, source: "R-014"}
+  - {id: equipment_storage, short: "Loudoun gym storage proxy", group: support, name: Equipment storage (mats + floor covers), method: each, count: 1, sf_each: 700, basis: "Loudoun 2014 gym storage 700 SF incl. floor covers; storage for 4 rolled 42 ft mats NOT separately sized", status: CITED (proxy), confidence: LOW, source: "R-014"}
+  - {id: equipment_room, short: "Loudoun equip./maint. proxy", group: support, name: Equipment room, method: each, count: 1, sf_each: 300, basis: "Loudoun 2014 equipment storage/maintenance room 300 SF", status: CITED (proxy), confidence: LOW, source: "R-014"}
+  - {id: stage, short: "no source: left out", group: support, name: Stage, method: tbd, basis: "no cited size found; left OUT of the total", status: TBD, confidence: n/a, source: "reference plan (room shown); no planning source"}
+  - {id: utility, short: "no source: left out", group: support, name: Utility room, method: tbd, basis: "no cited size found; left OUT of the total", status: TBD, confidence: n/a, source: "reference plan (room shown); no planning source"}
+  - {id: mechanical, short: "5% of gross (MIL-HDBK-1027/4A)", group: support, name: Mechanical (2 rooms on plan), method: mechanical, status: CITED, confidence: LOW, source: "R-014 (5% of gross)"}
+
+option_b:
+  mats: 4
+  mat_ft: 42
+  layout: 2 x 2 grid
+  clear_around_ft: 10
+  clear_between_ft: 10
+  clear_basis: "NFHS Rule 2-1-5: mat area includes a space of at least 10 ft surrounding the mat; one 10 ft space shared between adjacent mats is a KEYSTONE assumption (R-005)"
+  table_zone_ft: 6
+  table_zone_basis: "scorer's table at least 10 ft from the mat edge (NFHS 2-3); a 6 ft deep table + chairs strip on the north and south sides is ASSUMED"
+  court_length_ft: 84
+  court_width_ft: 50
+  court_runout_preferred_ft: 10
+  court_runout_min_ft: 3
+  court_basis: "NFHS Basketball Rule 1-1 (84 x 50 ft ideal high school court) and 1-2-1 (at least 3 ft, preferably 10 ft, unobstructed space outside boundaries)"
+  source: "R-005 (NFHS Wrestling 2-1-5, 2-3); R-012 (NFHS Basketball 1-1, 1-2-1); D-014 (42 x 42 ft mats); table zone ASSUMED"

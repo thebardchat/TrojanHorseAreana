@@ -19,8 +19,8 @@ Source for D-001…D-012: KEYSTONE_ARCHITECT_PROMPT.md v1.1 Section 5. D-013…D
 | ID | Question | Status | Notes / feeds |
 |---|---|---|---|
 | D-006 | Site / parcel / address | OPEN | Campus drawn as SITE TBD diagram until decided |
-| D-007 | Owner of record for the new building (school system, county, town, nonprofit, partnership) | OPEN | Drives D-008 and R-006 |
-| D-008 | Authority Having Jurisdiction for permitting | OPEN | R-006 |
+| D-007 | Owner of record for the new building: Shane / Hazel Green Trojan Youth Wrestling / partnership | OPEN | Drives D-008 and R-006. **Updated 2026-10-03 10:45 PM CT (Shane):** Phase 2 is Shane's build, not a school project (D-028), so the school-system/county/town options were dropped from this question. phase2.yaml `open_items.owner_of_record` |
+| D-008 | Authority Having Jurisdiction for permitting | OPEN | R-006. **Note 2026-10-03 (P2-T-003b):** Madison County's Building Codes page lists the 2018 IBC/IPC (effective Jan 2021) for county permits; Shane said 2021. The test-fit used 2021; its fixture table reads the same in 2018. Depends on the site (D-006) |
 | D-009 | Seating type (fixed, telescopic) and final count | OPEN | Concept sheet shows 2,200 (locked total). Repo diorama text says "Permanent stadium seating" (see ASSETS.md); not treated as a decision. **Reference-plan seating label conflict → see D-016** |
 | D-010 | Locker room parity (equal SF?) | OPEN | See D-013 |
 | D-011 | Concessions scope | OPEN | |
@@ -31,7 +31,7 @@ Source for D-001…D-012: KEYSTONE_ARCHITECT_PROMPT.md v1.1 Section 5. D-013…D
 | ID | Question | Status | Notes / feeds |
 |---|---|---|---|
 | D-013 | Girls locker 3,503 SF vs boys 3,500 SF. Real difference, or a drawing-tag slip? | OPEN | Prompt §3 says this is likely a tag slip. **Draw both lockers equal until Shane decides.** Also, the intake says AI renders show girls as 3,500 |
-| D-014 | Mat size check: concept notes say "four 42-foot mats ≈ 7,000 SF." Check against current NFHS rules (mat, circle, safety area, spacing) before laying out mats | OPEN | Research → R-005 (Phase 2, P2-T-003). No mats get drawn until R-005 is done |
+| D-014 | Mat size check: concept notes say "four 42-foot mats ≈ 7,000 SF." Check against current NFHS rules (mat, circle, safety area, spacing) before laying out mats | DECIDED | DECIDED 2026-10-03 — mats are 42' × 42' — "Shane, 10:45 PM CT". R-005: meets the NFHS 28 ft minimum circle + ~5 ft safety area. Applied in phase2.yaml `spaces.arena.mat_size`. Design events → D-029 |
 | D-015 | The intake file `KEYSTONE_INTAKE_2026-10-03.md` starts with "MOVIE MAKER INTAKE," but everything in it is for KEYSTONE. Label slip? | OPEN | KEYSTONE treated the content as its own intake. Shane, please confirm |
 
 ## Logged at reference plan intake (2026-10-03)
@@ -54,3 +54,12 @@ Source for D-001…D-012: KEYSTONE_ARCHITECT_PROMPT.md v1.1 Section 5. D-013…D
 | D-024 | Priority order of the three Phase 1 work items | DECIDED | DECIDED 2026-10-03 — W2 (restore water) first → W3 (restroom split) second → W1 (wall pads) third; W1 can run in parallel because it doesn't depend on water — "Shane, firsthand 2026-10-03". Applied as phase1.yaml `work_items[].priority` and on P1-G-001 Rev C. Does not decide D-022 (1A/1B split) |
 | D-025 | Is P1-G-001 Rev D (principal version) approved? | DECIDED | DECIDED 2026-10-03 — Rev D approved — "Shane, 10:29 PM CT". Frozen (`frozen: true`); committed PDF/DXF unchanged. Bundled first in Phase1_Package_for_Dr_Headen.pdf |
 | D-026 | Is P1-A-101 Rev A (existing conditions, room outline) approved, and are the door marks right? | DECIDED | DECIDED 2026-10-03 — Rev A approved; door locations match Shane's markup; exits swing out (correct) — "Shane, 10:29 PM CT". Hallway door swing and south exit single/pair were left unfilled → stay "assumed, verify" (no sheet change). Frozen; committed PDF/DXF unchanged |
+
+## Logged 2026-10-03 10:45 PM CT (Phase 2 active)
+
+| ID | Question | Status | Notes / feeds |
+|---|---|---|---|
+| D-027 | Does Phase 2 wait for Phase 1 to finish? | DECIDED | DECIDED 2026-10-03 — Phase 2 is ACTIVE now, in parallel with Phase 1. Phase 1 package delivered; Phase 1 waits on Dr. Headen. When Shane brings Phase 1 data, Phase 1 tickets jump the line (Phase 1 still outranks when its data exists) — "Shane, 10:45 PM CT". Applied in BACKLOG priority note, STATUS, README, phase2.yaml meta |
+| D-028 | Is Phase 2 a school project? | DECIDED | DECIDED 2026-10-03 — No. Phase 2 is Shane's build; it may not involve Dr. Headen. No school ownership, district approval, school review or school bidding is assumed for Phase 2 — "Shane, 10:45 PM CT". Owner of record stays OPEN (D-007). phase2.yaml had no school-derived entries to remove; locked facts kept |
+| D-029 | What events is the Phase 2 arena designed for? | DECIDED | DECIDED 2026-10-03 — home duals + AHSAA / regional tournaments — "Shane, 10:45 PM CT". phase2.yaml `spaces.arena.design_events` |
+| D-030 | The program test-fit (P2-G-003) needs ≈ 86,100 GSF (base; ≈ 71,800 lean) vs the locked 55,000 SF. Which way: A) grow the building, B) shrink the event floor to 4 × 42' mats + tables + 1 court (≈ 14,364 SF; still over), C) cut seats (not enough alone), or a mix / a 2nd level? Is 55,000 SF a cap on total floor area or on footprint? | OPEN | P2-T-003b. Numbers on P2-G-003 Rev A and in CHANGELOG. Locked values (55,000 / 22,000 / 2,200) unchanged until Shane says "CHANGE APPROVED". Feeds P2-T-004 (A-101 floor plan) |

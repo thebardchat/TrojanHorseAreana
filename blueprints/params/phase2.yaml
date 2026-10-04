@@ -1,5 +1,8 @@
 # phase2.yaml: SINGLE SOURCE OF TRUTH for Phase 2 (new building + campus)
-# v1 SEED, 2026-10-03: P2-T-001 pulled forward at Shane's request, only to hold his data. Phase 1 still first.
+# v1 SEED, 2026-10-03: P2-T-001 pulled forward at Shane's request, only to hold his data.
+# v2, 2026-10-03 10:45 PM CT: PHASE 2 ACTIVE in parallel with Phase 1 (D-027). Phase 2 is Shane's build, not a school
+# project (D-028): no school ownership, district approval, school bidding or school review is assumed here. Owner OPEN (D-007).
+# Program test-fit inputs live in params/phase2_program.yaml (P2-T-003b).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -12,12 +15,16 @@ meta:
   phase: 2
   type: new building + campus
   units: feet
-  version: 1
+  version: 2
   version_date: "2026-10-03"
-  status: v1 seed (P2-T-001 pulled forward at Shane's request; Phase 1 still first)
+  status: "ACTIVE in parallel with Phase 1 (D-027). Phase 1 tickets jump the line whenever Phase 1 data arrives"
+  project_type: "Shane's build, not a school project (D-028). Owner of record OPEN (D-007)"
+  location: "Hazel Green area, Madison County, Alabama (site TBD, D-006)"
+  sheet_date: October 2026
+  drawn_by: "Drawn by KEYSTONE (AI) for Shane Brazelton"
   sheet_size: "ARCH D 24x36 landscape"
   stamp: "PRELIMINARY — CONCEPTUAL DESIGN — NOT FOR CONSTRUCTION"
-  source: "Shane (prompt v1.1 §3, §8, §9); Shane 2026-10-03 (seed request)"
+  source: "Shane (prompt v1.1 §3, §8, §9); Shane 2026-10-03 (seed request); Shane 2026-10-03 10:45 PM CT (Phase 2 active, Shane's build: D-027, D-028)"
 
 reference_plan:
   file: Phase2-floor-plan-flat.png
@@ -52,17 +59,19 @@ spaces:
     sf: 22000
     mats: 4
     mat_labels: [Wrestling Mat 1, Wrestling Mat 2, Wrestling Mat 3, Wrestling Mat 4]
-    mat_size: TBD
+    mat_size: 42 ft x 42 ft
+    mat_size_basis: "DECIDED (D-014). Meets NFHS 28 ft minimum circle + 5 ft safety area (R-005)"
+    design_events: home duals + AHSAA / regional tournaments
     location: east / center-right of the building
     floor_converts: mats up → court or martial-arts surface down; seats stay
     event_floor_daily_practice: false
-    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); mat_size → D-014 / R-005"
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); mat_size → D-014 DECIDED 2026-10-03 10:45 PM CT (Shane); design_events → D-029 (Shane 10:45 PM CT); R-005"
   courts:
     basketball_full_courts: 1
     basketball_second_court: TBD
     volleyball_courts: TBD
     note: 1 basketball court claimed; a 2nd only after clear span is measured; volleyball count waits on striping + clearance
-    source: "concept sheet; R-012 (not yet researched)"
+    source: "concept sheet; R-012 (partial 2026-10-03: NFHS basketball 84 x 50 ft + 3 ft min / 10 ft preferred runout; volleyball not yet researched)"
   seating:
     total: 2200
     placement: outside the 22,000 SF competition floor
@@ -261,9 +270,22 @@ campus:
     source: "concept sheet"
 
 open_items:
-  owner_of_record: TBD
+  owner_of_record: "OPEN — Shane / Hazel Green Trojan Youth Wrestling / partnership (D-007). Not a school project (D-028)"
   ahj: TBD
   budget: TBD
   seating_type: TBD
   concessions_scope: TBD
-  source: "D-007, D-008, D-012, D-009, D-011"
+  program_fit: "OPEN — program test-fit (P2-G-003) is over 55,000 SF; options A/B/C (D-030)"
+  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030; Shane 2026-10-03 10:45 PM CT"
+
+sheets:
+  P2-G-003:
+    title: PROGRAM TEST-FIT
+    size: "17 x 11 in (tabloid), landscape (Shane 10:45 PM CT; set sheets stay ARCH D)"
+    inputs: params/phase2_program.yaml
+    revisions:
+      A:
+        file: P2-G-003_RevA
+        frozen: false
+        source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b)"
+    source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"

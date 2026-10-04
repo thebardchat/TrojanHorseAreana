@@ -2,23 +2,26 @@
 
 Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done. One ticket IN PROGRESS at a time.
 
+**PRIORITY NOTE (Shane 2026-10-03 10:45 PM CT, D-027):** Phase 2 is ACTIVE in parallel with Phase 1. The Phase 1 package was delivered and Phase 1 waits on Dr. Headen. **When Shane brings Phase 1 data, Phase 1 tickets jump the line** (Phase 1 still outranks Phase 2 whenever its data exists). Phase 2 is Shane's build, not a school project (D-028).
+
 **Phase 1 (priority)**
 - [x] **P1-T-000** Environment check → ENVIRONMENT.md; clone; branch `grok/keystone`; create `ARENA\_KEYSTONE`; first STATUS (YELLOW, "bootstrapping")
 - [x] **P1-T-001** Inventory `Desktop\ARENA` → `ASSETS.md`; then `phase1.yaml` v1 from intake + assets; everything unknown = TBD
 - [x] **P1-T-002** Send Shane the measurement + photo checklist (room L×W×H, doors, windows, outlets, existing fixtures, where water leaks show, wall material, walk-through room layout)
 - [x] **P1-T-003** R-001 wall pads + R-003 single-user restroom ADA minimums
 - [x] **P1-T-004** P1-G-001 one-page scope sheet (can ship before measurements — uses TBDs)
-- [ ] **P1-T-005** P1-A-101 existing conditions (needs measurements) — **IN PROGRESS** (Rev A approved + frozen 2026-10-03, D-026; rest blocked on support wing measurements)
+- [ ] **P1-T-005** P1-A-101 existing conditions (needs measurements) — **WAITING ON DATA** (Rev A approved + frozen 2026-10-03, D-026; rest waits on support wing measurements / Dr. Headen; jumps the line when data arrives)
 - [ ] **P1-T-006** P1-A-102 remodel plan (restroom split, pad extents)
 - [ ] **P1-T-007** P1-A-201 wall pad elevations
 - [ ] **P1-T-008** P1-P-001 plumbing scope narrative
 - [x] **P1-T-009** R-002 + R-004 approval/donation path → add "Who approves" to G-001
 - [ ] **P1-T-010** Bundle `THA_Phase1_Remodel_RevA.pdf` → PR to `main`
 
-**Phase 2 (after P1-T-010)**
+**Phase 2 (ACTIVE in parallel since 2026-10-03, D-027)**
+- [ ] **P2-T-003b** PROGRAM TEST-FIT before any floor plan: area table, seating (R-008), fixtures (R-009), gross-up (R-014), fit vs 55,000 SF, options A/B/C → P2-G-003 — **IN PROGRESS** (Rev A done 2026-10-03, awaiting Shane: D-030) — *first Phase 2 ticket (Shane 10:45 PM CT)*
 - [ ] **P2-T-001** `phase2.yaml` v1 from Section 3 Phase 2 table — *v1 seeded 2026-10-03 at Shane's request; Phase 1 still first*
 - [ ] **P2-T-002** `validate.py` + `calcs.py` Phase 2 checks
-- [ ] **P2-T-003** R-005 NFHS mats → do 4 mats fit 22,000 SF? — **IN PROGRESS** (R-005 written 2026-10-03, awaiting Shane's review; research only, no drawing)
+- [x] **P2-T-003** R-005 NFHS mats → do 4 mats fit 22,000 SF? — done 2026-10-03: R-005 written; mats 42' × 42' DECIDED (D-014); 4 mats fit 22,000 SF by area
 - [ ] **P2-T-004** A-101 overall floor plan
 - [ ] **P2-T-005** A-102 mat + seating + conversion overlays
 - [ ] **P2-T-006** C-101 campus diagram (SITE TBD)
@@ -57,3 +60,6 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - 2026-10-03 10:29 PM CT: Shane approved **P1-G-001 Rev D (D-025)** and **P1-A-101 Rev A (D-026)**. Both frozen (no overwrite without `--force`). Door locations confirmed vs his markup, exits swing out; hallway door swing + south exit single/pair stay "assumed, verify" (no sheet change).
   - Print bundle `phase1/out/pdf/Phase1_Package_for_Dr_Headen.pdf` (G-001 Rev D + A-101 Rev A, 2 pages, 11x17 landscape, code-free). Not the P1-T-010 final bundle.
   - **P2-T-003 IN PROGRESS:** `research/R-005-nfhs-wrestling-mats.md` (NFHS Rule 2 mat specs, AHSAA, arithmetic-only fit check). D-014 stays OPEN until Shane reviews. Taken because P1-T-005…008 wait on the support wing measurements.
+- 2026-10-03 10:45 PM CT: **PHASE 2 ACTIVE in parallel (D-027).** Phase 1 package delivered; Phase 1 waits on Dr. Headen; Phase 1 tickets jump the line when data arrives. Phase 2 = Shane's build, not a school project (D-028); owner OPEN (D-007, options now Shane / Hazel Green Trojan Youth Wrestling / partnership). Mats 42' × 42' DECIDED (D-014); design events = home duals + AHSAA/regional tournaments (D-029).
+  - **P2-T-003b (first Phase 2 ticket) Rev A done:** `params/phase2_program.yaml`, `phase2/src/p2_testfit.py`, `phase2/src/p2_g_003.py` → `phase2/out/{pdf,dxf}/P2-G-003_RevA`. Research: R-008 (seating), R-009 (fixtures), R-012 (basketball, partial), R-014 (planning factors). Result: does NOT fit 55,000 SF; options logged as D-030 (OPEN).
+  - Next for Phase 2 after Shane picks a direction on D-030: P2-T-004 (A-101 floor plan). R-006/R-007 (code edition + AHJ, occupancy) still open.
