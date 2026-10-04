@@ -41,6 +41,7 @@
 # v17, 2026-10-04 10:48 AM CT: new sheet P2-G-002 Rev A (code analysis, params/phase2_code.yaml); C-12 rule D-063 (Phase 1 only).
 # v18, 2026-10-04 11:07 AM CT: L1 exits Option 1 DECIDED (E1 8-pair door bank, 512 in clear; D-054 note); P2-A-101 Rev G
 #     (params/phase2_plan_rev_g.yaml), Rev F frozen; new sheet P2-A-111 Rev A life safety plan (params/phase2_life_safety.yaml).
+# v19, 2026-10-04 11:24 AM CT: new sheet P2-A-401 Rev A enlarged plans, event locker rooms 1-4 (params/phase2_enlarged.yaml); D-066 OPEN.
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -734,6 +735,17 @@ sheets:
         inputs: "params/phase2_life_safety.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml"
         source: "Shane 2026-10-04 11:07 AM CT (next standard step: P2-A-111 Rev A life safety plan, L1 + L2: exits with capacities, egress widths, occupant loads per P2-G-002, travel distance / common path, exit separation, E1 door bank drawn)"
     source: "Shane 2026-10-04 11:07 AM CT"
+  P2-A-401:
+    title: ENLARGED PLANS — EVENT LOCKER ROOMS 1-4
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_enlarged.yaml + params/phase2_plan_rev_g.yaml"
+    revisions:
+      A:
+        file: P2-A-401_RevA
+        frozen: false
+        inputs: "params/phase2_enlarged.yaml + params/phase2_plan_rev_g.yaml"
+        source: "Shane 2026-10-04 11:24 AM CT (next standard step P2-T-010: P2-A-401 Rev A, the 4 event locker rooms only at 1/8 in scale; restroom core waits on D-064; doors so the common path <= 75 ft; ADA 2010 cited)"
+    source: "Shane 2026-10-04 11:24 AM CT; BACKLOG P2-T-010"
 
 sets:
   phase2_schematic_set_rev_a:

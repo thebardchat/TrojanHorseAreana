@@ -592,3 +592,26 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - **Data:** `phase2.yaml` v18 (A-101 Rev F frozen, Rev G entry, new sheet P2-A-111).
 - **Research:** R-007.4 addendum (1003.6, 1010.5, 1007.1.1–1007.1.2, 1017.3, T1006.2.1 / 1006.2.1 exception 3, 1030.8, 1028.3, 1028.5).
 - **Frozen check:** every other revision re-renders byte-identical (PDF cmp, DXF entities).
+
+## 2026-10-04 11:24 AM CT — D-066 OPEN (exit discharge); P2-A-401 Rev A enlarged plans (event locker rooms 1-4)
+- **New finding D-066 (OPEN, no redesign):** the exit discharge from E1 must be ≥ 466.5 in (IBC 1028.3). The Champion Walk is 28 ft = 336 in (D-046), and so is the portal arch opening (D-050), so the discharge must bypass the arch too.
+  - Option 1: widen the walk / plaza to ≥ 39 ft at the discharge.
+  - Option 2: add a parallel paved discharge path of ≥ 130.5 in beside the walk / portal.
+  - Open count 19 → 20.
+- **P2-A-401 Rev A** (new `params/phase2_enlarged.yaml`, `phase2/src/p2_a_401.py`; `phase2.yaml` v19): the 4 event locker rooms only, at 1/8" = 1'-0", with a key plan.
+  - Envelopes come from plan Rev G: 4 × 900 = 3,600 SF (D-060), under the upper tier at the tier line (D-061, 7'-6" clear).
+  - Two templates: rooms 1-2 have the door on the side wall to EXIT (N); rooms 3-4 have it on the end wall to EXIT (E). Rooms 2 and 4 are mirrors.
+  - **Each room (ASSUMED):**
+    - 2 WC: 1 wheelchair 60×60 (ADA 604.8.1.1) + 1 ambulatory 36×60 (604.8.2.1).
+    - 2 lavatories: 1 accessible (606).
+    - 60 in turning circle (304.3.1).
+    - 4 showers: 1 roll-in 30×60 with 30×60 clearance (608.2.2) + 3 at 36×36.
+    - 31-32 lockers, 15 in (2 accessible, 225.2.1 / 811).
+    - 2 team benches + 1 accessible bench, 24×48 wall-affixed (903).
+    - Trainer table.
+    - Room door 36 in (34 in clear, 404.2.3), swinging into the room (IBC 1010.1.2.1, < 50 occupants; ADA 803.3).
+  - **Common path (T1006.2.1, ≤ 49 occupants, ≤ 75 ft), measured on this layout:** rooms 1-2 45.6 ft, rooms 3-4 50.9 ft. All PASS.
+  - Travel to X5 / X7 is ≤ 66 ft (vs 250).
+  - The restroom core is NOT drawn: it waits on D-064, and the sheet says so.
+- **Research:** ADA 2010 Standards text saved to the box (`research_src/ada2010_v2.txt`, www.ada.gov, retrieved 2026-10-04). Sections are quoted in the new note `research/R-024-ada-locker-rooms.md`.
+- **Frozen check:** every other revision re-renders byte-identical.

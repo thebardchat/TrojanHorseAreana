@@ -1,0 +1,149 @@
+# phase2_enlarged.yaml: P2-A-401 ENLARGED PLANS — EVENT LOCKER ROOMS 1-4 (Phase 2, BACKLOG P2-T-010). Read by phase2/src/p2_a_401.py.
+# Rev A, 2026-10-04 (Shane 11:24 AM CT): the 4 event locker rooms ONLY, 1/8" = 1'-0". The L1 public restroom core waits on D-064 (OPEN).
+# Room envelopes come from params/phase2_plan_rev_g.yaml (evl_1..evl_4: 900 SF each = 3,600 SF total, D-060 settled; they run to the
+# tier line under the upper tier, D-061). Layout inside each room is a KEYSTONE layout (ASSUMED); accessible fixture sizes and
+# clearances are the ADA 2010 Standards minimums (cited per item, text from www.ada.gov, retrieved 2026-10-04,
+# research_src/ada2010_v2.txt). Two templates: N (rooms 1-2, door on the side wall to the EXIT (N) passage; room 2 = mirror) and
+# E (rooms 3-4, door on the end wall to the EXIT (E) passage; room 4 = mirror).
+# Units: feet, local origin = SW corner of the template room, x east, y north (before mirroring). Rects are [x0, y0, x1, y1].
+
+meta:
+  sheet: P2-A-401
+  title: "ENLARGED PLANS — EVENT LOCKER ROOMS 1-4"
+  revision: A
+  file: P2-A-401_RevA
+  size: "17 x 11 in (tabloid), landscape"
+  scale_ft_per_in: 8
+  scale_text: "1/8\" = 1'-0\""
+  disclaimer: "Schematic enlarged plans: fixture counts, benches, lockers and showers ASSUMED (KEYSTONE). Accessible fixture sizes are ADA 2010 minimums for the architect to develop; not a code review (D-008)."
+  source: "Shane 2026-10-04 11:24 AM CT (P2-A-401 Rev A: 4 event locker rooms only, 1/8 in scale, doors placed so the common path <= 75 ft, ADA 2010 cited)"
+
+basis:
+  plan: params/phase2_plan_rev_g.yaml
+  rooms:
+    - {id: evl_1, template: N, mirror: none, door_to: "EXIT (N) passage → X5 north / V1 to the floor", exit: X5, source: "plan Rev G evl_1 [91.71, 224, 123.85, 252]"}
+    - {id: evl_2, template: N, mirror: x, door_to: "EXIT (N) passage → X5 north / V1 to the floor", exit: X5, source: "plan Rev G evl_2 [131.85, 224, 163.99, 252]"}
+    - {id: evl_3, template: E, mirror: none, door_to: "EXIT (E) passage → X7 east / V2 to the floor", exit: X7, source: "plan Rev G evl_3 [188, 183.09, 210, 224]"}
+    - {id: evl_4, template: E, mirror: y, door_to: "EXIT (E) passage → X7 east / V2 to the floor", exit: X7, source: "plan Rev G evl_4 [188, 134.18, 210, 175.09]"}
+  occupant_factor_sf: 50
+  occupant_basis: "locker rooms 50 gross (IBC 2021 Table 1004.5) → 900 / 50 = 18 per room"
+  headroom: "the 15 ft of each room nearest the arena lies under the upper tier: 7'-6\" clear at the tier line rising away from it (D-061; 1'-6\" structure ASSUMED, zero margin) — lockers 72 in and shower / toilet partitions fit"
+  restroom_core: "L1 public restroom core NOT in this revision: waits on D-064 (OPEN: size for the worst case or limit the events)"
+  source: "phase2_plan_rev_g.yaml; D-060 (3,600 SF settled), D-061 (front row 7'-6\" clear); IBC 2021 Table 1004.5 (R-007.2); Shane 11:24 AM CT"
+
+rules:
+  common_path:
+    limit_ft: 75
+    max_occupants: 49
+    text: "one exit access doorway allowed when the space holds <= 49 occupants and the common path of egress travel is <= 75 ft (Group A, sprinklered)"
+    measure: "rectilinear from the most remote point, through the inner doorways, to the room door; the common path ends at the room door because the exit passage offers two directions (exterior exit door, or vomitory to the event floor)"
+    source: "IBC 2021 1006.2.1, Table 1006.2.1 (UpCodes, research_src/upc_ibc10.txt, retrieved 2026-10-04)"
+  door:
+    leaf_in: 36
+    clear_in: 34
+    text: "36 in leaf ≈ 34 in clear ≥ 32 in (ADA 404.2.3; IBC 1010.1.1); swings INTO the room so the 8 ft exit passage stays clear — allowed below 50 occupants (IBC 1010.1.2.1) with a 30 x 48 in space beyond the swing (ADA 803.3); pull-side maneuvering 60 in perpendicular + 18 in beyond the latch (ADA Table 404.2.4.1)"
+    source: "ADA 2010 404.2.3, 404.2.4.1, 803.3; IBC 2021 1010.1.1, 1010.1.2.1"
+  lockers:
+    width_in: 15
+    depth_in: 18
+    height_in: 72
+    accessible_pct: 5
+    text: "15 x 18 x 72 in single-tier lockers ASSUMED; at least 5 % (min. 1) accessible: storage within 15-48 in reach (ADA 225.2.1, 811, 308.2.1), 30 x 48 in clear floor (305.3)"
+    source: "ADA 2010 225.2.1, 811.2, 811.3, 308.2.1, 305.3; locker size ASSUMED (KEYSTONE)"
+  benches:
+    text: "freestanding team benches 18 in deep ASSUMED; one accessible bench per room: 24 x 48 in seat, 17-19 in high, affixed to a wall (back support), 30 x 48 in clear floor at its end parallel to its short axis (ADA 803.4, 903.2-903.5)"
+    source: "ADA 2010 222.1, 803.4, 903.2, 903.3, 903.4, 903.5; team bench size ASSUMED"
+  toilets:
+    text: "2 WC per room ASSUMED: 1 wheelchair compartment 60 x 60 in (≥ 60 x 59 floor-mounted, 604.8.1.1; WC centerline 18 in from the side wall, 604.2; door in the front partition at the far side, 604.8.1.2) + 1 ambulatory compartment 36 x 60 in (35-37 x ≥ 60, 604.8.2.1; not required below 6 compartments, 213.3.1, provided ASSUMED); 2 lavatories, 1 with forward-approach 30 x 48 in clear floor + knee / toe clearance, rim ≤ 34 in (606.2, 606.3); 60 in turning circle (304.3.1); no urinals (rooms serve either team / sex, ASSUMED)"
+    source: "ADA 2010 213.3.1, 304.3.1, 604.2, 604.8.1.1, 604.8.1.2, 604.8.2.1, 606.2, 606.3; fixture count ASSUMED"
+  showers:
+    text: "4 showers per room ASSUMED: 1 standard roll-in 30 x 60 in inside with a 60 in entry and a 30 x 60 in clearance at the open face (608.2.2, 608.2.2.1) = the accessible shower (213.3.6); 3 stalls 36 x 36 in (transfer size, 608.2.1)"
+    source: "ADA 2010 213.3.6, 608.2.1, 608.2.2, 608.2.2.1; count ASSUMED"
+  accessible_route:
+    text: "36 in min clear width along the locker aisles and to every accessible element (ADA 403.5.1)"
+    source: "ADA 2010 403.5.1"
+  source: "ADA 2010 Standards (DOJ, www.ada.gov, retrieved 2026-10-04); IBC 2021 Ch. 10 (UpCodes); KEYSTONE assumptions as marked"
+
+templates:
+  N:
+    W: 32.14
+    D: 28
+    door: {wall: E, at: [12, 15], hinge: 12, source: "KEYSTONE layout: side wall onto EXIT (N), centered on the locker zone"}
+    partitions:
+      lines: [[10.5, 0, 10.5, 5], [10.5, 9, 10.5, 17.5], [10.5, 20.5, 10.5, 28], [0, 15, 10.5, 15], [0, 23, 1.83, 23], [4.67, 23, 5.08, 23], [7.75, 23, 8, 23], [5, 23, 5, 28], [8, 23, 8, 28]]
+      source: "KEYSTONE layout (ASSUMED): wet zone 10.5 ft deep along the inner wall; toilet room north, showers south"
+    inner_doors:
+      items: [[10.5, 17.5, 10.5, 20.5, "toilet room, 36 in", "-x"], [4.67, 23, 1.83, 23, "WC comp. 34 in", "-y"], [7.75, 23, 5.08, 23, "amb. comp. 32 in", "-y"]]
+      openings: [[10.5, 5, 10.5, 9, "showers, 48 in open"]]
+      note: "[hinge x, hinge y, latch x, latch y, label, swing direction]"
+      source: "ADA 2010 404.2.3 (32 in min clear), 604.8.1.2 (door at the far side, ≤ 4 in from the partition), 604.8.2.2; KEYSTONE layout"
+    items:
+      - {t: wc_acc, r: [0, 23, 5, 28], wc: [1.5, 26.9], label: "WC (604.8.1)", source: "ADA 2010 604.8.1.1 60 x 59 min (drawn 60 x 60), 604.2 CL 16-18 in"}
+      - {t: wc_amb, r: [5, 23, 8, 28], wc: [6.5, 26.9], label: "AMB. WC (604.8.2)", source: "ADA 2010 604.8.2.1 35-37 x 60 min"}
+      - {t: lav, r: [0, 16, 1.75, 18.5], acc: true, label: "LAV (606)", source: "ADA 2010 606.2, 606.3"}
+      - {t: lav, r: [0, 18.5, 1.75, 21], acc: false, label: "LAV", source: "KEYSTONE (ASSUMED)"}
+      - {t: clear, r: [1.75, 16, 5.75, 18.5], label: "30x48", source: "ADA 2010 305.3, 606.2 forward approach"}
+      - {t: turn, c: [6.5, 19], rad: 2.5, label: "60 in turn (304.3.1)", source: "ADA 2010 304.3.1, 803.2"}
+      - {t: shower_rollin, r: [0, 9, 2.5, 14], label: "ROLL-IN 30x60 (608.2.2)", source: "ADA 2010 608.2.2"}
+      - {t: clear, r: [2.5, 9, 5, 14], label: "30x60", source: "ADA 2010 608.2.2.1"}
+      - {t: shower, r: [0, 0, 3, 3], label: "SH", source: "ADA 2010 608.2.1 size (36 x 36); count ASSUMED"}
+      - {t: shower, r: [3, 0, 6, 3], label: "SH", source: "count ASSUMED"}
+      - {t: shower, r: [6, 0, 9, 3], label: "SH", source: "count ASSUMED"}
+      - {t: label, at: [6.2, 6.6], label: "DRYING", source: "KEYSTONE layout"}
+      - {t: lockers, r: [11.14, 26.5, 31.14, 28], n: 16, acc: 1, face: S, source: "15 in lockers ASSUMED; ADA 225.2.1"}
+      - {t: lockers, r: [11.14, 0, 31.14, 1.5], n: 16, acc: 1, face: N, source: "15 in lockers ASSUMED; ADA 225.2.1"}
+      - {t: bench, r: [14, 22, 26, 23.5], label: "BENCH 12'", source: "team bench ASSUMED; aisle 36 in (ADA 403.5.1)"}
+      - {t: bench, r: [14, 4.5, 26, 6], label: "BENCH 12'", source: "team bench ASSUMED; aisle 36 in (ADA 403.5.1)"}
+      - {t: bench_acc, r: [10.5, 10.5, 12.5, 14.5], label: "ACC. BENCH", source: "ADA 2010 903.3 (24 x 48 in), 903.4 (wall-affixed)"}
+      - {t: clear, r: [10.5, 14.5, 14.5, 17], label: "30x48", source: "ADA 2010 903.2 (at the end, parallel to the short axis)"}
+      - {t: table, r: [17, 9, 23, 11.5], label: "TRAINER TABLE 6' (ASSUMED)", source: "KEYSTONE (ASSUMED)"}
+      - {t: clear, r: [27.14, 11.5, 32.14, 16.5], label: "pull side", source: "ADA 2010 Table 404.2.4.1 (60 in + 18 in beyond the latch)"}
+    cp_routes:
+      - {label: "accessible WC far corner", pts: [[0.5, 27.5], [3.25, 23], [10.5, 19], [32.14, 13.5]], tag_at: [8.3, 25.6], source: "KEYSTONE measurement on this layout"}
+      - {label: "shower far corner", pts: [[0.5, 0.5], [10.5, 7], [32.14, 13.5]], source: "KEYSTONE measurement on this layout"}
+      - {label: "locker aisle NW", pts: [[11.2, 25], [32.14, 13.5]], source: "KEYSTONE measurement on this layout"}
+      - {label: "locker aisle SW", pts: [[11.2, 3], [32.14, 13.5]], source: "KEYSTONE measurement on this layout"}
+    under_tier: {side: S, depth_ft: 15, source: "plan Rev G: upper tier N band [56, 224, 188, 239] over the south 15 ft of rooms 1-2 (D-061)"}
+    source: "KEYSTONE layout (ASSUMED) inside the plan Rev G envelope 32.14 x 28 ft = 900 SF"
+  E:
+    W: 22
+    D: 40.91
+    door: {wall: S, at: [9.5, 12.5], hinge: 9.5, source: "KEYSTONE layout: end wall onto EXIT (E), mid-width"}
+    partitions:
+      lines: [[0, 29, 8, 29], [11, 29, 13, 29], [17, 29, 22, 29], [11, 29, 11, 40.91], [0, 35.91, 1.83, 35.91], [4.67, 35.91, 5.08, 35.91], [7.75, 35.91, 8, 35.91], [5, 35.91, 5, 40.91], [8, 35.91, 8, 40.91]]
+      source: "KEYSTONE layout (ASSUMED): wet zone 11.9 ft deep at the far (inner) end; toilet room west, showers east"
+    inner_doors:
+      items: [[11, 29, 8, 29, "toilet room, 36 in", "+y"], [4.67, 35.91, 1.83, 35.91, "WC comp. 34 in", "-y"], [7.75, 35.91, 5.08, 35.91, "amb. comp. 32 in", "-y"]]
+      openings: [[13, 29, 17, 29, "showers, 48 in open"]]
+      note: "[hinge x, hinge y, latch x, latch y, label, swing direction]"
+      source: "ADA 2010 404.2.3, 604.8.1.2, 604.8.2.2; KEYSTONE layout"
+    items:
+      - {t: wc_acc, r: [0, 35.91, 5, 40.91], wc: [1.5, 39.81], label: "WC (604.8.1)", source: "ADA 2010 604.8.1.1, 604.2"}
+      - {t: wc_amb, r: [5, 35.91, 8, 40.91], wc: [6.5, 39.81], label: "AMB. WC (604.8.2)", source: "ADA 2010 604.8.2.1"}
+      - {t: lav, r: [0, 30, 1.75, 32.5], acc: true, label: "LAV (606)", source: "ADA 2010 606.2, 606.3"}
+      - {t: lav, r: [0, 32.5, 1.75, 35], acc: false, label: "LAV", source: "KEYSTONE (ASSUMED)"}
+      - {t: clear, r: [1.75, 30, 5.75, 32.5], label: "30x48", source: "ADA 2010 305.3, 606.2"}
+      - {t: turn, c: [6.5, 32.9], rad: 2.5, label: "60 in turn (304.3.1)", source: "ADA 2010 304.3.1, 803.2"}
+      - {t: shower_rollin, r: [11.5, 38.41, 16.5, 40.91], label: "ROLL-IN 30x60 (608.2.2)", source: "ADA 2010 608.2.2"}
+      - {t: clear, r: [11.5, 35.91, 16.5, 38.41], label: "30x60", source: "ADA 2010 608.2.2.1"}
+      - {t: shower, r: [19, 29.5, 22, 32.5], label: "SH", source: "ADA 2010 608.2.1 size; count ASSUMED"}
+      - {t: shower, r: [19, 32.5, 22, 35.5], label: "SH", source: "count ASSUMED"}
+      - {t: shower, r: [19, 35.5, 22, 38.5], label: "SH", source: "count ASSUMED"}
+      - {t: label, at: [15, 32.4], label: "DRYING", source: "KEYSTONE layout"}
+      - {t: lockers, r: [20.5, 4, 22, 29], n: 20, acc: 1, face: W, source: "15 in lockers ASSUMED; ADA 225.2.1"}
+      - {t: lockers, r: [0, 15.25, 1.5, 29], n: 11, acc: 1, face: E, source: "15 in lockers ASSUMED; ADA 225.2.1"}
+      - {t: bench, r: [5, 15, 6.5, 27], label: "BENCH 12'", source: "team bench ASSUMED; aisle 42 in (ADA 403.5.1)"}
+      - {t: bench, r: [15.5, 8, 17, 22], label: "BENCH 14'", source: "team bench ASSUMED; aisle 42 in (ADA 403.5.1)"}
+      - {t: bench_acc, r: [0, 8, 2, 12], label: "ACC. BENCH", source: "ADA 2010 903.3, 903.4"}
+      - {t: clear, r: [0, 5.5, 4, 8], label: "30x48", source: "ADA 2010 903.2"}
+      - {t: table, r: [8, 12, 10.5, 18], label: "TRAINER TABLE (ASSUMED)", source: "KEYSTONE (ASSUMED)"}
+      - {t: clear, r: [9.5, 0, 14, 5], label: "pull side", source: "ADA 2010 Table 404.2.4.1"}
+    cp_routes:
+      - {label: "accessible WC far corner", pts: [[0.5, 40.41], [3.25, 35.91], [9.5, 29], [11, 0]], tag_at: [8.3, 38.5], source: "KEYSTONE measurement on this layout"}
+      - {label: "shower far corner", pts: [[21.5, 40.41], [15, 29], [11, 0]], source: "KEYSTONE measurement on this layout"}
+      - {label: "locker aisle NE", pts: [[19.5, 28.5], [11, 0]], source: "KEYSTONE measurement on this layout"}
+      - {label: "locker aisle NW", pts: [[2.5, 28.5], [11, 0]], source: "KEYSTONE measurement on this layout"}
+    under_tier: {side: W, depth_ft: 15, source: "plan Rev G: upper tier E band [188, 41, 203, 239] over the west 15 ft of rooms 3-4 (D-061)"}
+    source: "KEYSTONE layout (ASSUMED) inside the plan Rev G envelope 22 x 40.91 ft = 900 SF"
+
+source: "KEYSTONE 2026-10-04 (Shane 11:24 AM CT); params/phase2_plan_rev_g.yaml; ADA 2010 Standards; IBC 2021 Ch. 10"

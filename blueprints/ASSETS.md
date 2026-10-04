@@ -403,3 +403,10 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **Research updated:** `research/R-007-occupancy-and-occupant-load.md` §R-007.4 (life safety sections, from `research_src/upc_ibc10.txt`).
 - **New files in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-101_RevG.pdf`, `P2-A-111_RevA.pdf`.
 - **Previews (box only):** `/workspace/keystone_previews/P2-A-101.png` / `.pdf` (Rev G), `P2-A-111.png` / `.pdf`.
+
+## 2026-10-04 additions (11:24 AM CT session, D-066 + P2-A-401 Rev A)
+- **New data:** `params/phase2_enlarged.yaml` holds the event locker room templates N / E, the ADA 2010 rules and the common path routes. `phase2.yaml` is now v19.
+- **New sheet (repo):** `phase2/out/{pdf,dxf}/P2-A-401_RevA` (PDF sha256 `e25dc447334e3373…`).
+- **New research source (box only):** `research_src/ada2010_v2.txt`, the 2010 ADA Standards text from www.ada.gov (retrieved 2026-10-04). New note `research/R-024-ada-locker-rooms.md`.
+- **New file in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-401_RevA.pdf`.
+- **Preview (box only):** `/workspace/keystone_previews/P2-A-401.png` / `.pdf`.
