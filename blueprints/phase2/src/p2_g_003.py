@@ -4,12 +4,13 @@ Rev A (FROZEN, build()): one-level area arithmetic against 55,000 SF read as tot
 Rev B (FROZEN, build_b()): two levels; ground footprint vs the 55,000 SF FOOTPRINT cap (D-031), total GSF,
 stacking, vertical circulation, schematic bowl section.
 Rev C (FROZEN, build_c()): suites to keep ~2,200 spectators (Shane 11:26 PM CT); suite level, hybrids. NOT a floor plan.
-Rev D (build_d()): LOCKED PROGRAM (D-030): 16,400 SF floor, 2,200 bowl seats, 2 levels, no suites; FIXED vs TELESCOPIC columns.
+Rev D (FROZEN, build_d()): LOCKED PROGRAM (D-030): 16,400 SF floor, 2,200 bowl seats, 2 levels, no suites; FIXED vs TELESCOPIC columns.
+Rev E (build_e()): LOCKED PROGRAM with MIX seating (D-009): telescopic lower, fixed upper; footprint margin; seats by side/tier.
 All numbers come from params/phase2.yaml + params/phase2_program.yaml via p2_testfit.py.
 Layout constants below are sheet geometry only.
 
 Run from the repo root:
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_g_003.py [--rev A|B|C|D] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_g_003.py [--rev A|B|C|D|E] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -895,12 +896,219 @@ def build_d(p2, prog, ob, out):
     return sh
 
 
+def build_e(p2, prog, ob, out):
+    """Rev E: LOCKED PROGRAM with MIX seating (D-009): telescopic lower tier, fixed upper tier."""
+    meta2, pm = p2["meta"], prog["meta_rev_e"]
+    ms = prog["mixed_seating"]
+    plan = out["plan"]
+    sh = Sheet(W, H)
+    body_bottom = add_titleblock(sh, {
+        "project": f"{meta2['project']}\n{meta2['arena_name']} · {meta2['location']}",
+        "phase": "PHASE 2",
+        "title": f"{pm['title']}\n{pm['subtitle']}",
+        "scale": pm["scale"],
+        "date": meta2["sheet_date"],
+        "revision": pm["revision"],
+        "drawn_by": meta2["drawn_by"],
+        "sheet_no": SHEET_NO,
+        "stamp": meta2["stamp"],
+    }, margin=M, tb_h=0.95, stamp_h=0.40)
+    top = H - M - 0.12
+    X_, F_ = out["mix"], out["fixed"]
+    cap = X_["cap"]
+    rooms = {r["id"]: r for r in prog["rooms"]}
+    floor = p2["spaces"]["arena"]["event_floor_sf"]
+    bowl = p2["spaces"]["seating"]["bowl"]
+    bx = plan["building"]["rect"]
+    bw, bh = bx[2] - bx[0], bx[3] - bx[1]
+    box = bw * bh
+    fx0, fy0, fx1, fy1 = plan["event_floor"]["rect"]
+    few, fns = fx1 - fx0, fy1 - fy0
+
+    # ================= column 1: area table by level =================
+    x0, c1w = M + 0.18, 7.15
+    y = section(sh, x0, top - 0.2, f"1  AREA BY LEVEL — {n(floor)} SF FLOOR, {n(bowl)} SEATS, MIX SEATING (D-009)", first=True) - 0.02
+    hdr = [("SPACE", 0, "l"), ("MIX (D-009)", 3.70, "r"), ("ALL FIXED", 4.75, "r"), ("BASIS", 4.95, "l")]
+    rp = 0.172
+    y -= rp
+    for lab, dx, al in hdr:
+        sh.text(x0 + dx, y + 0.03, lab, size=7.4, bold=True, align="left" if al == "l" else "right", layer=TB)
+    sh.line(x0, y - 0.04, x0 + c1w, y - 0.04, layer=TB, lw=0.8)
+
+    def row(lab, a, b, basis="", bold=False, rule=False, size=7.9):
+        nonlocal y
+        y -= rp
+        sh.text(x0 + 0.08 if not bold else x0, y, lab, size=size, bold=bold, layer=TB)
+        sh.text(x0 + 3.70, y, a, size=size, bold=bold, align="right", layer=TB)
+        sh.text(x0 + 4.75, y, b, size=size, bold=bold, align="right", layer=TB)
+        if basis:
+            while text_width_in(basis, 6.9) > c1w - 4.97 and len(basis) > 4:
+                basis = basis[:-2].rstrip() + "…"
+            sh.text(x0 + 4.95, y, basis, size=6.9, layer=TB)
+        if rule:
+            sh.line(x0, y - 0.05, x0 + c1w, y - 0.05, layer=TB, lw=0.4)
+
+    def head(lab):
+        nonlocal y
+        y -= rp + 0.03
+        sh.text(x0, y, lab, size=8.0, bold=True, layer=TB)
+
+    sl, su = X_["sl"], X_["su"]
+    label = {
+        "arena": ("Event floor (D-030, locked)", "phase2.yaml · D-030"),
+        "seating_lower": (f"Lower tier seats ({n(sl)}), TELESCOPIC", f"{X_['seat_sf_lower']:.2f} SF/seat (R-008) · fixed col. 6.0"),
+        "seating_upper": (f"Upper tier seats ({n(su)}), FIXED", f"{X_['seat_sf_upper']:.1f} SF/seat (R-008)"),
+        "concourse_lower": ("Lower concourse", rooms["concourse"]["short"]),
+        "concourse_upper": ("Upper concourse / hall of champions balcony", "same factor, upper seats"),
+        "public_restroom_lower": (f"Public restrooms L1 ({X_['fx1']['in_rooms']} fixtures)", "T2902.1 x 50 SF (R-009)"),
+        "public_restroom_upper": (f"Public restrooms L2 ({X_['fx2']['in_rooms']} fixtures)", "T2902.1 x 50 SF (R-009)"),
+        "vertical_circulation": (f"Stairs ({X_['exits']}) + elevator", "R-015"),
+    }
+
+    def lab_of(i):
+        if i in label:
+            return label[i]
+        r = rooms[i]
+        nm = r["name"].replace(" (as tagged; D-013)", " (D-013)").replace(" (DR3)", "")
+        return nm, r["short"]
+    head("LEVEL 1 (net SF)")
+    for i in X_["l1_ids"]:
+        lab, bas = lab_of(i)
+        row(lab, n(X_["sf"][i]), n(F_["sf"][i]), bas)
+    row("L1 net", n(X_["N1"]), n(F_["N1"]), bold=True)
+    row("Mechanical (5% of total gross, at grade)", n(X_["M"]), n(F_["M"]), "R-014 · LOW")
+    row(f"L1 GROSS (x {X_['g']:.2f})", n(X_["L1"]), n(F_["L1"]), "R-014 gross-up", bold=True, rule=True)
+    head("LEVEL 2 (net SF)")
+    for i in X_["l2_ids"]:
+        lab, bas = lab_of(i)
+        row(lab, n(X_["sf"][i]), n(F_["sf"][i]), bas)
+    row("L2 net", n(X_["N2"]), n(F_["N2"]), bold=True)
+    row(f"L2 GROSS (x {X_['g']:.2f})", n(X_["L2"]), n(F_["L2"]), bold=True, rule=True)
+    head("FIT CHECK")
+    row("Arena volume gross (floor + lower tier, double height)", n(X_["AV"]), n(F_["AV"]))
+    row("Arena volume + L2 gross", n(X_["AV"] + X_["L2"]), n(F_["AV"] + F_["L2"]), "L2 sits over the L1 ring")
+    row("FOOTPRINT = max(L1, arena volume + L2)", n(X_["F"]), n(F_["F"]), f"mix: set by {X_['governs']}", bold=True)
+    row("MARGIN under the 55,000 SF cap (D-031)", n(cap - X_["F"]), n(cap - F_["F"]), f"target ≥ {n(ms['target_margin_sf'])} (Shane)", bold=True)
+    row(f"Meets the ≥ {n(ms['target_margin_sf'])} SF target?", "YES" if cap - X_["F"] >= ms["target_margin_sf"] else "NO",
+        "YES" if cap - F_["F"] >= ms["target_margin_sf"] else "NO", bold=True)
+    row("TOTAL GSF (2 levels)", n(X_["G"]), n(F_["G"]), "not capped (D-031)", bold=True, rule=True)
+    y -= 0.04
+    y = sh.para(x0, y, c1w, f"MIX = D-009 as decided: lower tier on telescopic bleacher geometry ({X_['seat_sf_lower']:.2f} SF/seat), upper tier "
+                f"fixed ({X_['seat_sf_upper']:.1f} SF/seat). ALL FIXED = Rev D base case, for reference. Same x {X_['g']:.2f} gross-up. "
+                f"Tier split {round(X_['up'] * 100)}/{round((1 - X_['up']) * 100)} ASSUMED. Mix: L1 alone is {n(X_['L1'])}, so the arena volume "
+                f"+ L2 ({n(X_['AV'] + X_['L2'])}) sets the footprint; the L1 ring must be {n(X_['L2'] - X_['ring'])} SF bigger than L1 needs, "
+                f"which that footprint gives.", size=7.9)
+    col1_bottom = y
+
+    # ================= column 2: seats by side and tier, floor, fixtures, stairs, wheelchair =================
+    x2, c2w = x0 + c1w + 0.35, 4.05
+    sh.line(x2 - 0.17, body_bottom + 0.12, x2 - 0.17, top, lw=0.5)
+    y = section(sh, x2, top - 0.2, f"2  SEATS BY SIDE AND TIER = {n(out['tot']['total'])}", first=True, size=10.5)
+    sh_ = [("SIDE", 0, "l"), ("LOWER (TELE.)", 1.55, "r"), ("UPPER (FIXED)", 2.75, "r"), ("TOTAL", 3.55, "r")]
+    y -= rp
+    for lab, dx, al in sh_:
+        sh.text(x2 + dx, y + 0.03, lab, size=7.2, bold=True, align="left" if al == "l" else "right", layer=TB)
+    sh.line(x2, y - 0.04, x2 + c2w, y - 0.04, layer=TB, lw=0.6)
+    names = {"N": "North", "S": "South", "E": "East"}
+    for r_ in out["rows"] + [out["tot"]]:
+        y -= rp
+        b_ = r_["side"] == "TOTAL"
+        for (lab, dx, al), c in zip(sh_, [names.get(r_["side"], "TOTAL"), n(r_["lower"]), n(r_["upper"]), n(r_["total"])]):
+            sh.text(x2 + dx, y, c, size=7.9, bold=b_, align="left" if al == "l" else "right", layer=TB)
+    y -= rp
+    t_ = out["tot"]
+    for (lab, dx, al), c in zip(sh_, ["capacity drawn", n(t_["cap_lower"]), n(t_["cap_upper"]), n(t_["cap_lower"] + t_["cap_upper"])]):
+        sh.text(x2 + dx, y, c, size=7.2, align="left" if al == "l" else "right", layer=TB)
+    lo = plan["tiers"]["lower"]
+    up = plan["tiers"]["upper"]
+    y -= 0.04
+    y = sh.para(x2, y, c2w, f"No west tier (OK'd). Lower: {lo['rows']} rows x {lo['row_depth_ft'] * 12:.0f} in = {lo['depth_ft']} ft extended "
+                f"(R-008), less the 12 ft portal and two 8 ft vomitories. Upper: {up['depth_ft']} ft at {X_['seat_sf_upper']:.1f} SF/seat. "
+                f"Each tier = {n(sl)}, split by side in proportion to drawn capacity (P2-A-101/102 Rev B). Spare capacity is left for "
+                f"wheelchair spaces and aisles; the upper tier has only {n(t_['cap_upper'] - su)} spare.", size=7.5)
+    y = section(sh, x2, y, "3  EVENT FLOOR (unchanged, R-005, R-012)", size=10.5)
+    y = sh.para(x2, y, c2w, f"{few:g} x {fns:g} ft = {n(few * fns)} SF drawn (locked {n(floor)}): 4 x 42 ft mats 2 x 2 with 10 ft clear, "
+                f"15 ft table zones N and S; the {ob['ew']} x {ob['ns']} = {n(ob['sf'])} SF layout and an 84 x 50 court + 10 ft runout "
+                f"({ob['court'][0]} x {ob['court'][1]}) fit. Long axis N-S on the entry axis.", size=7.5)
+    y = section(sh, x2, y, "4  FIXTURES BY LEVEL (IBC 2021 T2902.1)", size=10.5)
+    fh = [("LEVEL", 0, "l"), ("LOAD", 1.05, "r"), ("WC M", 1.55, "r"), ("WC W", 2.05, "r"), ("LAV M", 2.55, "r"), ("LAV W", 3.05, "r"), ("DF", 3.40, "r"), ("SUM", 3.95, "r")]
+    y -= rp
+    for lab, dx, al in fh:
+        sh.text(x2 + dx, y + 0.03, lab, size=7.2, bold=True, align="left" if al == "l" else "right", layer=TB)
+    sh.line(x2, y - 0.04, x2 + c2w, y - 0.04, layer=TB, lw=0.6)
+    f1, f2 = X_["fx1"], X_["fx2"]
+    tot = {k: f1[k] + f2[k] for k in ("load", "wc_m", "wc_f", "lav_m", "lav_f", "df", "in_rooms")}
+    for nm, f, b in (("L1", f1, False), ("L2", f2, False), ("TOTAL", tot, True)):
+        y -= rp
+        for (lab, dx, al), c in zip(fh, [nm, n(f["load"]), str(f["wc_m"]), str(f["wc_f"]), str(f["lav_m"]), str(f["lav_f"]), str(f["df"]), str(f["in_rooms"])]):
+            sh.text(x2 + dx, y, c, size=7.8, bold=b, align="left" if al == "l" else "right", layer=TB)
+    y -= 0.04
+    y = sh.para(x2, y, c2w, f"L1 = lower seats + {n(X_['occ_floor'])} floor occupants (50 SF each); L2 = upper seats. Unchanged from Rev D "
+                f"(load follows seats, not seat type). On the plans the restrooms flank the lobby, L2 stacked over L1.", size=7.5)
+    y = section(sh, x2, y, "5  STAIRS, ELEVATOR, WHEELCHAIR", size=10.5)
+    st = X_["stair"]
+    y = sh.para(x2, y, c2w, f"L2 load {n(X_['l2_load'])} → {X_['exits']} stairs (T1006.3.3) x {st['width_in']:.0f} in (0.2 in/occ., 1005.3.1), "
+                f"≈ {st['sf']:.0f} SF each per level + 1 elevator (1104.4) = {n(X_['vc_sf'])} SF per level, aligned on both levels. "
+                f"{X_['ws']} wheelchair spaces + companions (IBC T1109.2.2.1, ADA 221.3), dispersed (ADA 221.2.3) — placement in the "
+                f"telescopic and fixed tiers is an architect task.", size=7.5)
+    col2_bottom = y
+
+    # ================= column 3 =================
+    x3 = x2 + c2w + 0.35
+    c3w = W - M - 0.28 - x3
+    sh.line(x3 - 0.17, body_bottom + 0.12, x3 - 0.17, top, lw=0.5)
+    y = section(sh, x3, top - 0.2, "6  RESULT", first=True, size=10.5) - 0.04
+    bx_h = 1.30
+    sh.rect(x3, y - bx_h, c3w, bx_h, lw=1.6)
+    lines = [("LOCKED PROGRAM + MIX", 10.0, True),
+             (f"{n(floor)} SF floor · {n(bowl)} seats · 2 levels", 9.0, True),
+             ("telescopic lower · fixed upper", 8.8, False),
+             (f"Footprint {n(X_['F'])} · margin {n(cap - X_['F'])}", 9.2, True),
+             (f"Target ≥ {n(ms['target_margin_sf'])} SF: MET", 8.8, True)]
+    yy = y - 0.26
+    for t2, sz, b in lines:
+        sh.text(x3 + c3w / 2, yy, t2, size=sz, bold=b, align="center")
+        yy -= 0.235
+    y -= bx_h + 0.04
+    y = sh.para(x3, y, c3w, f"Total {n(X_['G'])} GSF (Rev D all-fixed: {n(F_['G'])}). Block plan box shrinks from 250 x 220 to "
+                f"{bw:g} x {bh:g} ft = {n(box)} SF: {n(cap - box)} SF under the cap and {n(box - X_['F'])} SF over the program "
+                f"footprint, so the gross-up allowance stays inside the box (P2-A-101/102 Rev B).", size=7.9)
+    y = section(sh, x3, y, "7  LOCKED IN phase2.yaml", size=10.5)
+    mft = p2["spaces"]["arena"]["mat_ft"]
+    for t2 in (f"Event floor {n(floor)} SF; {p2['spaces']['arena']['mats']} x {mft} ft mats, 2 x 2 (D-030).",
+               f"{n(bowl)} seats in the bowl, N, S and E sides; 2 levels; footprint cap {n(cap)} SF (D-031).",
+               "Seating MIX: telescopic lower tier, fixed upper tier (D-009, Shane 4:30 AM CT).",
+               "S&C + cross-training on Level 2 over the lockers. Changes only on CHANGE APPROVED."):
+        y = sh.para(x3, y + 0.02, c3w, t2, size=7.7, indent=0.12, bullet="·")
+    y = section(sh, x3, y, "8  STILL OPEN", size=10.5)
+    for t2 in ("50/50 tier split and 6 telescopic rows (ASSUMED); sightlines not checked.",
+               "AHJ / code edition (D-008); girls locker size (D-013); concession scope (D-011); owner (D-007); site (D-006).",
+               "Suites PARKED (future add-on)."):
+        y = sh.para(x3, y + 0.02, c3w, t2, size=7.7, indent=0.12, bullet="·")
+    y = section(sh, x3, y, "9  CITED vs ASSUMED", size=10.5)
+    y = sh.para(x3, y, c3w, "CITED: seat SF and row depth (R-008), fixtures, egress and wheelchair tables (R-009, R-015, R-016), "
+                "gross-up and mechanical share (R-014), mat and court clearances (R-005, R-012). ASSUMED: 50/50 tiers, 6 rows, "
+                "50 SF/fixture, 15 ft floor-to-floor, table zones, concourse share, box shape.", size=7.4)
+    y = section(sh, x3, y, "10  SOURCES (retrieved 2026-10-03)", size=10)
+    for s_ in ["Shane 2026-10-04 4:30 AM CT (D-009 mix, Rev E, margin target)", "R-005, R-008, R-009, R-012, R-014, R-015, R-016",
+               "Rev D (all fixed vs telescopic) frozen; history in Revs A-D"]:
+        y = sh.para(x3, y + 0.03, c3w, s_, size=7.2, indent=0.12, bullet="·")
+    col3_bottom = y
+
+    fl = body_bottom + 0.08
+    for nm, yy in (("col1", col1_bottom), ("col2", col2_bottom), ("col3", col3_bottom)):
+        if yy < fl:
+            raise SystemExit(f"LAYOUT OVERFLOW: {nm} runs {fl - yy:.2f} in into the stamp band")
+    print(f"layout margins (in): col1 {col1_bottom - fl:.2f}, col2 {col2_bottom - fl:.2f}, col3 {col3_bottom - fl:.2f}")
+    return sh
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")
-    ap.add_argument("--rev", choices=["A", "B", "C", "D"], default="D", help="A = one-level (frozen); B = two-level (frozen); C = suites (frozen); D = locked program (default)")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E"], default="E", help="A = one-level (frozen); B = two-level (frozen); C = suites (frozen); D = locked program (frozen); E = locked program, MIX seating (default)")
     a = ap.parse_args()
     if a.rev == "A":
         p2, prog, ob, out = tf.summary()
@@ -908,6 +1116,9 @@ def main():
     elif a.rev == "B":
         p2, prog, ob, out = tf.summary_b()
         pm, builder = prog["meta_rev_b"], build_b
+    elif a.rev == "E":
+        p2, prog, ob, out = tf.summary_e()
+        pm, builder = prog["meta_rev_e"], build_e
     elif a.rev == "D":
         p2, prog, ob, out = tf.summary_d()
         pm, builder = prog["meta_rev_d"], build_d

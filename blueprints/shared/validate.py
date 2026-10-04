@@ -10,7 +10,8 @@ Checks (v2, 2026-10-03: phase2.yaml seed added):
   3. No superseded Feb 2026 concept numbers in any params file
   4. No Phase 2 program numbers in phase1.yaml; no Phase 1 values in phase2.yaml
   5. phase2.yaml locked values unchanged (55,000 SF footprint, 16,400 SF event floor per D-030 with the
-     22,000 SF tag kept as history, 2,200 bowl seats, 2 levels, S&C + cross-training on Level 2)
+     22,000 SF tag kept as history, 2,200 bowl seats, 2 levels, S&C + cross-training on Level 2,
+     seating MIX per D-009: telescopic lower tier, fixed upper tier)
      and the girls locker carries the D-013 draw-equal rule
   6. Every PDF in phase*/out/pdf contains the PRELIMINARY stamp text (passes if no PDFs)
      6b. Principal-facing PDFs (*principal*.pdf, e.g. P1-G-001 Rev B/C/D, and *Package*.pdf print bundles) contain no 'D-0'/'R-0' codes and no 'spelling'
@@ -73,6 +74,8 @@ PHASE2_LOCKED = [
     (("spaces", "arena", "mat_ft"), 42),                     # D-014; locked with D-030
     (("spaces", "seating", "total"), 2200),
     (("spaces", "seating", "bowl"), 2200),                   # D-030
+    (("spaces", "seating", "lower_tier_type"), "telescopic"), # D-009 DECIDED 2026-10-04 4:30 AM CT (MIX)
+    (("spaces", "seating", "upper_tier_type"), "fixed"),      # D-009
     (("building", "levels"), 2),                             # D-030
     (("spaces", "strength_conditioning", "level"), 2),       # D-030
     (("spaces", "cross_training", "level"), 2),              # D-030

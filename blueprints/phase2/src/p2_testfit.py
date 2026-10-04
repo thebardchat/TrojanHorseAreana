@@ -427,8 +427,86 @@ def summary_d():
     return p2, prog, ob, out
 
 
+# ============================ REV E: MIXED SEATING (D-009, Shane 2026-10-04 4:30 AM CT) ============================
+# Telescopic lower tier (L1, inside the arena volume) + fixed upper tier (L2). Same method and gross-up as Rev D.
+
+def compute_mix(p2, prog):
+    fx = compute_locked(p2, prog, "base")
+    tl = compute_locked(p2, prog, "telescopic")
+    sf = dict(fx["sf"])
+    sf["seating_lower"] = tl["sf"]["seating_lower"]
+    g, mech = fx["g"], fx["mech"]
+    N1 = sum(sf[i] for i in fx["l1_ids"])
+    N2 = sum(sf[i] for i in fx["l2_ids"])
+    G = g * (N1 + N2) / (1 - g * mech)
+    M = mech * G
+    L1, L2 = g * (N1 + M), g * N2
+    AV = g * sum(sf[i] for i in prog["stacking"]["arena_volume"])
+    F = max(L1, AV + L2)
+    cap = p2["building"]["footprint_cap_sf"]
+    d = dict(fx)
+    d.update(scenario="mix", sf=sf, N1=N1, N2=N2, G=G, M=M, L1=L1, L2=L2, AV=AV, ring=L1 - AV, F=F, cap=cap,
+             over=F - cap, fits=F <= cap, l2_fits_over_ring=L2 <= L1 - AV, seat_sf_lower=tl["seat_sf"],
+             seat_sf_upper=fx["seat_sf"], margin=cap - F,
+             governs="arena volume + L2" if AV + L2 >= L1 else "L1")
+    return d
+
+
+def largest_remainder(total, weights):
+    s = sum(weights)
+    raw = [total * w / s for w in weights]
+    out = [int(math.floor(r)) for r in raw]
+    for i in sorted(range(len(raw)), key=lambda i: -(raw[i] - out[i]))[: total - sum(out)]:
+        out[i] += 1
+    return out
+
+
+def seats_by_side(plan, prog, d):
+    """Seat counts per side and tier from block-plan bands (phase2_plan_rev_b.yaml). Each tier = d['sl'] / d['su']."""
+    t = plan["tiers"]
+    lo, up = t["lower"], t["upper"]
+    spf = lo["row_depth_ft"] / d["seat_sf_lower"]                  # seats per foot of row
+    rows = []
+    for b in lo["bands"]:
+        r = b["rect"]
+        horiz = (r[2] - r[0]) >= (r[3] - r[1])
+        length = (r[2] - r[0]) if horiz else (r[3] - r[1])
+        cut = sum((o["rect"][2] - o["rect"][0]) if horiz else (o["rect"][3] - o["rect"][1]) for o in lo["openings"] if o["side"] == b["side"])
+        rows.append(dict(side=b["side"], length=length, cut=cut, cap_lower=(length - cut) * lo["rows"] * spf))
+    up_area = {b["side"]: (b["rect"][2] - b["rect"][0]) * (b["rect"][3] - b["rect"][1]) for b in up["bands"]}
+    for r_ in rows:
+        r_["area_upper"] = up_area[r_["side"]]
+        r_["cap_upper"] = up_area[r_["side"]] / d["seat_sf_upper"]
+    lw = largest_remainder(d["sl"], [r_["cap_lower"] for r_ in rows])
+    uw = largest_remainder(d["su"], [r_["cap_upper"] for r_ in rows])
+    for r_, a, b in zip(rows, lw, uw):
+        r_["lower"], r_["upper"], r_["total"] = a, b, a + b
+    tot = dict(side="TOTAL", lower=sum(lw), upper=sum(uw), total=sum(lw) + sum(uw),
+               cap_lower=sum(r_["cap_lower"] for r_ in rows), cap_upper=sum(r_["cap_upper"] for r_ in rows))
+    return rows, tot
+
+
+def summary_e():
+    p2, prog = load()
+    ob = option_b_floor(prog)
+    plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_b.yaml").read_text(encoding="utf-8"))
+    mix = compute_mix(p2, prog)
+    rows, tot = seats_by_side(plan, prog, mix)
+    out = dict(mix=mix, fixed=compute_locked(p2, prog, "base"), rows=rows, tot=tot, plan=plan)
+    return p2, prog, ob, out
+
+
 if __name__ == "__main__":
     import sys as _s
+    if "--rev-e" in _s.argv:
+        p2, prog, ob, out = summary_e()
+        x = out["mix"]
+        print({k: (round(v) if isinstance(v, float) else v) for k, v in x.items() if k in ("N1", "N2", "M", "L1", "L2", "AV", "ring", "F", "G", "margin", "governs", "l2_fits_over_ring", "seat_sf_lower")})
+        for r in out["rows"] + [out["tot"]]:
+            print(r)
+        b = out["plan"]["building"]["rect"]
+        print("box", b[2] - b[0], b[3] - b[1], (b[2] - b[0]) * (b[3] - b[1]))
+        raise SystemExit
     if "--rev-d" in _s.argv:
         p2, prog, ob, out = summary_d()
         print("option B floor", ob)

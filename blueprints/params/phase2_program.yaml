@@ -288,3 +288,32 @@ locked_program:
   status: ASSUMED (split, telescopic gross-up) / CITED (seat factors, wheelchair table)
   confidence: MEDIUM
   source: "Shane 2026-10-03 11:39 PM CT (D-030); R-008; R-015; R-016 (wheelchair table)"
+
+# ---------------------------------------------------------------------------------------------------
+# REV E INPUTS (Shane 2026-10-04 4:30 AM CT, D-009 DECIDED): seating MIX — telescopic lower tier, fixed upper tier.
+# Revs A-D read only the sections above and are FROZEN. Rev E = locked program with the decided seating mix.
+# ---------------------------------------------------------------------------------------------------
+meta_rev_e:
+  ticket: P2-T-003b
+  sheet: P2-G-003
+  title: "LOCKED PROGRAM (MIX)"
+  subtitle: "D-009 · AREA BY LEVEL, NOT A PLAN"
+  revision: E
+  file: P2-G-003_RevE
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev D method; lower tier at telescopic geometry, upper tier at fixed 6.0 SF/seat; footprint margin vs the 55,000 SF cap; seats by side and tier from the Rev B block plan"
+  source: "Shane 2026-10-04 4:30 AM CT (D-009 DECIDED MIX; Rev E, Rev D frozen; target >= 2,000 SF under 55,000)"
+
+mixed_seating:
+  lower_tier: telescopic
+  upper_tier: fixed
+  lower_basis: "factors.seating lean_* telescopic geometry (3.38 SF/seat)"
+  upper_basis: "factors.seating.base_sf_per_seat (6.0 SF/seat)"
+  gross_up_basis: "x 1.25 (factors.gross_up.base) on both levels, as in Rev D"
+  target_margin_sf: 2000
+  target_basis: "Shane: footprint margin target >= 2,000 SF under 55,000"
+  comparison: "ALL FIXED column = P2-G-003 Rev D base case, for reference"
+  status: DECIDED (mix) / CITED (seat factors) / ASSUMED (50/50 split)
+  confidence: MEDIUM
+  source: "Shane 2026-10-04 4:30 AM CT (D-009); R-008"

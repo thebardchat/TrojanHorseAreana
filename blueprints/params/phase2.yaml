@@ -8,6 +8,8 @@
 # v5, 2026-10-03 11:39 PM CT: PROGRAM LOCKED (D-030 DECIDED): 16,400 SF event floor, 4 x 42 ft mats, 2,200 bowl seats, 2 levels,
 #     no suites (PARKED), S&C + cross-training on Level 2 over the lockers. The 22,000 SF tag is SUPERSEDED for the event
 #     floor and kept as history (sf_tagged_superseded). Locked facts change only on "CHANGE APPROVED".
+# v6, 2026-10-04 4:30 AM CT: SEATING TYPE LOCKED (D-009 DECIDED): MIX — telescopic lower tier, fixed upper tier.
+#     Block plan Rev B direction: entry south-center on the arena N-S axis, mech off the west public side (Shane review).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -96,12 +98,16 @@ spaces:
     suites: "none — PARKED as a future add-on (PARKING_LOT, D-030)"
     placement: outside the event floor (16,400 SF, D-030)
     banks_on_plan: north, south, east, plus short corner banks flanking the stage on the west
-    type: TBD
+    type: "MIX — telescopic lower tier, fixed upper tier (LOCKED, D-009 DECIDED, Shane 2026-10-04 4:30 AM CT)"
+    lower_tier_type: telescopic
+    upper_tier_type: fixed
+    seats_per_tier: "1,100 lower (telescopic) + 1,100 upper (fixed) = 2,200 — 50/50 split ASSUMED (phase2_program.yaml locked_program)"
+    sides: "north, south, east only (no west tier; OK per Shane 2026-10-04 4:30 AM CT)"
     conflict_note: "Reference plan labels say north bank 3,200 / south bank 2,200; legend says 2,200 spectators. Locked total stays 2,200 (D-016 OPEN)"
     rejected_option: "~1,370 bowl seats with no make-up — REJECTED by Shane ('not enough', D-032)"
     suites_direction: "studied in P2-G-003 Rev C; not chosen — PARKED (D-030 DECIDED 11:39 PM CT)"
-    type_note: "fixed vs telescopic stays OPEN (D-009); plans show both as an overlay"
-    source: "concept sheet; Shane 2026-10-03 (2,200 total stays locked); reference plan (banks); type → D-009; rejected_option → D-032 (Shane 11:26 PM CT); suites_direction → Shane 11:26 PM CT, D-030"
+    type_note: "D-009 DECIDED 2026-10-04 4:30 AM CT (Shane, firsthand): MIX; superseded the 11:39 PM CT 'fixed vs telescopic overlay' note"
+    source: "concept sheet; Shane 2026-10-03 (2,200 total stays locked); reference plan (banks); type → D-009 DECIDED (Shane, firsthand, 2026-10-04 4:30 AM CT); sides → Shane 4:30 AM CT; rejected_option → D-032 (Shane 11:26 PM CT); suites_direction → Shane 11:26 PM CT, D-030"
   boys_locker:
     name: Boys Locker Room
     sf: 3500
@@ -143,7 +149,8 @@ spaces:
     form: one limestone arch, crimson inside, gold soffit
     site_rule: drive kept clear, cars to the side
     location: south center
-    source: "concept sheet; reference plan (location)"
+    location_block_plan: "south-center on the arena's N-S axis; lobby / hall of champions centered on the south side under the south tier; portal faces the road (road assumed south, site TBD)"
+    source: "concept sheet; reference plan (location); location_block_plan → Shane 2026-10-04 4:30 AM CT (P2-A-101 Rev B review)"
 
 support_rooms:
   - id: stage
@@ -210,7 +217,8 @@ support_rooms:
     sf: TBD
     status: shown on reference plan, SF TBD
     location: south edge ('Mechanical / Electrical Room') and southeast corner ('Mechanical / Storage / Utility')
-    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+    location_block_plan: "off the west public side: NW corner + north wall + east ring (Shane 2026-10-04 4:30 AM CT: NW or NE corner or along the north wall)"
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03; location_block_plan → Shane 2026-10-04 4:30 AM CT"
 
 flow:
   types: [athlete flow, spectator flow]
@@ -300,10 +308,10 @@ open_items:
   owner_of_record: "OPEN — Shane / Hazel Green Trojan Youth Wrestling / partnership (D-007). Not a school project (D-028)"
   ahj: TBD
   budget: TBD
-  seating_type: TBD
+  seating_type: "DECIDED (D-009, 2026-10-04 4:30 AM CT): MIX — telescopic lower tier, fixed upper tier"
   concessions_scope: TBD
   program_fit: "DECIDED (D-030, 11:39 PM CT): 16,400 SF floor, 2,200 bowl seats, 2 levels, no suites; P2-G-003 Rev D = locked program sheet"
-  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030, D-031, D-032; Shane 2026-10-03 10:45 PM + 11:09 PM + 11:26 PM CT"
+  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030, D-031, D-032; Shane 2026-10-03 10:45 PM + 11:09 PM + 11:26 PM CT; Shane 2026-10-04 4:30 AM CT (D-009)"
 
 sheets:
   P2-G-003:
@@ -328,9 +336,14 @@ sheets:
         source: "Shane 2026-10-03 11:26 PM CT (Rev C, Rev B frozen); frozen 11:39 PM CT when Rev D was ordered"
       D:
         file: P2-G-003_RevD
+        frozen: true
+        note: LOCKED PROGRAM sheet (D-030); FIXED vs TELESCOPIC columns
+        source: "Shane 2026-10-03 11:39 PM CT (Rev D = locked program; Rev C frozen); frozen 2026-10-04 4:30 AM CT when Rev E was ordered"
+      E:
+        file: P2-G-003_RevE
         frozen: false
-        note: LOCKED PROGRAM sheet (D-030)
-        source: "Shane 2026-10-03 11:39 PM CT (Rev D = locked program; Rev C frozen)"
+        note: LOCKED PROGRAM with MIX seating (D-009); footprint margin; seats by side and tier
+        source: "Shane 2026-10-04 4:30 AM CT (Rev E; Rev D frozen)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
   P2-A-101:
     title: OVERALL FLOOR PLAN — LEVEL 1
@@ -340,8 +353,14 @@ sheets:
     revisions:
       A:
         file: P2-A-101_RevA
+        frozen: true
+        inputs: params/phase2_plan.yaml
+        source: "Shane 2026-10-03 11:39 PM CT (start P2-A-101 Level 1, schematic block plan); frozen 2026-10-04 4:30 AM CT ('good first block plan')"
+      B:
+        file: P2-A-101_RevB
         frozen: false
-        source: "Shane 2026-10-03 11:39 PM CT (start P2-A-101 Level 1, schematic block plan)"
+        inputs: params/phase2_plan_rev_b.yaml
+        source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating)"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2
@@ -351,6 +370,12 @@ sheets:
     revisions:
       A:
         file: P2-A-102_RevA
+        frozen: true
+        inputs: params/phase2_plan.yaml
+        source: "Shane 2026-10-03 11:39 PM CT (start P2-A-102 Level 2, schematic block plan); frozen 2026-10-04 4:30 AM CT ('good first block plan')"
+      B:
+        file: P2-A-102_RevB
         frozen: false
-        source: "Shane 2026-10-03 11:39 PM CT (start P2-A-102 Level 2, schematic block plan)"
+        inputs: params/phase2_plan_rev_b.yaml
+        source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating)"
     source: "Shane 2026-10-03 11:39 PM CT"

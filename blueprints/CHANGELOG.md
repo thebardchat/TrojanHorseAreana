@@ -324,3 +324,23 @@
   - Level 2: S&C + cross-training over the lockers, restrooms + admin stacked, open to the lobby and arena below. Drawn L2 ≈ 27,570 SF vs 25,981 program.
 - Previews: `P2-G-003.png/.pdf` = Rev D, `P2-G-003_RevC.png` kept, `P2-A-101.png/.pdf`, `P2-A-102.png/.pdf`.
 - DECISIONS, PARKING_LOT, BACKLOG (P2-T-003b done, P2-T-004 in progress, P2-T-005 → A-103), ASSETS, STATUS updated.
+
+## 2026-10-04 ~4:40 AM CT · D-009 DECIDED (MIX seating) · P2-G-003 Rev E · P2-A-101/102 Rev B
+- **Shane review (4:30 AM CT):** P2-A-101/102 Rev A "good first block plan". Rev A of both sheets FROZEN (regenerate byte-identical with `--rev A`); previews kept as `P2-A-101_RevA.png`, `P2-A-102_RevA.png`.
+- **D-009 DECIDED** — MIX: telescopic lower tier, fixed upper tier — "Shane, firsthand, 4:30 AM CT". Open decisions 15 → 14.
+- `params/phase2.yaml` v6: `spaces.seating.type` MIX (LOCKED), new `lower_tier_type: telescopic`, `upper_tier_type: fixed`, `seats_per_tier`, `sides` (N, S, E); `entry.location_block_plan` (south-center, road assumed south, site TBD); `support_rooms.mechanical.location_block_plan` (NW / N / E, off the west public side); `open_items.seating_type` DECIDED; sheets: P2-G-003 Rev D frozen + Rev E, P2-A-101/102 Rev A frozen + Rev B.
+- `shared/validate.py`: locks `seating.lower_tier_type == telescopic`, `upper_tier_type == fixed` (D-009).
+- `params/phase2_program.yaml`: `meta_rev_e`, `mixed_seating` (target margin 2,000 SF). Earlier sections unchanged.
+- `phase2/src/p2_testfit.py`: `compute_mix`, `largest_remainder`, `seats_by_side`, `summary_e` (`--rev-e`). `p2_g_003.py`: `build_e`, `--rev` default E; Revs A–D untouched.
+- **P2-G-003 Rev E (MIX):** lower 1,100 telescopic at 3.38 SF/seat, upper 1,100 fixed at 6.0 SF/seat, same 1.25 gross-up. L1 net 37,032 → gross 51,108; L2 net 20,785 → gross 25,981; arena volume 25,149; footprint = max(L1, arena volume + L2) = **51,130 → margin 3,870 SF under 55,000 (target ≥ 2,000 met)**; mech 3,854; **total 77,089 GSF** (all-fixed Rev D: 54,949 / margin 51 / 80,930). Fixtures 66, 4 stairs × 65 in + elevator, 18 wheelchair spaces (unchanged).
+- **Seats by side / tier (sheet table, sum 2,200):** N 353 telescopic + 308 fixed = 661; S 341 + 308 = 649; E 406 + 484 = 890; lower 1,100 + upper 1,100. Split per tier by largest remainder in proportion to drawn capacity (lower 1,306, upper 1,125).
+- **New `params/phase2_plan_rev_b.yaml`** (Rev A geometry in `phase2_plan.yaml` frozen) + `p2_a_plan.py` `build_b` (`--rev A|B`, default B; room-overlap check fails the build):
+  - Box shrinks 250 × 220 → **204 × 252 ft = 51,408 SF** (3,592 under the cap; 278 over the program footprint). Floor 114 × 144 on the arena N-S axis (x = 113 ft).
+  - Entry south-center on the axis: vestibule + lobby / hall of champions (double height) under the south tier, 12 ft portal straight to the floor. Men (W of lobby) and women (E) flank it; concession and first aid in the lobby zone.
+  - Mech/elec moved off the west side: NW corner (tag 3), N ring (15), E ring behind the bowl (16); old SE mech gone. West = boys + girls lockers + athlete corridor only; team/service entry at the SW.
+  - Event lockers N (2) + E (2) via vomitories V1 (N) and V2 (E); equipment storage/room N; 4 stairs + elevator aligned L1/L2.
+  - Level 2: S&C + cross-training over the lockers, men/women L2 stacked over L1, admin over the team entry, balcony / upper concourse across the lobby (hall of champions wall), lobby open to below centered south, upper tier N/S/E with rear walkways.
+  - Layout fix: plan title moved to the right panel, scale bar beside the building, axis note at the entry arrow (252 ft box fills the sheet height at 1/32 in).
+- **Frozen checks:** P2-G-003 Revs A–D and P2-A-101/102 Rev A regenerated to /tmp: PDFs byte-identical; DXFs entity-identical (227 / 294 / 320 / 361; 714 / 598).
+- Previews: `P2-G-003.png/.pdf` = Rev E (`P2-G-003_RevD.png` kept); `P2-A-101.png/.pdf`, `P2-A-102.png/.pdf` = Rev B.
+- DECISIONS, BACKLOG, ASSETS, STATUS updated.

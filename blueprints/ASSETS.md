@@ -178,3 +178,9 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **New Phase 2 data file** `params/phase2_plan.yaml` (block-plan coordinates in feet, every group sourced; layout ASSUMED).
 - **Previews (box only):** `/workspace/keystone_previews/P2-G-003.png` + `P2-G-003.pdf` (now Rev D), `P2-G-003_RevC.png` (Rev C kept), `P2-G-003_RevB.png`, `P2-G-003_RevA.png`; `P2-A-101.png` + `P2-A-101.pdf`, `P2-A-102.png` + `P2-A-102.pdf`.
 - Layout reference used (box only, not committed): `/workspace/arena_src/arenav1-floor-plan.png` (same plan as `Phase2-floor-plan-flat.png`).
+
+## 2026-10-04 additions (4:30 AM CT session, D-009 MIX seating + Rev B block plans)
+- **New Phase 2 sheet** `phase2/out/pdf/P2-G-003_RevE.pdf` + `phase2/out/dxf/P2-G-003_RevE.dxf` (LOCKED PROGRAM, MIX seating, tabloid landscape, one page), from `phase2/src/p2_g_003.py --rev E` (now the default). Revs A–D are FROZEN and unchanged.
+- **New Phase 2 sheets** `phase2/out/{pdf,dxf}/P2-A-101_RevB` (Level 1) and `P2-A-102_RevB` (Level 2), from `phase2/src/p2_a_plan.py --sheet P2-A-101|P2-A-102` (`--rev B` default). Rev A files are FROZEN and unchanged (`--rev A` regenerates them byte-identical).
+- **New Phase 2 data file** `params/phase2_plan_rev_b.yaml` (Rev B block-plan coordinates in feet, 204 × 252 ft box, every group sourced; layout ASSUMED). `params/phase2_plan.yaml` stays as the frozen Rev A geometry.
+- **Previews (box only):** `/workspace/keystone_previews/P2-G-003.png` + `.pdf` (now Rev E), `P2-G-003_RevD.png` (Rev D kept); `P2-A-101.png` + `.pdf`, `P2-A-102.png` + `.pdf` (now Rev B), `P2-A-101_RevA.png`, `P2-A-102_RevA.png` (Rev A kept).
