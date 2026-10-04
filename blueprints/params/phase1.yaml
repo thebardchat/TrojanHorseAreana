@@ -68,23 +68,22 @@ work_items:
     name: Wall padding
     description: proper training wall pads on the wrestling room walls; finish work, not new construction
     walls: TBD
-    pad_height: TBD
-    pad_height_proposed_ft: 6   # proposed only, NOT decided (D-003 OPEN)
-    pad_height_note: proposed 6 ft per R-001 guidance, coach to confirm
-    pad_height_sheet_label: "6 ft proposed (R-001 guidance), coach to confirm"
+    why: "Wrestlers can get hurt when they are thrown or fall into bare, unpadded walls during practice. Proper wall pads lower that risk."
+    pad_height: 6 ft
     pad_thickness: TBD
     fire_rating: TBD    # must meet standards.wall_pads.spec_basis (R-001)
     supplied_by: TBD    # school purchase, donated, or fundraised
     supplied_by_options: school purchase, donation, or fundraiser
     purchase_note: "Wall pads must have an NFPA 286 assembly test report — not a foam-only rating. Ask the vendor before purchase."
-    source: "concept sheet; walls/height/supplier → D-003 (OPEN; 6 ft proposed, coach to confirm); purchase_note verbatim → D-020 (Shane, chat 2026-10-03); fire rule in standards.wall_pads (R-001); product choice still TBD"
+    source: "concept sheet; pad_height → D-003 DECIDED (Shane, chat 2026-10-03; matches R-001 guidance); walls/supplier → D-021 (OPEN); why → Shane 2026-10-03; purchase_note verbatim → D-020 (Shane, chat 2026-10-03); fire rule in standards.wall_pads (R-001); product choice still TBD"
   - id: W2
     name: Plumbing repair
     location: TBD
     scope: repair failing plumbing in the existing building
+    why: Failing plumbing is getting worse the longer it waits.
     design_by: BY LICENSED PLUMBER / ENGINEER OF RECORD
     keystone_output: scope narrative + fixture list only (no plumbing design)
-    source: "concept sheet (scope); Shane (prompt §2: design_by, keystone_output); location → D-002"
+    source: "concept sheet (scope); Shane (prompt §2: design_by, keystone_output); why → Shane 2026-10-03; location → D-002"
   - id: W3
     name: Restroom split
     result: 1 male + 1 female athlete restroom
@@ -119,16 +118,21 @@ contacts:
     email: TBD
     phone: TBD
     source: "Claude/Grok sessions (role only)"
+  requester:
+    name: Shane Brazelton
+    phone: 256-508-4608
+    email: brazeltonshane@gmail.com
+    sheet_line: "Requested by: Shane Brazelton — 256-508-4608 / brazeltonshane@gmail.com"
+    source: "Shane 2026-10-03 (for the principal version of P1-G-001)"
 
 approvals:
   chain: TBD          # principal → district facilities → anyone else
-  chain_shown:        # draft order shown on P1-G-001 until R-002/R-004 + D-004 settle it
-    - Principal (name spelling TBD)
+  chain_plain:        # plain-words order shown on P1-G-001 Rev B (principal version)
+    - Principal
     - District facilities (Madison County Schools)
-    - TBD
-  research_pending: [R-002, R-004]
+    - Others as the district requires
   donated_labor_materials_allowed: TBD
-  source: "D-004; research → R-002, R-004 (not yet researched)"
+  source: "D-004; chain_plain → Shane 2026-10-03; research → R-002, R-004"
 
 schedule:
   scope_confirmation_expected: "~end of October 2026"
@@ -168,6 +172,7 @@ standards:
     competition_runoff_to_padded_wall_ft: 10   # meets only (KHSAA citing NFHS POE); NOT applied to Phase 1 practice room without Shane
     confidence: "fire rule HIGH; height/thickness guidance MEDIUM; F2440 detail LOW"
     sheet_basis: "R-001: 2021 IBC 806.2 and 803.4 → 2603.9 (Alabama Building Code via DCM)"
+    sheet_basis_plain: "2021 IBC 806.2 and 803.4 → 2603.9 (Alabama Building Code)"
     source: "R-001"
   ada_single_user_restroom:
     turning_space_diameter_in: 60          # 304.3.1 (or T-shape in 60 in square, 304.3.2)
@@ -229,16 +234,50 @@ sheets:
     title: SCOPE SHEET
     subtitle: "PHASE 1 — REMODEL OF EXISTING WRESTLING ROOM"
     scale: NTS
-    revision: A
-    revision_note: first issue for review
     size: "11x17 tabloid, landscape"
     audience: principal + district facilities
-    waiting_on:
-      - "Room measurements + photos: wrestling room and walk-through room (Shane) — D-001"
-      - "Pad height: 6 ft proposed, coach's call — D-003"
-      - "Which walls get pads, and who buys or donates them — D-003"
-      - "Where the plumbing fails + photos — D-002"
-      - "Principal's name spelling — D-005"
-      - "Approval path: who signs off, donated work allowed? — D-004 (R-002, R-004)"
     photo_boxes: [Wrestling room, Walk-through room]
     source: "prompt §9 (sheet list, title block fields, 11x17); Shane chat 2026-10-03 (P1-T-004 content + subtitle)"
+    revisions:
+      A:                  # INTERNAL copy. FROZEN as issued 2026-10-03 (commit f002dff). Do not edit.
+        audience_label: internal
+        file: P1-G-001_RevA_internal
+        frozen: true
+        show_codes: true
+        pad_height_label: "6 ft proposed (R-001 guidance), coach to confirm"
+        waiting_heading: WAITING ON
+        waiting_on:
+          - "Room measurements + photos: wrestling room and walk-through room (Shane) — D-001"
+          - "Pad height: 6 ft proposed, coach's call — D-003"
+          - "Which walls get pads, and who buys or donates them — D-003"
+          - "Where the plumbing fails + photos — D-002"
+          - "Principal's name spelling — D-005"
+          - "Approval path: who signs off, donated work allowed? — D-004 (R-002, R-004)"
+        approvals_heading: "WHO APPROVES (DRAFT — TBD)"
+        approvals_chain:
+          - Principal (name spelling TBD)
+          - District facilities (Madison County Schools)
+          - TBD
+        approvals_note: "Final approval path, and whether donated labor or materials are allowed: TBD (R-002 and R-004 research pending)."
+        table_heading: "KEY 2010 ADA NUMBERS FOR EACH RESTROOM (from R-003)"
+        table_footnote: "Planning numbers only. Final restroom layout comes on sheet P1-A-102 after the rooms are measured."
+        show_why: false
+        show_requester: false
+        source: "frozen copy of Rev A content (P1-T-004, 2026-10-03); Shane 2026-10-03: keep Rev A as internal copy, unchanged"
+      B:                  # PRINCIPAL version. No D-###/R-### codes, no name-spelling lines (validate checks the PDF).
+        audience_label: principal
+        file: P1-G-001_RevB_principal
+        frozen: false
+        show_codes: false
+        waiting_heading: "WHAT WE'RE ASKING THE SCHOOL FOR"
+        waiting_on:
+          - Permission to measure and photograph the wrestling room and walk-through room
+          - A district facilities contact
+          - How approval works for this kind of work
+        approvals_heading: WHO APPROVES
+        approvals_note: ""
+        table_heading: KEY 2010 ADA NUMBERS FOR EACH RESTROOM
+        table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
+        show_why: true
+        show_requester: true
+        source: "Shane 2026-10-03 (Rev B principal version: asks, approver wording, requester line, no codes)"

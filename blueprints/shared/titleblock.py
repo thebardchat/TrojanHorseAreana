@@ -118,7 +118,7 @@ class Sheet:
             elif kind == "text":
                 ax.text(p["x"], p["y"], p["s"], fontsize=p["size"], ha=p["align"], va="baseline",
                         fontweight="bold" if p["bold"] else "normal", color="black", zorder=3)
-        meta = {"Title": title, "Author": "KEYSTONE (AI) for Shane Brazelton", "Creator": "KEYSTONE titleblock.py"}
+        meta = {"Title": title, "Author": "KEYSTONE (AI) for Shane Brazelton", "Creator": "KEYSTONE titleblock.py", "CreationDate": None}
         fig.savefig(path, format="pdf", metadata=meta)
         if png_path:
             fig.savefig(png_path, format="png", dpi=dpi, facecolor="white")

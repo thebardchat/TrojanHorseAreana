@@ -89,3 +89,23 @@
   - W1 `supplied_by_options`
   - No room dimensions added.
 - Validate: the PDF stamp check is now non-vacuous and passes.
+
+## 2026-10-03 · D-003 decided + P1-G-001 Rev B (principal version)
+- D-003 DECIDED (Shane, chat): pad height 6 ft. phase1.yaml W1 `pad_height: 6 ft`.
+- The unsettled parts of D-003 (which walls get pads, who supplies them) moved to new **D-021 OPEN**. Open count stays 16.
+- **Rev A = INTERNAL copy, frozen.** Files renamed with `git mv`, bytes unchanged:
+  - `phase1/out/pdf/P1-G-001_RevA_internal.pdf` (sha256 bfcffb05…)
+  - `phase1/out/dxf/P1-G-001_RevA_internal.dxf` (sha256 31a36c02…)
+- Rev A content is frozen in phase1.yaml `sheets.P1-G-001.revisions.A`.
+- Reproducibility check: `p1_g_001.py --rev A --out-dir /tmp/…` gives identical PDF text, identical DXF entity text and geometry, and identical rendered pixels. The generator refuses to overwrite a frozen revision in the repo without `--force`.
+- **Rev B = PRINCIPAL version:** `phase1/out/pdf/P1-G-001_RevB_principal.pdf` + `phase1/out/dxf/P1-G-001_RevB_principal.dxf`, built from `revisions.B`. Changes from Rev A:
+  - No D-/R- codes and no name-spelling lines. IBC and ADA section numbers stay.
+  - Requester line under the title.
+  - W1 and W2 each get a "Why:" line.
+  - Pad height prints "6 ft".
+  - "WHAT WE'RE ASKING THE SCHOOL FOR" (3 asks) replaces WAITING ON.
+  - WHO APPROVES reads: Principal / District facilities (Madison County Schools) / Others as the district requires.
+  - Title block shows rev B.
+- New phase1.yaml fields, sourced "Shane 2026-10-03": `contacts.requester`, W1/W2 `why`, `approvals.chain_plain`, `standards.wall_pads.sheet_basis_plain`.
+- `shared/titleblock.py`: the PDF CreationDate is no longer stamped, so later builds can be reproduced exactly.
+- `shared/validate.py` adds check 6b: every `*principal*.pdf` must contain no `D-0`/`R-0` codes and no "spelling". Tested against the Rev A text, it catches 9 codes plus "spelling".

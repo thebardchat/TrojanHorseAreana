@@ -12,6 +12,7 @@ Checks (v2, 2026-10-03: phase2.yaml seed added):
   5. phase2.yaml locked values unchanged (55,000 SF total, 22,000 SF arena,
      2,200 seats total) and the girls locker carries the D-013 draw-equal rule
   6. Every PDF in phase*/out/pdf contains the PRELIMINARY stamp text (passes if no PDFs)
+     6b. Principal-version PDFs (*principal*.pdf) contain no 'D-0'/'R-0' codes and no 'spelling'
   7. STATUS.json (if present) matches schema_version 2 and its open_decisions
      equals the OPEN count in DECISIONS.md
 SKIPPED for now: Phase 2 area reconciliation (55,000 vs room sum). Most support
@@ -198,6 +199,23 @@ def check_pdfs():
             fail(f"PRELIMINARY stamp text missing: {pdf.relative_to(ROOT)}")
 
 
+def check_principal_pdfs():
+    """Principal-facing sheets (file name contains 'principal'): no internal D-###/R-### codes, no name-spelling notes."""
+    pdfs = sorted(ROOT.glob("phase*/out/pdf/**/*principal*.pdf"))
+    if not pdfs:
+        ok("no principal-version PDFs yet: code-free check passes vacuously")
+        return
+    for pdf in pdfs:
+        text = re.sub(r"\s+", " ", pdf_text(pdf))
+        bad = sorted(set(re.findall(r"[DR]-0\d*", text)))
+        if re.search(r"spelling", text, flags=re.IGNORECASE):
+            bad.append("'spelling'")
+        if bad:
+            fail(f"principal PDF shows internal codes/notes {bad}: {pdf.relative_to(ROOT)}")
+        else:
+            ok(f"principal PDF is code-free (no D-0/R-0, no 'spelling'): {pdf.relative_to(ROOT)}")
+
+
 def check_status():
     sj = ROOT / "STATUS.json"
     if not sj.exists():
@@ -242,6 +260,7 @@ if __name__ == "__main__":
     print(f"KEYSTONE validate: {ROOT}")
     check_params()
     check_pdfs()
+    check_principal_pdfs()
     check_status()
     if failures:
         print(f"\nVALIDATE FAILED: {len(failures)} problem(s). Do not commit.")

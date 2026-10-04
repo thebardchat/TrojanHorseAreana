@@ -1,11 +1,17 @@
 """P1-G-001 — Phase 1 one-page scope sheet (11x17 landscape), vector PDF + DXF.
 
+Two revisions, both from phase1.yaml `sheets.P1-G-001.revisions`:
+  A = INTERNAL copy, FROZEN as issued 2026-10-03 (codes shown). Its committed
+      PDF/DXF are kept as-is; regenerate only to check (use --out-dir).
+  B = PRINCIPAL version (plain words, no D-/R- codes, requester line, asks list).
+
 Every value comes from blueprints/params/phase1.yaml (plus the Phase 2 building
 total from phase2.yaml, used ONLY in the "NOT INCLUDED" list). Unknowns print TBD.
 Layout constants below are sheet geometry in inches, not project dimensions.
 
 Run from the repo root:
-  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py [--png PATH]
+  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev B [--png PATH]
+  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev A --out-dir /tmp/check
 """
 from __future__ import annotations
 
@@ -103,11 +109,13 @@ def callout(sh: Sheet, x, y, w, s, size=BODY + 0.5, lw=1.8):
     return y - h - 0.1
 
 
-def build(p1: dict, p2: dict) -> Sheet:
+def build(p1: dict, p2: dict, rev: str = "B") -> Sheet:
     meta, site = p1["meta"], p1["site"]
     wi = {w["id"]: w for w in p1["work_items"]}
     w1, w2, w3 = wi["W1"], wi["W2"], wi["W3"]
     sp = p1["sheets"][SHEET_NO]
+    rv = sp["revisions"][rev]
+    codes = rv["show_codes"]
     pads, ada, gov = (p1["standards"][k] for k in ("wall_pads", "ada_single_user_restroom", "governing"))
     cites = ada["cites"]
     plumb = p1["existing"]["plumbing"]
@@ -120,7 +128,7 @@ def build(p1: dict, p2: dict) -> Sheet:
         "sheet_no": SHEET_NO,
         "scale": sp["scale"],
         "date": meta["sheet_date"],
-        "revision": sp["revision"],
+        "revision": rev,
         "drawn_by": meta["drawn_by"],
         "stamp": meta["stamp"],
     }, margin=M, tb_h=0.95, stamp_h=0.40)
@@ -130,15 +138,19 @@ def build(p1: dict, p2: dict) -> Sheet:
     top = H - M
     sh.text(x0, top - 0.40, meta["project"].upper(), size=22, bold=True)
     sh.text(x0, top - 0.74, sp["subtitle"], size=16, bold=True)
+    hx = 0.0                                        # extra header height (Rev B requester line)
+    if rv["show_requester"]:
+        hx = 0.26
+        sh.text(x0, top - 1.0, p1["contacts"]["requester"]["sheet_line"], size=12, bold=True)
     sh.text(x1, top - 0.32, f"Location: {site['location']}", size=BODY, align="right")
     sh.text(x1, top - 0.54, f"Rooms: {site['rooms_in_scope']}", size=BODY, align="right")
     sh.text(x1, top - 0.76, f"For review by: {sp['audience']}", size=BODY, align="right")
-    sh.line(x0, top - 0.88, x1, top - 0.88, lw=1.2)
-    sh.text(x0, top - 1.035, "WHAT THIS PROJECT DOES — 3 WORK ITEMS", size=12, bold=True)
+    sh.line(x0, top - 0.88 - hx, x1, top - 0.88 - hx, lw=1.2)
+    sh.text(x0, top - 1.035 - hx, "WHAT THIS PROJECT DOES — 3 WORK ITEMS", size=12, bold=True)
 
     # ---- row 1: the three work items ------------------------------------
-    r1_top = top - 1.12
-    r2_h = 2.3
+    r1_top = top - 1.12 - hx
+    r2_h = 2.3 - hx
     r2_y = body_bottom + GAP
     r1_y = r2_y + r2_h + GAP
     r1_h = r1_top - r1_y
@@ -149,20 +161,25 @@ def build(p1: dict, p2: dict) -> Sheet:
     # W1
     x, y, w = box(sh, xs[0], r1_y, ws[0], r1_h, f"{w1['id']} — {w1['name'].upper()}")
     y = sh.para(x, y, w, sentence(w1["description"]), size=BODY)
+    if rv["show_why"]:
+        y = labeled(sh, x, y, w, "Why", w1["why"])
     y = labeled(sh, x, y, w, "Walls to pad", tbd(w1["walls"]))
-    y = labeled(sh, x, y, w, "Pad height", w1["pad_height_sheet_label"] if tbd(w1["pad_height"]) == "TBD" else w1["pad_height"])
+    y = labeled(sh, x, y, w, "Pad height", rv.get("pad_height_label") or tbd(w1["pad_height"]))
     y = labeled(sh, x, y, w, "Pad thickness", tbd(w1["pad_thickness"]))
     y = labeled(sh, x, y, w, "Who buys or donates", f"{tbd(w1['supplied_by'])} ({w1['supplied_by_options']})")
     y = labeled(sh, x, y, w, "Door hardware", sentence(pads["doors_and_hardware"]))
     y -= 0.08
     sh.text(x, y - pitch(BODY), "FIRE SAFETY — BEFORE BUYING PADS", size=BODY, bold=True)
     y = callout(sh, x, y - pitch(BODY) - 0.08, w, w1["purchase_note"])
-    y = sh.para(x, y, w, f"Basis: {pads['sheet_basis']}.", size=8.5)
+    basis = f"Basis: {pads['sheet_basis']}." if codes else f"Code basis: {pads['sheet_basis_plain']}."
+    y = sh.para(x, y, w, basis, size=8.5)
     fits("W1", y, r1_y)
 
     # W2
     x, y, w = box(sh, xs[1], r1_y, ws[1], r1_h, f"{w2['id']} — {w2['name'].upper()}")
     y = sh.para(x, y, w, sentence(f"repair {plumb['condition']}"), size=BODY)
+    if rv["show_why"]:
+        y = labeled(sh, x, y, w, "Why", w2["why"])
     y = labeled(sh, x, y, w, "Where", tbd(w2["location"]))
     y = labeled(sh, x, y, w, "Problem spots", tbd(plumb["leak_or_damage_spots"]))
     y = labeled(sh, x, y, w, "Existing fixtures", tbd(plumb["existing_fixtures"]))
@@ -182,7 +199,7 @@ def build(p1: dict, p2: dict) -> Sheet:
     y = labeled(sh, x, y, w, "Where / room sizes", f"{tbd(w3['location'])} — waiting on measurements.")
     # key-number table
     y -= 0.06
-    sh.text(x, y - pitch(BODY), "KEY 2010 ADA NUMBERS FOR EACH RESTROOM (from R-003)", size=BODY, bold=True)
+    sh.text(x, y - pitch(BODY), rv["table_heading"], size=BODY, bold=True)
     y -= pitch(BODY) + 0.08
     rows = [
         ("Turning space", f"{ada['turning_space_diameter_in']} in circle (or T-shape)", cites["turning_space_diameter_in"]),
@@ -223,7 +240,7 @@ def build(p1: dict, p2: dict) -> Sheet:
         sh.line(x, yy, x + w, yy, lw=0.4)
     for cx in (x, x + c0, x + c0 + c1, x + w):
         sh.line(cx, y, cx, yy, lw=0.6)
-    fits("W3 table", sh.para(x, yy - 0.02, w, "Planning numbers only. Final restroom layout comes on sheet P1-A-102 after the rooms are measured.", size=8.5), r1_y)
+    fits("W3 table", sh.para(x, yy - 0.02, w, rv["table_footnote"], size=8.5), r1_y)
 
     # ---- row 2: not included / who approves / waiting on / photos --------
     ws2 = [avail * f for f in (0.19, 0.25, 0.33)]
@@ -245,18 +262,22 @@ def build(p1: dict, p2: dict) -> Sheet:
     y = sh.para(x, y - 0.05, w, "Phase 1 is a remodel of existing rooms only.", size=BODY)
     fits("NOT INCLUDED", y, r2_y)
 
-    x, y, w = box(sh, xs2[1], r2_y, ws2[1], r2_h, "WHO APPROVES (DRAFT — TBD)")
-    for i, step in enumerate(p1["approvals"]["chain_shown"], 1):
+    x, y, w = box(sh, xs2[1], r2_y, ws2[1], r2_h, rv["approvals_heading"])
+    chain = rv.get("approvals_chain") or p1["approvals"]["chain_plain"]
+    for i, step in enumerate(chain, 1):
         y = sh.para(x, y, w, step, size=BODY + 0.5, indent=0.25, bullet=f"{i}.")
-    pend = " and ".join(p1["approvals"]["research_pending"])
-    y = sh.para(x, y - 0.03, w, f"Final approval path, and whether donated labor or materials are allowed: TBD ({pend} research pending).", size=BODY)
+    if rv.get("approvals_note"):
+        y = sh.para(x, y - 0.03, w, rv["approvals_note"], size=BODY)
     sch = p1["schedule"]
     y = labeled(sh, x, y, w, "Scope confirmation expected", f"{sch['scope_confirmation_expected']} ({sch['confirming_parties']})")
     fits("WHO APPROVES", y, r2_y)
 
-    x, y, w = box(sh, xs2[2], r2_y, ws2[2], r2_h, "WAITING ON")
-    for it in sp["waiting_on"]:
-        y = sh.para(x, y, w, it, size=BODY, indent=0.2, bullet="□")
+    x, y, w = box(sh, xs2[2], r2_y, ws2[2], r2_h, rv["waiting_heading"])
+    for i, it in enumerate(rv["waiting_on"], 1):
+        if codes:
+            y = sh.para(x, y, w, it, size=BODY, indent=0.2, bullet="□")
+        else:
+            y = sh.para(x, y, w, it, size=BODY + 0.5, indent=0.25, bullet=f"{i}.")
     fits("WAITING ON", y, r2_y)
 
     x, y, w = box(sh, xs2[3], r2_y, ws2[3], r2_h, "PHOTOS")
@@ -273,20 +294,30 @@ def build(p1: dict, p2: dict) -> Sheet:
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--rev", default="B", help="A (internal, frozen) or B (principal); default B")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
+    ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase1/out/{pdf,dxf}")
+    ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")
     a = ap.parse_args()
     p1, p2 = load()
-    sh = build(p1, p2)
-    pdf = BP / "phase1" / "out" / "pdf" / f"{SHEET_NO}.pdf"
-    dxf = BP / "phase1" / "out" / "dxf" / f"{SHEET_NO}.dxf"
+    rv = p1["sheets"][SHEET_NO]["revisions"][a.rev]
+    if a.out_dir:
+        pdf = Path(a.out_dir) / f"{rv['file']}.pdf"
+        dxf = Path(a.out_dir) / f"{rv['file']}.dxf"
+    else:
+        pdf = BP / "phase1" / "out" / "pdf" / f"{rv['file']}.pdf"
+        dxf = BP / "phase1" / "out" / "dxf" / f"{rv['file']}.dxf"
+        if rv.get("frozen") and (pdf.exists() or dxf.exists()) and not a.force:
+            sys.exit(f"Rev {a.rev} is FROZEN; its committed files stay as issued. Use --out-dir to regenerate for checking.")
+    sh = build(p1, p2, a.rev)
     pdf.parent.mkdir(parents=True, exist_ok=True)
     dxf.parent.mkdir(parents=True, exist_ok=True)
-    sh.render_pdf(pdf, title=f"{SHEET_NO} {p1['sheets'][SHEET_NO]['title']}", png_path=a.png)
+    sh.render_pdf(pdf, title=f"{SHEET_NO} Rev {a.rev} {p1['sheets'][SHEET_NO]['title']} ({rv['audience_label']})", png_path=a.png)
     sh.render_dxf(dxf)
     if OVERFLOW:
         print("LAYOUT OVERFLOW:\n  " + "\n  ".join(OVERFLOW))
         sys.exit(1)
-    print(f"wrote {pdf.relative_to(BP.parent)}\nwrote {dxf.relative_to(BP.parent)}" + (f"\nwrote {a.png}" if a.png else ""))
+    print(f"wrote {pdf}\nwrote {dxf}" + (f"\nwrote {a.png}" if a.png else ""))
 
 
 if __name__ == "__main__":
