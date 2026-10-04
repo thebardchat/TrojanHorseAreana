@@ -10,6 +10,8 @@
 #     floor and kept as history (sf_tagged_superseded). Locked facts change only on "CHANGE APPROVED".
 # v6, 2026-10-04 4:30 AM CT: SEATING TYPE LOCKED (D-009 DECIDED): MIX — telescopic lower tier, fixed upper tier.
 #     Block plan Rev B direction: entry south-center on the arena N-S axis, mech off the west public side (Shane review).
+# v7, 2026-10-04 4:43 AM CT: ACCESS CONTROL DECIDED (D-033): single controlled entry for everyone at the south grand entrance
+#     (security checkpoint); perimeter doors EXIT ONLY; deliveries / buses OPEN (D-034). Block plan Rev C.
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -151,6 +153,15 @@ spaces:
     location: south center
     location_block_plan: "south-center on the arena's N-S axis; lobby / hall of champions centered on the south side under the south tier; portal faces the road (road assumed south, site TBD)"
     source: "concept sheet; reference plan (location); location_block_plan → Shane 2026-10-04 4:30 AM CT (P2-A-101 Rev B review)"
+  access_control:
+    rule: "single controlled entry point for all people (public, teams, staff): everyone passes through the south grand entrance, which serves as a security checkpoint (DECIDED, D-033)"
+    quote: "Everyone passes through the grand entrance; it will serve as a checkpoint, a security feature."
+    checkpoint: "SECURITY CHECKPOINT in the vestibule / lobby — size TBD (ASSUMED location)"
+    team_route: "teams / athletes enter at the grand entrance, then a controlled door off the lobby leads to the athlete corridor and locker rooms, separate from public flow (ASSUMED layout)"
+    perimeter_exits: "all other perimeter doors are EXIT ONLY — alarmed, no exterior entry hardware; egress side openable without a key (IBC 2021 1010.2, 1010.2.9; 2018 1010.1.9, 1010.1.10); exit count and capacity per R-015 (Table 1006.3.3, 1005.3) and 1030.2 / 1030.3"
+    service_door: "SERVICE / LOADING door at equipment storage — staff-controlled, not a people entrance; deliveries / buses under the single-entry rule OPEN (D-034); no size set"
+    status: "DECIDED rule (D-033); layout ASSUMED"
+    source: "Shane, firsthand, 2026-10-04 4:43 AM CT (D-033); R-015; IBC 2021 Ch. 10 (UpCodes, Alabama, retrieved 2026-10-04); D-034 OPEN"
 
 support_rooms:
   - id: stage
@@ -310,8 +321,10 @@ open_items:
   budget: TBD
   seating_type: "DECIDED (D-009, 2026-10-04 4:30 AM CT): MIX — telescopic lower tier, fixed upper tier"
   concessions_scope: TBD
+  access_control: "DECIDED (D-033, 2026-10-04 4:43 AM CT): single controlled entry for everyone at the south grand entrance"
+  deliveries_buses: "OPEN (D-034): how deliveries and team buses work under the single-entry rule"
   program_fit: "DECIDED (D-030, 11:39 PM CT): 16,400 SF floor, 2,200 bowl seats, 2 levels, no suites; P2-G-003 Rev D = locked program sheet"
-  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030, D-031, D-032; Shane 2026-10-03 10:45 PM + 11:09 PM + 11:26 PM CT; Shane 2026-10-04 4:30 AM CT (D-009)"
+  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030, D-031, D-032; Shane 2026-10-03 10:45 PM + 11:09 PM + 11:26 PM CT; Shane 2026-10-04 4:30 AM CT (D-009); Shane 2026-10-04 4:43 AM CT (D-033, D-034)"
 
 sheets:
   P2-G-003:
@@ -358,9 +371,14 @@ sheets:
         source: "Shane 2026-10-03 11:39 PM CT (start P2-A-101 Level 1, schematic block plan); frozen 2026-10-04 4:30 AM CT ('good first block plan')"
       B:
         file: P2-A-101_RevB
-        frozen: false
+        frozen: true
         inputs: params/phase2_plan_rev_b.yaml
-        source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating)"
+        source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating); frozen 4:43 AM CT when Rev C was ordered"
+      C:
+        file: P2-A-101_RevC
+        frozen: false
+        inputs: params/phase2_plan_rev_c.yaml
+        source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed)"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2
@@ -375,7 +393,12 @@ sheets:
         source: "Shane 2026-10-03 11:39 PM CT (start P2-A-102 Level 2, schematic block plan); frozen 2026-10-04 4:30 AM CT ('good first block plan')"
       B:
         file: P2-A-102_RevB
-        frozen: false
+        frozen: true
         inputs: params/phase2_plan_rev_b.yaml
-        source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating)"
+        source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating); frozen 4:43 AM CT when Rev C was ordered"
+      C:
+        file: P2-A-102_RevC
+        frozen: false
+        inputs: params/phase2_plan_rev_c.yaml
+        source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed)"
     source: "Shane 2026-10-03 11:39 PM CT"

@@ -344,3 +344,21 @@
 - **Frozen checks:** P2-G-003 Revs A–D and P2-A-101/102 Rev A regenerated to /tmp: PDFs byte-identical; DXFs entity-identical (227 / 294 / 320 / 361; 714 / 598).
 - Previews: `P2-G-003.png/.pdf` = Rev E (`P2-G-003_RevD.png` kept); `P2-A-101.png/.pdf`, `P2-A-102.png/.pdf` = Rev B.
 - DECISIONS, BACKLOG, ASSETS, STATUS updated.
+
+## 2026-10-04 ~4:50 AM CT · D-033 DECIDED (single controlled entry) · D-034 OPEN · P2-A-101/102 Rev C
+- **D-033 DECIDED** — single controlled entry point for all people (public, teams, staff): "Everyone passes through the grand entrance; it will serve as a checkpoint, a security feature." — "Shane, firsthand, 4:43 AM CT".
+- **D-034 OPEN** — how deliveries and team buses work under the single-entry rule (no sizes set). Open decisions 14 → 15.
+- P2-A-101/102 **Rev B FROZEN** (regenerate byte-identical with `--rev B`; previews kept as `P2-A-101_RevB.png`, `P2-A-102_RevB.png`).
+- `params/phase2.yaml` v7: `spaces.entry.access_control` (rule, quote, checkpoint, team route, perimeter exits, service door; sources D-033, R-015, IBC 2021 Ch. 10); `open_items.access_control` DECIDED, `deliveries_buses` OPEN; sheets P2-A-101/102 Rev B frozen + Rev C.
+- **New `params/phase2_plan_rev_c.yaml`** (Rev B geometry frozen in `phase2_plan_rev_b.yaml`) + `p2_a_plan.py` `build_c` (`--rev A|B|C`, default C; Rev C seat counts are checked against P2-G-003 Rev E):
+  - SW team / service entry removed. Freed SW area: TEAM ASSEMBLY / HOLDING ≈ 2,072 SF + STORAGE (SW) 1,011 SF (tag 23), both unprogrammed, ASSUMED.
+  - SECURITY CHECKPOINT — size TBD (ASSUMED): dashed zone between the vestibule and lobby, location only.
+  - CD-1 controlled door off the lobby → 8 ft ATHLETE ROUTE along the back of the south tier → team assembly → athlete corridor / lockers; walls separate it from the west concourse (which loses its north 8 ft).
+  - Perimeter doors (symbols, widths not drawn): E1 main entry / main exit; X1-X10 EXIT ONLY — alarmed, no exterior entry hardware (team assembly W, girls + boys lockers W, ST-1..ST-4 discharges, exit passages N + E, east concourse); S1 SERVICE / LOADING at equipment storage (staff-controlled, not a people entrance; D-034 OPEN).
+  - New exit passages N + E (8 ft = vomitory width, ASSUMED) from V1 / V2 to the north and east walls so the north and east tiers reach perimeter exits (T1006.3.3, 1030.3). V1 moved 3.85 ft east, V2 3.91 ft south (same widths, seat counts unchanged). Event locker 2 shifted east, event locker 4 shifted south (900 SF each kept); Mech N 588, Mech E 1,720, new Mech (NE) 327 (tag 22) → mech drawn 3,804 vs 3,854 program.
+  - Sheet blocks: ACCESS CONTROL + EGRESS (both levels) with the IBC citations; legend adds exit / service / checkpoint symbols.
+- **Code basis (new R-015.6, IBC 2021 Alabama via UpCodes, retrieved 2026-10-04):** 1010.2 (egress side openable without a key; 2018 1010.1.9), 1010.2.9 (panic hardware only, Group A ≥ 50; 2018 1010.1.10), 1010.2.7 exc. 1 (stair discharge doors lock from outside only), 1010.2.13 (no delayed egress in Group A → alarm only), T1006.3.3 (4 exits per story > 1,000), 1030.2 (main exit ≥ 1/2 occupant load, fronts a street), 1030.3 (other exits ≥ 1/2), 1005.3.2 exc. 1 (0.15 in/occupant; seats alone → E1 ≥ 165 in clear), 1003.6 / 1010.5 (checkpoint may not narrow the egress width), T1004.5 + T1006.2.1 (locker rooms need 2 exits).
+- **P2-G-003:** program numbers unchanged → Rev E stands (regenerates byte-identical); no Rev F. Box 204 × 252 = 51,408 SF, 3,592 SF under 55,000; program footprint 51,130 (margin 3,870); 77,089 GSF; seats N 661 / S 649 / E 890 = 2,200.
+- **Frozen checks:** P2-A-101/102 Revs A + B and P2-G-003 Rev E regenerated to /tmp: PDFs byte-identical, DXFs entity-identical (714 / 598; 677 / 472; 292).
+- Previews: `P2-A-101.png/.pdf`, `P2-A-102.png/.pdf` = Rev C.
+- DECISIONS, BACKLOG, ASSETS, STATUS updated.

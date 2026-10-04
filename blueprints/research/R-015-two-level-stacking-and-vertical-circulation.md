@@ -95,6 +95,22 @@ NEEDS ARCHITECT CONFIRMATION: YES.
 
 ---
 
+## R-015.6 — Single controlled entry: exit-only doors, main exit, checkpoint (added 2026-10-04, D-033)
+
+QUESTION: If everyone enters through one grand entrance (Shane, D-033), how do the other required exits work, and what does the code say about the main exit and a security checkpoint?
+
+ANSWER (one paragraph): **Exit-only doors are allowed.** S1 1010.2 — "egress doors shall be readily openable from the egress side without the use of a key or special knowledge or effort" (2018 edition: 1010.1.9); the code governs the egress side only, so exterior entry hardware can be omitted. S1 1010.2.9 — swinging doors serving Group A spaces with 50 or more occupants "shall not be provided with a latch or lock other than panic hardware or fire exit hardware" (2018: 1010.1.10). S1 1010.2.7 exception 1 — "Stairway discharge doors shall be openable from the egress side and shall only be locked from the opposite side." **Alarm, not delay:** S1 1010.2.13 lists the occupancies allowed delayed-egress locks (B, F, I, M, R, S, U, small E classrooms, A-3/B courtrooms); a Group A arena is not among them, so exit doors may carry a local alarm but no delay. Electric locks only per 1010.2.11 / 1010.2.12 (with panic hardware, 1010.2.9 exception 2). **Main exit:** S1 1030.2 — an assembly space over 300 occupants with a main exit: "that main exit shall be of sufficient capacity to accommodate not less than one-half of the occupant load", and in Group A it "shall front on not less than one street or an unoccupied space of not less than 10 feet … that adjoins a street or public way". S1 1030.3 — the other exits on each level provide "not less than one-half of the total occupant load served by that level" and comply with 1007.1. **Count and capacity:** Table 1006.3.3 (more than 1,000 per story → 4 exits) and 1006.2.1.1 (space over 1,000 → 4 exits or exit access doorways); doors and other components 0.15 in/occupant in a sprinklered building with emergency voice/alarm (1005.3.2 exception 1; R-015.5). With the 2,200 seats alone, the main exit needs ≥ 1,100 × 0.15 in = 165 in of clear width; the final occupant load (floor, lockers, S&C) waits on R-007. **Checkpoint:** S1 1003.6 — "Obstructions shall not be placed in the minimum width or required capacity of a means of egress component"; S1 1010.5 — turnstiles "shall not be placed so as to obstruct any required means of egress" except as 1010.5.1-1010.5.3 allow. Screening lanes therefore sit beside or retract out of the main-exit egress width. **Locker rooms:** Table 1004.5 locker rooms 50 gross → a 3,500 SF locker room ≈ 70 occupants > 49, so two exits or exit access doorways (Table 1006.2.1).
+
+SOURCE: S1 (re-read 2026-10-04: https://up.codes/viewer/alabama/ibc-2021/chapter/10/means-of-egress).
+
+EDITION / SECTION: IBC 2021 §§1003.6, 1004.5, 1005.3.2, 1006.2.1, 1006.2.1.1, Table 1006.3.3, 1010.2, 1010.2.7, 1010.2.9, 1010.2.11-1010.2.13, 1010.5, 1030.2, 1030.3. 2018 equivalents named where known (1010.1.9, 1010.1.10); the 2018 assembly sections are 1029.x (see Gaps; D-008 edition OPEN).
+
+CONFIDENCE: HIGH for the rules / LOW for the occupant load (R-007 not done) and door widths (not drawn).
+
+NEEDS ARCHITECT CONFIRMATION: YES (door hardware, alarm and electric-lock design, checkpoint layout vs egress width, final occupant load).
+
+---
+
 ## Gaps
 - No section or floor-to-floor height exists; 15 ft is ASSUMED. A taller L1 (e.g. for the upper tier's rake) lengthens stairs.
 - Hoistway SF, stair layout and mechanical at grade are ASSUMED.
