@@ -2,7 +2,7 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-04T06:11:15-05:00",
+  "updated_at": "2026-10-04T06:12:30-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
@@ -36,12 +36,12 @@
   "sheets_in_progress": [
     "P2-A-301 sections (not started)"
   ],
-  "last_commit": "PENDING",
+  "last_commit": "901cb24",
   "branch": "grok/keystone",
   "open_decisions": 17,
   "blocked_on": "P1: Dr. Headen / support wing measurements + photos (D-002 cause/sink/lines still OPEN). P2: owner (D-007), AHJ (D-008); egress confirm (D-038); brand (D-040); site TBD (D-006); deliveries / buses (D-034)",
   "what_changed": "P1-T-008 done: P1-P-001 Rev A plumbing/water restore scope narrative (fixture list, licensed-plumber note, no design). Phase 1 unblocked ticket ahead of A-301.",
   "what_to_verify": "P1-P-001 Rev A: fixture counts match Shane's 2026-10-03 report; sink count still TBD; no pipe sizes invented. D-002 stays OPEN until plumber visit + photos.",
   "next_action": "Resume P2-T-009 (P2-A-301 sections) or P2-T-007 (R-006/R-007). Phase 1 first when Dr. Headen's data arrives. Answer D-040 (brand).",
-  "question_for_shane": "Phase 2 is your build, not the school's. Should the south portal carry the Hazel Green Trojans (HGHS) badge, or your own complex name and logo? For now it says BRAND / SIGNAGE — TBD."
+  "question_for_shane": "Phase 2 is your build, not the school's. Should the south portal carry the Hazel Green Trojans (HGHS) badge, or your own complex name and logo? For now it says BRAND / SIGNAGE \u2014 TBD."
 }
