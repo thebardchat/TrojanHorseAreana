@@ -128,3 +128,35 @@ rev_c:
     rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs Rev E (p2_testfit.summary_h drawn / drawn_d); program = P2-G-003 Rev I (footprint F, L2 gross, total = F + L2); no cap, no margin (D-056)"
     source: "D-057; D-061 (Shane 2026-10-04 10:27 AM CT); P2-G-003 Rev I"
   source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: C-101 Rev C if footprint / tower changes; the NE tower grows 2.75 ft west)"
+# Rev D (Shane 2026-10-04 1:21 / 1:22 PM CT): coordinated with P2-A-101 Rev H — D-066 DECIDED 40 ft walk (28 ft brick + 6 ft bands each
+# side, flowing around both portal piers), D-067 storage annex on the north wall with S1 moved to its north wall. Rev C frozen.
+rev_d:
+  revision: D
+  plan_file: phase2_plan_rev_h.yaml
+  building:
+    rect: [0, 0, 210, 252]
+    tower: [185.917, 252, 210, 258.667]
+    prior_rect: [0, 0, 210, 252]
+    prior_tower: [185.917, 252, 210, 258.667]
+    annex: [52, 252, 122, 282]
+    basis: "outline = P2-A-101 Rev H as drawn: 210 x 252 ft + NE stair tower 24.08 x 6.67 ft (unchanged from Rev F / G) + one-storey storage annex 70 x 30 ft = 2,100 SF on the north wall (D-067)"
+    source: "phase2_plan_rev_h.yaml building + projection + annex"
+  walk:
+    brick: [99, -30, 127, 0]
+    band_w: [[93, 0], [99, 0], [99, -30], [91, -30], [91, -36], [99, -36], [99, -42], [85, -42], [85, -24], [93, -24]]
+    mirror_x: 226
+    pier_ft: 8
+    width_at_doors_ft: 40
+    width_at_portal_ft: 40
+    need_in: 467.0
+    basis: "D-066 DECIDED: 40 ft at the doors = 28 ft brick (x 99-127) + 6 ft bands (x 93-99, 127-133); at the portal the bands pass outside both 8 ft piers (x 85-91, 135-141): 28 + 6 + 6 = 40 ft = 480 in >= 467.0 in (E1 standing margin, P2-G-002 Rev B). Band shape between doors and portal ASSUMED; bands paved now, could be brick later (D-044)"
+    source: "D-066 (Shane 2026-10-04 1:22 PM CT); portal 44 ft / 28 ft arch, piers 8 ft (phase2_elev.yaml, ASSUMED); IBC 2021 1028.3, 1028.5"
+  service:
+    apron: [52, 282, 85, 306]
+    drive_turn_y: 290
+    basis: "S1 moved to the annex north wall (y 282, same x 68.5); apron and drive move 30 ft north with it (diagram, size TBD civil)"
+    source: "phase2_plan_rev_h.yaml S1; D-034; D-067"
+  area_table:
+    rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs Rev G (p2_testfit.summary_j drawn / drawn_d); program = P2-G-003 Rev J (footprint F, L2 gross, total = F + L2); no cap, no margin (D-056)"
+    source: "D-057; D-067; P2-G-003 Rev J"
+  source: "Shane 2026-10-04 1:21 PM CT (D-066 closed) + 1:22 PM CT (C-101 Rev D: 40 ft walk with bands around the piers; storage annex near S1)"

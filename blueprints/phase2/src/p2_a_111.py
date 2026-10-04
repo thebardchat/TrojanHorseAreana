@@ -50,9 +50,10 @@ def rect_gap(a, b):
     return math.hypot(dx, dy)
 
 
-def compute():
-    d = g2.compute()
-    ls, plan = rd("phase2_life_safety.yaml"), rd("phase2_plan_rev_g.yaml")
+def compute(rev="A"):
+    rb = rev == "B"
+    d = g2.compute("B" if rb else "A")
+    ls, plan = (rd("phase2_life_safety_rev_b.yaml"), rd("phase2_plan_rev_h.yaml")) if rb else (rd("phase2_life_safety.yaml"), rd("phase2_plan_rev_g.yaml"))
     eg = d["code"]["egress"]
     df, sfac, dw = eg["door_in_per_occ"], eg["stair_in_per_occ"], eg["door_clear_in"]
     wc = d["wc"]
@@ -96,7 +97,7 @@ def compute():
                 room_ol[i] = -(-a // fac[s_["factor"]]["sf"])
     l1_sum = d["seats_l"] + sum(v for k, v in room_ol.items() if k in {i for s_ in d["code"]["level_1"]["spaces"] for i in s_["ids"]})
     if l1_sum != d["l1_fixed"]:
-        sys.exit(f"Rev G room loads ({l1_sum}) differ from P2-G-002 Rev A ({d['l1_fixed']})")
+        sys.exit(f"Plan room loads ({l1_sum}) differ from P2-G-002 Rev {'B' if rb else 'A'} ({d['l1_fixed']})")
     paths = [dict(p, length=plen(p["pts"])) for p in ls["travel"]["paths"]]
     (dx0, dy0), (dx1, dy1) = ls["separation"]["diagonal_from"]
     diag = math.hypot(dx1 - dx0, dy1 - dy0)
@@ -108,7 +109,8 @@ def compute():
         else:
             dist = rect_gap(srect[p["a"]], srect[p["b"]])
         seps.append(dict(p, dist=dist, req=diag / 3, ok=dist >= diag / 3))
-    return dict(d=d, ls=ls, plan=plan, e1=e1, df=df, sfac=sfac, dw=dw, others=others, nsd=nsd, sd_l2=sd_l2, prov=prov,
+    c_mc = chk(d["mc"]["l1"], d["mc"]["total"]) if rb else None
+    return dict(rev=rev, c_mc=c_mc, d=d, ls=ls, plan=plan, e1=e1, df=df, sfac=sfac, dw=dw, others=others, nsd=nsd, sd_l2=sd_l2, prov=prov,
                 other_prov=other_prov, c_wc=c_wc, c_fs=c_fs, fl_s=fl_s, cases=cases, st=st, room_ol=room_ol, paths=paths,
                 diag=diag, seps=seps, l2w=l2w, tot=tot)
 
@@ -143,12 +145,16 @@ class Plan:
         self.sh.text(a, b, s, **kw)
 
 
-def outline(pl, plan):
+def outline(pl, plan, annex=True):
     bx0, by0, bx1, by1 = plan["building"]["rect"]
     pj = plan["building"]["projection"]["rect"]
     pts = [(bx0, by0), (bx1, by0), (bx1, pj[3]), (pj[0], pj[3]), (pj[0], by1), (bx0, by1), (bx0, by0)]
     for (xa, ya), (xb, yb) in zip(pts[:-1], pts[1:]):
         pl.line(xa, ya, xb, yb, L_WALL, lw=1.8)
+    if annex and "annex" in plan["building"]:            # Plan Rev H storage annex (D-067), one storey
+        ax = plan["building"]["annex"]["rect"]
+        for (xa, ya, xb, yb) in ((ax[0], ax[1], ax[0], ax[3]), (ax[0], ax[3], ax[2], ax[3]), (ax[2], ax[3], ax[2], ax[1])):
+            pl.line(xa, ya, xb, yb, L_WALL, lw=1.8)
 
 
 def stairs(pl, plan, labels):
@@ -202,13 +208,18 @@ def build(c):
     e1, lv1, lv2 = c["e1"], plan["level_1"], plan["level_2"]
     ol = c["room_ol"]
     paths = {p["id"]: p for p in c["paths"]}
+    rb = c["rev"] == "B"
     py0 = 4.62
     # ---------------------------------------------------------------- LEVEL 1
     pl = Plan(sh, 1.0, py0, s)
-    sh.text(1.0, top - 0.16, "LEVEL 1 — LIFE SAFETY (PLAN REV G)", size=9.5, bold=True)
-    sh.text(1.0, top - 0.31, f"{lm['scale_text']} · north up (approximate) · E1 bank drawn (Option 1 DECIDED)", size=6.0)
+    if rb:
+        sh.text(3.55, top - 0.16, "LEVEL 1 — PLAN REV H", size=9.5, bold=True)
+        sh.text(3.55, top - 0.31, "D-065 bay · D-067 annex", size=6.0)
+    else:
+        sh.text(1.0, top - 0.16, "LEVEL 1 — LIFE SAFETY (PLAN REV G)", size=9.5, bold=True)
+        sh.text(1.0, top - 0.31, f"{lm['scale_text']} · north up (approximate) · E1 bank drawn (Option 1 DECIDED)", size=6.0)
     ck = lv1["checkpoint"]["rect"]
-    pl.fill(ck, LRED, L_TAG)
+    pl.fill(ck, "#DDEFE0" if rb else LRED, L_TAG)
     for r in lv1["rooms"]:
         pl.rect(r["rect"], L_ROOM, lw=0.45)
     for z in lv1["zones"]:
@@ -234,8 +245,17 @@ def build(c):
     stairs(pl, plan, {"ST-1": (42.7, 221, "center"), "ST-2": (176, 250, "right"), "ST-3": (183, 4, "right"), "ST-4": (16, 4, "left")})
     # checkpoint
     pl.rect(ck, L_TAG, lw=0.8)
-    pl.text((ck[0] + ck[2]) / 2, ck[1] + 6.5, "CHECKPOINT", size=4.0, bold=True, align="center", layer=L_TAG, color=RED)
-    pl.text((ck[0] + ck[2]) / 2, ck[1] + 2.2, "CONFLICT (D-065)", size=3.9, bold=True, align="center", layer=L_TAG, color=RED)
+    if rb:
+        cw = lv1["checkpoint"]["clear"]
+        pl.text((ck[0] + ck[2]) / 2, ck[1] + 15, "SCREEN", size=4.0, bold=True, align="center", layer=L_TAG, color=GRN)
+        pl.text((ck[0] + ck[2]) / 2, ck[1] + 9.5, "BAY", size=4.0, bold=True, align="center", layer=L_TAG, color=GRN)
+        pl.line(cw["from_x"], 19, cw["to_x"], 19, L_SEP, lw=0.5)
+        for xx_ in (cw["from_x"], cw["to_x"]):
+            pl.line(xx_, 17, xx_, 21, L_SEP, lw=0.5)
+        pl.text((cw["from_x"] + cw["to_x"]) / 2, 21.5, f"{cw['width_in']} in CLEAR", size=4.0, bold=True, align="center", layer=L_SEP, color=GRN)
+    else:
+        pl.text((ck[0] + ck[2]) / 2, ck[1] + 6.5, "CHECKPOINT", size=4.0, bold=True, align="center", layer=L_TAG, color=RED)
+        pl.text((ck[0] + ck[2]) / 2, ck[1] + 2.2, "CONFLICT (D-065)", size=3.9, bold=True, align="center", layer=L_TAG, color=RED)
     # E1 bank (outer + inner)
     for k in range(e1["pairs"]):
         xa = e1["x0"] + k * (e1["pair_ft"] + e1["mullion_ft"])
@@ -256,7 +276,8 @@ def build(c):
         lab = f"{x_['id']} 64 in" + (" (ST)" if sd else f" · {n0(cap)}")
         if w_ == "N":
             pl.line(at - 3, by1, at + 3, by1, L_EXIT, lw=2.6); arrow(pl, at, by1, 0, 1)
-            pl.text(at + 2.2, by1 + 4.2, lab, size=4.6, bold=True, layer=L_EXIT)
+            pl.text(at + 2.2 if not (rb and x_["id"] == "X4") else at - 2.2, by1 + 4.2, lab, size=4.6, bold=True, layer=L_EXIT,
+                    align="right" if rb and x_["id"] == "X4" else "left")
         elif w_ == "S":
             pl.line(at - 3, 0, at + 3, 0, L_EXIT, lw=2.6); arrow(pl, at, 0, 0, -1)
             pl.text(at, -11.5, lab, size=4.6, bold=True, align="center", layer=L_EXIT)
@@ -270,13 +291,24 @@ def build(c):
             pl.text(xw + 3, at + 3.0, lab, size=4.6, bold=True, layer=L_EXIT)
     # occupant loads
     t5 = dict(size=4.6, align="center", layer=L_TAG)
-    for i, (x_, y_) in {"boys_locker": (21, 182), "girls_locker": (21, 120), "evl_1": (107.8, 238), "evl_2": (148, 238),
-                        "evl_3": (199, 203.5), "evl_4": (199, 154.6), "team_asm": (28, 37), "storage_sw": (38, 9),
-                        "equip_storage": (68.5, 238), "equip_room": (86.3, 238), "mech_nw": (18, 238), "mech_n": (175, 238),
-                        "mech_e": (199, 95), "mech_ne": (198, 235), "first_aid": (136, 31.5), "concession": (134.5, 46)}.items():
+    olp = {"boys_locker": (21, 182), "girls_locker": (21, 120), "evl_1": (107.8, 238), "evl_2": (148, 238),
+           "evl_3": (199, 203.5), "evl_4": (199, 154.6), "team_asm": (28, 37), "storage_sw": (38, 9),
+           "equip_storage": (68.5, 238), "equip_room": (86.3, 238), "mech_nw": (18, 238), "mech_n": (175, 238),
+           "mech_e": (199, 95), "mech_ne": (198, 235), "first_aid": (136, 31.5), "concession": (134.5, 46)}
+    if rb:
+        olp.update(first_aid=(204, 40.5), concession=(172.5, 45), storage_annex=(87, 265))
+    for i, (x_, y_) in olp.items():
         pl.text(x_, y_, f"{ol[i]}", **t5, bold=True)
-    pl.text(116, 150, "EVENT FLOOR 16,416 SF (D-054 OPEN)", size=5.2, bold=True, align="center", layer=L_TAG)
-    pl.text(116, 143.5, f"standing 5 net = {n0(d['wc']['floor'])} occ. (WORST, design)", size=4.8, align="center", layer=L_TAG, color=RED)
+    if rb:
+        pl.text(87, 271, "STORAGE ANNEX", size=4.2, align="center", layer=L_TAG)
+        s1 = next(x_ for x_ in lv1["doors"]["items"] if x_["id"] == "S1")
+        pl.line(s1["at"] - 3, s1["y"], s1["at"] + 3, s1["y"], L_EXIT, lw=1.6)
+        pl.text(s1["at"], s1["y"] + 2.5, "S1", size=4.2, bold=True, align="center", layer=L_TAG)
+    pl.text(116, 150, "EVENT FLOOR 16,416 SF (D-054 CHAIRS-ONLY)" if rb else "EVENT FLOOR 16,416 SF (D-054 OPEN)", size=5.2, bold=True, align="center", layer=L_TAG)
+    if rb:
+        pl.text(116, 143.5, f"chairs 7 net = {n0(d['wc']['floor'])} occ. (DESIGN, D-054)", size=4.8, align="center", layer=L_TAG, color=GRN)
+    else:
+        pl.text(116, 143.5, f"standing 5 net = {n0(d['wc']['floor'])} occ. (WORST, design)", size=4.8, align="center", layer=L_TAG, color=RED)
     pl.text(116, 137.5, " / ".join(f"{x_['id']} {n0(x_['floor'])}" for x_ in d["cases"][:3]), size=4.4, align="center", layer=L_TAG)
     pl.text(116, 61.2, f"LOWER TIER {n0(d['seats_l'])} seats (N / S / E)", size=4.4, align="center", layer=L_TAG)
     pl.text(113, 47, "LOBBY", size=4.8, bold=True, align="center", layer=L_TAG)
@@ -315,7 +347,7 @@ def build(c):
             else:
                 xx = r[0] + k * 3
                 pl2.line(xx, r[1], xx, r[3], L_SEAT, lw=0.15)
-    outline(pl2, plan)
+    outline(pl2, plan, annex=False)
     stc = occ(d["code"]["egress"]["stair_clear_in"], c["sfac"])
     stairs(pl2, plan, {"ST-1": (42.7, 221, "center"), "ST-2": (176, 250, "right"), "ST-3": (183, 4, "right"), "ST-4": (16, 4, "left")})
     for sid, (x_, y_, al) in {"ST-1": (34, 233, "right"), "ST-2": (176, 261, "right"), "ST-3": (183, 15, "right"), "ST-4": (3, 29, "left")}.items():
@@ -357,6 +389,10 @@ def build(c):
            ("Main exit ≥ 1/2 (1030.2)", cw_["main"], e1["clear_in"], cw_["p_main"]),
            (f"Other L1 exits ≥ 1/2 of L1 {n0(d['wc']['l1'])} (1030.3)", cw_["oth"], c["other_prov"], cw_["p_oth"]),
            ("Lose E1, ≥ 50 % (1005.5)", cw_["lose_req"], cw_["lose"], cw_["p_lose"])]
+    if rb:
+        cm, cw_b = c["c_mc"], lv1["checkpoint"]["clear"]
+        chk += [(f"Standing margin {n0(cm['total'])}: E1 (exits as drawn)", cm["main"], e1["clear_in"], cm["p_main"]),
+                ("Lobby beside the screening bay (1003.6)", cm["main"], cw_b["width_in"], cw_b["width_in"] >= cm["main"])]
     for lab, req, prv, ok in chk:
         t_, col = pf(ok)
         rows.append(((lab, f"need {n1(req)}", f"have {n1(prv)}", t_), dict(colors={3: col}, rule=lab.startswith("Total"))))
@@ -379,12 +415,14 @@ def build(c):
     cr.para(lm["disclaimer"], size=5.3, color=GRY)
     cr.head("LEGEND", size=7.0)
     cr.para("Heavy bar + arrow = exit door (clear in · occupants); E1 = 8 pair bars, outer + inner (vestibule) bank. Grey box = stair. "
-            "Red dashed + dot = travel path (dot = remote point; feet, rectilinear). Green line = exit separation. Pink zone = checkpoint conflict. "
+            "Red dashed + dot = travel path (dot = remote point; feet, rectilinear). Green line = exit separation. "
+            + ("Green zone = screening bay (D-065). " if c["rev"] == "B" else "Pink zone = checkpoint conflict. ") +
             "Numbers in rooms = occupant load (P2-G-002).", size=5.3)
-    cr.head("OCCUPANT LOADS (P2-G-002 REV A, IBC T1004.5)", size=7.0)
+    rb = c["rev"] == "B"
+    cr.head(f"OCCUPANT LOADS (P2-G-002 REV {'B' if rb else 'A'}, IBC T1004.5)", size=7.0)
     cr.table([("CASE", 0, "left"), ("FLOOR", 1.85, "right"), ("L1", 2.45, "right"), ("BLDG", 3.05, "right"), ("E1 NEED", 3.95, "right")],
              [((x_["label"].replace(" — WORST", " (WORST)").replace(" (exercise 50 gross, ASSUMED)", " (50 gross)"), n0(x_["floor"]), n0(x_["l1"]),
-                n0(x_["total"]), n1(x_["main"])), dict(bold=x_["id"] == "standing", color=RED if x_["id"] == "standing" else None)) for x_ in c["cases"]]
+                n0(x_["total"]), n1(x_["main"])), dict(bold=x_["id"] == d["wc"]["id"], color=(GRN if rb else RED) if x_["id"] == d["wc"]["id"] else None)) for x_ in c["cases"]]
              + [((f"Whole floor zone {n0(ls['basis']['floor_sensitivity']['area_sf'])} SF standing", n0(c["fl_s"]), n0(c["c_fs"]["total"] - c["l2w"]),
                   n0(c["c_fs"]["total"]), n1(c["c_fs"]["main"])), dict(rule=True))], size=5.2, rh=0.112)
     cr.para(f"L1 without the floor {n0(d['l1_fixed'])} (seats {n0(d['seats_l'])}); L2 {n0(d['l2_base'])} base, {n0(c['l2w'])} worst. "
@@ -412,17 +450,22 @@ def build(c):
     cr.para("Rules: one exit only if ≤ 49 occ. and ≤ 75 ft (T1006.2.1, Group A, sprinklered); seats 30 ft to a choice of two paths (1030.8); "
             "unoccupied mech rooms exempt (1006.2.1 exc. 3).", size=5.3)
     fd = ls["findings"]
-    for k, title in (("checkpoint", "FINDING — SECURITY CHECKPOINT vs EGRESS (OPEN)"), ("restrooms", "FINDING — RESTROOMS AT THE WORST CASE (OPEN)")):
+    fset = ((("screening", "SCREENING BAY vs EGRESS (D-065 DECIDED) — CHECK"), ("restrooms", "FINDING — RESTROOM SPACE, CHAIRS-ONLY (D-069 OPEN)"),
+             ("discharge", "EXIT DISCHARGE — 40 FT WALK (D-066 DECIDED) — CHECK")) if rb else
+            (("checkpoint", "FINDING — SECURITY CHECKPOINT vs EGRESS (OPEN)"), ("restrooms", "FINDING — RESTROOMS AT THE WORST CASE (OPEN)")))
+    for k, title in fset:
         f_ = fd[k]
         cr.head(title, size=7.0)
-        cr.para(f_["text"], size=5.3, color=RED)
-        for o in f_["options"]:
+        cr.para(f_["text"], size=5.3, color=(GRN if f_["status"] == "DECIDED" else RED) if rb else RED)
+        for o in f_.get("options", []):
             cr.para(o, size=5.3, bullet="·")
     c1.head("TBD", size=7.0)
-    c1.para(fd["discharge"]["text"], size=5.3, bullet="·")
+    if not rb:
+        c1.para(fd["discharge"]["text"], size=5.3, bullet="·")
     c1.para("Door widths, hardware and the 10 ft open space / street frontage at E1 (1030.2): architect. Seating aisles, rails, "
             "smoke-protected seating (1030.6.2): TBD. Structure 1'-6\" ASSUMED (zero margin at 7'-6\").", size=5.3, bullet="·")
-    c2.para("Sources: P2-G-002 Rev A; P2-A-101 Rev G / A-102 Rev F (params/phase2_plan_rev_g.yaml); params/phase2_life_safety.yaml; "
+    c2.para("Sources: P2-G-002 Rev B; P2-A-101 Rev H / A-102 Rev F (params/phase2_plan_rev_h.yaml); params/phase2_life_safety_rev_b.yaml; Shane 1:21-1:22 PM CT; " if rb else
+            "Sources: P2-G-002 Rev A; P2-A-101 Rev G / A-102 Rev F (params/phase2_plan_rev_g.yaml); params/phase2_life_safety.yaml; "
             "IBC 2021 1003.6, 1005.3, 1005.5, 1006.2.1, 1007.1, 1010.5, 1017.2-3, 1028.3, 1030.2-3, 1030.8 (UpCodes, retrieved 2026-10-04; "
             "R-007, R-015, R-018); Shane 2026-10-04 11:07 AM CT.", size=5.0, color=GRY)
     return sh, body_bottom, [c1, c2, cr]
@@ -430,13 +473,13 @@ def build(c):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A"], default="A")
+    ap.add_argument("--rev", choices=["A", "B"], default="B")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--print", action="store_true", help="print the numbers and exit")
     a = ap.parse_args()
-    c = compute()
+    c = compute(a.rev)
     if a.print:
         for k in ("prov", "other_prov", "sd_l2", "fl_s", "diag", "l2w", "tot"):
             print(k, c[k])

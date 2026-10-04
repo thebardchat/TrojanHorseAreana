@@ -44,6 +44,8 @@
 # v19, 2026-10-04 11:24 AM CT: new sheet P2-A-401 Rev A enlarged plans, event locker rooms 1-4 (params/phase2_enlarged.yaml); D-066 OPEN.
 # v20, 2026-10-04 11:45 AM CT: new sheet P2-A-103 Rev A floor overlays (mats, court, telescopic open / closed, floor cases; params/phase2_overlays.yaml).
 # v21, 2026-10-04 12:10 PM CT: new sheet P2-A-901 Rev A 3D massing model + views (params/phase2_massing.yaml; model file phase2/out/3d).
+# v22, 2026-10-04 1:21-1:26 PM CT: D-054 (chairs-only), D-064 (Option 2), D-065 (Option 1), D-066 (40 ft walk) DECIDED; D-067 storage
+#     annex; D-068 approvals (A-111 A, A-401 A, A-103 A, G-002 A frozen); D-069 restroom space OPEN. New revs on plan Rev H.
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -519,10 +521,16 @@ sheets:
         source: "Shane 2026-10-04 10:03 AM CT (reviewer C-11: label the fixture SUM column 'incl. 4 drinking fountains'; new rev); approved and frozen 10:27 AM CT when Rev I was ordered"
       I:
         file: P2-G-003_RevI
-        frozen: false
+        frozen: true
         inputs: "params/phase2_program.yaml (rev_g, rev_i, meta_rev_i) + params/phase2_plan_rev_f.yaml"
         note: "Rev H method + floor-to-floor 17'-9\" (D-061): stairs 31 risers, 305.1 SF per stair per level; event lockers 3,600 drawn (D-060); D-057 size vs Plan Rev E"
         source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B; D-060 settled; G-003 Rev I if program / area tables change: they do, stair SF)"
+      J:
+        file: P2-G-003_RevJ
+        frozen: false
+        inputs: "params/phase2_program.yaml (rev_i, rev_j) + params/phase2_plan_rev_h.yaml"
+        note: "Rev I method + D-067 storage room 2,100 SF (annex); D-057 size vs Plan Rev G"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); program + storage room, area table L1 / L2 / TOTAL GSF / delta"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
   P2-A-101:
     title: OVERALL FLOOR PLAN — LEVEL 1
@@ -563,9 +571,15 @@ sheets:
         source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B: L2 17'-9\", 21 in upper risers, front row 7'-6\" clear over all exit paths, no low band; stairs 31 risers / longer stair footprint; D-060 settled: event lockers 3,600 SF); Rev E frozen; frozen 11:07 AM CT when Rev G was ordered"
       G:
         file: P2-A-101_RevG
-        frozen: false
+        frozen: true
         inputs: params/phase2_plan_rev_g.yaml
         source: "Shane 2026-10-04 11:07 AM CT (L1 exits Option 1 DECIDED: 8-pair door bank at E1 across the lobby's 58 ft south wall, 512 in clear, 64 in per pair ASSUMED; single controlled entry kept, D-033; bundle with P2-A-111 Rev A because the bank must be drawn on the plan); Level 1 only, P2-A-102 stays at Rev F"
+      H:
+        file: P2-A-101_RevH
+        frozen: false
+        inputs: "params/phase2_plan_rev_h.yaml"
+        note: "Level 1 only; restrooms not redrawn (D-069 OPEN)"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); Level 1: screening bay off the egress path, first aid + concession moved, storage annex + S1"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2
@@ -711,9 +725,14 @@ sheets:
         source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: C-101 Rev B tower size, new outline, D-057 area table, no cap language); frozen 10:27 AM CT when Rev C was ordered"
       C:
         file: P2-C-101_RevC
-        frozen: false
+        frozen: true
         inputs: "params/phase2_site.yaml (incl. rev_b + rev_c) + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_g, rev_i)"
         source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: C-101 Rev C because the NE stair tower grows 21.33 -> 24.08 ft and the D-057 table changes)"
+      D:
+        file: P2-C-101_RevD
+        frozen: false
+        inputs: "params/phase2_site.yaml (incl. rev_d) + params/phase2_plan_rev_h.yaml + params/phase2_program.yaml (rev_i, rev_j)"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); 40 ft walk at the doors with bands around both piers (D-066), storage annex + S1 apron, D-057 table"
     source: "Shane 2026-10-04 7:44 AM CT"
   P2-G-002:
     title: CODE ANALYSIS (SCHEMATIC)
@@ -722,9 +741,15 @@ sheets:
     revisions:
       A:
         file: P2-G-002_RevA
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 1:22 PM CT (D-068: 'Approved: A-111 Rev A, A-401 Rev A, A-103 Rev A, G-002 Rev A (log approvals)')"
         inputs: "params/phase2_code.yaml + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_i)"
         source: "Shane 2026-10-04 10:48 AM CT (next backlog item P2-T-007: G-002 Rev A code analysis from cited R-files; D-054 worst-case L1 egress check with the 329 / 1,095 / 2,346 cases alongside)"
+      B:
+        file: P2-G-002_RevB
+        frozen: false
+        inputs: "params/phase2_code_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_program.yaml (rev_i)"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); chairs-only design case, posted loads per configuration (1004.9), chairs-only fixtures"
     source: "Shane 2026-10-04 10:48 AM CT; BACKLOG P2-T-007"
   P2-A-111:
     title: LIFE SAFETY PLAN (SCHEMATIC) — LEVELS 1 + 2
@@ -733,9 +758,15 @@ sheets:
     revisions:
       A:
         file: P2-A-111_RevA
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 1:22 PM CT (D-068: 'Approved: A-111 Rev A, A-401 Rev A, A-103 Rev A, G-002 Rev A (log approvals)')"
         inputs: "params/phase2_life_safety.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml"
         source: "Shane 2026-10-04 11:07 AM CT (next standard step: P2-A-111 Rev A life safety plan, L1 + L2: exits with capacities, egress widths, occupant loads per P2-G-002, travel distance / common path, exit separation, E1 door bank drawn)"
+      B:
+        file: P2-A-111_RevB
+        frozen: false
+        inputs: "params/phase2_life_safety_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); E1 egress re-checked with the screening bay, chairs design case, standing margin"
     source: "Shane 2026-10-04 11:07 AM CT"
   P2-A-401:
     title: ENLARGED PLANS — EVENT LOCKER ROOMS 1-4
@@ -744,9 +775,15 @@ sheets:
     revisions:
       A:
         file: P2-A-401_RevA
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 1:22 PM CT (D-068: 'Approved: A-111 Rev A, A-401 Rev A, A-103 Rev A, G-002 Rev A (log approvals)')"
         inputs: "params/phase2_enlarged.yaml + params/phase2_plan_rev_g.yaml"
         source: "Shane 2026-10-04 11:24 AM CT (next standard step P2-T-010: P2-A-401 Rev A, the 4 event locker rooms only at 1/8 in scale; restroom core waits on D-064; doors so the common path <= 75 ft; ADA 2010 cited)"
+      B:
+        file: P2-A-401_RevB
+        frozen: false
+        inputs: "params/phase2_enlarged_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); restroom core test-fit to chairs-only fixtures (D-064), D-069 options"
     source: "Shane 2026-10-04 11:24 AM CT; BACKLOG P2-T-010"
   P2-A-103:
     title: FLOOR OVERLAYS — MATS, SEATING + FLOOR CONVERSIONS
@@ -755,9 +792,15 @@ sheets:
     revisions:
       A:
         file: P2-A-103_RevA
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 1:22 PM CT (D-068: 'Approved: A-111 Rev A, A-401 Rev A, A-103 Rev A, G-002 Rev A (log approvals)')"
         inputs: "params/phase2_overlays.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml"
         source: "Shane 2026-10-04 11:45 AM CT (next standard step P2-T-005: P2-A-103 Rev A overlays on the Rev G plan: wrestling 4 x 42 ft mats 2 x 2 with NFHS clearances; basketball / volleyball only if in params / decisions; telescopic tier open vs closed; G-002 floor cases hatched; D-054 OPEN)"
+      B:
+        file: P2-A-103_RevB
+        frozen: false
+        inputs: "params/phase2_overlays_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); chairs-only design case, posted loads, storage annex route"
     source: "Shane 2026-10-04 11:45 AM CT; BACKLOG P2-T-005"
   P2-A-901:
     title: 3D MASSING MODEL — VIEWS
@@ -766,9 +809,14 @@ sheets:
     revisions:
       A:
         file: P2-A-901_RevA
-        frozen: false
+        frozen: true
         inputs: "params/phase2_massing.yaml + phase2_plan_rev_g.yaml + phase2_elev_rev_g.yaml + phase2_elev.yaml + phase2_site.yaml + phase2_sect.yaml"
         source: "Shane 2026-10-04 12:10 PM CT (next standard step P2-T-011: 3D massing model + P2-A-901 Rev A views from current params; massing only; nothing implying a choice on D-054 / 064 / 065 / 066)"
+      B:
+        file: P2-A-901_RevB
+        frozen: false
+        inputs: "params/phase2_massing_rev_b.yaml + phase2_plan_rev_h.yaml + phase2_elev_rev_g.yaml + phase2_elev.yaml + phase2_site.yaml (rev_d) + phase2_sect.yaml"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); massing with the 40 ft walk and the storage annex"
     source: "Shane 2026-10-04 12:10 PM CT; BACKLOG P2-T-011"
 
 sets:

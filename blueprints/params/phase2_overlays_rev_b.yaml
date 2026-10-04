@@ -1,0 +1,46 @@
+# phase2_overlays_rev_b.yaml: P2-A-103 Rev B overrides (Phase 2, BACKLOG P2-T-012). Read by phase2/src/p2_a_103.py --rev B together with
+# params/phase2_overlays.yaml (Rev A, approved D-068: mats, court, tier geometry unchanged).
+# Rev B, 2026-10-04 (Shane 1:21 / 1:22 PM CT): plan Rev H; D-054 DECIDED chairs-only design case (7 net -> 2,346); posted loads
+# (IBC 2021 1004.9); standing is not a use (kept as exit margin only); D-067 chair / table / stage storage annex and its route to the
+# floor; D-065 screening bay noted (outside these views). Units / origin as phase2_overlays.yaml.
+
+meta:
+  revision: B
+  file: P2-A-103_RevB
+  source: "Shane 2026-10-04 1:21 PM CT (D-054 / D-064 / D-065 / D-066 closed; approvals D-068) + 1:22 PM CT (A-103 Rev B; storage room D-067)"
+
+basis:
+  plan: params/phase2_plan_rev_h.yaml
+  code: params/phase2_code_rev_b.yaml
+  plan_text: "P2-A-101 Rev H (event floor, mats, court, tiers, portal, V1, V2 identical to Rev G; adds the storage annex, screening bay)"
+  source: "phase2_plan_rev_h.yaml; phase2_code_rev_b.yaml; P2-G-002 Rev B"
+
+occupancy:
+  design: chairs
+  notes:
+    sports: "POST the sports load. Mats (a) or court (b); tier open. Exercise 50 gross ASSUMED (AHJ assigns)."
+    tables: "POST. Aisles measured 19 in from the table edge (1030.13.1); level aisles 42 / 36 in (1030.9.1). Layout TBD."
+    chairs: "POST — DESIGN CASE (D-054). Rows: >= 12 in clear up to 14 seats, + 0.3 in per seat beyond, <= 100 per row, aisles both ends (1030.13.2). Row plan TBD."
+    standing: "NOT A USE: no standing-floor events (D-054). Kept only as exit margin: L1 exits stay as drawn (E1 467.0 in vs 468 in clear)."
+    source: "D-054 / D-064 DECIDED (Shane 1:21-1:22 PM CT); IBC 2021 1004.9, 1030.9.1, 1030.13.1, 1030.13.2, 1030.13.2.1 (UpCodes); P2-G-002 Rev B"
+  whole_floor_standing: {sf: 17280, load: 3456, e1_need_in: 479.9, e1_clear_in: 468, source: "P2-A-111 Rev B / phase2_life_safety_rev_b.yaml floor sensitivity (screening bay leaves 468 in clear beside it)"}
+  posting: "Post the occupant load for each configuration near the main exit (IBC 2021 1004.9): sports, tables, chairs (design). Standing is not posted"
+  source: "D-054 DECIDED; P2-G-002 Rev B; IBC 2021 1004.9"
+
+storage:
+  annex: storage_annex
+  route_pts: [[68, 266], [68, 238], [49, 238], [49, 140], [56, 140]]
+  route_text: "Chairs / tables / stage carts: annex → EQUIP. STORAGE → athlete corridor → floor (west edge open); deliveries via S1 on the annex north wall (D-034). Route ASSUMED; door sizes for 67 x 33.25 in trucks: architect"
+  view: [0, 50, 135, 288]
+  scale_ft_per_in: 150
+  source: "D-067 (Shane 1:22 PM CT: storage near the floor + S1); phase2_plan_rev_h.yaml annex / equip_storage / athlete corridor; NPS 42-8 truck size (D-067)"
+
+decisions:
+  - {id: D-054, status: DECIDED, text: "chairs-only floor (7 net -> 2,346) is the design case; exits stay as drawn for standing (margin)", source: "DECISIONS.md D-054"}
+  - {id: D-064, status: DECIDED, text: "restrooms sized to chairs-only; posted loads; temporary units above that", source: "DECISIONS.md D-064"}
+  - {id: D-065, status: DECIDED, text: "screening in a side bay of the lobby, 468 in clear kept beside it (P2-A-101 Rev H, P2-A-111 Rev B; outside these views)", source: "DECISIONS.md D-065"}
+  - {id: D-066, status: DECIDED, text: "40 ft walk at the doors (28 ft brick + 6 ft bands), flows around both portal piers (P2-C-101 Rev D)", source: "DECISIONS.md D-066"}
+  - {id: D-067, status: DECIDED, text: "2,100 SF chair / table / stage storage annex at the north wall, S1 on it (route: STORAGE → FLOOR on this sheet)", source: "DECISIONS.md D-067"}
+  - {id: D-069, status: OPEN, text: "where the chairs-only restroom space comes from (P2-A-401 Rev B test-fit)", source: "DECISIONS.md D-069"}
+
+source: "KEYSTONE 2026-10-04 (Shane 1:21 / 1:22 PM CT); params/phase2_overlays.yaml; phase2_plan_rev_h.yaml; phase2_code_rev_b.yaml"

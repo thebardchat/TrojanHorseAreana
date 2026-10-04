@@ -641,3 +641,26 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
   - Not modelled: parapets, rooftop units, structure, windows / cladding, grading, landscaping, lighting, parking (site TBD, D-006), signage content.
   - **Model file:** `phase2/out/3d/P2-A-901_RevA_massing.obj` + `.mtl` (feet, Y-up; deterministic, byte-identical on re-run).
 - **Frozen check:** every other revision re-renders byte-identical.
+
+## 2026-10-04 1:21 PM CT — Decisions D-054 / 064 / 065 / 066 + storage room (D-067) applied to the sheets
+- **Decisions (Shane, Grok chat, 1:21 / 1:22 PM CT):**
+  - **D-054 CLOSED:** event floor = chairs only, 7 net → 2,346 (no standing floor case).
+  - **D-064 CLOSED, Option 2:** restrooms sized to the chairs-only case; posted occupant loads; temporary units above that.
+  - **D-065 CLOSED, Option 1:** screening in a lobby side bay; 468 in clear kept to the E1 bank (≥ 466.5 in).
+  - **D-066 CLOSED:** Champion Walk 40 ft = 28 ft brick + 6 ft bands both sides, around both piers (IBC 1028.3).
+  - **D-067 DECIDED (new program item):** chair / table / stage storage annex [52,252]-[122,282] ft = 70 × 30 = 2,100 SF on the north wall, S1 moved to y 282 (sizing ASSUMED except the cart data).
+  - **D-068:** approvals logged and frozen: P2-A-111 Rev A, P2-A-401 Rev A, P2-A-103 Rev A, P2-G-002 Rev A.
+  - **D-069 OPEN (new finding):** chairs-only L1 restrooms need 22 M / 42 W WC, lav 9 / 12, DF 4 vs 10 / 18, 4 / 5, 2 drawn (+48 fixtures), about +535 to +2,400 SF; 3 options, rooms not redrawn.
+  - Open count 20 → **17**.
+- **New revisions** (all new params files; frozen revisions untouched; `phase2.yaml` v22):
+  - **P2-A-101 Rev H** (`phase2_plan_rev_h.yaml`): storage annex + S1 on the north, screening side bay (468 in clear), restroom D-069 flags (rooms not redrawn).
+  - **P2-A-111 Rev B** (`phase2_life_safety_rev_b.yaml`): life safety at the chairs-only floor, screening bay outside the egress width, 40 ft discharge walk.
+  - **P2-G-002 Rev B** (`phase2_code_rev_b.yaml`): occupant loads at 2,346 floor, fixture count and D-069 finding with the +535 to +2,400 SF range.
+  - **P2-G-003 Rev J** (`phase2_program.yaml` rev_j): program + loop + storage; F 56,515 / L2 28,186 / total 84,701 SF program vs 84,113 drawn.
+  - **P2-A-401 Rev B** (`phase2_enlarged_rev_b.yaml`): L1 restroom core tight test-fit (men 34 × 23 ft = 860 SF vs 700; women 41 × 33 ft = 1,488 vs 1,150; + 2 fountain alcoves 36 SF ≈ +535 SF).
+  - **P2-A-103 Rev B** (`phase2_overlays_rev_b.yaml`): chairs-only floor case, storage route diagram annex → floor.
+  - **P2-C-101 Rev D** (`phase2_site.yaml` rev_d): annex footprint, 40 ft walk with 6 ft bands (mirrored about x 226), service apron [52,282]-[85,306] ft.
+  - **P2-A-901 Rev B** (`phase2_massing_rev_b.yaml`): annex (16 ft high ASSUMED), walk bands, screening zone; model `phase2/out/3d/P2-A-901_RevB_massing.obj` + `.mtl`.
+- **Areas:** GSF drawn 82,013 → **84,113** (+2,100); L1 53,081 → 55,181; L2 28,933 unchanged.
+- **Follow-up:** P2-A-201 north elevation does not yet show the annex. G-001 cover, combined set and PR are ON HOLD (Shane 1:46 PM CT).
+- **Frozen check:** every frozen / approved revision re-renders byte-identical (PDF + DXF entities; A-901 Rev A OBJ / MTL unchanged).

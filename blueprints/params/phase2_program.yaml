@@ -367,6 +367,23 @@ meta_rev_i:
   rule: "Rev H method and fixture table with floor-to-floor 17'-9\" (213 in, D-061 Option B): stairs 31 risers of 6.87 in, 2 flights, 15 treads x 11 in = 152 x 289 in = 305.1 SF per stair per level (Rev H 270.2); event lockers 3,600 SF drawn (D-060 settled); drawn size from P2-A-101/102 Rev F, change vs Rev E (D-057)"
   source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B; D-060 settled; G-003 Rev H APPROVED and frozen)"
 
+meta_rev_j:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "PROGRAM + LOOP + STORAGE"
+  subtitle: "REV H PLAN · D-067 · D-057"
+  revision: J
+  file: P2-G-003_RevJ
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev I method and numbers + the D-067 chair / table / stage storage room (2,100 SF one-storey annex, added gross: its 2.0 aisle factor already covers circulation, so no x1.25 and no mech share); fixtures: L1 restrooms to the chairs-only case (D-064), shortfall = finding D-069; size table vs Plan Rev G (D-057)"
+  source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054, D-064, D-065, D-066 DECIDED; D-067 storage room)"
+
+rev_j:
+  storage_room: {id: storage_annex, label: "Chair / table / stage storage (annex, D-067)", sf: 2100, level: 1, gross_up: false, basis: "56 NPS 42-8 chair / table trucks (42 chairs + 8-10 tables each, 67 x 33.25 in = 15.47 SF) = 866 SF + stage 24 decks 4 x 8 ft on 5 carts about 170 SF (ASSUMED) = 1,036 SF net x 2.0 aisles / turning (ASSUMED) = 2,072 -> drawn 70 x 30 = 2,100 SF", status: "DECIDED room (D-067) / ASSUMED size", source: "Shane 2026-10-04 1:22 PM CT (D-067); NPS 42-8 vendor listing (Home Depot / GovernmentFurniture2Go, retrieved 2026-10-04)"}
+  fixtures_l1_case: {floor: chairs, basis: "L1 restrooms sized to chairs-only: floor 2,346 + lower seats 1,100 = 3,446 (D-064 Option 2); drawn rooms keep the Rev I fixtures until D-069 is decided", source: "D-064 DECIDED (Shane 1:22 PM CT); IBC 2021 T2902.1 = IPC 2021 T403.1 (R-009)"}
+  source: "Shane 2026-10-04 1:22 PM CT (D-064, D-067)"
+
 rev_g:
   stair_width_in: 76
   intermediate_landing_in: 76

@@ -11,7 +11,9 @@ All numbers come from params/phase2.yaml + params/phase2_program.yaml via p2_tes
 Layout constants below are sheet geometry only.
 
 Run from the repo root:
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_g_003.py [--rev A|B|C|D|E|F] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_g_003.py [--rev A..J] [--png PATH] [--out-dir DIR] [--force]
+Rev J (Shane 2026-10-04 1:21-1:22 PM CT, P2-T-012): Rev I + the D-067 storage annex (2,100 SF gross on L1 / footprint / GSF), Plan Rev H,
+chairs-only L1 fixture row (D-064) and finding D-069; previous column = Rev I, drawn change vs Rev G (p2_testfit.summary_j).
 """
 from __future__ import annotations
 
@@ -1331,9 +1333,10 @@ def build_g(p2, prog, ob, out, rev="G"):
     basis) and SUM now includes the drinking fountains, labelled 'incl. 4 drinking fountains'. rev="G" output stays byte-identical.
     Rev I (Shane 2026-10-04 10:27 AM CT, D-061 Option B): Rev H with floor-to-floor 17'-9" (31-riser stairs, 305.1 SF each per level) on
     Plan Rev F (event lockers 3,600, D-060); previous column = Rev G/H, drawn change vs Rev E. Revs G / H output stays byte-identical."""
-    ri = rev == "I"
-    rh = rev in ("H", "I")
-    meta2, pm = p2["meta"], prog["meta_rev_i" if ri else "meta_rev_h" if rh else "meta_rev_g"]
+    rj = rev == "J"
+    ri = rev in ("I", "J")
+    rh = rev in ("H", "I", "J")
+    meta2, pm = p2["meta"], prog["meta_rev_j" if rj else "meta_rev_i" if ri else "meta_rev_h" if rh else "meta_rev_g"]
     rg = prog["rev_g"]
     tl = prog["training_loop"]
     lg = out["geom"]
@@ -1368,10 +1371,13 @@ def build_g(p2, prog, ob, out, rev="G"):
     # ================= column 1: area table by level =================
     x0, c1w = M + 0.18, 7.15
     y = section(sh, x0, top - 0.2, f"1  AREA BY LEVEL — {n(bowl)} SEATS, MIX, L2 LOOP, 76 IN STAIRS (D-052)" if not ri else
+                f"1  AREA BY LEVEL — {n(bowl)} SEATS, MIX, L2 LOOP, + STORAGE ANNEX (D-067)" if rj else
                 f"1  AREA BY LEVEL — {n(bowl)} SEATS, MIX, L2 LOOP, L2 AT 17'-9\" (D-061)", first=True) - 0.02
     hdr = [("SPACE", 0, "l"), ("REV G" if not rh else "REV G/H", 3.70, "r"), ("REV F", 4.75, "r"), ("BASIS", 4.95, "l")]
     if ri:
         hdr = [("SPACE", 0, "l"), ("REV I", 3.70, "r"), ("REV G/H", 4.75, "r"), ("BASIS", 4.95, "l")]
+    if rj:
+        hdr = [("SPACE", 0, "l"), ("REV J", 3.70, "r"), ("REV I", 4.75, "r"), ("BASIS", 4.95, "l")]
     rp = 0.172
     y -= rp
     for lab, dx, al in hdr:
@@ -1429,7 +1435,12 @@ def build_g(p2, prog, ob, out, rev="G"):
         row(lab, n(X_["sf"][i]), n(F_["sf"][i]), bas)
     row("L1 net", n(X_["N1"]), n(F_["N1"]), bold=True)
     row("Mechanical (5% of total gross, at grade)", n(X_["M"]), n(F_["M"]), "R-014 · LOW")
-    row(f"L1 GROSS (x {X_['g']:.2f})", n(X_["L1"]), n(F_["L1"]), "R-014 gross-up", bold=True, rule=True)
+    if rj:
+        row(f"L1 GROSS (x {X_['g']:.2f})", n(X_["L1_i"]), n(F_["L1"]), "R-014 gross-up", bold=True)
+        row("+ Chair / table / stage storage annex (gross)", n(X_["storage"]), "—", "D-067 · 2.0 aisle factor, no x1.25")
+        row("L1 GROSS incl. storage", n(X_["L1"]), n(F_["L1"]), "annex one storey (A-101 H)", bold=True, rule=True)
+    else:
+        row(f"L1 GROSS (x {X_['g']:.2f})", n(X_["L1"]), n(F_["L1"]), "R-014 gross-up", bold=True, rule=True)
     head("LEVEL 2 (net SF)")
     for i in X_["l2_ids"]:
         lab, bas = lab_of(i)
@@ -1439,7 +1450,10 @@ def build_g(p2, prog, ob, out, rev="G"):
     row(f"L2 GROSS (x {X_['g']:.2f} rooms + loop)", n(X_["L2"]), n(F_["L2"]), bold=True, rule=True)
     row("Arena volume gross (floor + east zone + lower tier)", n(X_["AV"]), n(F_["AV"]))
     row("Arena volume + L2 gross", n(X_["AV"] + X_["L2"]), n(F_["AV"] + F_["L2"]), "L2 sits over the L1 ring")
-    row("PROGRAM FOOTPRINT = max(L1, arena volume + L2)", n(X_["F"]), n(F_["F"]), f"set by {X_['governs']}", bold=True)
+    if rj:
+        row("PROGRAM FOOTPRINT = max(L1, AV + L2) + annex", n(X_["F"]), n(F_["F"]), f"set by {X_['governs']} + 2,100", bold=True)
+    else:
+        row("PROGRAM FOOTPRINT = max(L1, arena volume + L2)", n(X_["F"]), n(F_["F"]), f"set by {X_['governs']}", bold=True)
     row("PROGRAM TOTAL GSF (L1 gross + L2 gross)", n(X_["G"]), n(F_["G"]), "no cap (D-056)", bold=True, rule=True)
     head("SIZE — D-057: L1 FOOTPRINT · L2 AREA · TOTAL GSF · CHANGE vs LAST REV (no cap, no margin)")
     th = [("", 0, "l"), ("DRAWN", 2.05, "r"), ("REV D", 2.75, "r"), ("CHANGE", 3.45, "r"), ("PROGRAM", 4.30, "r"), ("REV F", 5.00, "r"),
@@ -1451,6 +1465,11 @@ def build_g(p2, prog, ob, out, rev="G"):
               ("CHANGE", 5.70, "r"), ("DRAWN − PROG.", 7.10, "r")]
         th2 = [("", 0, "l"), ("A-101/102 F", 2.05, "r"), ("drawn", 2.75, "r"), ("vs Rev E", 3.45, "r"), ("G-003 I", 4.30, "r"),
                ("program", 5.00, "r"), ("vs Rev G/H", 5.70, "r"), ("(C-3)", 7.10, "r")]
+    if rj:
+        th = [("", 0, "l"), ("DRAWN", 2.05, "r"), ("REV G", 2.75, "r"), ("CHANGE", 3.45, "r"), ("PROGRAM", 4.30, "r"), ("REV I", 5.00, "r"),
+              ("CHANGE", 5.70, "r"), ("DRAWN − PROG.", 7.10, "r")]
+        th2 = [("", 0, "l"), ("A-101/102 H", 2.05, "r"), ("drawn", 2.75, "r"), ("vs Rev G", 3.45, "r"), ("G-003 J", 4.30, "r"),
+               ("program", 5.00, "r"), ("vs Rev I", 5.70, "r"), ("(C-3)", 7.10, "r")]
     for hh, sz_ in ((th, 6.9), (th2, 6.0)):
         y -= rp - (0.03 if hh is th2 else 0)
         for lab, dx, al in hh:
@@ -1467,7 +1486,14 @@ def build_g(p2, prog, ob, out, rev="G"):
             sh.text(x0 + dx, y, c, size=7.6, bold=(l_ in ("", "DRAWN", "PROGRAM")), align="left" if al == "l" else "right", layer=TB)
     sh.line(x0, y - 0.05, x0 + c1w, y - 0.05, layer=TB, lw=0.4)
     y -= 0.06
-    if ri:
+    if rj:
+        y = sh.para(x0, y, c1w, f"Program TOTAL here = program footprint + L2 gross ({n(X_['F'] + X_['L2'])}); L1 + L2 gross = {n(X_['G'])} "
+                    f"(+{n(X_['G'] - F_['G'])} vs Rev I). REV J = Rev I + the chair / table / stage storage room (D-067, Shane 1:22 PM CT): "
+                    f"56 chair / table trucks + stage carts, {n(X_['storage'])} SF one-storey annex on the north wall by S1, added gross (its 2.0 aisle "
+                    f"factor is the circulation; ASSUMED). Drawn sizes are measured on P2-A-101/102 Rev H: L1 grows by the annex only, L2 unchanged. "
+                    f"Event floor design case = chairs only (D-054). The program footprint carries {n(X_['F'] - X_['L1'])} SF of L1 ring that no "
+                    f"program line counts (R-021).", size=7.5)
+    elif ri:
         y = sh.para(x0, y, c1w, f"Program TOTAL here = program footprint + L2 gross ({n(X_['F'] + X_['L2'])}), to compare like with like; L1 + L2 gross = "
                     f"{n(X_['G'])} ({'+' if X_['G'] >= F_['G'] else '−'}{n(abs(X_['G'] - F_['G']))} vs Rev G/H). REV I = Rev G/H with Level 2 at 17'-9\" "
                     f"(D-061 Option B): stairs {X_['stair']['risers']} risers of {X_['stair']['riser_in']:.2f} in, {X_['stair']['sf']:.1f} SF each per level "
@@ -1484,7 +1510,7 @@ def build_g(p2, prog, ob, out, rev="G"):
     # ================= column 2: seats by side and tier, floor, fixtures, stairs, wheelchair =================
     x2, c2w = x0 + c1w + 0.35, 4.05
     sh.line(x2 - 0.17, body_bottom + 0.12, x2 - 0.17, top, lw=0.5)
-    y = section(sh, x2, top - 0.2, f"2  SEATS BY SIDE AND TIER = {n(out['tot']['total'])} (REV {'F' if ri else 'E'} PLAN)", first=True, size=10.5)
+    y = section(sh, x2, top - 0.2, f"2  SEATS BY SIDE AND TIER = {n(out['tot']['total'])} (REV {'H' if rj else 'F' if ri else 'E'} PLAN)", first=True, size=10.5)
     sh_ = [("SIDE", 0, "l"), ("LOWER (TELE.)", 1.55, "r"), ("UPPER (FIXED)", 2.75, "r"), ("TOTAL", 3.55, "r")]
     y -= rp
     for lab, dx, al in sh_:
@@ -1544,9 +1570,27 @@ def build_g(p2, prog, ob, out, rev="G"):
             cells.append(str(f["in_rooms"] + f["df"]))
         for (lab, dx, al), c in zip(fh, cells):
             sh.text(x2 + dx, y, c, size=7.8, bold=b, align="left" if al == "l" else "right", layer=TB)
+    if rj:
+        fc = X_["fx1c"]
+        y -= rp
+        cells = ["L1 chairs", n(fc["load"]), str(fc["wc_m"]), str(fc["wc_f"]), str(fc["lav_m"]), str(fc["lav_f"]), str(fc["df"]), str(fc["in_rooms"]),
+                 str(fc["in_rooms"] + fc["df"])]
+        for (lab, dx, al), c in zip(fh, cells):
+            sh.text(x2 + dx, y, c, size=7.8, bold=True, align="left" if al == "l" else "right", layer=TB, color="#CC0000")
+        y -= rp
+        cells = ["L1 short", "", f"+{fc['wc_m'] - f1['wc_m']}", f"+{fc['wc_f'] - f1['wc_f']}", f"+{fc['lav_m'] - f1['lav_m']}",
+                 f"+{fc['lav_f'] - f1['lav_f']}", f"+{fc['df'] - f1['df']}", f"+{fc['in_rooms'] - f1['in_rooms']}", f"+{fc['in_rooms'] + fc['df'] - f1['in_rooms'] - f1['df']}"]
+        for (lab, dx, al), c in zip(fh, cells):
+            sh.text(x2 + dx, y, c, size=7.8, align="left" if al == "l" else "right", layer=TB, color="#CC0000")
     y -= 0.04
-    y = sh.para(x2, y, c2w, f"L1 = lower seats + {n(X_['occ_floor'])} floor occupants (50 SF each); L2 = upper seats. Unchanged from Rev F "
-                f"(load follows seats). Restrooms flank the lobby, L2 stacked over L1.", size=7.5)
+    if rj:
+        y = sh.para(x2, y, c2w, f"L1 / L2 rows = the Rev I set the rooms are drawn and programmed for (L1 = lower seats + {n(X_['occ_floor'])} floor at 50 SF). "
+                    f"D-064 DECIDED Option 2: L1 restrooms to the chairs-only case ({n(fc['load'])}) → +{fc['in_rooms'] - f1['in_rooms']} WC + lav: "
+                    "finding D-069 OPEN — about +535 SF on a tight test-fit (P2-A-401 Rev B) to +2,400 SF at 50 SF / fixture; not yet in the program "
+                    "lines. Larger events: temporary units; posted loads (1004.9).", size=7.5)
+    else:
+        y = sh.para(x2, y, c2w, f"L1 = lower seats + {n(X_['occ_floor'])} floor occupants (50 SF each); L2 = upper seats. Unchanged from Rev F "
+                    f"(load follows seats). Restrooms flank the lobby, L2 stacked over L1.", size=7.5)
     if rh:
         y = sh.para(x2, y, c2w, f"SUM incl. {tot['df']} drinking fountains ({f1['df']} per level, T2902.1). Restroom SF uses WC+LAV only "
                     f"({tot['in_rooms']} x 50 SF, ASSUMED); fountains sit outside the rooms. Rev G's SUM column was WC+LAV ({tot['in_rooms']}). "
@@ -1573,9 +1617,9 @@ def build_g(p2, prog, ob, out, rev="G"):
     y = section(sh, x3, top - 0.2, "6  RESULT", first=True, size=10.5) - 0.04
     bx_h = 1.30
     sh.rect(x3, y - bx_h, c3w, bx_h, lw=1.6)
-    lines = [(f"DRAWN SIZE (A-101/102 REV {'F' if ri else 'E'})", 9.6, True),
+    lines = [(f"DRAWN SIZE (A-101/102 REV {'H' if rj else 'F' if ri else 'E'})", 9.6, True),
              (f"L1 {n(DR['L1'])} · L2 {n(DR['L2'])} SF", 9.2, True),
-             (f"TOTAL {n(DR['G'])} GSF ({'+' if DR['G'] >= DD['G'] else '−'}{n(abs(DR['G'] - DD['G']))} vs Rev {'E' if ri else 'D'})", 9.0, True),
+             (f"TOTAL {n(DR['G'])} GSF ({'+' if DR['G'] >= DD['G'] else '−'}{n(abs(DR['G'] - DD['G']))} vs Rev {'G' if rj else 'E' if ri else 'D'})", 9.0, True),
              (f"{n(bowl)} seats · loop {n(lg['centerline'])} ft · {lg['laps_per_mile']:.2f} laps/mi", 8.4, False),
              ("No SF cap (D-056) · size = budget + parcel", 8.4, False)]
     yy = y - 0.26
@@ -1586,7 +1630,7 @@ def build_g(p2, prog, ob, out, rev="G"):
     y = sh.para(x3, y, c3w, f"Drawn building = {bw:g} x {bh:g} ft + {pj[2] - pj[0]:.2f} x {pj[3] - pj[1]:.2f} ft NE stair tower = {n(box)} SF. "
                 f"Program footprint {n(X_['F'])} ({'+' if X_['F'] >= box else '−'}{n(abs(X_['F'] - box))} vs drawn): the program grosses up the open "
                 f"arena box; the drawing absorbs the {'31-riser' if ri else '76 in'} stairs in the box and draws the lobby void (R-021). Event floor drawn {few:g} x {fns:g} = "
-                f"{n(few * fns)} SF.", size=7.7)
+                f"{n(few * fns)} SF." + (f" + annex {n(X_['storage'])} SF (D-067)." if rj else ""), size=7.7)
     y = section(sh, x3, y, "7  LOCKED IN phase2.yaml", size=10.5)
     mft = p2["spaces"]["arena"]["mat_ft"]
     for t2 in (f"Event floor {n(floor)} SF; {p2['spaces']['arena']['mats']} x {mft} ft mats, 2 x 2 (D-030).",
@@ -1596,7 +1640,13 @@ def build_g(p2, prog, ob, out, rev="G"):
                f"Continuous L2 loop, {lsp['lanes']} x {lsp['lane_width_in']} in (D-035). 76 in stairs (D-052); east tier 16 ft, 19 in upper risers (D-053)." if not ri else
                f"Continuous L2 loop, {lsp['lanes']} x {lsp['lane_width_in']} in (D-035). 76 in stairs (D-052); east tier 16 ft (D-053). L2 17'-9\", 21 in upper risers (D-061)."):
         y = sh.para(x3, y + 0.02, c3w, t2, size=7.7, indent=0.12, bullet="·")
+    if rj:
+        y = sh.para(x3, y + 0.02, c3w, "Floor design case = chairs, 2,346 (D-054); storage annex 2,100 SF (D-067).",
+                    size=7.7, indent=0.12, bullet="·")
     y = section(sh, x3, y, "8  STILL OPEN", size=10.5)
+    if rj:
+        y = sh.para(x3, y + 0.02, c3w, "D-069 OPEN: space for +48 chairs-only L1 fixtures (P2-A-401 Rev B).",
+                    size=7.7, indent=0.12, bullet="·")
     for t2 in ("Loop lane count (2 ASSUMED; 3 preferred); 50/50 tier split and 6 telescopic rows (ASSUMED).",
                "Under-tier headroom reading (D-049): Rev E keeps rows 1-2 (< 7'-6\" clear, ASSUMED) for storage / mech only." if not ri else
                "Front row 7'-6\" clear assumes ≈ 1'-6\" deck structure (no margin, IBC 1003.2): structural engineer to confirm.",
@@ -1615,7 +1665,10 @@ def build_g(p2, prog, ob, out, rev="G"):
                "Rev H = Rev G numbers; Revs F-G frozen; history in Revs A-G"] if not ri else [
                "Shane 2026-10-04 10:27 AM CT (Rev I: D-061 Option B, D-060 settled, Rev H approved); D-051..D-053, D-056, D-057; R-021, R-022",
                "R-008, R-009, R-014, R-015, R-016, R-020; UFC 4-740-02N; Athletic Business; IBC 2021 1011.5.2, 1011.6, 1015",
-               "Revs F-H frozen; history in Revs A-H"]:
+               "Revs F-H frozen; history in Revs A-H"] if not rj else [
+               "Shane 2026-10-04 1:21-1:22 PM CT (Rev J: D-054, D-064, D-065, D-066 DECIDED; D-067 storage; Rev I approved state kept)",
+               "R-008, R-009, R-014, R-015, R-016, R-020; NPS 42-8 truck (D-067); IBC 2021 T2902.1, 1004.9, 1011.5.2, 1015",
+               "Revs F-I frozen; history in Revs A-I"]:
         y = sh.para(x3, y + 0.03, c3w, s_, size=7.2, indent=0.12, bullet="·")
     col3_bottom = y
 
@@ -1631,7 +1684,7 @@ def main():
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")
-    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F", "G", "H", "I"], default="I", help="A = one-level (frozen); B = two-level (frozen); C = suites (frozen); D = locked program (frozen); E = MIX seating (frozen); F = MIX + Level 2 loop (frozen); G = 76 in stairs + east zone, Rev E plan, D-057 sizes (frozen); H = Rev G + fixture SUM incl. 4 drinking fountains (C-11, frozen); I = L2 17'-9\" (D-061), Plan Rev F (default)")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], default="J", help="A = one-level (frozen); B = two-level (frozen); C = suites (frozen); D = locked program (frozen); E = MIX seating (frozen); F = MIX + Level 2 loop (frozen); G = 76 in stairs + east zone, Rev E plan, D-057 sizes (frozen); H = Rev G + fixture SUM incl. 4 drinking fountains (C-11, frozen); I = L2 17'-9\" (D-061), Plan Rev F (default)")
     a = ap.parse_args()
     if a.rev == "A":
         p2, prog, ob, out = tf.summary()
@@ -1648,6 +1701,9 @@ def main():
     elif a.rev == "I":                            # Rev I: D-061 Option B (summary_h, Plan Rev F)
         p2, prog, ob, out = tf.summary_h()
         pm, builder = prog["meta_rev_i"], (lambda p2_, prog_, ob_, out_: build_g(p2_, prog_, ob_, out_, rev="I"))
+    elif a.rev == "J":                            # Rev J: D-067 storage annex + chairs-only fixtures (summary_j, Plan Rev H)
+        p2, prog, ob, out = tf.summary_j()
+        pm, builder = prog["meta_rev_j"], (lambda p2_, prog_, ob_, out_: build_g(p2_, prog_, ob_, out_, rev="J"))
     elif a.rev == "F":
         p2, prog, ob, out = tf.summary_f()
         pm, builder = prog["meta_rev_f"], build_f

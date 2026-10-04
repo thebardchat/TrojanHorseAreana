@@ -591,6 +591,8 @@ def drawn_size(plan):
         return (r[2] - r[0]) * (r[3] - r[1])
     l1 = a_(plan["building"]["rect"]) + a_(plan["building"]["projection"]["rect"])
     l2 = l1 - sum(a_(o["rect"]) for o in plan["level_2"]["open_below"])
+    if "annex" in plan["building"]:          # Plan Rev H: one-storey annex adds to L1 only (no L2 over it)
+        l1 += a_(plan["building"]["annex"]["rect"])
     return dict(L1=l1, L2=l2, G=l1 + l2)
 
 
@@ -627,6 +629,32 @@ def summary_h():
     out_h = dict(loop=lp, mix=out_g["mix"], geom=lg, rows=rows, tot=tot, plan=plan, rev_f=out_g,
                  drawn=drawn_size(plan), drawn_d=drawn_size(out_g["plan"]))
     return p2, prog, ob, out_h
+
+# ============================ REV J (Shane 2026-10-04 1:21-1:22 PM CT): D-067 storage, chairs-only fixtures, Plan Rev H ============================
+def compute_rev_j(p2, prog, loop_sf):
+    """Rev I numbers + the D-067 storage annex added gross to L1 / footprint / GSF (no x1.25, no mech share); fx1c = chairs-only L1 fixtures."""
+    d = compute_rev_i(p2, prog, loop_sf)
+    st = prog["rev_j"]["storage_room"]["sf"]
+    sf = dict(d["sf"])
+    sf["storage_annex"] = st
+    occ_ch = math.ceil(16416 / 7)
+    d.update(scenario="rev_j", sf=sf, storage=st, L1=d["L1"] + st, F=d["F"] + st, G=d["G"] + st, F_i=d["F"], G_i=d["G"], L1_i=d["L1"],
+             fx1c=fixtures(p2["spaces"]["seating"]["total"] // 2 + occ_ch))
+    return d
+
+
+def summary_j():
+    """P2-G-003 Rev J / P2-A-101 Rev H: program on Plan Rev H (L1) / Rev F (L2), previous = Rev I (summary_h), drawn change vs Plan Rev G."""
+    p2, prog, ob, out_h = summary_h()
+    plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_h.yaml").read_text(encoding="utf-8"))
+    plan_g = yaml.safe_load((BP / "params" / "phase2_plan_rev_g.yaml").read_text(encoding="utf-8"))
+    lg = loop_geometry(plan)
+    lp = compute_rev_j(p2, prog, lg["area"])
+    rows, tot = seats_by_side(plan, prog, lp)
+    out_j = dict(loop=lp, mix=out_h["mix"], geom=lg, rows=rows, tot=tot, plan=plan, rev_f=out_h, plan_g=plan_g,
+                 drawn=drawn_size(plan), drawn_d=drawn_size(plan_g))
+    return p2, prog, ob, out_j
+
 
 if __name__ == "__main__":
     import sys as _s

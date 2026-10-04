@@ -41,10 +41,11 @@ def ov(a, b):
     return w * h if w > 0 and h > 0 else 0.0
 
 
-def compute():
-    code, p2 = rd("phase2_code.yaml"), rd("phase2.yaml")
+def compute(rev="A"):
+    """rev A: phase2_code.yaml + plan Rev F (frozen output); rev B: phase2_code_rev_b.yaml + plan Rev H (D-054 chairs-only design case)."""
+    code, p2 = rd("phase2_code.yaml" if rev == "A" else "phase2_code_rev_b.yaml"), rd("phase2.yaml")
     _, _, _, h = tf.summary_h()
-    plan = h["plan"]
+    plan = h["plan"] if rev == "A" else rd("phase2_plan_rev_h.yaml")
     stairs = [s["rect"] for s in plan["vertical"]["stairs"]]
     rects = {}
     for lv in ("level_1", "level_2"):
@@ -113,7 +114,8 @@ def compute():
     lp = h["loop"]
     fx1, fx2 = lp["fx1"], lp["fx2"]
     fxw = tf.fixtures(seats_l + wc["floor"])
-    return dict(code=code, p2=p2, h=h, seats_l=seats_l, seats_u=seats_u, r1=r1, r2=r2, l1_fixed=l1_fixed, cases=cases,
+    mc = next((c for c in cases if c["id"] == ef.get("margin_case")), None)
+    return dict(rev=rev, mc=mc, plan=plan, code=code, p2=p2, h=h, seats_l=seats_l, seats_u=seats_u, r1=r1, r2=r2, l1_fixed=l1_fixed, cases=cases,
                 loop_sf=loop_sf, sens=sens, l2_base=l2_base, l2_worst=l2_worst, prov_total=prov_total, n_open=n_open,
                 others=others, stair_door_req=stair_door_req, wc=wc, o1_pairs=o1_pairs, o1_total=o1_total,
                 o2_total_pairs=o2_total_pairs, o2_add=o2_add, st_prov=st_prov, corner=corner, fx1=fx1, fx2=fx2, fxw=fxw,
@@ -201,7 +203,13 @@ def build(d):
         "stamp": meta2["stamp"],
     }, margin=M, tb_h=0.95, stamp_h=0.40)
     top = H - M - 0.12
-    sh.text(0.75, top - 0.2, "CODE ANALYSIS — SCHEMATIC (REV A) · P2-A-101 / A-102 REV F · P2-G-003 REV I", size=11.5, bold=True)
+    rb = cm["revision"] == "B"
+    if rb:
+        e1b = next(x for x in d["plan"]["level_1"]["doors"]["items"] if x["id"] == "E1")["bank"]["clear_in"]
+        drw = tf.drawn_size(d["plan"])
+        sh.text(0.75, top - 0.2, "CODE ANALYSIS — SCHEMATIC (REV B) · P2-A-101 REV H / A-102 REV F · P2-G-003 REV J · D-054 CHAIRS-ONLY", size=11.5, bold=True)
+    else:
+        sh.text(0.75, top - 0.2, "CODE ANALYSIS — SCHEMATIC (REV A) · P2-A-101 / A-102 REV F · P2-G-003 REV I", size=11.5, bold=True)
     sh.text(0.75, top - 0.40, cm["disclaimer"], size=6.6)
     y0 = top - 0.45
     cw = 5.05
@@ -222,8 +230,12 @@ def build(d):
              [([r["space"], r["group"], r["cite"]], None) for r in code["occupancy"]["rows"]], size=5.4)
     c1.para(code["occupancy"]["mixed"], size=5.6)
     c1.head("3  CONSTRUCTION TYPE")
-    c1.para(code["construction"]["note"] + f" Drawn size (D-057, P2-A-101/102 Rev F): L1 {n1(d['h']['drawn']['L1'])} / L2 "
-            f"{n1(d['h']['drawn']['L2'])} / TOTAL {n1(d['h']['drawn']['G'])} GSF (R-021 method).", size=5.6)
+    if rb:
+        c1.para(code["construction"]["note"] + f" Drawn size (D-057, P2-A-101 Rev H incl. the 2,100 SF storage annex / A-102 Rev F): L1 {n1(drw['L1'])} / L2 "
+                f"{n1(drw['L2'])} / TOTAL {n1(drw['G'])} GSF (R-021 method).", size=5.6)
+    else:
+        c1.para(code["construction"]["note"] + f" Drawn size (D-057, P2-A-101/102 Rev F): L1 {n1(d['h']['drawn']['L1'])} / L2 "
+                f"{n1(d['h']['drawn']['L2'])} / TOTAL {n1(d['h']['drawn']['G'])} GSF (R-021 method).", size=5.6)
     c1.head("4  FIRE PROTECTION + SYSTEMS (ASSUMED)")
     for it in code["fire_protection"]["items"]:
         c1.para(it, size=5.6, bullet="•")
@@ -236,7 +248,7 @@ def build(d):
     fac = d["fac"]
     fl = lambda f: f"{fac[f]['sf']} {fac[f]['kind']}"
     c2.head("6  OCCUPANT LOAD BY SPACE (IBC 2021 T1004.5 / 1004.6; R-007.2)")
-    cols = [("SPACE (areas drawn, P2-A-101/102 Rev F)", 0, "left", 2.2), ("AREA SF", 2.75, "right"), ("FACTOR", 3.55, "right"),
+    cols = [("SPACE (drawn: A-101 Rev H, A-102 Rev F)" if rb else "SPACE (areas drawn, P2-A-101/102 Rev F)", 0, "left", 2.2), ("AREA SF", 2.75, "right"), ("FACTOR", 3.55, "right"),
             ("LOAD", cw - 0.05, "right")]
     rows = [(["LEVEL 1", "", "", ""], dict(bold=True)),
             ([code["level_1"]["seats"]["label"], "", "seats", n0(d["seats_l"])], None)]
@@ -244,8 +256,14 @@ def build(d):
     rows += [(["L1 without the event floor", "", "", n0(d["l1_fixed"])], dict(bold=True, rule=True))]
     ef = code["event_floor"]
     sp = next(c for c in d["cases"] if c["id"] == "sports")
-    rows += [([f"Event floor — base case (sports)", n0(ef["area_sf"]), fl(sp["factor"]), n0(sp["floor"])], None),
-             ([f"L1 TOTAL, base case (worst: table 7)", "", "", n0(sp["l1"])], dict(bold=True, rule=True)),
+    if rb:
+        wc_ = d["wc"]
+        rows += [([f"Event floor — DESIGN: chairs only (D-054)", n0(ef["area_sf"]), fl(wc_["factor"]), n0(wc_["floor"])], None),
+                 ([f"L1 TOTAL, design case (all cases: table 7)", "", "", n0(wc_["l1"])], dict(bold=True, rule=True))]
+    else:
+        rows += [([f"Event floor — base case (sports)", n0(ef["area_sf"]), fl(sp["factor"]), n0(sp["floor"])], None),
+                 ([f"L1 TOTAL, base case (worst: table 7)", "", "", n0(sp["l1"])], dict(bold=True, rule=True))]
+    rows += [
              (["LEVEL 2", "", "", ""], dict(bold=True)),
              ([code["level_2"]["seats"]["label"], "", "seats", n0(d["seats_u"])], None)]
     rows += [([r["label"], n0(r["area"]), fl(r["factor"]), n0(r["load"])], None) for r in d["r2"]]
@@ -255,29 +273,56 @@ def build(d):
     c2.table(cols, rows, size=5.5, rh=0.125)
     c2.para(code["level_1"]["not_added"] + " Telescopic tier: " + code["level_1"]["seats"]["basis"] + ". Higher posted load by approval up "
             "to 1 per 7 SF with a seating diagram (1004.5.1). Event floor area " + ef["area_basis"] + ".", size=5.5)
-    c2.head("7  EVENT FLOOR CASES (D-054 OPEN) — DESIGN TO THE WORST CASE")
-    cols = [("CASE (T1004.5)", 0, "left", 1.8), ("FLOOR", 2.25, "right"), ("L1 TOTAL", 3.05, "right"), ("L2", 3.8, "right"),
-            ("BUILDING", cw - 0.05, "right")]
-    rows = [([c["label"], n0(c["floor"]), n0(c["l1"]), n0(d["l2_worst"]), n0(c["total"])],
-             dict(bold=c["id"] == ef["design_case"], color=RED if c["id"] == ef["design_case"] else None)) for c in d["cases"]]
-    c2.table(cols, rows, size=5.5)
-    c2.para(f"L2 shown at its worst case ({n0(d['l2_worst'])}, design basis, D-052) in every column. The building official assigns the floor load "
-            f"from the intended uses (1004.5); Shane decides the uses (D-054).", size=5.5)
-    c2.head("8  PLUMBING FIXTURE BASIS (R-009)")
-    c2.para(code["plumbing"]["basis"], size=5.5)
+    if rb:
+        c2.head("7  FLOOR CASES — CHAIRS-ONLY (D-054) · POSTED (1004.9)")
+        po = ef["posted"]
+        cols = [("CASE (T1004.5)", 0, "left", 1.55), ("FLOOR", 1.95, "right"), ("L1", 2.55, "right"), ("BLDG", 3.15, "right"),
+                ("POSTED SIGN", 3.3, "left", 1.7)]
+        rows = [([c["label"].replace(" — WORST", ""), n0(c["floor"]), n0(c["l1"]), n0(c["total"]),
+                  ("POST (design)" if c["id"] == ef["design_case"] else "POST" if c["id"] in po["configs"] else "not a use (exit margin)")],
+                 dict(bold=c["id"] == ef["design_case"], color=GRN if c["id"] == ef["design_case"] else GRY if c["id"] == ef["margin_case"] else None))
+                for c in d["cases"]]
+        c2.table(cols, rows, size=5.5)
+        c2.para(f"{ef['design_rule']}. {po['rule']}. Not permitted: {po['not_permitted']}. L2 at its worst case ({n0(d['l2_worst'])}, D-052).", size=5.4)
+    else:
+        c2.head("7  EVENT FLOOR CASES (D-054 OPEN) — DESIGN TO THE WORST CASE")
+        cols = [("CASE (T1004.5)", 0, "left", 1.8), ("FLOOR", 2.25, "right"), ("L1 TOTAL", 3.05, "right"), ("L2", 3.8, "right"),
+                ("BUILDING", cw - 0.05, "right")]
+        rows = [([c["label"], n0(c["floor"]), n0(c["l1"]), n0(d["l2_worst"]), n0(c["total"])],
+                 dict(bold=c["id"] == ef["design_case"], color=RED if c["id"] == ef["design_case"] else None)) for c in d["cases"]]
+        c2.table(cols, rows, size=5.5)
+        c2.para(f"L2 shown at its worst case ({n0(d['l2_worst'])}, design basis, D-052) in every column. The building official assigns the floor load "
+                f"from the intended uses (1004.5); Shane decides the uses (D-054).", size=5.5)
+    c8 = c3 if rb else c2
+    c8.head("8  PLUMBING FIXTURE BASIS (R-009)")
+    c8.para(code["plumbing"]["basis"], size=5.5)
     fx1, fx2, fxw = d["fx1"], d["fx2"], d["fxw"]
     cols = [("LEVEL (FIXTURE LOAD)", 0, "left", 1.7), ("WC M", 2.1, "right"), ("WC F", 2.65, "right"), ("LAV M", 3.2, "right"),
             ("LAV F", 3.75, "right"), ("DF", 4.25, "right"), ("SS", cw - 0.05, "right")]
     fr = lambda lab, f: [lab, f["wc_m"], f["wc_f"], f["lav_m"], f["lav_f"], f["df"], f["service_sink"]]
-    rows = [(fr(f"L1 (G-003 Rev I: {n0(fx1['load'])})", fx1), None), (fr(f"L2 (G-003 Rev I: {n0(fx2['load'])})", fx2), None),
-            (fr(f"L1 if the floor is standing ({n0(fxw['load'])})", fxw), dict(color=RED, rule=True))]
-    c2.table(cols, rows, size=5.5)
-    c2.para(f"G-003 Rev I counts the floor at 328 (16,400 SF ÷ 50). The standing case would need {fxw['wc_m'] - fx1['wc_m']} more men's "
-            f"and {fxw['wc_f'] - fx1['wc_f']} more women's WC on L1 than drawn — not drawn; follows D-054.", size=5.5, color=RED)
+    if rb:
+        rows = [(fr(f"L1 drawn (G-003 Rev I basis {n0(fx1['load'])})", fx1), None), (fr(f"L2 drawn (upper seats {n0(fx2['load'])})", fx2), None),
+                (fr(f"L1 REQUIRED, chairs-only ({n0(fxw['load'])})", fxw), dict(bold=True, rule=True)),
+                (["L1 SHORT (D-069 OPEN)", f"+{fxw['wc_m'] - fx1['wc_m']}", f"+{fxw['wc_f'] - fx1['wc_f']}", f"+{fxw['lav_m'] - fx1['lav_m']}",
+                  f"+{fxw['lav_f'] - fx1['lav_f']}", f"+{fxw['df'] - fx1['df']}", "0"], dict(color=RED))]
+        c8.table(cols, rows, size=5.5)
+        dfx = fxw["in_rooms"] - fx1["in_rooms"]
+        c8.para(f"D-064 DECIDED Option 2 (Shane 1:22 PM CT): L1 restrooms to the chairs-only case = floor {n0(d['wc']['floor'])} + lower seats "
+                f"{n0(d['seats_l'])} = {n0(fxw['load'])} (IBC 2021 T2902.1, the same table as IPC 2021 T403.1; urinals ≤ {fxw['urinals_max']} of the "
+                f"{fxw['wc_m']} men's WC). Drawn rooms hold the Rev I set: +{dfx} fixtures in rooms ≈ +{n0(dfx * 50)} SF at 50 SF per fixture "
+                f"(ASSUMED); tight test-fit on P2-A-401 Rev B: about +535 SF. Space = finding D-069 (options on P2-A-401 Rev B). Larger events: temporary units (D-064).", size=5.4, color=RED)
+    else:
+        rows = [(fr(f"L1 (G-003 Rev I: {n0(fx1['load'])})", fx1), None), (fr(f"L2 (G-003 Rev I: {n0(fx2['load'])})", fx2), None),
+                (fr(f"L1 if the floor is standing ({n0(fxw['load'])})", fxw), dict(color=RED, rule=True))]
+        c8.table(cols, rows, size=5.5)
+        c8.para(f"G-003 Rev I counts the floor at 328 (16,400 SF ÷ 50). The standing case would need {fxw['wc_m'] - fx1['wc_m']} more men's "
+                f"and {fxw['wc_f'] - fx1['wc_f']} more women's WC on L1 than drawn — not drawn; follows D-054.", size=5.5, color=RED)
 
     # ---------------- column 3: egress checks, findings, options
     wc, dw, df = d["wc"], d["dw"], d["df"]
     eg = code["egress"]
+    if rb:
+        return build_b3(d, c3, code, e1b), body_bottom, [c1, c2, c3]
     c3.head("9  LEVEL 1 EXIT CAPACITY (doors 0.15 in/occ.)")
     c3.para(f"{eg['door_basis']}. {eg['door_basis_width']}. Provided: E1 + X1–X10 = {d['n_open']} openings x {dw} in = "
             f"{n0(d['prov_total'])} in. Stair discharge doors X4 / X6 / X9 / X10 carry the L2 worst case first "
@@ -327,15 +372,58 @@ def build(d):
     return sh, body_bottom, [c1, c2, c3]
 
 
+def build_b3(d, c3, code, e1b):
+    """Rev B column 3: L1 exits with the E1 8-pair bank (Option 1, 512 in), chairs design case + standing margin, screening bay,
+    discharge (D-066), L2, open items. Returns the Sheet."""
+    sh = c3.sh
+    dw, df = d["dw"], d["df"]
+    eg = code["egress"]
+    prov = e1b + (d["n_open"] - 1) * dw
+    cs = d["cases"]
+    c3.head("9  LEVEL 1 EXIT CAPACITY — E1 BANK 512 in (doors 0.15 in/occ.)")
+    c3.para(f"{eg['door_basis']}. E1 = 8-pair bank, {e1b} in clear (Option 1 DECIDED, 64 in per pair ASSUMED); X1–X10 = {d['n_open'] - 1} x {dw} in. "
+            f"Provided {n0(prov)} in. Stair discharge doors carry the L2 worst case first ({n1(d['stair_door_req'])} in each).", size=5.4)
+    cols = [("CHECK (in)", 0, "left", 1.6)] + [(n0(c["floor"]), 2.0 + i * 0.72, "right") for i, c in enumerate(cs)] + [("PROV.", 4.9, "right")]
+    oth = cs[0]["other_prov"]
+
+    def rw(lab, req, ok, pv):
+        return [lab] + [n1(req(c)) for c in cs] + [n1(pv)], dict(colors={i + 1: (GRN if ok(c) else RED) for i, c in enumerate(cs)})
+    rows = [rw("Total at grade (L1 + L2)", lambda c: c["req_total"], lambda c: prov >= c["req_total"], prov),
+            rw("Main exit E1 >= 1/2 (1030.2)", lambda c: c["main_req"], lambda c: e1b >= c["main_req"], e1b),
+            rw("Other L1 exits >= 1/2 L1 (1030.3)", lambda c: c["other_req"], lambda c: oth >= c["other_req"], oth),
+            rw("Lose E1 >= 50% (1005.5)", lambda c: c["lose_req"], lambda c: prov - e1b >= c["lose_req"], prov - e1b)]
+    c3.table(cols, rows, size=5.3, rh=0.125)
+    wc, mc = d["wc"], d["mc"]
+    c3.para(f"Design case = chairs ({n0(wc['floor'])} on the floor; building {n0(wc['total'])}): E1 needs {n1(wc['main_req'])} in vs {e1b} (PASS). "
+            f"Standing ({n0(mc['total'])}) is kept as margin only: E1 {n1(mc['main_req'])} in, total {n1(mc['req_total'])} vs {n0(prov)} in (PASS). "
+            "Exits stay as drawn (D-054).", size=5.4, bold=True, color=GRN)
+    sc = d["plan"]["level_1"]["checkpoint"]["clear"]
+    c3.head("10  SCREENING BAY + DISCHARGE (D-065, D-066 DECIDED)")
+    c3.para(f"Screening in a side bay of the lobby (P2-A-101 Rev H): clear lobby beside it {sc['width_ft']:g} ft = {sc['width_in']} in ≥ "
+            f"{n1(wc['main_req'])} (chairs) and ≥ {n1(mc['main_req'])} (standing margin): PASS; lanes, tables and queues stay in the bay "
+            "(1003.6, 1010.5). Accessible screening by wand beside the lanes (WTMD passage 32.3 in x 26 in deep vs ADA 403.5.1).", size=5.4, bullet="•")
+    c3.para("Exit discharge (1028.3): walk 40 ft at the doors = 28 ft brick + 2 x 6 ft = 480 in ≥ 467.0; bands pass outside both portal "
+            "piers (28 + 6 + 6 = 40 ft at the portal). P2-C-101 Rev D; public way TBD (site, D-006).", size=5.4, bullet="•")
+    c3.head("11  LEVEL 2 EGRESS (R-018, D-052)")
+    st = d["st_prov"]
+    c3.para(f"{eg['stair_basis']}: 4 stairs x {eg['stair_clear_in']} in = {st} in. Worst {n0(d['l2_worst'])} x 0.2 = "
+            f"{n1(d['l2_worst'] * d['sf'])} in → spare {n1(st - d['l2_worst'] * d['sf'])} in. Lose one stair: {st - eg['stair_clear_in']} in ≥ "
+            f"{n1(0.5 * d['l2_worst'] * d['sf'])} in (1005.5). 4 exits (T1006.3.3). Unchanged from Rev A.", size=5.6)
+    c3.head("12  OPEN ITEMS FOR THE ARCHITECT / AHJ")
+    for it in code["open_items"]["items"]:
+        c3.para(it, size=5.6, bullet="•")
+    return sh
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A"], default="A")
+    ap.add_argument("--rev", choices=["A", "B"], default="B")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--print", action="store_true", help="print the numbers and exit")
     a = ap.parse_args()
-    d = compute()
+    d = compute(a.rev)
     if a.print:
         for k in ("seats_l", "seats_u", "l1_fixed", "loop_sf", "l2_base", "l2_worst", "prov_total", "stair_door_req", "o1_pairs",
                   "o1_total", "o2_total_pairs", "o2_add", "corner"):

@@ -5,9 +5,12 @@ Rev A (2026-10-04, Shane 11:45 AM CT): overlays on the P2-A-101 Rev G plan.
   (b) basketball: the one court already in params (NFHS 84 x 50 + 10 ft runout, R-012); volleyball / 2nd court TBD (not drawn).
   (c) telescopic lower tier open (extended 12 ft) vs closed (3'-6" stack at the upper-tier face): floor zones.
   (d) event-floor occupancy cases from P2-G-002 Rev A as hatched zones with layout notes; D-054 OPEN.
-Data: params/phase2_overlays.yaml, params/phase2_plan_rev_g.yaml, params/phase2_code.yaml (via p2_g_002.compute).
+Rev B (2026-10-04, Shane 1:21 / 1:22 PM CT, P2-T-012): plan Rev H; D-054 DECIDED chairs-only design case; posted loads (1004.9);
+  standing marked "not a use" (exit margin only); D-067 storage annex + its route to the floor; D-065 screening bay noted.
+Data: params/phase2_overlays.yaml, params/phase2_plan_rev_g.yaml, params/phase2_code.yaml (via p2_g_002.compute);
+  Rev B: + params/phase2_overlays_rev_b.yaml, phase2_plan_rev_h.yaml, phase2_code_rev_b.yaml.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_103.py [--rev A] [--png PATH] [--out-dir DIR] [--force] [--print]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_103.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force] [--print]
 """
 from __future__ import annotations
 
@@ -44,9 +47,15 @@ def ceil_div(a, f):
     return -(-r1(a) // f)
 
 
-def compute():
+def compute(rev="A"):
     ov, plan = rd("phase2_overlays.yaml"), rd("phase2_plan_rev_g.yaml")
-    d = g2.compute()
+    rb = None
+    if rev == "B":
+        rb = rd("phase2_overlays_rev_b.yaml")
+        plan = rd(Path(rb["basis"]["plan"]).name)
+        d = g2.compute(rev="B")
+    else:
+        d = g2.compute()
     fl = plan["event_floor"]["rect"]
     wr = ov["wrestling"]
     m = wr["mat_ft"]
@@ -125,7 +134,7 @@ def compute():
     open_sf = (fl[2] - fl[0]) * (fl[3] - fl[1])
     closed_sf = (closed[2] - closed[0]) * (closed[3] - closed[1])
     # occupancy
-    code = rd("phase2_code.yaml")
+    code = rd(Path(rb["basis"]["code"]).name if rb else "phase2_code.yaml")
     ef = code["event_floor"]
     fac = code["factors"]
     oc = ov["occupancy"]
@@ -143,8 +152,16 @@ def compute():
     base_no_lower = d["l1_fixed"] - d["seats_l"]
     sens = dict(drawn_stand=drawn_stand, drawn_l1=d["l1_fixed"] + drawn_stand, cl_stand=cl_stand, cl_stand_l1=base_no_lower + cl_stand,
                 cl_chairs=cl_chairs, cl_chairs_l1=base_no_lower + cl_chairs)
-    return dict(ov=ov, plan=plan, d=d, fl=fl, mats=mats, gaps_x=gaps_x, gaps_y=gaps_y, checks=checks, furn=furn, court=court,
-                closed=closed, cd=cd, open_sf=open_sf, closed_sf=closed_sf, cases=cases, worst=worst, sens=sens, zsf=zsf, circ=circ)
+    out = dict(ov=ov, plan=plan, d=d, fl=fl, mats=mats, gaps_x=gaps_x, gaps_y=gaps_y, checks=checks, furn=furn, court=court,
+               closed=closed, cd=cd, open_sf=open_sf, closed_sf=closed_sf, cases=cases, worst=worst, sens=sens, zsf=zsf, circ=circ, rev=rev, rb=rb)
+    if rb:
+        out["design"] = next(c for c in cases if c["id"] == rb["occupancy"]["design"])
+        if out["design"]["id"] != ef["design_case"]:
+            sys.exit("A-103 Rev B design case differs from phase2_code_rev_b.yaml")
+        wf = rb["occupancy"]["whole_floor_standing"]
+        if ceil_div(wf["sf"], fac["standing"]["sf"]) != wf["load"]:
+            sys.exit("whole-floor standing load drifted")
+    return out
 
 
 # ---------------------------------------------------------------- drawing helpers
@@ -288,6 +305,9 @@ def build(c):
     ov, plan, d = c["ov"], c["plan"], c["d"]
     p2 = rd("phase2.yaml")
     meta2, om = p2["meta"], ov["meta"]
+    rb = c["rb"]
+    if rb:
+        om = dict(om, revision=rb["meta"]["revision"])
     sh = Sheet(W, H)
     body_bottom = add_titleblock(sh, {
         "project": f"{meta2['project']}\n{meta2['arena_name']} · {meta2['location']}",
@@ -403,7 +423,8 @@ def build(c):
     hp = ov["occupancy"]["hatch"]
     for i, cs in enumerate(c["cases"]):
         v = View(sh, mx[i % 2], my[i // 2], mf, fl[0], fl[1])
-        v.fill(z, "#FBEFE6" if cs["id"] == "standing" else "#F5F5F5", L_ZONE)
+        v.fill(z, ("#EEEEEE" if cs["id"] == "standing" else "#E3F1E6" if cs is c["design"] else "#F5F5F5") if rb else
+               ("#FBEFE6" if cs["id"] == "standing" else "#F5F5F5"), L_ZONE)
         h = hp[cs["id"]]
         v.hatch(z, h["angle"], h["step_ft"], L_HATCH, lw=0.2, cross=h.get("cross", False))
         v.rect(z, L_ZONE, lw=0.4)
@@ -413,11 +434,21 @@ def build(c):
         v.line(po[0], fl[1], po[0], fl[1] - 6, L_WALL, lw=0.5)
         v.line(po[2], fl[1], po[2], fl[1] - 6, L_WALL, lw=0.5)
         x0, y0 = mx[i % 2], my[i // 2]
+        if rb:
+            col = GRN if cs is c["design"] else GRY if cs["id"] == "standing" else "#000000"
+            tag = " · DESIGN (D-054)" if cs is c["design"] else " · NOT A USE (margin)" if cs["id"] == "standing" else " · POSTED"
+            sh.text(x0, y0 - 0.11, f"{CASE_NAMES[cs['id']]}: {cs['floor']:,}", size=5.6, bold=True, color=col)
+            sh.text(x0, y0 - 0.2, f"{cs['factor']['sf']} {cs['factor']['kind']} · L1 {cs['l1']:,}" + tag, size=4.5, color=col)
+            continue
         col = RED if cs is c["worst"] else "#000000"
         sh.text(x0, y0 - 0.11, f"{CASE_NAMES[cs['id']]}: {cs['floor']:,}", size=5.6, bold=True, color=col)
         sh.text(x0, y0 - 0.2, f"{cs['factor']['sf']} {cs['factor']['kind']} · L1 {cs['l1']:,}" + (" · WORST" if cs is c["worst"] else ""), size=4.5, color=col)
-    panel_title(sh, colx[1], rowy[1] + ph + 0.06, "(d) EVENT-FLOOR CASES — P2-G-002 Rev A",
-                f"{om['mini_scale_text']} · hatched {z[2] - z[0]:g}' x {z[3] - z[1]:g}' = {c['zsf']:,.0f} SF · D-054 OPEN", RED)
+    if rb:
+        panel_title(sh, colx[1], rowy[1] + ph + 0.06, "(d) EVENT-FLOOR CASES — P2-G-002 Rev B",
+                    f"{om['mini_scale_text']} · hatched {z[2] - z[0]:g}' x {z[3] - z[1]:g}' = {c['zsf']:,.0f} SF · D-054 DECIDED: chairs = design", GRN)
+    else:
+        panel_title(sh, colx[1], rowy[1] + ph + 0.06, "(d) EVENT-FLOOR CASES — P2-G-002 Rev A",
+                    f"{om['mini_scale_text']} · hatched {z[2] - z[0]:g}' x {z[3] - z[1]:g}' = {c['zsf']:,.0f} SF · D-054 OPEN", RED)
     # ---------------- middle column: checks + tables
     xm = colx[1] + pw + 0.3
     wm = 11.62 - xm
@@ -446,6 +477,8 @@ def build(c):
              size=5.7, rh=0.126)
     cm.para(f"{ov['tiers']['placement'][0].upper() + ov['tiers']['placement'][1:]}. {ov['tiers']['sides'][0].upper() + ov['tiers']['sides'][1:]}. "
             f"{ov['tiers']['code']}. Portal, V1, V2 stay open through the stack.", size=5.9)
+    if rb:
+        return build_b_tail(c, sh, body_bottom, top, cm, xm, wm, ov, om, rb, plan, d)
     cm.head("CONVERSIONS (ASSUMED SEQUENCE)", size=7.6)
     for t in ("Wrestling: tier open; mats roll in from EQUIP. STORAGE at the top of the athlete corridor (plan Rev G; S1 service door, D-034).",
               "Basketball: mats up and stored, court surface down (surface type TBD); seats stay (phase2.yaml floor_converts).",
@@ -487,6 +520,95 @@ def build(c):
     return sh, body_bottom, [cm, cr]
 
 
+def build_b_tail(c, sh, body_bottom, top, cm, xm, wm, ov, om, rb, plan, d):
+    """Rev B: conversions + storage route diagram (middle column), posted cases, decisions (right column)."""
+    st = rb["storage"]
+    rooms = {r["id"]: r for r in plan["level_1"]["rooms"]}
+    an = rooms[st["annex"]]
+    ar = an["rect"]
+    cm.head("CONVERSIONS + STORAGE (ASSUMED SEQUENCE)", size=7.6)
+    for t in ("Wrestling: tier open; mats roll in from EQUIP. STORAGE at the top of the athlete corridor (plan Rev H, unchanged).",
+              "Basketball: mats up and stored, court surface down (surface type TBD); seats stay (phase2.yaml floor_converts).",
+              f"Floor events: chairs, tables and stage carts come from the new {an['name'].title()} annex ({(ar[2] - ar[0]) * (ar[3] - ar[1]):,.0f} SF, "
+              "D-067) — route below. Tier open or closed per event.",
+              rb["occupancy"]["posting"] + "."):
+        cm.para(t, size=5.9, bullet="·")
+    # storage route diagram
+    vx0, vy0, vx1, vy1 = st["view"]
+    k = st["scale_ft_per_in"]
+    dh = (vy1 - vy0) / k
+    gy = cm.y - 0.32 - dh
+    v = View(sh, xm + 0.05, gy, k, vx0, vy0)
+    bx0, by0, bx1, by1 = plan["building"]["rect"]
+    v.line(vx0, by1, min(vx1, bx1), by1, L_WALL, lw=0.9)
+    v.line(bx0, vy0, bx0, by1, L_WALL, lw=0.9)
+    v.fill(ar, "#E3F1E6", L_ZONE, lw=0.6)
+    v.rect(ar, L_WALL, lw=0.9)
+    eq = rooms["equip_storage"]["rect"]
+    v.fill(eq, "#F4E6C8", L_ZONE, lw=0.4)
+    ath = next(z_ for z_ in plan["level_1"]["zones"] if z_["id"] == "athlete")["rect"]
+    v.fill(ath, "#F2F2F2", L_ZONE, lw=0.3)
+    fl = c["fl"]
+    v.fill([fl[0], max(fl[1], vy0), min(fl[2], vx1), fl[3]], "#FFFFFF", L_ZONE, lw=0.6)
+    v.text((ar[0] + ar[2]) / 2, (ar[1] + ar[3]) / 2 + 4, "STORAGE", size=4.4, bold=True, align="center", layer=L_TAG)
+    v.text((ar[0] + ar[2]) / 2, (ar[1] + ar[3]) / 2 - 5, f"{(ar[2] - ar[0]) * (ar[3] - ar[1]):,.0f} SF", size=4.0, align="center", layer=L_TAG)
+    v.text((eq[0] + eq[2]) / 2, (eq[1] + eq[3]) / 2 - 2, "EQUIP.", size=3.6, align="center", layer=L_TAG)
+    a, b = v.P((ath[0] + ath[2]) / 2 - 1, 150)
+    sh.text(a, b, "ATHLETE CORR.", size=3.6, align="center", layer=L_TAG, rot=90, color=GRY)
+    v.text((fl[0] + min(fl[2], vx1)) / 2 + 4, 150, "EVENT FLOOR", size=4.4, bold=True, align="center", layer=L_TAG)
+    s1 = next(e for e in plan["level_1"]["doors"]["items"] if e["id"] == "S1")
+    v.fill([s1["at"] - 6, s1["y"] - 0.8, s1["at"] + 6, s1["y"] + 0.8], "#000000", L_WALL)
+    v.text(s1["at"], s1["y"] + 2.5, "S1", size=4.2, bold=True, align="center", layer=L_TAG)
+    pts = st["route_pts"]
+    for (xa, ya), (xb, yb) in zip(pts[:-1], pts[1:]):
+        v.line(xa, ya, xb, yb, L_ZONE, lw=1.1)
+    xa, ya = pts[-2]
+    xb, yb = pts[-1]
+    a, b = v.P(xb, yb)
+    sh.poly([(a, b), (a - 0.06, b + 0.035), (a - 0.06, b - 0.035)], fill="#000000", layer=L_ZONE, lw=0.3)
+    sh.text(xm + 0.05, gy + dh + 0.15, "STORAGE → FLOOR", size=6.2, bold=True)
+    sh.text(xm + 0.05, gy + dh + 0.05, f"D-067 · 1\" = {k}' · route ASSUMED", size=4.4, color=GRY)
+    cx0 = xm + max((vx1 - vx0) / k, 1.25) + 0.25
+    cn = g2.Col(sh, cx0, gy + dh + 0.25, xm + wm - cx0, 1.0)
+    cn.para(st["route_text"] + ".", size=5.5)
+    cn.para(f"Annex {ar[2] - ar[0]:g}' x {ar[3] - ar[1]:g}', one storey, north wall between X4 and X5; S1 moved to its north wall (y {s1['y']:g}). "
+            "Sized for 56 chair / table trucks (42 chairs + 8-10 tables each) + stage carts (D-067, aisle factor ASSUMED).", size=5.5)
+    cn.para("Screening bay (D-065) is in the lobby, outside these views: P2-A-101 Rev H / P2-A-111 Rev B.", size=5.5, color=GRY)
+    cm.y = min(gy - 0.1, cn.y)
+    # ---------------- right column
+    xr = 11.86
+    sh.line(xr - 0.12, top - 0.02, xr - 0.12, body_bottom + 0.1, lw=0.4)
+    wr_ = W - M - 0.08 - xr
+    cr = g2.Col(sh, xr, top + 0.12, wr_, 1.13)
+    cr.para(om["disclaimer"], size=5.9, color=GRY)
+    cr.head("(d) EVENT-FLOOR CASES — POSTED LOADS (1004.9)", size=7.2)
+    nt = rb["occupancy"]["notes"]
+    rows = [((CASE_NAMES[cs["id"]].title(), f"{cs['factor']['sf']} {cs['factor']['kind']}", f"{cs['floor']:,}", f"{cs['l1']:,}", nt[cs["id"]]),
+             dict(color=GRN if cs is c["design"] else GRY if cs["id"] == "standing" else None, bold=cs is c["design"])) for cs in c["cases"]]
+    cr.table([("CASE", 0, "left"), ("FACTOR", 0.86, "left"), ("FLOOR", 1.68, "right"), ("L1", 2.06, "right"), ("LAYOUT NOTE", 2.16, "left", wr_ - 2.2)],
+             rows, size=5.2, rh=0.115)
+    s = c["sens"]
+    wf = rb["occupancy"]["whole_floor_standing"]
+    cr.para(f"Floor = 16,416 SF (G-002 Rev B, 114' x 144'; the east 6' strip, D-053, unhatched); L1 = floor + {d['seats_l']:,} lower seats + "
+            f"{d['l1_fixed'] - d['seats_l']:,} other L1 rooms (incl. the storage annex, 300 gross). Design case = chairs: L1 {c['design']['l1']:,}. "
+            f"Tier CLOSED, chairs: {s['cl_chairs']:,} on {r1(c['closed_sf']):,} SF with no lower seats → L1 {s['cl_chairs_l1']:,}, below the design "
+            f"case; restroom load {s['cl_chairs']:,} < 3,446 (net = gross ASSUMED). Whole drawn zone standing ({wf['sf']:,} SF = {wf['load']:,}) would need "
+            f"E1 {wf['e1_need_in']} in vs {wf['e1_clear_in']} in clear beside the screening bay: not permitted (standing is not a use).", size=5.45)
+    cr.head("DECISIONS — SHANE 1:21 / 1:22 PM CT", size=7.4)
+    for it in rb["decisions"]:
+        cr.para(f"{it['id']} {it['status']}: {it['text']}.", size=5.7, bullet="·", color=RED if it["status"] == "OPEN" else None)
+    cr.head("LEGEND", size=7.4)
+    cr.para("Grey band = telescopic lower tier open (thin lines = 24 in rows) · dark band = closed stack · tan = mat (circle = 28' NFHS "
+            "minimum) · black bar = scorer's table · open bar = team bench · blue = table / bench zone · dashed = 10' mat area / "
+            "keep-clear aisle / runout · green hatch = floor gained when closed · (d): green = design case, grey = not a use · "
+            "route: green = storage annex, tan = equipment storage, line = cart route.", size=5.5, color=GRY)
+    cr.para("Sources: params/phase2_overlays.yaml, phase2_overlays_rev_b.yaml; phase2_plan_rev_h.yaml; phase2_code_rev_b.yaml; R-005 (NFHS Wrestling "
+            "2-1-2, 2-1-5, 2-2-1, 2-2-2, 2-3; KHSAA); R-012 (NFHS Basketball 1-1, 1-2-1); R-019; R-008 / Hussey MAXAM; R-007.2 (IBC 2021 T1004.5); "
+            "IBC 2021 1004.9, 1030.1.1, 1030.9.1, 1030.13.1, 1030.13.2 (UpCodes, retrieved 2026-10-04); P2-G-002 Rev B; P2-A-111 Rev B; "
+            "D-053, D-054, D-064 to D-069; Shane 2026-10-04 1:21 / 1:22 PM CT.", size=5.3, color=GRY)
+    return sh, body_bottom, [cm, cr]
+
+
 def ft_in(v):
     f = int(v)
     i = round((v - f) * 12)
@@ -497,13 +619,13 @@ def ft_in(v):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A"], default="A")
+    ap.add_argument("--rev", choices=["A", "B"], default="B")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--print", action="store_true", help="print the numbers and exit")
     a = ap.parse_args()
-    c = compute()
+    c = compute(a.rev)
     if a.print:
         for k in c["checks"]:
             print(k)

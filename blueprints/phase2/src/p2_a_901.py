@@ -4,9 +4,11 @@ Rev A (2026-10-04, Shane 12:10 PM CT): massing only, from current params (plan R
 brand + walk, C-101 Rev C site diagram, A-301 / A-302 tier basis). Axonometric views drawn as vector polygons (box model, painter's
 order from pairwise box separation), plus a cutaway at L2 FF. Writes a deterministic OBJ + MTL massing model to phase2/out/3d/.
 Nothing modelled that implies a choice on D-054 / D-064 / D-065 / D-066.
-Data: params/phase2_massing.yaml (+ the files listed under its `inputs`).
+Rev B (2026-10-04, Shane 1:21 / 1:22 PM CT, P2-T-012): plan Rev H + C-101 Rev D: 40 ft walk (28 ft brick + 6 ft bands around both
+piers, D-066), one-storey storage annex with S1 on it (D-067, height ASSUMED), screening bay as a floor zone (D-065). Rev A unchanged.
+Data: params/phase2_massing.yaml (+ the files listed under its `inputs`); Rev B: + params/phase2_massing_rev_b.yaml.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_901.py [--rev A] [--png PATH] [--out-dir DIR] [--force] [--print]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_901.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force] [--print]
 """
 from __future__ import annotations
 
@@ -71,9 +73,20 @@ class Box:
         return {"top": d[0] * d[1], "B": d[0] * d[1], "S": d[0] * d[2], "N": d[0] * d[2], "W": d[1] * d[2], "E": d[1] * d[2]}[f]
 
 
+REV = "A"          # set by main(); Rev B branches only (Rev A output stays byte-identical)
+
+
 def build_model(mode):
     ms, plan = rd("phase2_massing.yaml"), rd("phase2_plan_rev_g.yaml")
     ev, eb, site, sect = rd("phase2_elev_rev_g.yaml"), rd("phase2_elev.yaml"), rd("phase2_site.yaml"), rd("phase2_sect.yaml")
+    mb = None
+    if REV == "B":
+        mb = rd("phase2_massing_rev_b.yaml")
+        plan = rd(Path(mb["inputs"]["plan_l1"]).name)
+        sd = site[mb["inputs"]["site_rev"]]
+        site["service"]["apron"] = sd["service"]["apron"]
+        for k_, v_ in mb["colors"].items():
+            ms["colors"][k_] = v_
     fin = {f["id"]: f["hex"] for f in eb["finishes"]}
     col = {k: (fin[v["finish"]] if "finish" in v else v["hex"]) for k, v in ms["colors"].items() if isinstance(v, dict) and ("finish" in v or "hex" in v)}
     md = ms["model"]
@@ -95,6 +108,9 @@ def build_model(mode):
                 out.append(("S", [(b["x0"], bx[1], 0), (b["x1"], bx[1], 0), (b["x1"], bx[1], dh), (b["x0"], bx[1], dh)], col["glazing"]))
                 continue
             a, w = d["at"], d["wall"]
+            if mb and "y" in d:
+                out.append(("N", [(a + dw / 2, d["y"], 0), (a - dw / 2, d["y"], 0), (a - dw / 2, d["y"], dh), (a + dw / 2, d["y"], dh)], col["door"]))
+                continue
             if w == "S":
                 out.append(("S", [(a - dw / 2, bx[1], 0), (a + dw / 2, bx[1], 0), (a + dw / 2, bx[1], dh), (a - dw / 2, bx[1], dh)], col["door"]))
             elif w == "N":
@@ -129,6 +145,12 @@ def build_model(mode):
                      custom={"S": face_s, "N": face_n, "W": None, "E": None, "B": None}))
     # walk (ground)
     cw = site["champion_walk"]["rect"]
+    if mb:
+        wk = sd["walk"]
+        bw_ = [tuple(q) for q in wk["band_w"]]
+        for bp in (bw_, [(wk["mirror_x"] - x, y) for x, y in reversed(bw_)]):
+            ground.append(([(x, y, 0) for x, y in bp], col["band"], "band"))
+        labels["band"] = (wk["mirror_x"] - 88, -27, 0)
     ground.append(([(cw[0], cw[1], 0), (cw[2], cw[1], 0), (cw[2], cw[3], 0), (cw[0], cw[3], 0)], ev["champion_walk"]["brick_hex"], "walk"))
     labels["walk"] = ((cw[0] + cw[2]) / 2, (cw[1] + cw[3]) / 2, 0)
     labels["portal"] = (cx, py0, ph)
@@ -147,17 +169,26 @@ def build_model(mode):
     labels["road"] = (bx[2] - 20, site["road"]["y"], 0)
     labels["apron"] = ((sa[0] + sa[2]) / 2, sa[3], 0)
 
+    an = plan["building"]["annex"]["rect"] if mb else None
+    if mb:
+        ah = mb["annex"]["height_ft"]
+        adec = [d for d in door_decals() if d[0] == "N" and abs(d[1][0][1] - an[3]) < 1e-6]
+        if mode == "cutaway":
+            boxes.append(Box("storage_annex_cut", (an[0], an[1], 0), (an[2], an[3], min(ah, md["cut_z_ft"])), col["slab"]))
+        else:
+            boxes.append(Box("storage_annex", (an[0], an[1], 0), (an[2], an[3], ah), col["wall"], decals=adec))
+        labels["annex"] = ((an[0] + an[2]) / 2, an[3], ah)
     if mode in ("exterior", "portal"):
         sp = ev["side_panel"]
         r = sp["rect"]
-        dec = door_decals() + [("S", [(r[0], bx[1], r[1]), (r[2], bx[1], r[1]), (r[2], bx[1], r[3]), (r[0], bx[1], r[3])], sp["panel"]),
+        dec = [d_ for d_ in door_decals() if not (an and d_[0] == "N" and abs(d_[1][0][1] - an[3]) < 1e-6)] + [("S", [(r[0], bx[1], r[1]), (r[2], bx[1], r[1]), (r[2], bx[1], r[3]), (r[0], bx[1], r[3])], sp["panel"]),
                                ("S", [(r[0], bx[1], r[1]), (r[2], bx[1], r[1]), (r[2], bx[1], r[1] + 0.8), (r[0], bx[1], r[1] + 0.8)], sp["stripe"])]
         boxes.append(Box("building_ring", (bx[0], bx[1], 0), (bx[2], bx[3], ring), col["wall"], decals=dec))
         tdec = [d for d in door_decals() if d[0] == "N" and abs(d[1][0][1] - tw[3]) < 1e-6]
         boxes.append(Box("ne_stair_tower", (tw[0], tw[1], 0), (tw[2], tw[3], ring), col["wall"], decals=tdec))
         boxes.append(Box("arena_volume", (av[0], av[1], ring), (av[2], av[3], aroof), col["arena"]))
         labels.update(arena=((av[0] + av[2]) / 2, (av[1] + av[3]) / 2, aroof), ring=(bx[0], bx[1], ring), tower=((tw[0] + tw[2]) / 2, tw[3], ring),
-                      e1=(cx, bx[1], dh), s1=(next(d["at"] for d in plan["level_1"]["doors"]["items"] if d["id"] == "S1"), bx[3], dh),
+                      e1=(cx, bx[1], dh), s1=(next(d["at"] for d in plan["level_1"]["doors"]["items"] if d["id"] == "S1"), an[3] if an else bx[3], dh),
                       panel=((r[0] + r[2]) / 2, bx[1], r[3]))
     else:
         # cutaway: L1 ring solid to L2 FF, minus the arena (tiers drawn) and the lobby open-to-below
@@ -170,6 +201,11 @@ def build_model(mode):
             boxes.append(Box(f"ring_cut_{i}", (p[0], p[1], 0), (p[2], p[3], cut), col["slab"]))
         boxes.append(Box("ne_stair_tower_cut", (tw[0], tw[1], 0), (tw[2], tw[3], cut), col["slab"]))
         ground.append(([(lob[0], lob[1], 0), (lob[2], lob[1], 0), (lob[2], lob[3], 0), (lob[0], lob[3], 0)], "#EFEFEF", "lobby"))
+        if mb:
+            sc = plan["level_1"]["checkpoint"]["rect"]
+            sc = [max(sc[0], lob[0]), max(sc[1], lob[1]), min(sc[2], lob[2]), min(sc[3], lob[3])]
+            ground.append(([(sc[0], sc[1], 0), (sc[2], sc[1], 0), (sc[2], sc[3], 0), (sc[0], sc[3], 0)], col["screening"], "screening"))
+            labels["screening"] = ((sc[0] + sc[2]) / 2, (sc[1] + sc[3]) / 2, 0)
         fl = plan["event_floor"]["rect"]
         arena = next(o for o in plan["level_2"]["open_below"] if o["id"] == "ob_arena")["rect"]
         ground.append(([(arena[0], arena[1], 0), (arena[2], arena[1], 0), (arena[2], arena[3], 0), (arena[0], arena[3], 0)], col["floor"], "arena_floor"))
@@ -505,6 +541,9 @@ def build():
     ms = rd("phase2_massing.yaml")
     p2 = rd("phase2.yaml")
     meta2, mm = p2["meta"], ms["meta"]
+    mb = rd("phase2_massing_rev_b.yaml") if REV == "B" else None
+    if mb:
+        mm = dict(mm, revision=mb["meta"]["revision"], model_file=mb["meta"]["model_file"])
     ext, cut, por = build_model("exterior"), build_model("cutaway"), build_model("portal")
     sh = Sheet(W, H)
     body_bottom = add_titleblock(sh, {
@@ -531,7 +570,11 @@ def build():
             leader(sh, P, (150, 249, hh["ring"]), 0.3, 0.3, f"RING — roof {hh['ring']:g}' ASSUMED · L2 FF {hh['l2']:g}' DECIDED", size=4.4)
             leader(sh, P, lb["apron"], 0.05, 0.4, "service apron at S1 — diagram (D-034)", size=4.2, color=GRY)
             leader(sh, P, lb["portal"], -0.35, 0.2, f"FREESTANDING PORTAL {hh['portal']:g}' max (D-043, D-050)")
-            leader(sh, P, lb["walk"], 0.75, -0.3, "CHAMPION WALK 28' x 30' brick, as drawn (D-046)")
+            if mb:
+                leader(sh, P, lb["walk"], 0.75, -0.3, "CHAMPION WALK 28' brick + 6' bands = 40' (D-066)")
+                leader(sh, P, lb["annex"], 0.02, 0.8, f"STORAGE ANNEX 70' x 30', {mb['annex']['height_ft']:g}' ASSUMED (D-067)", size=4.4)
+            else:
+                leader(sh, P, lb["walk"], 0.75, -0.3, "CHAMPION WALK 28' x 30' brick, as drawn (D-046)")
             leader(sh, P, lb["bus"], 0.15, 0.3, "BUS DROP LOOP — diagram (D-034; C-101 Rev C)", size=4.2, color=GRY)
             leader(sh, P, lb["road"], -0.1, -0.2, "ROAD assumed south (site TBD, D-006)", size=4.2, color=GRY)
         elif v["id"] == "V2":
@@ -539,18 +582,26 @@ def build():
             leader(sh, P, lb["upper_n"], 0.55, 0.3, "FIXED UPPER TIER — 5 rows, 21\" risers, front row 9.0' (D-061)", size=4.4)
             leader(sh, P, lb["lower_s"], 0.55, -0.35, "TELESCOPIC LOWER TIER — extended, 6 rows (D-009)", size=4.4)
             leader(sh, P, lb["loop"], -0.2, 0.75, f"L1 RING (rooms not modelled) CUT AT L2 FF {hh['l2']:g}'", size=4.4)
-            leader(sh, P, lb["lobby"], -0.45, -0.3, "LOBBY — open to below (no checkpoint modelled, D-065)", size=4.4)
+            if mb:
+                leader(sh, P, lb["lobby"], -0.45, -0.3, "LOBBY — open to below", size=4.4)
+                leader(sh, P, lb["screening"], 0.35, -0.35, "SCREENING BAY floor zone (D-065)", size=4.4)
+                leader(sh, P, lb["annex"], -0.3, 0.3, "storage annex, cut", size=4.2)
+            else:
+                leader(sh, P, lb["lobby"], -0.45, -0.3, "LOBBY — open to below (no checkpoint modelled, D-065)", size=4.4)
         elif v["id"] == "V3":
             leader(sh, P, lb["panel"], 0.15, 0.6, "side panel (A-201 Rev G)", size=4.2)
             leader(sh, P, lb["arena"], 0.1, 0.3, "arena volume flush with the east wall", size=4.2)
         elif v["id"] == "V4":
-            leader(sh, P, lb["s1"], 0.3, -0.35, "S1 SERVICE / LOADING (D-034)", size=4.4)
+            leader(sh, P, lb["s1"], 0.3, -0.35, "S1 SERVICE / LOADING (D-034)" + (" on the storage annex (D-067)" if mb else ""), size=4.4)
             leader(sh, P, lb["tower"], 0.2, 0.3, "NE STAIR TOWER", size=4.2)
         elif v["id"] == "V5":
             leader(sh, P, lb["badge"], 0.45, 0.25, f"official mark Ø {hh['badge']:g}' (D-041, D-047)", size=4.4)
             leader(sh, P, lb["portal"], 0.35, 0.1, f"{hh['portal']:g}' max · crown {hh['crown']:g}' · springline {hh['spr']:g}' (D-050)", size=4.4)
             leader(sh, P, (126.5, -36, 24.5), 0.35, -0.12, "gold trim (D-045)", size=4.4)
-            leader(sh, P, lb["walk"], -0.4, -0.35, "walk at the drawn 28' (D-066 OPEN)", size=4.4, color=RED)
+            if mb:
+                leader(sh, P, lb["walk"], -0.4, -0.35, "40' walk: 6' bands pass outside both piers (D-066)", size=4.4)
+            else:
+                leader(sh, P, lb["walk"], -0.4, -0.35, "walk at the drawn 28' (D-066 OPEN)", size=4.4, color=RED)
             leader(sh, P, lb["e1"], 0.5, -0.45, "E1 door bank, 30' behind the portal (D-046)", size=4.4)
     # notes panel
     cr = g2.Col(sh, 12.6, 5.95, W - M - 0.08 - 12.6, 1.0)
@@ -560,27 +611,41 @@ def build():
     cr.para(f"L2 FF {hh['l2']:g}' DECIDED (D-061) · ring roof {hh['ring']:g}' ASSUMED · arena roof {hh['aroof']:g}' ASSUMED (P2-A-201 Rev G) · "
             f"portal {hh['portal']:g}' max, crown {hh['crown']:g}', springline {hh['spr']:g}' (D-050) · tiers per P2-A-301 Rev D / A-302 Rev C. Door symbols "
             f"{ms['model']['door_width_ft']:g}' x {ms['model']['door_height_ft']:g}' ASSUMED.", size=5.1)
-    cr.head("OPEN — NOT MODELLED AS A CHOICE", size=6.6)
-    for it in ms["open_items"]:
-        cr.para(f"{it['id']}: {it['text']}.", size=5.0, bullet="·", color=RED)
+    if mb:
+        cr.head("DECISIONS MODELLED — SHANE 1:21 / 1:22 PM CT", size=6.6)
+        for it in mb["decisions"]:
+            cr.para(f"{it['id']} DECIDED: {it['text']}.", size=5.0, bullet="·")
+        for it in mb["open_items"]:
+            cr.para(f"{it['id']}: {it['text']}.", size=5.0, bullet="·", color=RED)
+    else:
+        cr.head("OPEN — NOT MODELLED AS A CHOICE", size=6.6)
+        for it in ms["open_items"]:
+            cr.para(f"{it['id']}: {it['text']}.", size=5.0, bullet="·", color=RED)
     cr.head("NOTES", size=6.6)
     cr.para(ms["not_shown"], size=5.0, bullet="·")
     cr.para("Colours: limestone / crimson / gold / brick / brand red + black from P2-A-201 Rev G finishes (hex ASSUMED swatches); greys "
             "= material TBD. Arch drawn as a 56-segment polyline; the crimson underside faces down and does not show in views from above.", size=5.0, bullet="·")
     cr.para(f"Model file: phase2/out/3d/{mm['model_file']}.obj + .mtl (feet, Y-up export; exterior, cutaway and portal sets).", size=5.0, bullet="·")
-    cr.para("Sources: params/phase2_massing.yaml; phase2_plan_rev_g.yaml; phase2_elev_rev_g.yaml; phase2_elev.yaml; phase2_site.yaml; "
-            "phase2_sect.yaml; D-009, D-034, D-041, D-043, D-045, D-046, D-047, D-050, D-061; Shane 2026-10-04 12:10 PM CT.", size=4.7, color=GRY)
+    if mb:
+        cr.para("Sources: params/phase2_massing.yaml, phase2_massing_rev_b.yaml; phase2_plan_rev_h.yaml; phase2_elev_rev_g.yaml; phase2_elev.yaml; "
+                "phase2_site.yaml (rev_d); phase2_sect.yaml; D-034, D-043, D-045, D-046, D-050, D-054, D-061, D-064 to D-069; Shane 2026-10-04 "
+                "1:21 / 1:22 PM CT. P2-A-201 (north elevation) does not show the annex yet.", size=4.7, color=GRY)
+    else:
+        cr.para("Sources: params/phase2_massing.yaml; phase2_plan_rev_g.yaml; phase2_elev_rev_g.yaml; phase2_elev.yaml; phase2_site.yaml; "
+                "phase2_sect.yaml; D-009, D-034, D-041, D-043, D-045, D-046, D-047, D-050, D-061; Shane 2026-10-04 12:10 PM CT.", size=4.7, color=GRY)
     return sh, body_bottom, [cr], [("exterior", ext), ("cutaway", cut)]
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A"], default="A")
+    ap.add_argument("--rev", choices=["A", "B"], default="B")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--print", action="store_true")
     a = ap.parse_args()
+    global REV
+    REV = a.rev
     if a.print:
         for m in ("exterior", "cutaway", "portal"):
             mdl = build_model(m)
@@ -589,6 +654,8 @@ def main():
     p2 = rd("phase2.yaml")
     rv = p2["sheets"][SHEET_NO]["revisions"][a.rev]
     ms = rd("phase2_massing.yaml")
+    if REV == "B":
+        ms["meta"]["model_file"] = rd("phase2_massing_rev_b.yaml")["meta"]["model_file"]
     if a.out_dir:
         od = Path(a.out_dir)
         pdf, dxf, obj = od / f"{rv['file']}.pdf", od / f"{rv['file']}.dxf", od / f"{ms['meta']['model_file']}.obj"

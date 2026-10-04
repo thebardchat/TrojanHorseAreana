@@ -424,3 +424,19 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **New model files (repo):** `phase2/out/3d/P2-A-901_RevA_massing.obj` (sha256 `692f1826f68a56a5…`) + `.mtl` (sha256 `ad45ca9ed684bc36…`); feet, Y-up, massing only.
 - **New file in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-901_RevA.pdf`.
 - **Preview (box only):** `/workspace/keystone_previews/P2-A-901.png` / `.pdf`.
+
+## 2026-10-04 additions (1:21 PM CT session, decisions D-054 / 064 / 065 / 066 + D-067 storage applied)
+- **New data:** `params/phase2_plan_rev_h.yaml`, `phase2_code_rev_b.yaml`, `phase2_life_safety_rev_b.yaml`, `phase2_enlarged_rev_b.yaml`, `phase2_overlays_rev_b.yaml`, `phase2_massing_rev_b.yaml`; `phase2_site.yaml` rev_d; `phase2_program.yaml` rev_j. `phase2.yaml` is now v22 (A-111 A, A-401 A, A-103 A, G-002 A frozen + approved, D-068).
+- **New sheets (repo, `phase2/out/{pdf,dxf}/`)** — PDF sha256 (first 16):
+  - `P2-A-101_RevH` `f5779c999d5733c8`
+  - `P2-A-111_RevB` `a07197bb4fc4f967`
+  - `P2-G-002_RevB` `7cf8fc84ada11452`
+  - `P2-G-003_RevJ` `eb4008bceb9dc5f9`
+  - `P2-A-401_RevB` `d1854ca729a39c8c`
+  - `P2-A-103_RevB` `2ce22f72dcf88d23`
+  - `P2-C-101_RevD` `abdf40208c9256f8`
+  - `P2-A-901_RevB` `91e30b16546e38c3`
+- **New model files (repo):** `phase2/out/3d/P2-A-901_RevB_massing.obj` (sha256 `2a33cf8382d7793c…`) + `.mtl` (sha256 `459343775539683b…`); feet, Y-up, massing only.
+- **Storage sizing source (D-067):** National Public Seating 42-8 chair / table truck, 67 x 33.25 in, 42 chairs (vendor listings, retrieved 2026-10-04); stage carts ASSUMED.
+- **New files in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-101_RevH.pdf`, `P2-A-111_RevB.pdf`, `P2-G-002_RevB.pdf`, `P2-G-003_RevJ.pdf`, `P2-A-401_RevB.pdf`, `P2-A-103_RevB.pdf`, `P2-C-101_RevD.pdf`, `P2-A-901_RevB.pdf`.
+- **Previews (box only):** `/workspace/keystone_previews/<sheet>.png` / `.pdf` for the 8 sheets above.
