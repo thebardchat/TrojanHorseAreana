@@ -1,0 +1,92 @@
+# KEYSTONE — P2-C-101 SITE PLAN / CAMPUS DIAGRAM (Phase 2, P2-T-006). Schematic, SITE TBD (D-006). Created 2026-10-04 (Shane 7:44 AM CT).
+# Coordinates in feet, plan origin = SW corner of the building (same as params/phase2_plan_rev_d.yaml); y north, negative y = south of
+# the building. Road assumed south. Every site element is a DIAGRAM: locations ASSUMED, sizes TBD unless DECIDED and sourced.
+meta:
+  sheet: P2-C-101
+  title: SITE PLAN — CAMPUS DIAGRAM
+  revision: A
+  status: "SCHEMATIC — SITE TBD (D-006)"
+  source: "Shane 2026-10-04 7:44 AM CT (site plan revision: freestanding portal + 28x30 Champion Walk, south bus drop loop offset E/W, service at north door S1, stair growth); KEYSTONE prompt §9 (C-101 campus master plan, SITE TBD diagram)"
+
+scale:
+  ft_per_in: 60
+  source: "KEYSTONE sheet layout (1 in = 60 ft, same as the P2-A-201 key plan)"
+
+building:
+  frozen_rect: [0, 0, 204, 252]
+  frozen_tower: [185, 252, 204, 257]
+  frozen_footprint_sf: 51503
+  east_shift_ft: 6
+  rect: [0, 0, 210, 252]
+  tower: [188.667, 252, 210, 257]
+  basis: "Frozen Rev D box 204 x 252 + 19 x 5 NE stair tower (P2-A-101 Rev D). D-053 DECIDED: east seats 6 ft further from the mats -> east wall moves 6 ft (applies at the next A-101/A-102/A-301 revision). NE tower widened to the 76 in stair width (21.33 ft, D-052 DECIDED 7:49 AM CT) so ST-2 fits"
+  source: "phase2_plan_rev_d.yaml building; D-053 (Shane 7:44 AM CT); D-051; D-052 DECIDED (Shane 7:49 AM CT)"
+
+stairs:
+  frozen_ft: [10.8, 19]
+  d051_ft: [11.667, 20.833]
+  d052_ft: [12.667, 21.333]
+  drawn: d052
+  items:
+    - {id: ST-1, anchor: "NE", rect_frozen: [38.2, 233, 49, 252], source: "phase2_plan_rev_d.yaml ST-1 (long side N-S); grown toward the south / west inside the box"}
+    - {id: ST-2, anchor: "NE", turned: true, rect_frozen: [185, 246.2, 204, 257], source: "phase2_plan_rev_d.yaml ST-2 (long side E-W, in the NE tower); moves 6 ft east with the east wall (D-053)"}
+    - {id: ST-3, anchor: "SE", turned: true, rect_frozen: [185, 0, 204, 10.8], source: "phase2_plan_rev_d.yaml ST-3 (long side E-W); moves 6 ft east (D-053)"}
+    - {id: ST-4, anchor: "SW", rect_frozen: [0, 0, 10.8, 19], source: "phase2_plan_rev_d.yaml ST-4 (long side N-S)"}
+  basis: "Stairs grow inward from their exterior corners (footprint unchanged except the NE tower width). 70 in clear with a 70 in mid landing = 11.67 x 20.83 ft (D-051 DECIDED); 76 in clear with intermediate handrails and a 76 in mid landing = 12.67 x 21.33 ft (D-052 DECIDED, Shane 7:49 AM CT) — drawn"
+  source: "D-051 (Shane 7:24 AM CT); D-052 DECIDED (Shane 7:49 AM CT, R-018.9); phase2_plan_rev_d.yaml vertical.stairs"
+
+doors:
+  E1: {wall: S, at: 113, source: "phase2_plan_rev_d.yaml doors E1 (main entry / main exit, D-033)"}
+  S1: {wall: N, at: 68.5, source: "phase2_plan_rev_d.yaml doors S1; D-034 DECIDED default (service at the north door S1)"}
+  exits_frozen: {X1: [W, 38], X2: [W, 98], X3: [W, 182], X4: [N, 43.6], X5: [N, 127.85], X6: [E, 251.6], X7: [E, 179.09], X8: [E, 34], X9: [S, 194.5], X10: [S, 5.4], source: "phase2_plan_rev_d.yaml doors (EXIT ONLY, D-033); east-wall exits move 6 ft east and S-wall exit X9 moves 6 ft east with D-053"}
+  source: "phase2_plan_rev_d.yaml vertical.doors"
+
+portal:
+  center_x: 113
+  width: 44
+  depth: 6
+  gap_to_building: 30
+  height_max_ft: 50
+  source: "D-043 (freestanding); D-046 (30 ft portal to doors); D-050 (50 ft max); phase2_elev.yaml portal (44 ft wide, ASSUMED); phase2_elev_rev_d.yaml portal_freestanding (6 ft deep ASSUMED)"
+
+champion_walk:
+  rect: [99, -30, 127, 0]
+  width: 28
+  length: 30
+  extension: "dashed south toward parking (later option, D-046)"
+  source: "D-046 DECIDED (28 x 30 ft, portal to the E1 doors)"
+
+bus_drop:
+  side: E
+  basis: "south bus drop loop offset east so it does not block the portal view (D-034 DECIDED default: offset east OR west — east drawn, west equally possible; the FLEX / team assembly room is in the SW corner, so a west loop is the alternative). Loop geometry is a DIAGRAM: lane width, turning radius and curb length TBD (civil / bus turning template)"
+  loop_center: [178, -95]
+  loop_rx: 34
+  loop_ry: 26
+  curb_at: [140, 170]
+  source: "Shane 2026-10-04 6:45 AM CT (D-034); Shane 7:44 AM CT; KEYSTONE diagram (ASSUMED location)"
+
+service:
+  route: "service / delivery drive to the north door S1 along the west side (diagram; alignment TBD with the parcel). Apron at S1 diagrammatic"
+  apron: [52, 252, 85, 300]
+  source: "D-034 DECIDED default (service at the north door S1); KEYSTONE diagram (ASSUMED)"
+
+road:
+  y: -150
+  label: "ROAD (assumed south; site TBD, D-006)"
+  source: "phase2.yaml (road assumed south); D-006 OPEN"
+
+fire_access:
+  note: "Fire apparatus access roads, hydrants and fire flow per IFC Appendices B, C, D (adopted by the State Fire Marshal with the 2021 IFC, D107 recommended only) and the county's 2018 IFC — layout TBD with the parcel (R-006)"
+  source: "R-006 (Ala. Admin. Code 482-2-101-.02; Madison County codes page)"
+
+footprint_check:
+  cap_sf: 55000
+  frozen_drawn_sf: 51503
+  east_shift_sf: 1512
+  tower_widen_sf_76: 11.667
+  tower_widen_sf_70: 9.167
+  stair_growth_outward_bound_sf_76: 260.09
+  program_basis_f_sf: 52738.4
+  program_basis_f_76_sf: 53076.9
+  basis: "drawn basis: 51,503 + 6 x 252 = 53,015; + NE tower widening (21.333 - 19) x 5 = 11.67 (76 in) -> 53,026.7, margin 1,973.3; if all 4 stairs grew outward instead (bound): 53,015 + 4 x (270.22 - 205.2) = 53,275.1, margin 1,724.9. Program basis (P2-G-003 Rev F method, the 2,262 margin Shane approved): F 52,738.4 -> 53,076.9 with four 76 in stairs (p2_testfit recompute) + 1,512 = 54,588.9, margin 411.1"
+  source: "P2-A-101 Rev D (frozen); P2-G-003 Rev F; D-031 (cap); D-051; D-052; D-053; KEYSTONE arithmetic 2026-10-04 7:44 AM CT"

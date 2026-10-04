@@ -2,13 +2,13 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-04T07:43:55-05:00",
+  "updated_at": "2026-10-04T07:58:00-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
-  "phase2_percent": 50,
-  "current_ticket": "P2-T-009",
-  "current_ticket_title": "P2-A-201 Rev D (portal 50 ft, crown 34) + P2-A-301 Rev B (70 in mid landing) + P2-A-302 Rev A sight-line study; Rev C / A-301 Rev A frozen",
+  "phase2_percent": 55,
+  "current_ticket": "P2-T-006",
+  "current_ticket_title": "P2-C-101 Rev A site plan / campus diagram (portal + Champion Walk, bus loop, service at S1, east shift, 76 in stairs) + R-006 / R-007",
   "sheets_done": [
     "P1-G-001 Rev A (internal)",
     "P1-G-001 Rev B (principal)",
@@ -39,14 +39,15 @@
   "sheets_in_progress": [
     "P2-A-201 Rev D (exterior elevations, portal 50 ft max)",
     "P2-A-301 Rev B (building sections, 70 in mid landing, under-tier use)",
-    "P2-A-302 Rev A (sight-line study)"
+    "P2-A-302 Rev A (sight-line study)",
+    "P2-C-101 Rev A (site plan / campus diagram, SITE TBD)"
   ],
   "last_commit": "c50442c",
   "branch": "grok/keystone",
-  "open_decisions": 18,
-  "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002 still OPEN). P2: owner (D-007), AHJ (D-008); trademark search (D-042); brick donor pricing (D-044); egress stairs (D-052); sight-line fix (D-053); site TBD (D-006)",
-  "what_changed": "Photo is Shane's own, off-repo (D-048 closed). Upper tier steps down, storage/mech under it (D-049). A-201 Rev D: portal 50 ft, crown 34, springline 22.1 (D-050). A-301 Rev B: 70 in mid landing, 243 SF/stair (D-051). A-302 sight lines. Egress: 4 x 76 in stairs proposed (D-052).",
-  "what_to_verify": "Springline 22.1 ft + elliptical arch ASSUMED. Sight lines: upper 14 in risers fail (C 40-49 mm N/S, negative E); east 10 ft focal fails. Proposed 19 in risers + east +6 ft. Recessed stack conflicts; kept at the tier face.",
-  "next_action": "Shane answers D-053 (sight-line fix) and D-052 (76 in stairs). Then R-006 / R-007 and the site plan + A-101/A-102 revision (stairs, portal + walk, lockers re-plan). Phase 1 first when Dr. Headen data arrives.",
-  "question_for_shane": "Sight lines: approve 19 in upper-tier risers (front row drops 9.17 to 7.08 ft) plus moving the east seats 6 ft further from the mats (+1,512 SF), or accept weaker east views?"
+  "open_decisions": 17,
+  "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002 still OPEN). P2: owner (D-007), AHJ (D-008, pre-app), site (D-006); trademark search (D-042); brick donor pricing (D-044); event floor uses (D-054)",
+  "what_changed": "D-053 + D-052 DECIDED (19 in upper risers, east seats +6 ft; 4 x 76 in stairs), for next A-101/102/301 rev. Footprint margin 1,973.3 SF drawn / 411.1 SF program basis. R-006: Madison County, 2018 IBC vs state 2021 IFC. R-007: A-4; floor load by use (D-054). New P2-C-101 Rev A.",
+  "what_to_verify": "Program-basis margin is only 411.1 SF. County building code is 2018 IBC while sheets cite IBC 2021 (G-002 will carry both). Site geometry on C-101 is diagram only (site TBD). Event floor occupant load depends on D-054.",
+  "next_action": "Shane reviews P2-C-101 Rev A and answers D-054. Then P2-A-101/102/301 next revision (east shift, 76 in stairs, 19 in risers, lockers re-plan, portal + walk) and G-002 code analysis. Phase 1 first when Dr. Headen data arrives.",
+  "question_for_shane": "Will the event floor host non-sports events (concerts, graduations, expos with floor chairs or standing crowds)? That sets the floor occupant load (329 now vs up to 3,284) and Level 1 exit sizing (D-054)."
 }

@@ -238,3 +238,10 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **New / updated sheets:** `phase2/out/{pdf,dxf}/P2-A-201_RevD` (`p2_a_201.py --rev D`, default; Rev C FROZEN, byte-identical); `phase2/out/{pdf,dxf}/P2-A-301_RevB` (`p2_a_301.py --rev B`, default; Rev A FROZEN, byte-identical); `phase2/out/{pdf,dxf}/P2-A-302_RevA` sight-line study (new `phase2/src/p2_a_302.py`).
 - **New research:** `research/R-020-sight-lines.md` (sources: Starena / Green Guide reprint, Parametric Monkey, FIFA Stadium Guidelines 2.3, CEN/TR 15913 iTeh preview, DIN EN 13200-1 summary, Hussey MAXAM, IBC 2021 — retrieved 2026-10-04). R-018.9 addendum (egress worst case).
 - **Previews (box only):** `/workspace/keystone_previews/P2-A-201.png` + `.pdf` (now Rev D), `P2-A-201_RevC.png` (frozen Rev C kept); `P2-A-301.png` + `.pdf` (now Rev B), `P2-A-301_RevA.png` (frozen Rev A kept); `P2-A-302.png` + `.pdf`.
+
+## 2026-10-04 additions (7:44 / 7:49 AM CT session, D-052 + D-053 decided, R-006 / R-007, P2-C-101 Rev A)
+- **New data file:** `params/phase2_site.yaml` (campus diagram inputs: frozen Rev D outline, east shift 6 ft (D-053), stair growth 76 in (D-052), portal + 28 x 30 ft Champion Walk, south bus drop loop offset east, service drive + apron at north door S1, assumed road, fire access note, `footprint_check`). All site-level geometry is DIAGRAM ONLY (site TBD, D-006); nothing is surveyed.
+- **New sheet:** `phase2/out/{pdf,dxf}/P2-C-101_RevA` — site plan / campus diagram (new `phase2/src/p2_c_101.py`), 17 x 11, 1 in = 60 ft. PDF sha256 `111c4938eb81761caf15e2ce105d9f5727a033a8d5e99d80b82c1c66827e43bc`.
+- **New research:** `research/R-006-code-edition-and-ahj.md` (Madison County Inspection Department, county code adoption page, Alabama State Fire Marshal / ADECA, DCM State Building Code, Alabama architect licensing law — retrieved 2026-10-04); `research/R-007-occupancy-and-occupant-load.md` (IBC 2021 chapters 3 and 10, UpCodes / ICC digital codes — retrieved 2026-10-04).
+- **Previews (box only):** `/workspace/keystone_previews/P2-C-101.png` + `.pdf`.
+

@@ -29,6 +29,10 @@
 #     loop, storage / mech under its low front, lockers only at full height (D-049); portal <= 50 ft, crown 34 ft (D-050);
 #     switchback mid landing 70 in (D-051); egress 76 in stairs PROPOSED (D-052); sight-line fix PROPOSED (D-053).
 #     P2-A-201 Rev C + P2-A-301 Rev A frozen; P2-A-201 Rev D, P2-A-301 Rev B, P2-A-302 Rev A (sight lines).
+# v14, 2026-10-04 7:49 AM CT: D-053 DECIDED (upper risers 19 in, east seats 6 ft further out, +~1,512 SF) and D-052 DECIDED
+#     (4 stairs x 76 in clear + intermediate handrails); both apply at the next A-101/A-102/A-301 revision. Footprint margin
+#     1,973.3 SF (drawn) / 411.1 SF (program basis) under the 55,000 cap. R-006 / R-007 done; D-054 (event floor uses) OPEN.
+#     New site sheet P2-C-101 Rev A (campus diagram).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -84,6 +88,12 @@ building:
   total_sf: 55000
   total_sf_meaning: "the 55,000 SF is the building FOOTPRINT cap (D-031), not a cap on total floor area"
   footprint_cap_sf: 55000
+  footprint_margin_next_revision:
+    drawn_basis: "Rev D drawn 51,503 SF (204 x 252 + tower) + east shift 6 x 252 = 1,512 (D-053) + NE tower widened for the 76 in ST-2 = 11.67 -> 53,026.7 SF; margin 1,973.3 SF (D-052 stairs grow inward)"
+    bound: "if all 4 stairs grew outward instead: 53,275.1 SF; margin 1,724.9 SF"
+    program_basis: "P2-G-003 Rev F method: 54,588.9 SF with 76 in stairs + east shift; margin 411.1 SF"
+    detail: "params/phase2_site.yaml footprint_check; P2-C-101 Rev A"
+    source: "D-031, D-052, D-053; KEYSTONE calc 2026-10-04 7:49 AM CT"
   levels: 2
   levels_basis: "LOCKED 2 levels (D-030 DECIDED, Shane 11:39 PM CT); D-031 allowed up to 2"
   stories: 2 (D-030, D-031)
@@ -255,6 +265,16 @@ approach:
     delta: "+37.9 SF per stair per level vs the frozen 205.2 SF (10.8 x 19); about +303 GSF for 4 stairs x 2 levels (D-051 DECIDED)"
     worst_case: "1,462 occupants x 0.2 in = 292.4 in vs 280 in (4 x 70) -> 12.4 in short; PROPOSED 4 x 76 in = 304 in (+11.6 in), about 270.2 SF per stair per level, +217.8 GSF vs 70 in (D-052 OPEN, R-018.9)"
     source: "Shane 2026-10-04 7:24 AM CT (D-051, egress ask); IBC 2021 1011.6, 1005.3.1; R-018.9"
+  egress_next_revision_3:
+    stair_clear_width_in: 76
+    handrails: "intermediate handrails (IBC 2021 1014.9 / 1029.16 as applicable)"
+    intermediate_landing_in: 76
+    stair_plan_ft: [12.67, 21.33]
+    stair_sf_per_level: 270.2
+    capacity: "4 x 76 in = 304 in vs 292.4 in worst case (1,462 x 0.2 in) -> passes, ~11.6 in spare"
+    applies: "next P2-A-101 / A-102 / A-301 revision; frozen sheets stay frozen; shown on P2-C-101 Rev A"
+    status: "DECIDED (D-052)"
+    source: "Shane 2026-10-04 7:49 AM CT (D-052 DECIDED); R-018.9"
   under_tier_use:
     rule: "upper tier steps DOWN from the L2 loop toward the court (as drawn); under its low front edge: telescopic stack, storage, mechanical; lockers only where headroom is full (DECIDED, D-049)"
     full_headroom: "under the flat L2 slab behind the tier back line (ASSUMED reading)"
@@ -262,7 +282,8 @@ approach:
     source: "Shane 2026-10-04 7:24 AM CT (D-049); R-020; P2-A-301 Rev B"
   sight_lines:
     study: "P2-A-302 Rev A / R-020: upper tier (14 in risers) fails every side; east side (10 ft focal) fails; PROPOSED upper 19 in risers + east tier 6 ft further out (D-053 OPEN)"
-    source: "Shane 2026-10-04 7:24 AM CT; R-020"
+    decision: "APPROVED: upper-tier risers 19 in (front row 7.08 ft) AND east seats 6 ft further from the mats (+~1,512 SF); applies at the next A-101/A-102/A-301 revision (DECIDED, D-053)"
+    source: "Shane 2026-10-04 7:24 AM CT; R-020; Shane 2026-10-04 7:44 AM CT (D-053 DECIDED)"
   source: "Shane 2026-10-04 6:22 AM CT; D-043"
 
 support_rooms:
@@ -419,7 +440,8 @@ campus:
 
 open_items:
   owner_of_record: "OPEN — Shane / Hazel Green Trojan Youth Wrestling / partnership (D-007). Not a school project (D-028)"
-  ahj: TBD
+  ahj: "OPEN (D-008) — R-006: Madison County Inspection Department if unincorporated (county: 2018 IBC / IFC / NFPA 101; State Fire Marshal: 2021 IFC); DCM if a 'schoolhouse' use applies; confirm at pre-application"
+  occupancy: "R-007: Group A-4 (arena with spectator seating) main; S&C / cross-training A-3 or accessory; offices B; storage S-1 (ASSUMED until G-002). Event floor load 329 → up to 3,284 by use (D-054 OPEN)"
   budget: TBD
   seating_type: "DECIDED (D-009, 2026-10-04 4:30 AM CT): MIX — telescopic lower tier, fixed upper tier"
   concessions_scope: TBD
@@ -575,6 +597,17 @@ sheets:
         inputs: "params/phase2_sightlines.yaml + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
         source: "Shane 2026-10-04 7:24 AM CT (sight-line study before more seating detail: standing + seated, both tiers, focal point = near edge of the nearest mat, C-value method; stack fit under the upper-tier front); R-020"
     source: "Shane 2026-10-04 7:24 AM CT"
+  P2-C-101:
+    title: SITE PLAN — CAMPUS DIAGRAM
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_site.yaml + params/phase2_plan_rev_d.yaml"
+    revisions:
+      A:
+        file: P2-C-101_RevA
+        frozen: false
+        inputs: "params/phase2_site.yaml + params/phase2_plan_rev_d.yaml"
+        source: "Shane 2026-10-04 7:44 AM CT (site plan revision: freestanding portal + 28x30 Champion Walk, south bus drop loop offset E/W, service at north door S1, stair growth; frozen revs stay byte-identical). First site sheet (KEYSTONE prompt §9 C-101, SITE TBD diagram)"
+    source: "Shane 2026-10-04 7:44 AM CT"
 
 sets:
   phase2_schematic_set_rev_a:
