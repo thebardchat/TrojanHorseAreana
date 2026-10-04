@@ -11,12 +11,15 @@ Rev D: portal capped at 50 ft (D-050): arch crown 34 ft, springline 22.1 ft (26 
 Inputs phase2_elev.yaml + phase2_elev_rev_d.yaml (overlay).
 Rev E: coordinated with P2-A-101/102 Rev E: 210 ft width, arena volume flush with the new east wall, NE stair tower
 21.33 x 6.67 ft, doors from Rev E (phase2_elev_rev_e.yaml `plan_file`). Portal / brand unchanged from Rev D.
+Rev F (reviewer C-5 / C-8, no geometry change): 25' arena clear labelled REFERENCE (not CITED); portal marked
+STRUCTURAL ENGINEER REQUIRED (callout + note); ETFE roof / solar moved from NOT SHOWN to an OPEN QUESTION note
+(phase2_elev_rev_f.yaml `se_callout`, `notes_override.not_shown` / `open_question`).
 
 South elevation (primary, 1/16 in = 1 ft) with the south portal; north, east and west (1/32 in = 1 ft).
 Heights and finishes: params/phase2_elev.yaml. Building outline, arena volume and doors: params/phase2_plan_rev_d.yaml
 (P2-A-101/102 Rev D, frozen in Phase 2 Schematic Set Rev A). DXF is in paper inches; fills are solid HATCH entities.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C|D|E] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C|D|E|F] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -42,7 +45,7 @@ def load(rev="A"):
     ev = yaml.safe_load((BP / "params" / "phase2_elev.yaml").read_text(encoding="utf-8"))
     plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_d.yaml").read_text(encoding="utf-8"))
     evb = None
-    if rev in ("B", "C", "D", "E"):
+    if rev in ("B", "C", "D", "E", "F"):
         evb = yaml.safe_load((BP / "params" / f"phase2_elev_rev_{rev.lower()}.yaml").read_text(encoding="utf-8"))
         if evb.get("plan_file"):                   # Rev E: P2-A-101/102 Rev E geometry (210 ft, 6.67 ft NE tower)
             plan = yaml.safe_load((BP / "params" / evb["plan_file"]).read_text(encoding="utf-8"))
@@ -481,6 +484,12 @@ def build(p2, ev, plan, evb=None):
             x2_, y2_ = elS.P(tu, tz)
             sh.line(x2_, y2_, x_ - 0.04, y_ + 0.03, layer=L_TAG, lw=0.35)
             sh.text(x_, y_, t_, size=5.4, layer=L_TAG)
+        sc = evb.get("se_callout")
+        if sc:                                     # Rev F (C-8): structural engineer flag on the freestanding portal
+            x_, y_ = elS.P(cx + pt["overall_width"] / 2 + 3, sc["z"])
+            x2_, y2_ = elS.P(cx + sc["target"][0], sc["target"][1])
+            sh.line(x2_, y2_, x_ - 0.04, y_ + 0.03, layer=L_TAG, lw=0.35)
+            sh.text(x_, y_, sc["text"], size=5.6, bold=True, layer=L_TAG, color=sc.get("color", "#000000"))
         cw = evb["champion_walk"]
         elS.text(cx, -3.6, f"{cw['name']} — BRICK, in front · {cw['note']}", size=5.4, bold=True, align="center", layer=L_TAG)
     x_, y_ = elS.P(0, -5.6)
@@ -529,9 +538,9 @@ def build(p2, ev, plan, evb=None):
         sh.text(lx + 0.36, y, f"{f['name']} — {f['status'].split(';')[0]}", size=5.6)
     nx = 13.05
     nw = W - M - 0.15 - nx
-    y = ly + 0.13
-    sh.text(nx, ly, "NOTES", size=7.6, bold=True)
-    y = ly - 0.02
+    nly = ly + (evb or {}).get("layout", {}).get("notes_dy", 0)    # Rev F: notes block raised into the free band
+    sh.text(nx, nly, "NOTES", size=7.6, bold=True)
+    y = nly - 0.02
     hz = ev["heights"]
     notes = [f"HEIGHTS: L2 FF 15' (R-015) and ring roof 30' are ASSUMED. Arena clear ≥ {hz['arena_clear_min']['value']}' over the court "
              "(NFHS court specs via Draper; LA RAP gym standard; R-019). U/S arena structure 36' and roof 42' ASSUMED (≈ 15' over an "
@@ -554,6 +563,10 @@ def build(p2, ev, plan, evb=None):
         notes[1:1] = [no["portal"], no["brand"], no["walk"]]
         if no.get("heights"):                      # Rev D: D-049 tier rake (highest aisle = the loop)
             notes[0] = no["heights"]
+        if no.get("not_shown"):                    # Rev F (C-8): ETFE / solar only as an open question
+            notes[-1] = no["not_shown"]
+        if no.get("open_question"):
+            notes.append(no["open_question"])
     for t_ in notes:
         y = sh.para(nx, y + 0.02, nw, t_, size=5.6, indent=0.1, bullet="·")
     fl = body_bottom + 0.06
@@ -565,7 +578,7 @@ def build(p2, ev, plan, evb=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E"], default="E")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F"], default="F")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")

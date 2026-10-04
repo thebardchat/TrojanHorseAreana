@@ -37,3 +37,5 @@ NEEDS ARCHITECT CONFIRMATION: YES
 - D-008 (AHJ): Madison County Inspection Department if the parcel is unincorporated; editions as above; DCM question added. D-008 stays OPEN (needs the site, D-006, and a pre-application meeting).
 - Phase 2 sheets keep citing IBC 2021; G-002 (code analysis) will carry a 2018 IBC / NFPA 101 column.
 - Fire apparatus access and water supply: the state adopted IFC Appendices B, C and D (S6) — fire flow, hydrants and fire apparatus access roads apply to the site plan (P2-C-101 notes them as TBD).
+- **2026-10-04 10:15 AM CT (reviewer C-6):** P1-G-001 Rev E (principal, Phase 1) prints "2021 ASSUMED, verify with AHJ" on its code lines and "Edition still open: county lists 2018 codes; State Fire Marshal uses 2021." The edition conflict stays OPEN under D-008.
+

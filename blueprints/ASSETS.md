@@ -358,3 +358,11 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **New research:** `research/R-022-exit-paths-under-low-band.md` (arithmetic from Plan Rev E + p2_testfit / p2_a_302; IBC 2021 1003.2, 1011, 1030). Copy at `ARENA\_KEYSTONE\R-022-exit-paths-under-low-band.md`.
 - **New files in the ARENA root (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED):** `P2-A-201_RevE.pdf`, `P2-A-301_RevC.pdf`, `P2-A-302_RevB.pdf`, `P2-C-101_RevB.pdf`. Plain-named files untouched.
 - **Previews (box only):** `/workspace/keystone_previews/P2-A-201.png/.pdf` (Rev E), `P2-A-301.png/.pdf` (Rev C), `P2-A-302.png/.pdf` (Rev B), `P2-C-101.png/.pdf` (Rev B).
+
+## 2026-10-04 additions (10:03 AM CT session, reviewer C-5..C-11 without D-061)
+- **New data:** `params/phase2_elev_rev_f.yaml` (A-201 Rev F overlay: REFERENCE label, `se_callout`, `notes_override.not_shown` / `open_question`, `layout.notes_dy`); `phase1.yaml` `sheets.P1-G-001.revisions.E` (`code_edition_suffix`, `code_edition_note`, `hide_phase2_size`); `phase2_program.yaml` `meta_rev_h`; `phase2.yaml` sheet entries A-201 F, G-003 H (A-201 E, G-003 G now frozen; P1-G-001 D frozen as approved).
+- **New sheets (repo):** `phase2/out/{pdf,dxf}/P2-A-201_RevF` (PDF sha256 `0815ca977f8152a4…`), `phase2/out/{pdf,dxf}/P2-G-003_RevH` (`2048bf828bec355e…`), `phase1/out/{pdf,dxf}/P1-G-001_RevE_principal` (`c9255d7769f05dfe…`).
+- **New tools:** `shared/status_writer.py` (C-10); `shared/keystone_status.sh` (byte-identical copy of `ARENA\keystone_status.sh`, sha256 `47ecb0637f26ae4a…`; ShaneBrain preflight bridge, `C:\Users\Hubby\shanebrain-core\scripts\preflight.sh` exists on Pulsar00100 — not read or edited).
+- **New files in the ARENA root (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED):** `P2-A-201_RevF.pdf`, `P2-G-003_RevH.pdf`, `P1-G-001_RevE.pdf`. Plain-named files untouched.
+- **Previews (box only):** `/workspace/keystone_previews/P2-A-201.png/.pdf` (Rev F), `P2-G-003.png/.pdf` (Rev H), `P1-G-001.png/.pdf` (Rev E).
+

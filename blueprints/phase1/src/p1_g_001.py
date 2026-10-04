@@ -6,8 +6,12 @@ Revisions, all from phase1.yaml `sheets.P1-G-001.revisions`:
       codes, requester line, asks list).
   C = PRINCIPAL version, FROZEN as issued 2026-10-03: Rev B + W2 no-water
       status, priority order (panels W2, W3, W1 with PRIORITY labels), 4th ask.
-  D = PRINCIPAL version, current: Rev C + W2 where / problem spots / fixtures
-      filled in, W1 pad estimate line (Shane's estimate).
+  D = PRINCIPAL version, FROZEN as approved 2026-10-03: Rev C + W2 where / problem
+      spots / fixtures filled in, W1 pad estimate line (Shane's estimate).
+  E = PRINCIPAL version, current (2026-10-04, reviewer C-6): Rev D + code edition
+      "2021 ASSUMED, verify with AHJ" on the W1 / W2 code lines + a code-edition
+      note under the W2 code line; Phase 1 content only (Phase 2 size dropped from
+      NOT INCLUDED).
 Frozen revisions keep their committed PDF/DXF as issued; regenerate them only
 to check (use --out-dir). A frozen revision's W2 wording comes from its
 `as_issued` snapshot (W2 + W3 where) so the regenerated sheet matches the issued one.
@@ -17,7 +21,7 @@ total from phase2.yaml, used ONLY in the "NOT INCLUDED" list). Unknowns print TB
 Layout constants below are sheet geometry in inches, not project dimensions.
 
 Run from the repo root:
-  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev D [--png PATH]
+  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev E [--png PATH]
   /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev A --out-dir /tmp/check
 """
 from __future__ import annotations
@@ -46,6 +50,7 @@ ROW1_LAYOUT_BY_REV = {
     "D": {"fracs": {"W2": 0.325, "W3": 0.36, "W1": 0.315}, "table_pt": 8.4, "table_c0": 0.335, "table_c2": 0.165, "body": 9.2,
           "asks_pt": 10.0},
 }
+ROW1_LAYOUT_BY_REV["E"] = ROW1_LAYOUT_BY_REV["D"]   # Rev E: same layout as Rev D (text-only changes)
 ROW2_FRACS_PRIORITY = (0.17, 0.335, 0.275)         # Rev C row 2: not included / who approves / asks (photos = rest)
 ROW2_TRIM_PRIORITY = 0.0                           # Rev C: row 2 height given to row 1 (none needed)
 ROW1_BODY_PRIORITY = 9.6                           # Rev C row-1 body size (pt)
@@ -131,7 +136,7 @@ def callout(sh: Sheet, x, y, w, s, size=BODY + 0.5, lw=1.8):
     return y - h - 0.1
 
 
-def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
+def build(p1: dict, p2: dict, rev: str = "E") -> Sheet:
     meta, site = p1["meta"], p1["site"]
     wi = {w["id"]: w for w in p1["work_items"]}
     w1, w2, w3 = wi["W1"], wi["W2"], wi["W3"]
@@ -222,7 +227,7 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
         y -= 0.08
         sh.text(x, y - pitch(B1), "FIRE SAFETY — BEFORE BUYING PADS", size=B1, bold=True)
         y = callout(sh, x, y - pitch(B1) - 0.08, w, w1["purchase_note"], size=B1 + 0.5)
-        basis = f"Basis: {pads['sheet_basis']}." if codes else f"Code basis: {pads['sheet_basis_plain']}."
+        basis = f"Basis: {pads['sheet_basis']}." if codes else f"Code basis: {pads['sheet_basis_plain']}{rv.get('code_edition_suffix', '')}."
         y = sh.para(x, y, w, basis, size=8.5)
         fits("W1", y, r1_y)
 
@@ -247,7 +252,9 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
         sh.text(x, y - pitch(B1), "WHO DESIGNS IT", size=B1, bold=True)
         y = callout(sh, x, y - pitch(B1) - 0.08, w, w2["design_by"], size=B1 + 1.5)
         y = sh.para(x, y, w, f"This package gives: {w2['keystone_output']}.", size=B1)
-        y = sh.para(x, y, w, f"Plumbing code: {gov['plumbing_code']} (Alabama).", size=8.5)
+        y = sh.para(x, y, w, f"Plumbing code: {gov['plumbing_code']} (Alabama){rv.get('code_edition_suffix', '')}.", size=8.5)
+        if rv.get("code_edition_note"):            # Rev E (C-6): edition conflict, plain words (no codes)
+            y = sh.para(x, y, w, rv["code_edition_note"], size=8.5)
         fits("W2", y, r1_y)
 
     panels["W2"] = panel_w2
@@ -328,7 +335,7 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
     total = p2["building"]["total_sf"]
     items = []
     for it in p1["not_in_phase1"]["items"]:
-        if "Phase 2" in it and isinstance(total, int):
+        if "Phase 2" in it and isinstance(total, int) and not rv.get("hide_phase2_size"):   # Rev E: Phase 1 content only
             it = f"{it} ({total:,} SF)"
         items.append(sentence(it).rstrip("."))
     for it in items:
@@ -373,8 +380,8 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", default="D", choices=["A", "B", "C", "D"],
-                    help="A (internal, frozen), B/C (principal, frozen) or D (principal, current); default D")
+    ap.add_argument("--rev", default="E", choices=["A", "B", "C", "D", "E"],
+                    help="A (internal, frozen), B/C/D (principal, frozen) or E (principal, current); default E")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase1/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")

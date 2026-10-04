@@ -496,10 +496,16 @@ sheets:
         source: "Shane 2026-10-04 4:55 AM CT (Rev F; Rev E frozen; keep >= 2,000 SF footprint margin)"
       G:
         file: P2-G-003_RevG
-        frozen: false
+        frozen: true
         inputs: "params/phase2_program.yaml (rev_g, meta_rev_g) + params/phase2_plan_rev_e.yaml"
         note: "Rev F + 76 in stairs / 76 in intermediate landings (D-052, D-051) + 6 ft east clear zone (D-053) + Rev E loop; D-057 size table (L1 footprint, L2 area, TOTAL GSF, change vs Rev F / Rev D), drawn vs program side by side (C-3); no cap, no margin (D-056)"
-        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4; Rev F stays frozen)"
+        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4; Rev F stays frozen); frozen 10:03 AM CT when Rev H was ordered (reviewer C-11)"
+      H:
+        file: P2-G-003_RevH
+        frozen: false
+        inputs: "params/phase2_program.yaml (rev_g, meta_rev_h) + params/phase2_plan_rev_e.yaml"
+        note: "Rev G numbers unchanged; fixture table WC+LAV column (restroom-SF basis, 66) + SUM incl. 4 drinking fountains (70) (reviewer C-11)"
+        source: "Shane 2026-10-04 10:03 AM CT (reviewer C-11: label the fixture SUM column 'incl. 4 drinking fountains'; new rev)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
   P2-A-101:
     title: OVERALL FLOOR PLAN — LEVEL 1
@@ -594,9 +600,14 @@ sheets:
         source: "Shane 2026-10-04 7:24 AM CT (portal must not exceed 50 ft, arena roof 42; lower the arch crown 40 -> ~34 ft, springline proportional, ASSUMED; 11 ft badge + wordmark inside 50 ft, D-050); frozen 9:47 AM CT when Rev E was ordered"
       E:
         file: P2-A-201_RevE
-        frozen: false
+        frozen: true
         inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_e.yaml + params/phase2_plan_rev_e.yaml"
-        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-201 Rev E 210 ft width, ST-2 tower 6.67 ft projection); portal / brand as Rev D"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-201 Rev E 210 ft width, ST-2 tower 6.67 ft projection); portal / brand as Rev D; frozen 10:03 AM CT when Rev F was ordered (reviewer C-5 / C-8)"
+      F:
+        file: P2-A-201_RevF
+        frozen: false
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_f.yaml + params/phase2_plan_rev_e.yaml"
+        source: "Shane 2026-10-04 10:03 AM CT (reviewer C-5: 25' clear = REFERENCE, not CITED; C-8: portal STRUCTURAL ENGINEER REQUIRED, ETFE roof only as an open question; A-201 Rev F). Geometry as Rev E (D-061 not touched)"
     source: "Shane 2026-10-04 5:27 AM CT"
   P2-A-301:
     title: BUILDING SECTIONS

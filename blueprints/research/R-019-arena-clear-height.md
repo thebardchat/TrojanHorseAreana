@@ -15,3 +15,7 @@ ANSWER: S1 (basketball court specifications): "It is recommended that the area a
 CONFIDENCE: MEDIUM (consistent recommendations, secondary reprint of the NFHS text).
 
 NEEDS ARCHITECT CONFIRMATION: YES (structure depth, rigging, scoreboard, sightlines, roof form).
+
+## Label on sheets (reviewer C-5, 2026-10-04 10:15 AM CT)
+The 25 ft clear comes from a manufacturer reprint of the NFHS court specifications (Draper, S1) and a city planning checklist (LA RAP, S2). Neither is a building code or the rule book itself, so sheets label it **REFERENCE**, not CITED. Done on P2-A-201 Rev F; P2-A-301 carries "CITED" on Rev C and is relabelled on its next revision (Rev D, waits on D-061). `phase2_elev.yaml` `arena_clear_min.status: CITED` is the frozen Rev A input and is not printed as "CITED"; it stays unchanged so frozen revisions stay byte-identical.
+

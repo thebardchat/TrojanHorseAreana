@@ -343,6 +343,18 @@ meta_rev_g:
   rule: "Rev F method with 76 in stairs and 76 in intermediate landings (D-052, D-051), the 6 ft east clear zone (D-053) added to L1 and the arena volume, and the Rev E loop area; size reported as L1 footprint, L2 area, TOTAL GSF and change vs the last revision (D-057); no cap, no margin (D-056)"
   source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4; Rev F frozen)"
 
+meta_rev_h:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "LOCKED PROGRAM + LOOP"
+  subtitle: "REV E PLAN · D-057 SIZES"
+  revision: H
+  file: P2-G-003_RevH
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev G numbers unchanged (same summary_g method and inputs); fixture table: WC+LAV column = restroom-SF basis (66 x 50 SF, ASSUMED), SUM = WC + lav + drinking fountains, labelled 'incl. 4 drinking fountains' (2 per level, T2902.1). Rev G's SUM printed WC + lav only, so the label alone would have been wrong"
+  source: "Shane 2026-10-04 10:03 AM CT (reviewer C-11: fixture tables label SUM column 'incl. 4 drinking fountains'; new rev); Rev G frozen"
+
 rev_g:
   stair_width_in: 76
   intermediate_landing_in: 76

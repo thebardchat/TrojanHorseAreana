@@ -545,7 +545,7 @@ sheets:
           w3_where: TBD — waiting on measurements.
           source: "Rev C as issued 2026-10-03 (commit ba9aa2e)"
         source: "Rev B (D-023) + Shane, firsthand 2026-10-03: W2 no-water status, new W2 why, ask #4, priority W2 → W3 → W1 (D-024)"
-      D:                  # PRINCIPAL version, current. Rev C + W2 fill-ins (where, problem spots, fixtures) + W1 pad estimate. No codes.
+      D:                  # PRINCIPAL version, FROZEN as approved (D-025); superseded by Rev E 2026-10-04 10:03 AM CT. Rev C + W2 fill-ins (where, problem spots, fixtures) + W1 pad estimate. No codes.
         audience_label: principal
         file: P1-G-001_RevD_principal
         frozen: true      # APPROVED by Shane 2026-10-03 10:29 PM CT (D-025). Do not edit; next changes go to Rev E.
@@ -576,6 +576,41 @@ sheets:
         show_why: true
         show_requester: true
         source: "Rev C + Shane, firsthand 2026-10-03 10:06 PM CT (W2 where / problem spots / fixtures; W1 pad estimate) + 10:12 PM CT (Dr. Headen named, ask 1 reworded, ask 5, W3 where, revised W1 estimate). Revised in place before Shane saw it."
+      E:                  # PRINCIPAL version, current. Rev D + code edition "2021 ASSUMED, verify with AHJ" (reviewer C-6). Phase 1 content only. No codes.
+        audience_label: principal
+        file: P1-G-001_RevE_principal
+        frozen: false
+        code_edition_suffix: " — 2021 ASSUMED, verify with AHJ"
+        code_edition_note: "Edition still open: county lists 2018 codes; State Fire Marshal uses 2021."
+        code_edition_source: "reviewer C-6 (Shane 2026-10-04 10:03 AM CT: add '2021 ASSUMED, verify with AHJ'); R-006 (Madison County enforces 2018 IBC / IFC / NFPA 101; State Fire Marshal 2021 IFC; DCM 2021 IBC for K-12) — edition conflict OPEN, D-008. Codes kept off the principal sheet"
+        hide_phase2_size: true    # Phase 1 content only: the Phase 2 building size (stale since D-056) no longer prints in NOT INCLUDED
+        show_codes: false
+        row1_heading: "WHAT THIS PROJECT DOES — 3 WORK ITEMS, IN PRIORITY ORDER"
+        panel_order: [W2, W3, W1]
+        show_priority: true
+        priority_labels:
+          1: PRIORITY 1
+          2: PRIORITY 2
+          3: PRIORITY 3 — CAN RUN IN PARALLEL
+          source: "D-024 (Shane, firsthand 2026-10-03: W2 → W3 → W1, W1 can run in parallel)"
+        show_w2_status: true
+        show_pad_estimate: true
+        pad_estimate_label: Estimate
+        name_principal: true      # uses contacts.principal.display_name (D-005 DECIDED)
+        waiting_heading: "WHAT WE'RE ASKING THE SCHOOL FOR"
+        waiting_on:
+          - Permission to measure and photograph the support wing and walk-through room
+          - A district facilities contact
+          - How approval works for this kind of work
+          - A plumber visit to diagnose why there is no water (shutoff, supply line, or other)
+          - Copies of the photos Dr. Headen took
+        approvals_heading: WHO APPROVES
+        approvals_note_from: approvals.note_plain
+        table_heading: KEY 2010 ADA NUMBERS FOR EACH RESTROOM
+        table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
+        show_why: true
+        show_requester: true
+        source: "Rev D (approved, D-025) + Shane 2026-10-04 10:03 AM CT (reviewer C-6: '2021 ASSUMED, verify with AHJ'; note the R-006 edition conflict, D-008 OPEN; new Rev E, 11x17, Phase 1 content only)"
 
   P1-P-001:
     title: PLUMBING / WATER RESTORE SCOPE
