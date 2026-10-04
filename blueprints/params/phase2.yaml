@@ -4,6 +4,7 @@
 # project (D-028): no school ownership, district approval, school bidding or school review is assumed here. Owner OPEN (D-007).
 # Program test-fit inputs live in params/phase2_program.yaml (P2-T-003b).
 # v3, 2026-10-03 11:09 PM CT: 55,000 SF is a FOOTPRINT cap; up to 2 levels; total GSF no longer capped at 55,000 (D-031).
+# v4, 2026-10-03 11:26 PM CT: ~1,370-seat option rejected (D-032); suites to keep ~2,200 spectators under study (D-030 OPEN).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -83,7 +84,9 @@ spaces:
     banks_on_plan: north, south, east, plus short corner banks flanking the stage on the west
     type: TBD
     conflict_note: "Reference plan labels say north bank 3,200 / south bank 2,200; legend says 2,200 spectators. Locked total stays 2,200 (D-016 OPEN)"
-    source: "concept sheet; Shane 2026-10-03 (2,200 total stays locked); reference plan (banks); type → D-009"
+    rejected_option: "~1,370 bowl seats with no make-up — REJECTED by Shane ('not enough', D-032)"
+    suites_direction: "UNDER STUDY (D-030 OPEN): keep ~2,200 total spectators = bowl seats + rentable suites just above the top seats (P2-G-003 Rev C)"
+    source: "concept sheet; Shane 2026-10-03 (2,200 total stays locked); reference plan (banks); type → D-009; rejected_option → D-032 (Shane 11:26 PM CT); suites_direction → Shane 11:26 PM CT, D-030"
   boys_locker:
     name: Boys Locker Room
     sf: 3500
@@ -280,8 +283,8 @@ open_items:
   budget: TBD
   seating_type: TBD
   concessions_scope: TBD
-  program_fit: "OPEN — two-level test-fit P2-G-003 Rev B checks the ground footprint against the 55,000 SF footprint cap (D-031); direction OPEN (D-030)"
-  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030, D-031; Shane 2026-10-03 10:45 PM + 11:09 PM CT"
+  program_fit: "OPEN — Rev B two-level test-fit + Rev C suites study (P2-G-003) vs the 55,000 SF footprint cap (D-031); ~1,370 seats rejected (D-032); direction OPEN (D-030)"
+  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030, D-031, D-032; Shane 2026-10-03 10:45 PM + 11:09 PM + 11:26 PM CT"
 
 sheets:
   P2-G-003:
@@ -296,7 +299,12 @@ sheets:
         source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b); frozen 11:09 PM CT when Rev B was ordered"
       B:
         file: P2-G-003_RevB
-        frozen: false
+        frozen: true
         note: two-level arithmetic; ground footprint vs the 55,000 SF footprint cap (D-031)
-        source: "Shane 2026-10-03 11:09 PM CT (redo test-fit as Rev B, Rev A frozen)"
+        source: "Shane 2026-10-03 11:09 PM CT (redo test-fit as Rev B, Rev A frozen); frozen 11:26 PM CT when Rev C was ordered"
+      C:
+        file: P2-G-003_RevC
+        frozen: false
+        note: suites to keep ~2,200 spectators; suite level above the upper tier; hybrids with a smaller floor
+        source: "Shane 2026-10-03 11:26 PM CT (Rev C, Rev B frozen)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"

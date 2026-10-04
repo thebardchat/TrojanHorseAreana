@@ -18,7 +18,7 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - [ ] **P1-T-010** Bundle `THA_Phase1_Remodel_RevA.pdf` → PR to `main`
 
 **Phase 2 (ACTIVE in parallel since 2026-10-03, D-027)**
-- [ ] **P2-T-003b** PROGRAM TEST-FIT before any floor plan: area table, seating (R-008), fixtures (R-009), gross-up (R-014), fit vs 55,000 SF, options A/B/C → P2-G-003 — **IN PROGRESS** (Rev A done + frozen; Rev B two-level footprint test-fit done 2026-10-03 after D-031; awaiting Shane: D-030) — *first Phase 2 ticket (Shane 10:45 PM CT)*
+- [ ] **P2-T-003b** PROGRAM TEST-FIT before any floor plan: area table, seating (R-008), fixtures (R-009), gross-up (R-014), fit vs 55,000 SF, options A/B/C → P2-G-003 — **IN PROGRESS** (Rev A + Rev B frozen; Rev C suites study done 2026-10-03 after D-032; awaiting Shane: D-030) — *first Phase 2 ticket (Shane 10:45 PM CT)*
 - [ ] **P2-T-001** `phase2.yaml` v1 from Section 3 Phase 2 table — *v1 seeded 2026-10-03 at Shane's request; Phase 1 still first*
 - [ ] **P2-T-002** `validate.py` + `calcs.py` Phase 2 checks
 - [x] **P2-T-003** R-005 NFHS mats → do 4 mats fit 22,000 SF? — done 2026-10-03: R-005 written; mats 42' × 42' DECIDED (D-014); 4 mats fit 22,000 SF by area
@@ -64,3 +64,4 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
   - **P2-T-003b (first Phase 2 ticket) Rev A done:** `params/phase2_program.yaml`, `phase2/src/p2_testfit.py`, `phase2/src/p2_g_003.py` → `phase2/out/{pdf,dxf}/P2-G-003_RevA`. Research: R-008 (seating), R-009 (fixtures), R-012 (basketball, partial), R-014 (planning factors). Result: does NOT fit 55,000 SF; options logged as D-030 (OPEN).
   - Next for Phase 2 after Shane picks a direction on D-030: P2-T-004 (A-101 floor plan). R-006/R-007 (code edition + AHJ, occupancy) still open.
 - 2026-10-03 11:09 PM CT: Shane, firsthand: 55,000 SF is a **footprint** cap; two levels allowed (**D-031** DECIDED). P2-G-003 Rev A frozen; **Rev B** = two-level test-fit (stacking, vertical circulation, schematic bowl section). Full program footprint ≈ 62,300 base (over) / ≈ 51,600 lean (fits); option B floor fits on base inputs (≈ 52,200). Research R-015. D-030 reworded, still OPEN. Next after Shane picks: P2-T-004 (A-101 floor plan, two levels).
+- 2026-10-03 11:26 PM CT: Shane rejects ≈ 1,370 seats (**D-032** DECIDED); suites direction under D-030 (OPEN). P2-G-003 Rev B frozen; **Rev C** = suites study. At 22,000 SF, suites reach only ≈ 1,640 inside 55,000; 18,000 SF floor + 13-22 suites ≈ 2,200 (3 levels, ≈ 92,300-92,900 GSF). Research R-016. Next after Shane picks: P2-T-004 (A-101 floor plan).

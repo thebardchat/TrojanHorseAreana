@@ -1,13 +1,14 @@
 """P2-G-003 — Phase 2 PROGRAM TEST-FIT (tabloid 17 x 11 landscape), vector PDF + DXF.
 
 Rev A (FROZEN, build()): one-level area arithmetic against 55,000 SF read as total floor area.
-Rev B (build_b()): two levels; ground footprint vs the 55,000 SF FOOTPRINT cap (D-031), total GSF,
-stacking, vertical circulation, schematic bowl section. NOT a floor plan.
+Rev B (FROZEN, build_b()): two levels; ground footprint vs the 55,000 SF FOOTPRINT cap (D-031), total GSF,
+stacking, vertical circulation, schematic bowl section.
+Rev C (build_c()): suites to keep ~2,200 spectators (Shane 11:26 PM CT); suite level, hybrids. NOT a floor plan.
 All numbers come from params/phase2.yaml + params/phase2_program.yaml via p2_testfit.py.
 Layout constants below are sheet geometry only.
 
 Run from the repo root:
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_g_003.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_g_003.py [--rev A|B|C] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -454,19 +455,247 @@ def build_b(p2, prog, ob, out):
     return sh
 
 
+# ======================================================================================
+# REV C — suites to keep ~2,200 spectators (Shane 11:26 PM CT). build() and build_b() are frozen.
+# ======================================================================================
+def build_c(p2, prog, out):
+    meta2, pm = p2["meta"], prog["meta_rev_c"]
+    su = prog["suites"]
+    sh = Sheet(W, H)
+    body_bottom = add_titleblock(sh, {
+        "project": f"{meta2['project']}\n{meta2['arena_name']} · {meta2['location']}",
+        "phase": "PHASE 2",
+        "title": f"{pm['title']}\n{pm['subtitle']}",
+        "scale": pm["scale"],
+        "date": meta2["sheet_date"],
+        "revision": pm["revision"],
+        "drawn_by": meta2["drawn_by"],
+        "sheet_no": SHEET_NO,
+        "stamp": meta2["stamp"],
+    }, margin=M, tb_h=0.95, stamp_h=0.40)
+    top = H - M - 0.12
+    gl = out["guests"]
+    target = p2["spaces"]["seating"]["total"]
+    cap = p2["building"]["footprint_cap_sf"]
+    hc = su["headline_case"]
+    best = out[("base", hc["floor_sf"], hc["placement"], hc["guests"])]
+    floors = su["floors_checked"]
+    full = floors[0]
+
+    # ================= column 1: scenario table + suite module =================
+    x0, c1w = M + 0.18, 7.2
+    y = section(sh, x0, top - 0.2, f"1  SCENARIOS — BOWL SEATS + SUITES ≈ {n(target)} SPECTATORS (BASE INPUTS)", first=True) - 0.02
+    hdr = [("FLOOR SF", 0, "l"), ("BOWL", 1.30, "r"), ("SUITES", 2.15, "r"), ("SPECT.", 2.85, "r"), ("SUITE SF", 3.65, "r"),
+           ("FRONT FT", 4.40, "r"), ("FOOTPRINT", 5.30, "r"), ("TOTAL GSF", 6.15, "r"), ("LVL", 6.55, "r"), ("FIT", 7.2, "r")]
+    rp = 0.198
+    y -= rp
+    for lab, dx, al in hdr:
+        sh.text(x0 + dx, y + 0.03, lab, size=7.4, bold=True, align="left" if al == "l" else "right", layer=TB)
+    sh.line(x0, y - 0.04, x0 + c1w, y - 0.04, layer=TB, lw=0.8)
+
+    def row(cells, bold=False, size=8.2):
+        nonlocal y
+        y -= rp
+        for (lab, dx, al), c in zip(hdr, cells):
+            if c is None:
+                continue
+            sh.text(x0 + dx, y, c, size=size, bold=bold and lab in ("SPECT.", "FOOTPRINT", "FIT"), align="left" if al == "l" else "right", layer=TB)
+
+    def cells(fl_lab, d):
+        return [fl_lab, n(d["bowl"]), f"{d['ns']} x {d['guests']}" if d["ns"] else "0 needed", n(d["spectators"]),
+                n(d["s_sf"] + d["s_corr"]) if d["ns"] else "0", f"{d['frontage_ft']:.0f}" if d["ns"] else "—",
+                n(d["F"]), n(d["G"]), str(d["levels"]), "YES" if d["fits"] else "NO"]
+
+    for fl in floors:
+        if fl == full:
+            y -= rp
+            sh.text(x0, y, f"{n(fl)}  (locked floor): suites up to {n(target)} — NO FIT at 12, 16 or 20 guests, suites on L2 or L3.", size=8.2, bold=True, layer=TB)
+            y -= 0.02
+            sh.text(x0 + 0.1, y - rp + 0.02, "Most spectators that fit (suites on L3, bowl reduced to make room):", size=7.7, layer=TB)
+            y -= rp - 0.02
+            for gu in gl:
+                d = out["max22"][gu]
+                row(cells("   " + n(fl), d))
+        elif all(out[("base", fl, "L3_top", gu)]["ns"] == 0 for gu in gl if out[("base", fl, "L3_top", gu)]):
+            d = out[("base", fl, "L3_top", gl[0])]
+            row(cells(n(fl), d))
+        else:
+            for gu in gl:
+                d = out[("base", fl, "L3_top", gu)]
+                if d is None:
+                    row([n(fl), None, f"x {gu}", None, None, None, None, None, None, "NO"])
+                else:
+                    row(cells(n(fl), d), bold=(fl == hc["floor_sf"] and gu == hc["guests"]))
+        sh.line(x0, y - 0.05, x0 + c1w, y - 0.05, layer=TB, lw=0.3)
+    dl = out[("lean", full, "L3_top", gl[0])]
+    row(cells(f"{n(full)} lean", dl))
+    sh.line(x0, y - 0.05, x0 + c1w, y - 0.05, layer=TB, lw=0.3)
+    y -= 0.06
+    y = sh.para(x0, y, c1w, f"Suites on L3 (a suite level just above the top row of the upper tier) unless noted. Suites at the back of the upper "
+                f"tier on Level 2 never fit on base inputs: Level 2 is already as big as the L1 ring under it. Bowl = largest bowl that fits "
+                f"(10-seat steps, best tier split); suites = (target − bowl) ÷ guests, rounded up. SUITE SF = suites + 44 in corridor (net). "
+                f"FRONT FT = total suite frontage. Bold row = headline. Lean inputs fit {n(target)} bowl seats with no suites (Rev B).", size=8.3)
+    mx22 = max(out["max22"].values(), key=lambda d: d["spectators"])
+    y = section(sh, x0, y, f"2  WHY THE {n(full)} SF FLOOR CAN'T REACH {n(target)} WITH SUITES", size=10.5)
+    y = sh.para(x0, y, c1w, f"On base inputs the locked floor already fills the 55,000 footprint at ≈ 1,370 bowl seats (Rev B). A bowl seat "
+                f"costs {best['seat_sf']:.1f} SF; a suite guest costs {su['sf_per_guest']} SF plus corridor. Suites on L3 add no footprint by "
+                f"themselves, but the added floor area raises mechanical (5% of all gross, at grade) and stair widths on L1, so bowl "
+                f"seats must come out to make room. Best mix: {n(mx22['bowl'])} bowl + {mx22['ns']} x {mx22['guests']} = "
+                f"{n(mx22['spectators'])} spectators. Rooftop mechanical would help; not credited.", size=8.3)
+    y = section(sh, x0, y, "3  SUITE MODULE (CITED SIZING, R-016)", size=10.5)
+    mh = [("GUESTS", 0, "l"), ("SUITE SF", 1.25, "r"), ("WIDTH FT", 2.05, "r"), ("CORRIDOR SF", 3.05, "r"), ("CODE LOAD", 3.95, "r"), ("WHEELCHAIR", 4.85, "r"), ("GUEST SOURCE", 5.0, "l")]
+    y -= rp
+    for lab, dx, al in mh:
+        sh.text(x0 + dx, y + 0.03, lab, size=7.4, bold=True, align="left" if al == "l" else "right", layer=TB)
+    sh.line(x0, y - 0.04, x0 + c1w, y - 0.04, layer=TB, lw=0.6)
+    srcs_g = {gl[0]: "Pitt Petersen (12 guests)", gl[1]: "WKU Diddle (16 tickets)", gl[2]: "Sheldon ISD (20 VIPs)"}
+    import p2_testfit as _tf
+    for gu in gl:
+        m = _tf.suite_module(prog, gu, "base")
+        y -= rp
+        for (lab, dx, al), c in zip(mh, [str(gu), n(m["sf"]), f"{m['width_ft']:.0f}", n(m["corridor_sf"]), str(m["code_load"]), "1 + companion", srcs_g[gu]]):
+            sh.text(x0 + dx, y, c, size=8.2, align="left" if al == "l" else "right", layer=TB)
+    y -= 0.06
+    y = sh.para(x0, y, c1w, f"Suite SF = {su['sf_per_guest']} SF/guest: Diddle Arena (WKU) suites 400 SF with 16 tickets; Texas Tech's standard suites "
+                f"are 276 SF (cross-check). Includes seating ledge + lounge. Kitchenette/pantry: no source, left out (served from the "
+                f"concession stand). Width rule (2 ledge rows x 18 in + 2 ft) is ASSUMED. Code load = seats (IBC 1004.6) + lounge ÷ 15 net "
+                f"(T1004.5 unconcentrated): higher than the guest count, used for exits and fixtures. Revenue is out of scope: no $ figures.", size=8.3)
+    col1_bottom = y
+
+    # ================= column 2: section with suites + placement + 3rd-level flags =================
+    x2, c2w = x0 + c1w + 0.35, 3.75
+    sh.line(x2 - 0.17, body_bottom + 0.12, x2 - 0.17, top, lw=0.5)
+    y = section(sh, x2, top - 0.2, "4  WHERE SUITES GO — SECTION (NTS)", first=True, size=10.5)
+    dg_h = 2.45
+    gy = y - dg_h + 0.25
+    dx0, dx1 = x2 + 0.05, x2 + c2w - 0.05
+    ring = 1.02
+    a0, a1 = dx0 + ring, dx1 - ring
+    h1, h2, h3, hr = 0.50, 0.95, 1.30, 1.72
+    sh.line(dx0 - 0.03, gy, dx1 + 0.03, gy, lw=1.2)
+    sh.line(dx0, gy, dx0, gy + h2, lw=0.9); sh.line(dx1, gy, dx1, gy + h2, lw=0.9)
+    sh.line(dx0, gy + h2, a0 - 0.45, gy + h2, lw=0.9); sh.line(a1 + 0.45, gy + h2, dx1, gy + h2, lw=0.9)
+    for xa, xb, s_ in ((dx0 + 0.25, a0 - 0.05, 1), (a1 + 0.05, dx1 - 0.25, -1)):   # suite level boxes
+        sh.rect(xa, gy + h2, xb - xa, h3 - h2, lw=1.1)
+    sh.line(a0 - 0.05, gy + h3, a0 + 0.12, gy + hr, lw=0.9); sh.line(a1 + 0.05, gy + h3, a1 - 0.12, gy + hr, lw=0.9)
+    sh.line(a0 + 0.12, gy + hr, a1 - 0.12, gy + hr, lw=0.9)
+    sh.line(dx0, gy + h2, dx0 + 0.25, gy + h2, lw=0.9)
+    for xa, xb in ((dx0, a0), (a1, dx1)):
+        sh.line(xa, gy + h1, xb, gy + h1, lw=0.7)
+    sh.line(a0, gy, a0, gy + h1, lw=0.5); sh.line(a1, gy, a1, gy + h1, lw=0.5)
+    fl0, fl1 = a0 + 0.36, a1 - 0.36
+    for xs, xe in ((a0, fl0), (a1, fl1)):
+        sh.line(xe, gy + 0.02, xs, gy + h1 - 0.05, lw=0.8)
+    for xs, xe in ((a0 - 0.45, a0), (a1 + 0.45, a1)):
+        sh.line(xe, gy + h1, xs, gy + h2 - 0.04, lw=0.8)
+    cx = (a0 + a1) / 2
+    sh.text(cx, gy + 0.08, "EVENT FLOOR", size=6.4, bold=True, align="center")
+    sh.text(cx, gy + 1.02, "ARENA VOLUME", size=7.0, bold=True, align="center")
+    sh.text(cx, gy + 0.89, "nothing above", size=6.3, align="center")
+    for xa, xb in ((dx0, a0), (a1, dx1)):
+        mx = (xa + xb) / 2
+        sh.text(mx, gy + 0.24, "L1 RING", size=6.6, bold=True, align="center")
+        sh.text(mx, gy + 0.11, "lockers, foyer", size=5.6, align="center")
+        ox = (dx0 + a0 - 0.45) / 2 if xa == dx0 else (a1 + 0.45 + dx1) / 2
+        sh.text(ox, gy + h1 + 0.27, "L2 rooms", size=5.8, bold=True, align="center")
+        sh.text(ox, gy + h1 + 0.15, "S&C, X-train", size=5.4, align="center")
+        sh.text(mx + (0.10 if xa == dx0 else -0.10), gy + h2 + 0.13, "L3 SUITES", size=6.4, bold=True, align="center")
+    sh.text(a0 + 0.05, gy + h1 + 0.10, "< upper tier", size=5.4, align="left"); sh.text(a1 - 0.05, gy + h1 + 0.10, "upper tier >", size=5.4, align="right")
+    sh.text(a0 + 0.30, gy + h1 / 2 - 0.02, "lower tier", size=5.4, align="left"); sh.text(a1 - 0.30, gy + h1 / 2 - 0.02, "lower tier", size=5.4, align="right")
+    yb = gy - 0.15
+    sh.line(dx0, yb, dx1, yb, lw=0.4); sh.line(dx0, yb - 0.05, dx0, yb + 0.05, lw=0.4); sh.line(dx1, yb - 0.05, dx1, yb + 0.05, lw=0.4)
+    sh.text((dx0 + dx1) / 2, yb - 0.15, "FOOTPRINT unchanged by L3 if L3 ≤ L1 ring", size=6.9, bold=True, align="center")
+    y = yb - 0.20
+    y = sh.para(x2, y, c2w, f"L3 suites sit over the L2 rooms and the L1 ring, so they add floor area but not footprint "
+                f"(headline: L3 ≈ {r100(best['L3'])} GSF vs L1 ring ≈ {r100(best['ring'])}). The catch: every added floor still adds "
+                f"mechanical (5% of gross, at grade) and wider stairs on L1, and suites need {su['sf_per_guest']} SF per guest vs "
+                f"6 SF per bowl seat. On Level 2 (back of the upper tier) suites never fit: L2 is already ≈ the size of the L1 ring.", size=8.3)
+    y = section(sh, x2, y, "5  A SUITE LEVEL = A 3RD STORY", size=10.5)
+    st = best["stair"]
+    y = sh.para(x2, y, c2w,
+                f"Headline case: L2 load {n(best['l2_load'])}, L3 (suites, code load) {n(best['l3_load'])} -> {best['exits']} stairs x "
+                f"{st['width_in']:.0f} in on all 3 levels (T1006.3.3; 0.2 in/occ., 1005.3.1; width never reduced downstream, 1005.4).", size=8.3)
+    for t_ in ("Open stairs lose the two-story exception (1019.3 exc. 1): enclosed exit stairs, 1-hour for fewer than 4 stories (1023.2).",
+               "Elevator must stop at the suite level (1104.4); a wheelchair space + companion seat in every suite (1109.2.2.2, ADA 221.2.1.2), with lines of sight and dispersion (ADA 221.2.3, IBC 1109.2.4).",
+               "Elevator egress still not required (< 4 stories, 1009.2.1). Allowed stories for the construction type (IBC ch. 5) NOT checked.",
+               "Could the suites be a mezzanine instead of a story? Not checked (architect)."):
+        y = sh.para(x2, y + 0.02, c2w, t_, size=7.9, indent=0.12, bullet="·")
+    y = section(sh, x2, y, "6  PRECEDENTS (R-016)", size=10.5)
+    for t_ in ("Diddle Arena (WKU): 16 suites, 400 SF, 16 tickets each, restrooms for the suite level, suites 'clear at the top of the arena' (2002).",
+               "United Supermarkets Arena (Texas Tech): 24 suites at 276 SF + corner suites at 611 SF.",
+               "Petersen Events Center (Pitt): 5 courtside suites up to 15; 16 smaller suites, about 12 guests.",
+               "Sheldon ISD Panther Stadium (high school): 2 suites, 20 VIPs each; lounge seating, sink, refrigerator; restrooms on the level."):
+        y = sh.para(x2, y + 0.02, c2w, t_, size=7.9, indent=0.12, bullet="·")
+    col2_bottom = y
+
+    # ================= column 3: headline, why, fixtures, cited/assumed, sources =================
+    x3 = x2 + c2w + 0.35
+    c3w = W - M - 0.28 - x3
+    sh.line(x3 - 0.17, body_bottom + 0.12, x3 - 0.17, top, lw=0.5)
+    y = section(sh, x3, top - 0.2, "7  RESULT (BASE INPUTS)", first=True, size=10.5) - 0.04
+    bx_h = 1.30
+    sh.rect(x3, y - bx_h, c3w, bx_h, lw=1.6)
+    lines = [(f"{n(hc['floor_sf'])} SF FLOOR + SUITES:", 10.0, True),
+             (f"{n(best['bowl'])} bowl + {best['ns']} suites x {best['guests']} = {n(best['spectators'])}", 9.6, True),
+             (f"Footprint ≈ {n(best['F'])} vs {n(cap)}: FITS", 9.2, True),
+             (f"Total ≈ {r100(best['G'])} GSF · {best['levels']} levels (suite level)", 8.4, False),
+             (f"At {n(full)} SF: suites reach only ≈ {n(max(v['spectators'] for v in out['max22'].values()))}", 8.0, False)]
+    yy = y - 0.26
+    for t_, sz, b in lines:
+        sh.text(x3 + c3w / 2, yy, t_, size=sz, bold=b, align="center")
+        yy -= 0.235
+    y -= bx_h + 0.04
+    mf = out["maxfloor"]
+    y = sh.para(x3, y, c3w, f"Largest floor that still reaches {n(target)} with suites: ≈ {n(min(mf.values()))}-{n(max(mf.values()))} SF. "
+                f"At 20,000 SF it takes 30-50 suites (≈ 510-550 ft of suite front), beyond the cited arenas' 16-24 suites. "
+                f"18,000 SF needs 13-22 suites (≈ 220-240 ft, both long sides). The headline is ≈ 6 SF under the cap: no margin.", size=8.3)
+    y = section(sh, x3, y, "8  RESTROOMS + WHEELCHAIR SPACES", size=10.5)
+    f1, f2, f3 = best["fx1"], best["fx2"], best["fx3"]
+    y = sh.para(x3, y, c3w, f"T2902.1 per level (headline): L1 {f1['in_rooms']}, L2 {f2['in_rooms']}, L3 suites {f3['in_rooms']} fixtures "
+                f"(WC {f3['wc_m']} M / {f3['wc_f']} W, lav {f3['lav_m']} / {f3['lav_f']}) = {f1['in_rooms'] + f2['in_rooms'] + f3['in_rooms']} total "
+                f"(Rev B: 70). Suite fixtures use the suite code load, not the guest count. Wheelchair spaces: bowl {best['ws_bowl']} "
+                f"(T1109.2.2.1) + 1 in each of {best['ns']} suites.", size=8.3)
+    y = section(sh, x3, y, "9  CITED vs ASSUMED", size=10.5)
+    y = sh.para(x3, y, c3w, "CITED: 12/16/20 guests, 400 SF suite (25 SF/guest), suite-level restrooms, suites at the top of the bowl "
+                "(Diddle), IBC 1004.6, T1004.5, T1020.3, 1019.3, 1023.2, 1104.4, 1109.2, ADA 221.2. ASSUMED: suite width rule, "
+                "44 in corridor, suite level over the ring, no kitchenette, mechanical at grade, all Rev B assumptions.", size=7.9)
+    y = section(sh, x3, y, "10  STILL OPEN (D-030)", size=10.5)
+    d16 = out[("base", floors[-1], "L3_top", gl[0])]
+    y = sh.para(x3, y, c3w, f"Pick one: (a) {n(hc['floor_sf'])} SF floor + 13-22 suites, 3 levels; (b) {n(floors[-1])} SF floor, all "
+                f"{n(target)} in the bowl, no suites, 2 levels (≈ {r100(d16['G'])} GSF); (c) keep {n(full)} SF with lean inputs "
+                f"(telescopic lower tier), no suites, 2 levels (≈ {r100(dl['G'])} GSF). ~1,370 seats alone is rejected (D-032).", size=8.3)
+    y = section(sh, x3, y, "11  SOURCES (retrieved 2026-10-03)", size=10)
+    for s_ in ["WKU College Heights Herald 2002-10-22 (Diddle Arena suites); Texas Tech United Supermarkets Arena facts; Petersen Events Center Production Guide 2020; Sheldon ISD Panther Stadium info — R-016",
+               "IBC 2021 (UpCodes) ch. 10, 11; 2010 ADA Standards 221.2 — R-016, R-015",
+               "Rev A/B sources: R-008, R-009, R-014, R-015"]:
+        y = sh.para(x3, y + 0.03, c3w, s_, size=7.2, indent=0.12, bullet="·")
+    col3_bottom = y
+
+    floor = body_bottom + 0.08
+    for nm, yy in (("col1", col1_bottom), ("col2", col2_bottom), ("col3", col3_bottom)):
+        if yy < floor:
+            raise SystemExit(f"LAYOUT OVERFLOW: {nm} runs {floor - yy:.2f} in into the stamp band")
+    print(f"layout margins (in): col1 {col1_bottom - floor:.2f}, col2 {col2_bottom - floor:.2f}, col3 {col3_bottom - floor:.2f}")
+    return sh
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")
-    ap.add_argument("--rev", choices=["A", "B"], default="B", help="A = frozen one-level sheet; B = two-level sheet (default)")
+    ap.add_argument("--rev", choices=["A", "B", "C"], default="C", help="A = one-level (frozen); B = two-level (frozen); C = suites (default)")
     a = ap.parse_args()
     if a.rev == "A":
         p2, prog, ob, out = tf.summary()
         pm, builder = prog["meta"], build
-    else:
+    elif a.rev == "B":
         p2, prog, ob, out = tf.summary_b()
         pm, builder = prog["meta_rev_b"], build_b
+    else:
+        p2, prog, out = tf.summary_c()
+        ob = None
+        pm, builder = prog["meta_rev_c"], (lambda p2_, prog_, ob_, out_: build_c(p2_, prog_, out_))
     rv = p2["sheets"][SHEET_NO]["revisions"][pm["revision"]]
     if a.out_dir:
         pdf, dxf = (Path(a.out_dir) / f"{rv['file']}.{e}" for e in ("pdf", "dxf"))

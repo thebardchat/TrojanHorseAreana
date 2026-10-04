@@ -165,3 +165,9 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **Previews (box only):** `/workspace/keystone_previews/P2-G-003.png` (now Rev B), `/workspace/keystone_previews/P2-G-003_RevA.png` (Rev A preview kept), `/workspace/keystone_previews/P2-G-003.pdf` (now Rev B).
 - **New research** `research/R-015-two-level-stacking-and-vertical-circulation.md`.
 - **Research source copies** (box scratch `/workspace/research_src/`, **not committed**): `upc_ibc_chapter_11_accessibility.html/.txt` (IBC 2021 ch. 11), `upc_ibc_chapter_9_fire-protection-and-life-safety-systems.html/.txt` (IBC 2021 ch. 9), `ada2010.html/.txt` (2010 ADA Standards, access-board.gov), `reed.pdf/.txt` (Reed Arena Facility Guide), `orleans.pdf/.txt` (Orleans Arena Production Guide 2024).
+
+## 2026-10-03 additions (11:26 PM CT session, P2-G-003 Rev C)
+- **New Phase 2 sheet** `phase2/out/pdf/P2-G-003_RevC.pdf` + `phase2/out/dxf/P2-G-003_RevC.dxf` (suites study, tabloid landscape, one page), from `phase2/src/p2_g_003.py --rev C`. Rev A and Rev B are FROZEN and unchanged.
+- **Previews (box only):** `/workspace/keystone_previews/P2-G-003.png` (now Rev C), `P2-G-003_RevB.png` (Rev B kept), `P2-G-003_RevA.png`, `P2-G-003.pdf` (now Rev C).
+- **New research** `research/R-016-suites-small-arenas.md`.
+- **Research source copies** (box scratch `/workspace/research_src/`, **not committed**): `pitt.pdf/.txt` (Petersen Events Center Production Guide 2020), `wku.html/.txt` (College Heights Herald 2002), `sheldon.pdf/.txt` (Sheldon ISD Panther Stadium), `ttu.html/.txt` (Texas Tech arena facts).

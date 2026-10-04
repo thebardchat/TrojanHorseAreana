@@ -261,3 +261,37 @@
   - `P2-G-003.pdf` = Rev B.
 - **D-030** reworded (still OPEN): pick option B floor / cut seats / lean inputs / mix.
 - BACKLOG, ASSETS and STATUS updated.
+
+## 2026-10-03 ~11:35 PM CT · D-032 · P2-T-003b suites study (P2-G-003 Rev C)
+- Shane, firsthand (11:26 PM CT): rejects the ≈ 1,370-seat option ("not enough") → **D-032 DECIDED**. His direction: keep ≈ 2,200 total spectators by adding rentable **suites just above the top seats**. Recorded under **D-030**, which stays **OPEN** until he picks. Open count unchanged at 16.
+- `params/phase2.yaml` v4:
+  - `spaces.seating.rejected_option` and `suites_direction`.
+  - `open_items.program_fit` reworded.
+  - `sheets.P2-G-003`: Rev B `frozen: true`; Rev C added.
+  - Locked values unchanged.
+- `params/phase2_program.yaml`: Rev A/B sections unchanged. New `meta_rev_c` and `suites`:
+  - guests 12/16/20, 25 SF/guest, ASSUMED width rule, 44 in corridor;
+  - code load = seats + lounge ÷ 15;
+  - placements L2_back / L3_top, 3rd-level flags, floors checked, headline case.
+- `phase2/src/p2_testfit.py`: new `suite_module`, `compute_suites` (footprint = max(L1, AV+L2, AV+L3)), `best_suites`, `max_bowl_with_suites`, `max_spectators_with_suites`, `largest_floor_with_suites`, `summary_c` (`--rev-c`). Rev B's `compute_two_level` is untouched.
+- `phase2/src/p2_g_003.py`: `--rev A|B|C` (default C), new `build_c()`; `build()` and `build_b()` untouched.
+- **Frozen checks:** regenerated A, B and C to /tmp. PDFs byte-identical (A sha256 6d5bee82…, B d16b2dbe…). DXFs entity-identical (227 / 294 entities); only headers differ (ezdxf).
+- **Rev C result (base inputs):**
+  - **22,000 SF floor:** suites cannot reach 2,200 inside 55,000 at 12, 16 or 20 guests, with suites on L2 or L3. The most that fits is ≈ 1,640 (1,180 bowl + 23 × 20; footprint 54,986; ≈ 96,800 GSF; 3 levels).
+  - **Suites on L2** (back of the upper tier) never fit: L2 is already about the size of the L1 ring.
+  - **Largest floor that reaches 2,200 with suites:** ≈ 20,200–20,300 SF.
+  - **20,000 SF floor:** 1,610 bowl + 50×12 / 37×16 / 30×20 suites; ≈ 105,300–105,800 GSF; 510–550 ft of suite front.
+  - **18,000 SF floor (headline):** 1,940 bowl + 13 × 20 = 2,200 (or 17×16 = 2,212, 22×12 = 2,204). Footprint ≈ 54,994 vs 55,000 (no margin). ≈ 92,300–92,900 GSF. 3 levels (L3 suite level ≈ 11,300 GSF, over the L1 ring). Suite SF 6,500 + 810 corridor. 221–242 ft of suite front.
+  - **16,400 SF floor:** 2,200 bowl, no suites, 2 levels (≈ 80,900 GSF).
+  - **Lean inputs, 22,000 SF:** no suites needed (≈ 74,700 GSF).
+- **Headline fixtures and egress:**
+  - Fixtures: L1 30 / L2 30 / L3 16 = 76 (Rev B: 70).
+  - Stairs: 4 × 68 in on all 3 levels (L2 load 1,368, L3 code load 598). Stairs must be enclosed, 1-hour (1019.3, 1023.2). Elevator to L3 (1104.4).
+  - Wheelchair spaces: 16 in the bowl + 1 in each suite (1109.2.2).
+- New research **R-016**: suites in small arenas. Precedents: Diddle/WKU, Texas Tech, Pitt Petersen, Sheldon ISD. Code: IBC 1004.6/T1004.5, 1109.2.2, ADA 221.2. No $ figures (revenue out of scope).
+- New sheet `phase2/out/{pdf,dxf}/P2-G-003_RevC`: 1 page, 1224 × 792 pt, stamp present, reproducible.
+- Previews:
+  - `/workspace/keystone_previews/P2-G-003.png` = Rev C.
+  - `P2-G-003_RevB.png` kept.
+  - `P2-G-003.pdf` = Rev C.
+- BACKLOG, ASSETS and STATUS updated.

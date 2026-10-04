@@ -240,8 +240,166 @@ def summary_b():
     return p2, prog, ob, out
 
 
+
+# ============================ REV C: SUITES (Shane 11:26 PM CT) ============================
+# Separate from compute_two_level (Rev B, frozen). Footprint F = max(L1, AV + L2, AV + L3).
+
+def suite_module(prog, guests, scenario):
+    su = prog["suites"]
+    sps = seat_sf(prog, scenario)
+    sf = guests * su["sf_per_guest"]
+    lounge = max(sf - guests * sps, 0.0)
+    code_load = guests + math.ceil(lounge / 15.0)          # IBC 1004.6 + T1004.5 unconcentrated 15 net
+    width_ft = math.ceil(guests / 2) * 1.5 + 2.0            # ASSUMED frontage rule (suites.frontage_rule)
+    corridor = width_ft * su["corridor_width_in"] / 12.0
+    return dict(guests=guests, sf=sf, lounge=lounge, code_load=code_load, width_ft=width_ft, corridor_sf=corridor)
+
+
+def compute_suites(p2, prog, scenario="base", arena_sf=None, bowl=None, guests=16, placement="L3_top", upper_share=None, n_suites=None):
+    f, vc = prog["factors"], prog["vertical_circulation"]
+    g, mech = f["gross_up"][scenario], f["mechanical"]["share_of_gross"]
+    target = p2["spaces"]["seating"]["total"]
+    bowl = target if bowl is None else bowl
+    arena = dig(p2, "spaces.arena.sf") if arena_sf is None else arena_sf
+    up = prog["seat_split"]["upper_share_assumed"] if upper_share is None else upper_share
+    ns = max(0, math.ceil((target - bowl) / guests)) if n_suites is None else n_suites
+    mod = suite_module(prog, guests, scenario)
+    s_sf, s_corr, s_load = ns * mod["sf"], ns * mod["corridor_sf"], ns * mod["code_load"]
+    su = int(round(bowl * up)); sl = bowl - su
+    sps = seat_sf(prog, scenario)
+    occ_floor = math.ceil(arena / f["occupant_load"]["event_floor_sf_per_occupant"])
+    sfpf = f["restrooms"]["sf_per_fixture"]
+    conc = {r["id"]: r for r in prog["rooms"]}["concourse"]
+    room = {r["id"]: r for r in compute(p2, prog, scenario, arena_sf=arena, seats=target)["rows"]}
+    other = sum(math.ceil(room[o["id"]]["sf"] / o["sf_per_occupant"]) for o in vc["l2_other_occupants"])
+    three = placement == "L3_top" and ns > 0
+    l2_load = su + other + (0 if three else s_load)
+    l3_load = s_load if three else 0
+    fx1 = fixtures(sl + occ_floor)
+    fx2 = fixtures(su + (0 if three else s_load)) if (su + (0 if three else s_load)) else None
+    fx3 = fixtures(l3_load) if three else None
+    loads = [x for x in (l2_load, l3_load) if x]
+    nex = max(exits_required(x) for x in loads)
+    width = max([vc["stair_min_width_in"]] + [x * vc["stair_capacity_in_per_occupant"] / nex for x in loads])
+    st = stair_sf(vc, width)
+    elev = vc["elevator_count"] * vc["elevator_hoistway_sf_per_level"]
+    vc_sf = nex * st["sf"] + elev
+    sf = {
+        "arena": arena, "seating_lower": sl * sps, "seating_upper": su * sps,
+        "concourse_lower": sl * conc["peak_share"] * conc["sf_per_person"],
+        "concourse_upper": su * conc["peak_share"] * conc["sf_per_person"],
+        "public_restroom_lower": fx1["in_rooms"] * sfpf,
+        "public_restroom_upper": (fx2["in_rooms"] * sfpf) if fx2 else 0,
+        "vertical_circulation": vc_sf,
+    }
+    for rid, r in room.items():
+        if rid not in sf and r["method"] not in ("seating", "concourse", "restrooms", "tbd", "mechanical"):
+            sf[rid] = r["sf"]
+    l1_ids = [r["id"] for r in prog["stacking"]["level_1"] if r["id"] != "mechanical"]
+    l2_ids = [r["id"] for r in prog["stacking"]["level_2"]]
+    N1 = sum(sf[i] for i in l1_ids)
+    N2 = sum(sf[i] for i in l2_ids) + (0 if three else s_sf + s_corr)
+    N3 = (s_sf + s_corr + fx3["in_rooms"] * sfpf + vc_sf) if three else 0
+    G = g * (N1 + N2 + N3) / (1 - g * mech)
+    M = mech * G
+    L1, L2, L3 = g * (N1 + M), g * N2, g * N3
+    AV = g * sum(sf[i] for i in prog["stacking"]["arena_volume"])
+    F = max(L1, AV + L2, AV + L3)
+    cap = p2["building"]["footprint_cap_sf"]
+    # wheelchair spaces (IBC T1109.2.2.1 / ADA T221.2.1.1): bowl as one area + 1 per suite
+    def ws(n_):
+        if n_ < 4: return 0
+        for hi, v in ((25, 1), (50, 2), (100, 4), (300, 5), (500, 6)):
+            if n_ <= hi: return v
+        if n_ <= 5000: return 6 + math.ceil((n_ - 500) / 150)
+        return 36 + math.ceil((n_ - 5000) / 200)
+    return dict(scenario=scenario, placement=placement, three=three, g=g, mech=mech, arena=arena, bowl=bowl, up=up, su=su, sl=sl,
+                guests=guests, ns=ns, mod=mod, s_sf=s_sf, s_corr=s_corr, s_load=s_load, spectators=bowl + ns * guests,
+                frontage_ft=ns * mod["width_ft"], fx1=fx1, fx2=fx2, fx3=fx3, l2_load=l2_load, l3_load=l3_load,
+                exits=nex, stair=st, vc_sf=vc_sf, N1=N1, N2=N2, N3=N3, M=M, L1=L1, L2=L2, L3=L3, AV=AV, ring=L1 - AV,
+                F=F, G=G, cap=cap, over=F - cap, fits=F <= cap, levels=3 if three else 2,
+                ws_bowl=ws(bowl), ws_suites=ns, seat_sf=sps)
+
+
+def best_suites(p2, prog, scenario, arena_sf, bowl, guests, placement):
+    return min((compute_suites(p2, prog, scenario, arena_sf, bowl, guests, placement, u) for u in split_range(prog)),
+               key=lambda d: (round(d["F"]), d["up"]))
+
+
+def max_bowl_with_suites(p2, prog, scenario, arena_sf, guests, placement, step=10):
+    """Largest bowl seat count (step 10) that fits the footprint cap once suites make up the rest of the target."""
+    best = None
+    for b in range(0, p2["spaces"]["seating"]["total"] + 1, step):
+        d = best_suites(p2, prog, scenario, arena_sf, b, guests, placement)
+        if d["fits"]:
+            best = d
+    return best
+
+
+def max_spectators_with_suites(p2, prog, scenario, arena_sf, guests, placement, step=10):
+    """Most spectators (bowl + suites, target not required) that fit the footprint cap. Binary search on suite count per bowl size."""
+    best = None
+    for b in range(0, p2["spaces"]["seating"]["total"] + 1, step):
+        def fit(ns):
+            return min((compute_suites(p2, prog, scenario, arena_sf, b, guests, placement, u, n_suites=ns) for u in split_range(prog)),
+                       key=lambda d: (round(d["F"]), d["up"]))
+        if not fit(0)["fits"]:
+            break
+        lo, hi = 0, 200
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if fit(mid)["fits"]:
+                lo = mid
+            else:
+                hi = mid - 1
+        d = fit(lo)
+        if best is None or d["spectators"] > best["spectators"]:
+            best = d
+    return best
+
+
+def largest_floor_with_suites(p2, prog, scenario, guests, placement, step=100):
+    lo = prog["suites"]["floors_checked"][-1]
+    best = None
+    for a in range(lo, dig(p2, "spaces.arena.sf") + 1, step):
+        if max_bowl_with_suites(p2, prog, scenario, a, guests, placement) is not None:
+            best = a
+    return best
+
+
+def summary_c():
+    p2, prog = load()
+    su = prog["suites"]
+    gl = [su["guests_per_suite"][k] for k in ("low", "mid", "high")]
+    out = {}
+    for sc in ("base", "lean"):
+        for fl in su["floors_checked"]:
+            for pl in ("L2_back", "L3_top"):
+                for gu in gl:
+                    out[(sc, fl, pl, gu)] = max_bowl_with_suites(p2, prog, sc, fl, gu, pl)
+    full = dig(p2, "spaces.arena.sf")
+    out["max22"] = {gu: max_spectators_with_suites(p2, prog, "base", full, gu, "L3_top") for gu in gl}
+    out["maxfloor"] = {gu: largest_floor_with_suites(p2, prog, "base", gu, "L3_top") for gu in gl}
+    out["guests"] = gl
+    return p2, prog, out
+
+
 if __name__ == "__main__":
     import sys as _s
+    if "--rev-c" in _s.argv:
+        p2, prog, out = summary_c()
+        print("max spectators at full floor:", {k: (v["bowl"], v["ns"], v["spectators"], round(v["F"])) for k, v in out["max22"].items()})
+        print("largest floor reaching target:", out["maxfloor"])
+        for k, x in out.items():
+            if not isinstance(k, tuple):
+                continue
+            if x is None:
+                print(k, "NO FIT"); continue
+            print(f"{k}: bowl {x['bowl']} ({x['sl']}/{x['su']}) suites {x['ns']}x{x['guests']} = {x['spectators']} | F {x['F']:,.0f} "
+                  f"L1 {x['L1']:,.0f} L2 {x['L2']:,.0f} L3 {x['L3']:,.0f} AV {x['AV']:,.0f} G {x['G']:,.0f} lv {x['levels']} "
+                  f"suiteSF {x['s_sf']:,.0f} corr {x['s_corr']:,.0f} front {x['frontage_ft']:.0f} load2 {x['l2_load']} load3 {x['l3_load']} "
+                  f"ex {x['exits']} w {x['stair']['width_in']:.0f} fx {x['fx1']['in_rooms']}/{x['fx2']['in_rooms'] if x['fx2'] else 0}/{x['fx3']['in_rooms'] if x['fx3'] else 0}")
+        raise SystemExit
     if "--rev-b" in _s.argv:
         p2, prog, ob, out = summary_b()
         for sc, d in out.items():

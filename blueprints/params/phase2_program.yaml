@@ -198,3 +198,61 @@ vertical_circulation:
   status: CITED (code rules) / ASSUMED (floor-to-floor, hoistway SF, stair layout)
   confidence: MEDIUM
   source: "R-015 (IBC 2021 via UpCodes: 1005.3.1, 1005.5, T1006.3.3, 1009.1, 1009.2.1, 1009.3.2, 1009.3.3, 1011.2, 1011.5.2, 1011.6, 1011.8, 1019.3, 1104.4, 903.2.1.4, 907.2.1.1; 2010 ADA Standards 206.2.3, Table 407.4.1)"
+
+# ---------------------------------------------------------------------------------------------------
+# REV C INPUTS (Shane 2026-10-03 11:26 PM CT): ~1,370 seats rejected ("not enough", D-032). Direction under
+# study: keep ~2,200 total spectators by adding rentable SUITES at the top of the upper tier (D-030 still OPEN).
+# Rev A and Rev B read only the sections above and are FROZEN. Rev C adds the sections below. No $ figures (revenue out of scope).
+# ---------------------------------------------------------------------------------------------------
+meta_rev_c:
+  ticket: P2-T-003b
+  sheet: P2-G-003
+  title: "PROGRAM TEST-FIT, SUITES"
+  subtitle: "FOOTPRINT MATH, NOT A PLAN"
+  revision: C
+  file: P2-G-003_RevC
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "two-level (or three with a suite level) arithmetic: bowl seats + suites x guests ≈ 2,200 spectators; ground footprint vs the 55,000 SF footprint cap (D-031)"
+  source: "Shane 2026-10-03 11:26 PM CT (reject ~1,370 seats; add rentable suites just above the top seats to keep ~2,200 spectators; Rev C)"
+
+suites:
+  guests_per_suite:
+    low: 12
+    mid: 16
+    high: 20
+    low_basis: "Petersen Events Center (Pitt) Production Guide 2020: smaller suites 'typically accommodate 12 guests comfortably'"
+    mid_basis: "Diddle Arena (WKU), College Heights Herald 2002-10-22: each suite lease 'comes with 16 tickets'"
+    high_basis: "Sheldon ISD Panther Stadium (high school) press box: passes give '20 ADULT VIPs access to one of two suites'"
+    status: CITED
+    confidence: MEDIUM
+    source: "R-016 (S1 Petersen Events Center; S2 WKU Herald; S3 Sheldon ISD)"
+  sf_per_guest: 25
+  sf_per_guest_basis: "Diddle Arena suites 'measuring 400 square feet' with 16 tickets = 25 SF/guest (one cited suite with both numbers). Cross-check: Texas Tech United Supermarkets Arena standard suites 276 SF (no guest count given). Covers seating ledge + lounge; suite-level restrooms counted separately (Diddle: 'private bathrooms for the suite level')."
+  sf_per_guest_status: CITED (derived from one source)
+  kitchenette_pantry: "TBD — no cited size; left OUT (suites assumed served from the concession stand)"
+  frontage_rule: "suite width = (guests ÷ 2 ledge rows, rounded up) x 18 in + 24 in for walls — ASSUMED (18 in per seat from IBC 1004.6; 2 rows ASSUMED)"
+  corridor_width_in: 44
+  corridor_basis: "suite corridor along the suite fronts at the IBC 2021 Table 1020.3 minimum, 44 in (ASSUMED at the minimum; architect may widen)"
+  code_occupant_load: "per suite = guests (fixed seats, IBC 1004.6) + lounge area ÷ 15 net (Table 1004.5 'unconcentrated (tables and chairs)'; 1004.6: non-fixed-seat areas 'shall be … added to the number of fixed seats'). Lounge = suite SF − guests x seat SF. Used for exits and fixtures; spectators counted = guests only."
+  wheelchair_spaces: "1 wheelchair space + 1 companion seat in EACH suite (IBC 1109.2.2.2 / ADA 221.2.1.2, Table 1109.2.2.1: 4 to 25 seats = 1), counted suite by suite"
+  target_spectators: "phase2.yaml spaces.seating.total (2,200 locked; bowl seats + suite guests)"
+  placements:
+    - {id: L2_back, short: "back of the upper tier on Level 2", rule: "suites + corridor added to L2; L2 must still sit over the L1 ring", source: "Shane 11:26 PM CT (Level 2 / top of upper tier); KEYSTONE geometry"}
+    - {id: L3_top, short: "suite level above the top row (Level 3)", rule: "suites + corridor + suite restrooms on a 3rd level over the L1 ring / L2 rooms; adds floor area, adds footprint only if L3 > L1 ring; forces a 3rd story", source: "Shane 11:26 PM CT ('just above the top seats'); Diddle Arena precedent ('clear at the top of the arena'); KEYSTONE geometry"}
+  third_level_flags: "3 stories: open exit access stairs lose the two-story exception (IBC 1019.3 exc. 1), so stairs become enclosed interior exit stairways, 1-hour where connecting fewer than 4 stories (1023.2); elevator must stop at the suite level (1104.4); each suite needs a wheelchair space (1109.2.4); elevator egress still not required below 4 stories (1009.2.1); allowable stories by construction type (IBC ch. 5) NOT checked"
+  floors_checked: [22000, 20000, 18000, 16400]
+  floors_basis: "22,000 = locked arena tag; 16,400 = largest floor that fits all 2,200 bowl seats on base inputs (Rev B); 18,000 and 20,000 = Shane's hybrid range 11:26 PM CT"
+  precedent_suite_counts: "Diddle Arena 16 suites; United Supermarkets Arena 24 + corners; Petersen Events Center 5 courtside + 16"
+  headline_case:
+    floor_sf: 18000
+    guests: 20
+    placement: L3_top
+    basis: "KEYSTONE pick for the sheet headline: the largest checked floor whose suite count (13-22 across 12-20 guests) stays inside the cited precedent counts (16-24 suites); 20,000 SF needs 30-50 suites"
+    status: ASSUMED
+    confidence: LOW
+    source: "KEYSTONE (Rev C); R-016 precedents"
+  revenue: out of scope (no $ figures)
+  status: CITED (guests, SF/guest, code rules) / ASSUMED (frontage, corridor at minimum, placement)
+  confidence: MEDIUM
+  source: "R-016; Shane 2026-10-03 11:26 PM CT; D-030, D-032"
