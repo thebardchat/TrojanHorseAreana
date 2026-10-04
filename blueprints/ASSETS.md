@@ -171,3 +171,10 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **Previews (box only):** `/workspace/keystone_previews/P2-G-003.png` (now Rev C), `P2-G-003_RevB.png` (Rev B kept), `P2-G-003_RevA.png`, `P2-G-003.pdf` (now Rev C).
 - **New research** `research/R-016-suites-small-arenas.md`.
 - **Research source copies** (box scratch `/workspace/research_src/`, **not committed**): `pitt.pdf/.txt` (Petersen Events Center Production Guide 2020), `wku.html/.txt` (College Heights Herald 2002), `sheldon.pdf/.txt` (Sheldon ISD Panther Stadium), `ttu.html/.txt` (Texas Tech arena facts).
+
+## 2026-10-03 additions (11:39 PM CT session, D-030 locked program + block plans)
+- **New Phase 2 sheet** `phase2/out/pdf/P2-G-003_RevD.pdf` + `phase2/out/dxf/P2-G-003_RevD.dxf` (LOCKED PROGRAM, tabloid landscape, one page), from `phase2/src/p2_g_003.py --rev D` (now the default). Revs A, B and C are FROZEN and unchanged.
+- **New Phase 2 sheets** `phase2/out/{pdf,dxf}/P2-A-101_RevA` (Level 1) and `P2-A-102_RevA` (Level 2): schematic block plans, 1/32 in = 1 ft-0 in on tabloid, from `phase2/src/p2_a_plan.py --sheet P2-A-101|P2-A-102`. DXF in paper inches (1 in = 32 ft).
+- **New Phase 2 data file** `params/phase2_plan.yaml` (block-plan coordinates in feet, every group sourced; layout ASSUMED).
+- **Previews (box only):** `/workspace/keystone_previews/P2-G-003.png` + `P2-G-003.pdf` (now Rev D), `P2-G-003_RevC.png` (Rev C kept), `P2-G-003_RevB.png`, `P2-G-003_RevA.png`; `P2-A-101.png` + `P2-A-101.pdf`, `P2-A-102.png` + `P2-A-102.pdf`.
+- Layout reference used (box only, not committed): `/workspace/arena_src/arenav1-floor-plan.png` (same plan as `Phase2-floor-plan-flat.png`).

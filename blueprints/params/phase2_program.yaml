@@ -76,7 +76,7 @@ factors:
 
 # Rooms. method: tag (from phase2.yaml) | each (sf_each x count) | seating | restrooms | mechanical | concourse | locker_load | tbd
 rooms:
-  - {id: arena, short: "phase2.yaml tag (concept sheet)", group: main, name: Championship Wrestling Arena (event floor), method: tag, tag_path: spaces.arena.sf, status: TAG, confidence: HIGH, source: "phase2.yaml (concept sheet / reference plan)"}
+  - {id: arena, short: "phase2.yaml tag (concept sheet)", group: main, name: Championship Wrestling Arena (event floor), method: tag, tag_path: spaces.arena.sf_tagged_superseded, status: TAG, confidence: HIGH, source: "phase2.yaml (concept sheet / reference plan)"}
   - {id: boys_locker, short: "phase2.yaml tag", group: main, name: Boys Locker Room, method: tag, tag_path: spaces.boys_locker.sf, status: TAG, confidence: HIGH, source: "phase2.yaml"}
   - {id: girls_locker, short: "phase2.yaml tag; D-013 open", group: main, name: Girls Locker Room (as tagged; D-013), method: tag, tag_path: spaces.girls_locker.sf_tagged, status: TAG, confidence: HIGH, source: "phase2.yaml; D-013 open (draw equal)"}
   - {id: strength_conditioning, short: "phase2.yaml tag", group: main, name: Strength & Conditioning, method: tag, tag_path: spaces.strength_conditioning.sf, status: TAG, confidence: HIGH, source: "phase2.yaml"}
@@ -256,3 +256,35 @@ suites:
   status: CITED (guests, SF/guest, code rules) / ASSUMED (frontage, corridor at minimum, placement)
   confidence: MEDIUM
   source: "R-016; Shane 2026-10-03 11:26 PM CT; D-030, D-032"
+
+# ---------------------------------------------------------------------------------------------------
+# REV D INPUTS (Shane 2026-10-03 11:39 PM CT, D-030 DECIDED): 16,400 SF event floor, all 2,200 seats in the bowl,
+# 2 levels, no suites. Revs A-C read only the sections above and are FROZEN. Rev D = LOCKED PROGRAM sheet.
+# Locked numbers (event floor, bowl seats, levels) are read from phase2.yaml and not repeated here.
+# ---------------------------------------------------------------------------------------------------
+meta_rev_d:
+  ticket: P2-T-003b
+  sheet: P2-G-003
+  title: LOCKED PROGRAM
+  subtitle: "D-030 · AREA BY LEVEL, NOT A PLAN"
+  revision: D
+  file: P2-G-003_RevD
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "two-level area arithmetic (Rev B method) at the locked event floor and bowl seat count; footprint vs the 55,000 SF footprint cap (D-031); seating type shown both ways (D-009 OPEN)"
+  source: "Shane 2026-10-03 11:39 PM CT (D-030 DECIDED; Rev D = LOCKED PROGRAM sheet; Rev C frozen)"
+
+locked_program:
+  upper_share: 0.5
+  upper_share_basis: "same 50/50 lower/upper split as Rev B (seat_split.upper_share_assumed); sightlines not checked"
+  columns:
+    - {id: base, label: FIXED, seat_basis: "6.0 SF/seat elevated seating (factors.seating.base_sf_per_seat)", status: CITED, confidence: MEDIUM, source: "R-008 (Loudoun County 2014)"}
+    - {id: telescopic, label: TELESCOPIC, seat_basis: "telescopic bleacher geometry (factors.seating lean_*), every bowl seat on telescopic risers", status: CITED geometry / KEYSTONE arithmetic, confidence: MEDIUM, source: "R-008 (IBC 1004.6, 1030.9.1, 1030.13.2.1; Hussey)"}
+  gross_up_telescopic: 1.25
+  gross_up_basis: "the TELESCOPIC column uses the same 1.25 gross-up as the FIXED column (factors.gross_up.base) so only the seating type differs; the Rev A-C 'lean' case also cut the gross-up to 1.15 and is not repeated here"
+  gross_up_status: ASSUMED
+  wheelchair_table: "IBC 2021 Table 1109.2.2.1 / 2010 ADA Table 221.2.1.1: 501-5,000 seats = 6 + 1 per 150 (or fraction) over 500; the bowl counted as one assembly area"
+  wheelchair_dispersion: "dispersed across both tiers with lines of sight (ADA 221.2.3, 802.2); split by tier is an architect task"
+  status: ASSUMED (split, telescopic gross-up) / CITED (seat factors, wheelchair table)
+  confidence: MEDIUM
+  source: "Shane 2026-10-03 11:39 PM CT (D-030); R-008; R-015; R-016 (wheelchair table)"

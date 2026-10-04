@@ -15,6 +15,8 @@ from pathlib import Path
 import yaml
 
 BP = Path(__file__).resolve().parents[2]
+# Frozen Revs A-C read the original 22,000 SF arena tag, kept in phase2.yaml as history after D-030 (11:39 PM CT).
+ARENA_TAG = "spaces.arena.sf_tagged_superseded"
 
 
 def load():
@@ -55,7 +57,7 @@ def compute(p2, prog, scenario="base", arena_sf=None, seats=None):
     g = f["gross_up"][scenario]
     mech = f["mechanical"]["share_of_gross"]
     seats = p2["spaces"]["seating"]["total"] if seats is None else seats
-    arena = dig(p2, "spaces.arena.sf") if arena_sf is None else arena_sf
+    arena = dig(p2, ARENA_TAG) if arena_sf is None else arena_sf
     occ_floor = math.ceil(arena / f["occupant_load"]["event_floor_sf_per_occupant"])
     fx = fixtures(seats + occ_floor)
     sps = seat_sf(prog, scenario)
@@ -152,7 +154,7 @@ def compute_two_level(p2, prog, scenario="base", arena_sf=None, seats=None, uppe
     f, vc = prog["factors"], prog["vertical_circulation"]
     g, mech = f["gross_up"][scenario], f["mechanical"]["share_of_gross"]
     seats = p2["spaces"]["seating"]["total"] if seats is None else seats
-    arena = dig(p2, "spaces.arena.sf") if arena_sf is None else arena_sf
+    arena = dig(p2, ARENA_TAG) if arena_sf is None else arena_sf
     up = prog["seat_split"]["upper_share_assumed"] if upper_share is None else upper_share
     su = int(round(seats * up))
     sl = seats - su
@@ -222,7 +224,7 @@ def max_seats_two_level(p2, prog, scenario, arena_sf=None, step=10):
 def max_floor_two_level(p2, prog, scenario, step=100):
     """Largest event floor (SF, step 100) that fits the footprint cap with all seats (best split)."""
     best = None
-    for a in range(0, dig(p2, "spaces.arena.sf") + 1, step):
+    for a in range(0, dig(p2, ARENA_TAG) + 1, step):
         if best_split(p2, prog, scenario, arena_sf=a)["fits"]:
             best = a
     return best
@@ -260,7 +262,7 @@ def compute_suites(p2, prog, scenario="base", arena_sf=None, bowl=None, guests=1
     g, mech = f["gross_up"][scenario], f["mechanical"]["share_of_gross"]
     target = p2["spaces"]["seating"]["total"]
     bowl = target if bowl is None else bowl
-    arena = dig(p2, "spaces.arena.sf") if arena_sf is None else arena_sf
+    arena = dig(p2, ARENA_TAG) if arena_sf is None else arena_sf
     up = prog["seat_split"]["upper_share_assumed"] if upper_share is None else upper_share
     ns = max(0, math.ceil((target - bowl) / guests)) if n_suites is None else n_suites
     mod = suite_module(prog, guests, scenario)
@@ -361,7 +363,7 @@ def max_spectators_with_suites(p2, prog, scenario, arena_sf, guests, placement, 
 def largest_floor_with_suites(p2, prog, scenario, guests, placement, step=100):
     lo = prog["suites"]["floors_checked"][-1]
     best = None
-    for a in range(lo, dig(p2, "spaces.arena.sf") + 1, step):
+    for a in range(lo, dig(p2, ARENA_TAG) + 1, step):
         if max_bowl_with_suites(p2, prog, scenario, a, guests, placement) is not None:
             best = a
     return best
@@ -377,15 +379,68 @@ def summary_c():
             for pl in ("L2_back", "L3_top"):
                 for gu in gl:
                     out[(sc, fl, pl, gu)] = max_bowl_with_suites(p2, prog, sc, fl, gu, pl)
-    full = dig(p2, "spaces.arena.sf")
+    full = dig(p2, ARENA_TAG)
     out["max22"] = {gu: max_spectators_with_suites(p2, prog, "base", full, gu, "L3_top") for gu in gl}
     out["maxfloor"] = {gu: largest_floor_with_suites(p2, prog, "base", gu, "L3_top") for gu in gl}
     out["guests"] = gl
     return p2, prog, out
 
 
+# ============================ REV D: LOCKED PROGRAM (D-030, Shane 11:39 PM CT) ============================
+# Event floor + bowl seats read from the locked phase2.yaml keys; no suites; Rev B two-level method.
+
+LOCKED_FLOOR = "spaces.arena.event_floor_sf"
+LOCKED_BOWL = "spaces.seating.bowl"
+
+
+def wheelchair_spaces(n_: int) -> int:
+    """IBC 2021 Table 1109.2.2.1 / ADA Table 221.2.1.1."""
+    if n_ < 4:
+        return 0
+    for hi, v in ((25, 1), (50, 2), (100, 4), (300, 5), (500, 6)):
+        if n_ <= hi:
+            return v
+    if n_ <= 5000:
+        return 6 + math.ceil((n_ - 500) / 150)
+    return 36 + math.ceil((n_ - 5000) / 200)
+
+
+def compute_locked(p2, prog, seat_type="base", arena_sf=None):
+    """seat_type: 'base' (FIXED, 6.0 SF/seat) or 'telescopic' (bleacher geometry). Same gross-up both."""
+    import copy
+    lp = prog["locked_program"]
+    pr = copy.deepcopy(prog)
+    pr["factors"]["gross_up"]["telescopic"] = lp["gross_up_telescopic"]
+    arena = dig(p2, LOCKED_FLOOR) if arena_sf is None else arena_sf
+    bowl = dig(p2, LOCKED_BOWL)
+    d = compute_two_level(p2, pr, seat_type, arena_sf=arena, seats=bowl, upper_share=lp["upper_share"])
+    d["ws"] = wheelchair_spaces(bowl)
+    d["bowl"] = bowl
+    d["seat_type"] = seat_type
+    return d
+
+
+def summary_d():
+    p2, prog = load()
+    ob = option_b_floor(prog)
+    out = {c["id"]: compute_locked(p2, prog, c["id"]) for c in prog["locked_program"]["columns"]}
+    return p2, prog, ob, out
+
+
 if __name__ == "__main__":
     import sys as _s
+    if "--rev-d" in _s.argv:
+        p2, prog, ob, out = summary_d()
+        print("option B floor", ob)
+        for k, x in out.items():
+            print(f"[{k}] seat_sf {x['seat_sf']:.3f} g {x['g']} ({x['sl']}/{x['su']}) N1 {x['N1']:,.0f} N2 {x['N2']:,.0f} M {x['M']:,.0f} "
+                  f"L1 {x['L1']:,.0f} L2 {x['L2']:,.0f} AV {x['AV']:,.0f} ring {x['ring']:,.0f} F {x['F']:,.0f} G {x['G']:,.0f} "
+                  f"fits {x['fits']} l2fits {x['l2_fits_over_ring']} exits {x['exits']} w {x['stair']['width_in']:.1f} st {x['stair']['sf']:.0f} "
+                  f"vc {x['vc_sf']:.0f} l2load {x['l2_load']} fx1 {x['fx1']} fx2 {x['fx2']} ws {x['ws']}")
+            print({k_: round(v) for k_, v in x['sf'].items()})
+        x16 = compute_locked(p2, prog, "base", arena_sf=16416)
+        print("drawn 16416 F", round(x16["F"]), "G", round(x16["G"]))
+        raise SystemExit
     if "--rev-c" in _s.argv:
         p2, prog, out = summary_c()
         print("max spectators at full floor:", {k: (v["bowl"], v["ns"], v["spectators"], round(v["F"])) for k, v in out["max22"].items()})

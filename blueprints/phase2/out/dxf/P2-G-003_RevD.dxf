@@ -1,0 +1,14320 @@
+  0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1024
+  9
+$ACADMAINTVER
+ 70
+6
+  9
+$DWGCODEPAGE
+  3
+ANSI_1252
+  9
+$LASTSAVEDBY
+  1
+ezdxf
+  9
+$INSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$EXTMIN
+ 10
+1e+20
+ 20
+1e+20
+ 30
+1e+20
+  9
+$EXTMAX
+ 10
+-1e+20
+ 20
+-1e+20
+ 30
+-1e+20
+  9
+$LIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+$LIMMAX
+ 10
+420.0
+ 20
+297.0
+  9
+$ORTHOMODE
+ 70
+0
+  9
+$REGENMODE
+ 70
+1
+  9
+$FILLMODE
+ 70
+1
+  9
+$QTEXTMODE
+ 70
+0
+  9
+$MIRRTEXT
+ 70
+1
+  9
+$LTSCALE
+ 40
+1.0
+  9
+$ATTMODE
+ 70
+1
+  9
+$TEXTSIZE
+ 40
+2.5
+  9
+$TRACEWID
+ 40
+1.0
+  9
+$TEXTSTYLE
+  7
+Standard
+  9
+$CLAYER
+  8
+0
+  9
+$CELTYPE
+  6
+ByLayer
+  9
+$CECOLOR
+ 62
+256
+  9
+$CELTSCALE
+ 40
+1.0
+  9
+$DISPSILH
+ 70
+0
+  9
+$DIMSCALE
+ 40
+1.0
+  9
+$DIMASZ
+ 40
+2.5
+  9
+$DIMEXO
+ 40
+0.625
+  9
+$DIMDLI
+ 40
+3.75
+  9
+$DIMRND
+ 40
+0.0
+  9
+$DIMDLE
+ 40
+0.0
+  9
+$DIMEXE
+ 40
+1.25
+  9
+$DIMTP
+ 40
+0.0
+  9
+$DIMTM
+ 40
+0.0
+  9
+$DIMTXT
+ 40
+2.5
+  9
+$DIMCEN
+ 40
+2.5
+  9
+$DIMTSZ
+ 40
+0.0
+  9
+$DIMTOL
+ 70
+0
+  9
+$DIMLIM
+ 70
+0
+  9
+$DIMTIH
+ 70
+0
+  9
+$DIMTOH
+ 70
+0
+  9
+$DIMSE1
+ 70
+0
+  9
+$DIMSE2
+ 70
+0
+  9
+$DIMTAD
+ 70
+1
+  9
+$DIMZIN
+ 70
+8
+  9
+$DIMBLK
+  1
+
+  9
+$DIMASO
+ 70
+1
+  9
+$DIMSHO
+ 70
+1
+  9
+$DIMPOST
+  1
+
+  9
+$DIMAPOST
+  1
+
+  9
+$DIMALT
+ 70
+0
+  9
+$DIMALTD
+ 70
+3
+  9
+$DIMALTF
+ 40
+0.03937007874
+  9
+$DIMLFAC
+ 40
+1.0
+  9
+$DIMTOFL
+ 70
+1
+  9
+$DIMTVP
+ 40
+0.0
+  9
+$DIMTIX
+ 70
+0
+  9
+$DIMSOXD
+ 70
+0
+  9
+$DIMSAH
+ 70
+0
+  9
+$DIMBLK1
+  1
+
+  9
+$DIMBLK2
+  1
+
+  9
+$DIMSTYLE
+  2
+ISO-25
+  9
+$DIMCLRD
+ 70
+0
+  9
+$DIMCLRE
+ 70
+0
+  9
+$DIMCLRT
+ 70
+0
+  9
+$DIMTFAC
+ 40
+1.0
+  9
+$DIMGAP
+ 40
+0.625
+  9
+$DIMJUST
+ 70
+0
+  9
+$DIMSD1
+ 70
+0
+  9
+$DIMSD2
+ 70
+0
+  9
+$DIMTOLJ
+ 70
+0
+  9
+$DIMTZIN
+ 70
+8
+  9
+$DIMALTZ
+ 70
+0
+  9
+$DIMALTTZ
+ 70
+0
+  9
+$DIMUPT
+ 70
+0
+  9
+$DIMDEC
+ 70
+2
+  9
+$DIMTDEC
+ 70
+2
+  9
+$DIMALTU
+ 70
+2
+  9
+$DIMALTTD
+ 70
+3
+  9
+$DIMTXSTY
+  7
+Standard
+  9
+$DIMAUNIT
+ 70
+0
+  9
+$DIMADEC
+ 70
+0
+  9
+$DIMALTRND
+ 40
+0.0
+  9
+$DIMAZIN
+ 70
+0
+  9
+$DIMDSEP
+ 70
+44
+  9
+$DIMATFIT
+ 70
+3
+  9
+$DIMFRAC
+ 70
+0
+  9
+$DIMLDRBLK
+  1
+
+  9
+$DIMLUNIT
+ 70
+2
+  9
+$DIMLWD
+ 70
+-2
+  9
+$DIMLWE
+ 70
+-2
+  9
+$DIMTMOVE
+ 70
+0
+  9
+$DIMFXL
+ 40
+1.0
+  9
+$DIMFXLON
+ 70
+0
+  9
+$DIMJOGANG
+ 40
+0.785398163397
+  9
+$DIMTFILL
+ 70
+0
+  9
+$DIMTFILLCLR
+ 70
+0
+  9
+$DIMARCSYM
+ 70
+0
+  9
+$DIMLTYPE
+  6
+
+  9
+$DIMLTEX1
+  6
+
+  9
+$DIMLTEX2
+  6
+
+  9
+$DIMTXTDIRECTION
+ 70
+0
+  9
+$LUNITS
+ 70
+2
+  9
+$LUPREC
+ 70
+4
+  9
+$SKETCHINC
+ 40
+1.0
+  9
+$FILLETRAD
+ 40
+10.0
+  9
+$AUNITS
+ 70
+0
+  9
+$AUPREC
+ 70
+2
+  9
+$MENU
+  1
+.
+  9
+$ELEVATION
+ 40
+0.0
+  9
+$PELEVATION
+ 40
+0.0
+  9
+$THICKNESS
+ 40
+0.0
+  9
+$LIMCHECK
+ 70
+0
+  9
+$CHAMFERA
+ 40
+0.0
+  9
+$CHAMFERB
+ 40
+0.0
+  9
+$CHAMFERC
+ 40
+0.0
+  9
+$CHAMFERD
+ 40
+0.0
+  9
+$SKPOLY
+ 70
+0
+  9
+$TDCREATE
+ 40
+2461317.9905787036
+  9
+$TDUCREATE
+ 40
+2458532.153996898
+  9
+$TDUPDATE
+ 40
+2461317.9905787036
+  9
+$TDUUPDATE
+ 40
+2458532.1544311
+  9
+$TDINDWG
+ 40
+0.0
+  9
+$TDUSRTIMER
+ 40
+0.0
+  9
+$USRTIMER
+ 70
+1
+  9
+$ANGBASE
+ 50
+0.0
+  9
+$ANGDIR
+ 70
+0
+  9
+$PDMODE
+ 70
+0
+  9
+$PDSIZE
+ 40
+0.0
+  9
+$PLINEWID
+ 40
+0.0
+  9
+$SPLFRAME
+ 70
+0
+  9
+$SPLINETYPE
+ 70
+6
+  9
+$SPLINESEGS
+ 70
+8
+  9
+$HANDSEED
+  5
+1A0
+  9
+$SURFTAB1
+ 70
+6
+  9
+$SURFTAB2
+ 70
+6
+  9
+$SURFTYPE
+ 70
+6
+  9
+$SURFU
+ 70
+6
+  9
+$SURFV
+ 70
+6
+  9
+$UCSBASE
+  2
+
+  9
+$UCSNAME
+  2
+
+  9
+$UCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$UCSORTHOREF
+  2
+
+  9
+$UCSORTHOVIEW
+ 70
+0
+  9
+$UCSORGTOP
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGBOTTOM
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGLEFT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGRIGHT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGFRONT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGBACK
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSBASE
+  2
+
+  9
+$PUCSNAME
+  2
+
+  9
+$PUCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$PUCSORTHOREF
+  2
+
+  9
+$PUCSORTHOVIEW
+ 70
+0
+  9
+$PUCSORGTOP
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGBOTTOM
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGLEFT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGRIGHT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGFRONT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGBACK
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$USERI1
+ 70
+0
+  9
+$USERI2
+ 70
+0
+  9
+$USERI3
+ 70
+0
+  9
+$USERI4
+ 70
+0
+  9
+$USERI5
+ 70
+0
+  9
+$USERR1
+ 40
+0.0
+  9
+$USERR2
+ 40
+0.0
+  9
+$USERR3
+ 40
+0.0
+  9
+$USERR4
+ 40
+0.0
+  9
+$USERR5
+ 40
+0.0
+  9
+$WORLDVIEW
+ 70
+1
+  9
+$SHADEDGE
+ 70
+3
+  9
+$SHADEDIF
+ 70
+70
+  9
+$TILEMODE
+ 70
+1
+  9
+$MAXACTVP
+ 70
+64
+  9
+$PINSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PLIMCHECK
+ 70
+0
+  9
+$PEXTMIN
+ 10
+1e+20
+ 20
+1e+20
+ 30
+1e+20
+  9
+$PEXTMAX
+ 10
+-1e+20
+ 20
+-1e+20
+ 30
+-1e+20
+  9
+$PLIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+$PLIMMAX
+ 10
+420.0
+ 20
+297.0
+  9
+$UNITMODE
+ 70
+0
+  9
+$VISRETAIN
+ 70
+1
+  9
+$PLINEGEN
+ 70
+0
+  9
+$PSLTSCALE
+ 70
+1
+  9
+$TREEDEPTH
+ 70
+3020
+  9
+$CMLSTYLE
+  2
+Standard
+  9
+$CMLJUST
+ 70
+0
+  9
+$CMLSCALE
+ 40
+20.0
+  9
+$PROXYGRAPHICS
+ 70
+1
+  9
+$MEASUREMENT
+ 70
+0
+  9
+$CELWEIGHT
+370
+-1
+  9
+$ENDCAPS
+280
+0
+  9
+$JOINSTYLE
+280
+0
+  9
+$LWDISPLAY
+290
+0
+  9
+$INSUNITS
+ 70
+1
+  9
+$HYPERLINKBASE
+  1
+
+  9
+$STYLESHEET
+  1
+
+  9
+$XEDIT
+290
+1
+  9
+$CEPSNTYPE
+380
+0
+  9
+$PSTYLEMODE
+290
+1
+  9
+$FINGERPRINTGUID
+  2
+{5B111F4C-F63E-4B23-9E5D-77F2FD0CB942}
+  9
+$VERSIONGUID
+  2
+{A389D267-C942-41D6-8B7F-09BB18BE541E}
+  9
+$EXTNAMES
+290
+1
+  9
+$PSVPSCALE
+ 40
+0.0
+  9
+$OLESTARTUP
+290
+0
+  9
+$SORTENTS
+280
+127
+  9
+$INDEXCTL
+280
+0
+  9
+$HIDETEXT
+280
+1
+  9
+$XCLIPFRAME
+280
+1
+  9
+$HALOGAP
+280
+0
+  9
+$OBSCOLOR
+ 70
+257
+  9
+$OBSLTYPE
+280
+0
+  9
+$INTERSECTIONDISPLAY
+280
+0
+  9
+$INTERSECTIONCOLOR
+ 70
+257
+  9
+$DIMASSOC
+280
+2
+  9
+$PROJECTNAME
+  1
+
+  9
+$CAMERADISPLAY
+290
+0
+  9
+$LENSLENGTH
+ 40
+50.0
+  9
+$CAMERAHEIGHT
+ 40
+0.0
+  9
+$STEPSPERSEC
+ 40
+24.0
+  9
+$STEPSIZE
+ 40
+100.0
+  9
+$3DDWFPREC
+ 40
+2.0
+  9
+$PSOLWIDTH
+ 40
+0.005
+  9
+$PSOLHEIGHT
+ 40
+0.08
+  9
+$LOFTANG1
+ 40
+1.570796326795
+  9
+$LOFTANG2
+ 40
+1.570796326795
+  9
+$LOFTMAG1
+ 40
+0.0
+  9
+$LOFTMAG2
+ 40
+0.0
+  9
+$LOFTPARAM
+ 70
+7
+  9
+$LOFTNORMALS
+280
+1
+  9
+$LATITUDE
+ 40
+37.795
+  9
+$LONGITUDE
+ 40
+-122.394
+  9
+$NORTHDIRECTION
+ 40
+0.0
+  9
+$TIMEZONE
+ 70
+-8000
+  9
+$LIGHTGLYPHDISPLAY
+280
+1
+  9
+$TILEMODELIGHTSYNCH
+280
+1
+  9
+$CMATERIAL
+347
+20
+  9
+$SOLIDHIST
+280
+0
+  9
+$SHOWHIST
+280
+1
+  9
+$DWFFRAME
+280
+2
+  9
+$DGNFRAME
+280
+2
+  9
+$REALWORLDSCALE
+290
+1
+  9
+$INTERFERECOLOR
+ 62
+256
+  9
+$CSHADOW
+280
+0
+  9
+$SHADOWPLANELOCATION
+ 40
+0.0
+  0
+ENDSEC
+  0
+SECTION
+  2
+CLASSES
+  0
+CLASS
+  1
+ACDBDICTIONARYWDFLT
+  2
+AcDbDictionaryWithDefault
+  3
+ObjectDBX Classes
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+SUN
+  2
+AcDbSun
+  3
+SCENEOE
+ 90
+1153
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+VISUALSTYLE
+  2
+AcDbVisualStyle
+  3
+ObjectDBX Classes
+ 90
+4095
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+MATERIAL
+  2
+AcDbMaterial
+  3
+ObjectDBX Classes
+ 90
+1153
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+SCALE
+  2
+AcDbScale
+  3
+ObjectDBX Classes
+ 90
+1153
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+TABLESTYLE
+  2
+AcDbTableStyle
+  3
+ObjectDBX Classes
+ 90
+4095
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+MLEADERSTYLE
+  2
+AcDbMLeaderStyle
+  3
+ACDB_MLEADERSTYLE_CLASS
+ 90
+4095
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+DICTIONARYVAR
+  2
+AcDbDictionaryVar
+  3
+ObjectDBX Classes
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+CELLSTYLEMAP
+  2
+AcDbCellStyleMap
+  3
+ObjectDBX Classes
+ 90
+1152
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+MENTALRAYRENDERSETTINGS
+  2
+AcDbMentalRayRenderSettings
+  3
+SCENEOE
+ 90
+1024
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+ACDBDETAILVIEWSTYLE
+  2
+AcDbDetailViewStyle
+  3
+ObjectDBX Classes
+ 90
+1025
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+ACDBSECTIONVIEWSTYLE
+  2
+AcDbSectionViewStyle
+  3
+ObjectDBX Classes
+ 90
+1025
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+RASTERVARIABLES
+  2
+AcDbRasterVariables
+  3
+ISM
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+ACDBPLACEHOLDER
+  2
+AcDbPlaceHolder
+  3
+ObjectDBX Classes
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+LAYOUT
+  2
+AcDbLayout
+  3
+ObjectDBX Classes
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+VPORT
+  5
+8
+330
+0
+100
+AcDbSymbolTable
+ 70
+1
+  0
+VPORT
+  5
+23
+330
+8
+100
+AcDbSymbolTableRecord
+100
+AcDbViewportTableRecord
+  2
+*Active
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 11
+1.0
+ 21
+1.0
+ 12
+0.0
+ 22
+0.0
+ 13
+0.0
+ 23
+0.0
+ 14
+0.5
+ 24
+0.5
+ 15
+0.5
+ 25
+0.5
+ 16
+0.0
+ 26
+0.0
+ 36
+1.0
+ 17
+0.0
+ 27
+0.0
+ 37
+0.0
+ 40
+1000.0
+ 41
+1.34
+ 42
+50.0
+ 43
+0.0
+ 44
+0.0
+ 50
+0.0
+ 51
+0.0
+ 71
+0
+ 72
+1000
+ 73
+1
+ 74
+3
+ 75
+0
+ 76
+0
+ 77
+0
+ 78
+0
+281
+0
+ 65
+0
+146
+0.0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LTYPE
+  5
+2
+330
+0
+100
+AcDbSymbolTable
+ 70
+3
+  0
+LTYPE
+  5
+24
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+ByBlock
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+LTYPE
+  5
+25
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+ByLayer
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+LTYPE
+  5
+26
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+Continuous
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LAYER
+  5
+1
+330
+0
+100
+AcDbSymbolTable
+ 70
+5
+  0
+LAYER
+  5
+27
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+0
+ 70
+0
+ 62
+7
+  6
+Continuous
+370
+-3
+390
+13
+347
+21
+  0
+LAYER
+  5
+28
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+Defpoints
+ 70
+0
+ 62
+7
+  6
+Continuous
+290
+0
+370
+-3
+390
+13
+347
+21
+  0
+LAYER
+  5
+31
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+G-ANNO-TTLB
+ 70
+0
+ 62
+7
+  6
+Continuous
+370
+-3
+390
+13
+347
+21
+  0
+LAYER
+  5
+32
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+A-ANNO-TEXT
+ 70
+0
+ 62
+7
+  6
+Continuous
+370
+-3
+390
+13
+347
+21
+  0
+LAYER
+  5
+33
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+A-ANNO-TABL
+ 70
+0
+ 62
+7
+  6
+Continuous
+370
+-3
+390
+13
+347
+21
+  0
+ENDTAB
+  0
+TABLE
+  2
+STYLE
+  5
+5
+330
+0
+100
+AcDbSymbolTable
+ 70
+3
+  0
+STYLE
+  5
+29
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbTextStyleTableRecord
+  2
+Standard
+ 70
+0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+0
+ 42
+2.5
+  3
+txt
+  4
+
+  0
+STYLE
+  5
+2F
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbTextStyleTableRecord
+  2
+KS-REG
+ 70
+0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+0
+ 42
+2.5
+  3
+DejaVuSans.ttf
+  4
+
+  0
+STYLE
+  5
+30
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbTextStyleTableRecord
+  2
+KS-BOLD
+ 70
+0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+0
+ 42
+2.5
+  3
+DejaVuSans-Bold.ttf
+  4
+
+  0
+ENDTAB
+  0
+TABLE
+  2
+VIEW
+  5
+7
+330
+0
+100
+AcDbSymbolTable
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+UCS
+  5
+6
+330
+0
+100
+AcDbSymbolTable
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+APPID
+  5
+3
+330
+0
+100
+AcDbSymbolTable
+ 70
+3
+  0
+APPID
+  5
+2A
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+ACAD
+ 70
+0
+  0
+APPID
+  5
+19D
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+HATCHBACKGROUNDCOLOR
+ 70
+0
+  0
+APPID
+  5
+19E
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+EZDXF
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+DIMSTYLE
+  5
+4
+330
+0
+100
+AcDbSymbolTable
+ 70
+1
+100
+AcDbDimStyleTable
+  0
+DIMSTYLE
+105
+2B
+330
+4
+100
+AcDbSymbolTableRecord
+100
+AcDbDimStyleTableRecord
+  2
+Standard
+ 70
+0
+ 40
+1.0
+ 41
+2.5
+ 42
+0.625
+ 43
+3.75
+ 44
+1.25
+ 45
+0.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+ 49
+2.5
+140
+2.5
+141
+2.5
+142
+0.0
+143
+0.03937007874
+144
+1.0
+145
+0.0
+146
+1.0
+147
+0.625
+148
+0.0
+ 69
+0
+ 70
+0
+ 71
+0
+ 72
+0
+ 73
+0
+ 74
+0
+ 75
+0
+ 76
+0
+ 77
+1
+ 78
+8
+ 79
+3
+170
+0
+171
+3
+172
+1
+173
+0
+174
+0
+175
+0
+176
+0
+177
+0
+178
+0
+179
+2
+271
+2
+272
+2
+273
+2
+274
+3
+275
+0
+276
+0
+277
+2
+278
+44
+279
+0
+280
+0
+281
+0
+282
+0
+283
+0
+284
+8
+285
+0
+286
+0
+288
+0
+289
+3
+290
+0
+371
+-2
+372
+-2
+  0
+ENDTAB
+  0
+TABLE
+  2
+BLOCK_RECORD
+  5
+9
+330
+0
+100
+AcDbSymbolTable
+ 70
+2
+  0
+BLOCK_RECORD
+  5
+17
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*Model_Space
+340
+1A
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1B
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*Paper_Space
+340
+1E
+ 70
+0
+280
+1
+281
+0
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+BLOCKS
+  0
+BLOCK
+  5
+18
+330
+17
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*Model_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*Model_Space
+  1
+
+  0
+ENDBLK
+  5
+19
+330
+17
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1C
+330
+1B
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*Paper_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*Paper_Space
+  1
+
+  0
+ENDBLK
+  5
+1D
+330
+1B
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0
+LWPOLYLINE
+  5
+34
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+0.5
+ 20
+0.5
+ 10
+16.5
+ 20
+0.5
+ 10
+16.5
+ 20
+10.5
+ 10
+0.5
+ 20
+10.5
+  0
+LWPOLYLINE
+  5
+35
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+0.5
+ 20
+1.45
+ 10
+16.5
+ 20
+1.45
+ 10
+16.5
+ 20
+1.85
+ 10
+0.5
+ 20
+1.85
+  0
+TEXT
+  5
+36
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+8.5
+ 20
+1.5699999999999998
+ 30
+0.0
+ 40
+0.16999999999999998
+  1
+PRELIMINARY — CONCEPTUAL DESIGN — NOT FOR CONSTRUCTION
+  7
+KS-BOLD
+ 72
+1
+ 11
+8.5
+ 21
+1.5699999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+37
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbLine
+ 10
+0.5
+ 20
+1.45
+ 30
+0.0
+ 11
+16.5
+ 21
+1.45
+ 31
+0.0
+  0
+TEXT
+  5
+38
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+0.58
+ 20
+1.28
+ 30
+0.0
+ 40
+0.06999999999999999
+  1
+PROJECT
+  7
+KS-REG
+ 11
+0.58
+ 21
+1.28
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+39
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+0.58
+ 20
+0.9991666666666666
+ 30
+0.0
+ 40
+0.11499999999999999
+  1
+Hazel Green Regional Athletic Complex
+  7
+KS-BOLD
+ 11
+0.58
+ 21
+0.9991666666666666
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+3A
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+0.58
+ 20
+0.7883333333333333
+ 30
+0.0
+ 40
+0.11499999999999999
+  1
+Trojan Horse Arena · Hazel Green area, Madison
+  7
+KS-BOLD
+ 11
+0.58
+ 21
+0.7883333333333333
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+3B
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+0.58
+ 20
+0.5775
+ 30
+0.0
+ 40
+0.11499999999999999
+  1
+County, Alabama (site TBD, D-006)
+  7
+KS-BOLD
+ 11
+0.58
+ 21
+0.5775
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+3C
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbLine
+ 10
+5.2
+ 20
+0.5
+ 30
+0.0
+ 11
+5.2
+ 21
+1.45
+ 31
+0.0
+  0
+TEXT
+  5
+3D
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+5.28
+ 20
+1.28
+ 30
+0.0
+ 40
+0.06999999999999999
+  1
+PHASE
+  7
+KS-REG
+ 11
+5.28
+ 21
+1.28
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+3E
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+5.28
+ 20
+0.9716666666666667
+ 30
+0.0
+ 40
+0.13
+  1
+PHASE 2
+  7
+KS-BOLD
+ 11
+5.28
+ 21
+0.9716666666666667
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+3F
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbLine
+ 10
+6.7
+ 20
+0.5
+ 30
+0.0
+ 11
+6.7
+ 21
+1.45
+ 31
+0.0
+  0
+TEXT
+  5
+40
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+6.78
+ 20
+1.28
+ 30
+0.0
+ 40
+0.06999999999999999
+  1
+SHEET TITLE
+  7
+KS-REG
+ 11
+6.78
+ 21
+1.28
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+41
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+6.78
+ 20
+0.9991666666666666
+ 30
+0.0
+ 40
+0.11499999999999999
+  1
+LOCKED PROGRAM
+  7
+KS-BOLD
+ 11
+6.78
+ 21
+0.9991666666666666
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+42
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+6.78
+ 20
+0.7883333333333333
+ 30
+0.0
+ 40
+0.11499999999999999
+  1
+D-030 · AREA BY LEVEL, NOT A
+  7
+KS-BOLD
+ 11
+6.78
+ 21
+0.7883333333333333
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+43
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+6.78
+ 20
+0.5775
+ 30
+0.0
+ 40
+0.11499999999999999
+  1
+PLAN
+  7
+KS-BOLD
+ 11
+6.78
+ 21
+0.5775
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+44
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbLine
+ 10
+9.8
+ 20
+0.5
+ 30
+0.0
+ 11
+9.8
+ 21
+1.45
+ 31
+0.0
+  0
+TEXT
+  5
+45
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+9.88
+ 20
+1.28
+ 30
+0.0
+ 40
+0.06999999999999999
+  1
+SCALE
+  7
+KS-REG
+ 11
+9.88
+ 21
+1.28
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+46
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+9.88
+ 20
+0.9716666666666667
+ 30
+0.0
+ 40
+0.13
+  1
+NTS
+  7
+KS-BOLD
+ 11
+9.88
+ 21
+0.9716666666666667
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+47
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbLine
+ 10
+10.700000000000001
+ 20
+0.5
+ 30
+0.0
+ 11
+10.700000000000001
+ 21
+1.45
+ 31
+0.0
+  0
+TEXT
+  5
+48
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+10.780000000000001
+ 20
+1.28
+ 30
+0.0
+ 40
+0.06999999999999999
+  1
+DATE
+  7
+KS-REG
+ 11
+10.780000000000001
+ 21
+1.28
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+49
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+10.780000000000001
+ 20
+0.9716666666666667
+ 30
+0.0
+ 40
+0.13
+  1
+October
+  7
+KS-BOLD
+ 11
+10.780000000000001
+ 21
+0.9716666666666667
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+4A
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+10.780000000000001
+ 20
+0.7333333333333334
+ 30
+0.0
+ 40
+0.13
+  1
+2026
+  7
+KS-BOLD
+ 11
+10.780000000000001
+ 21
+0.7333333333333334
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+4B
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbLine
+ 10
+12.15
+ 20
+0.5
+ 30
+0.0
+ 11
+12.15
+ 21
+1.45
+ 31
+0.0
+  0
+TEXT
+  5
+4C
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+12.23
+ 20
+1.28
+ 30
+0.0
+ 40
+0.06999999999999999
+  1
+REV
+  7
+KS-REG
+ 11
+12.23
+ 21
+1.28
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+4D
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+12.23
+ 20
+0.9716666666666667
+ 30
+0.0
+ 40
+0.13
+  1
+D
+  7
+KS-BOLD
+ 11
+12.23
+ 21
+0.9716666666666667
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+4E
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbLine
+ 10
+12.9
+ 20
+0.5
+ 30
+0.0
+ 11
+12.9
+ 21
+1.45
+ 31
+0.0
+  0
+TEXT
+  5
+4F
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+12.98
+ 20
+1.28
+ 30
+0.0
+ 40
+0.06999999999999999
+  1
+DRAWN BY
+  7
+KS-REG
+ 11
+12.98
+ 21
+1.28
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+50
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+12.98
+ 20
+1.0358333333333332
+ 30
+0.0
+ 40
+0.095
+  1
+Drawn by KEYSTONE (AI) for
+  7
+KS-REG
+ 11
+12.98
+ 21
+1.0358333333333332
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+51
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+12.98
+ 20
+0.8616666666666665
+ 30
+0.0
+ 40
+0.095
+  1
+Shane Brazelton
+  7
+KS-REG
+ 11
+12.98
+ 21
+0.8616666666666665
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+52
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbLine
+ 10
+15.0
+ 20
+0.5
+ 30
+0.0
+ 11
+15.0
+ 21
+1.45
+ 31
+0.0
+  0
+TEXT
+  5
+53
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+15.08
+ 20
+1.28
+ 30
+0.0
+ 40
+0.06999999999999999
+  1
+SHEET
+  7
+KS-REG
+ 11
+15.08
+ 21
+1.28
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+54
+330
+17
+100
+AcDbEntity
+  8
+G-ANNO-TTLB
+100
+AcDbText
+ 10
+15.75
+ 20
+0.77
+ 30
+0.0
+ 40
+0.18
+  1
+P2-G-003
+  7
+KS-BOLD
+ 72
+1
+ 11
+15.75
+ 21
+0.77
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+55
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+10.180000000000001
+ 30
+0.0
+ 40
+0.11499999999999999
+  1
+1  AREA BY LEVEL — 16,400 SF FLOOR, 2,200 BOWL SEATS, 2 LEVELS, NO SUITES
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+10.180000000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+56
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+9.958
+ 30
+0.0
+ 40
+0.07400000000000001
+  1
+SPACE
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+9.958
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+57
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+9.958
+ 30
+0.0
+ 40
+0.07400000000000001
+  1
+FIXED
+  7
+KS-BOLD
+ 72
+2
+ 11
+4.38
+ 21
+9.958
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+58
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+9.958
+ 30
+0.0
+ 40
+0.07400000000000001
+  1
+TELESCOPIC
+  7
+KS-BOLD
+ 72
+2
+ 11
+5.43
+ 21
+9.958
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+59
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+9.958
+ 30
+0.0
+ 40
+0.07400000000000001
+  1
+BASIS
+  7
+KS-BOLD
+ 11
+5.63
+ 21
+9.958
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+5A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbLine
+ 10
+0.6799999999999999
+ 20
+9.888000000000002
+ 30
+0.0
+ 11
+7.83
+ 21
+9.888000000000002
+ 31
+0.0
+  0
+TEXT
+  5
+5B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+9.726
+ 30
+0.0
+ 40
+0.07999999999999999
+  1
+LEVEL 1 (net SF)
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+9.726
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+5C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+9.554
+ 30
+0.0
+ 40
+0.079
+  1
+Event floor (D-030, locked)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+9.554
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+5D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+9.554
+ 30
+0.0
+ 40
+0.079
+  1
+16,400
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+9.554
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+5E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+9.554
+ 30
+0.0
+ 40
+0.079
+  1
+16,400
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+9.554
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+5F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+9.554
+ 30
+0.0
+ 40
+0.069
+  1
+phase2.yaml · D-030
+  7
+KS-REG
+ 11
+5.63
+ 21
+9.554
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+60
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+9.382
+ 30
+0.0
+ 40
+0.079
+  1
+Lower tier seats (1,100)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+9.382
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+61
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+9.382
+ 30
+0.0
+ 40
+0.079
+  1
+6,600
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+9.382
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+62
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+9.382
+ 30
+0.0
+ 40
+0.079
+  1
+3,719
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+9.382
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+63
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+9.382
+ 30
+0.0
+ 40
+0.069
+  1
+6.0 / 3.38 SF/seat (R-008)
+  7
+KS-REG
+ 11
+5.63
+ 21
+9.382
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+64
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+9.209999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+Boys Locker Room
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+9.209999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+65
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+9.209999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+3,500
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+9.209999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+66
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+9.209999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+3,500
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+9.209999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+67
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+9.209999999999999
+ 30
+0.0
+ 40
+0.069
+  1
+phase2.yaml tag
+  7
+KS-REG
+ 11
+5.63
+ 21
+9.209999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+68
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+9.037999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+Girls Locker Room (D-013)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+9.037999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+69
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+9.037999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+3,503
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+9.037999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+6A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+9.037999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+3,503
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+9.037999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+6B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+9.037999999999998
+ 30
+0.0
+ 40
+0.069
+  1
+phase2.yaml tag; D-013 open
+  7
+KS-REG
+ 11
+5.63
+ 21
+9.037999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+6C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+8.865999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+Event / visitor locker rooms
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+8.865999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+6D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+8.865999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+3,600
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+8.865999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+6E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+8.865999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+3,600
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+8.865999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+6F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+8.865999999999998
+ 30
+0.0
+ 40
+0.069
+  1
+4 x (14 wrestlers + 4 staff) x 50 SF
+  7
+KS-REG
+ 11
+5.63
+ 21
+8.865999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+70
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+8.693999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+Foyer / trophy lobby (hall of champions)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+8.693999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+71
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+8.693999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+800
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+8.693999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+72
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+8.693999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+800
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+8.693999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+73
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+8.693999999999997
+ 30
+0.0
+ 40
+0.069
+  1
+200 + 400 + 200 (Loudoun 2014)
+  7
+KS-REG
+ 11
+5.63
+ 21
+8.693999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+74
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+8.521999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+Lower concourse
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+8.521999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+75
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+8.521999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+1,375
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+8.521999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+76
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+8.521999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+1,375
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+8.521999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+77
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+8.521999999999997
+ 30
+0.0
+ 40
+0.069
+  1
+25% of seats x 5 SF standing (T1004.5)
+  7
+KS-REG
+ 11
+5.63
+ 21
+8.521999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+78
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+8.349999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+Public restrooms L1 (37 fixtures)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+8.349999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+79
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+8.349999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+1,850
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+8.349999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+7A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+8.349999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+1,850
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+8.349999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+7B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+8.349999999999996
+ 30
+0.0
+ 40
+0.069
+  1
+T2902.1 x 50 SF (R-009)
+  7
+KS-REG
+ 11
+5.63
+ 21
+8.349999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+7C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+8.177999999999995
+ 30
+0.0
+ 40
+0.079
+  1
+Concession stand
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+8.177999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+7D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+8.177999999999995
+ 30
+0.0
+ 40
+0.079
+  1
+275
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+8.177999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+7E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+8.177999999999995
+ 30
+0.0
+ 40
+0.079
+  1
+275
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+8.177999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+7F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+8.177999999999995
+ 30
+0.0
+ 40
+0.069
+  1
+Loudoun kitchen proxy; D-011
+  7
+KS-REG
+ 11
+5.63
+ 21
+8.177999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+80
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+8.005999999999995
+ 30
+0.0
+ 40
+0.079
+  1
+First aid
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+8.005999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+81
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+8.005999999999995
+ 30
+0.0
+ 40
+0.079
+  1
+120
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+8.005999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+82
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+8.005999999999995
+ 30
+0.0
+ 40
+0.079
+  1
+120
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+8.005999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+83
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+8.005999999999995
+ 30
+0.0
+ 40
+0.069
+  1
+Loudoun 2014; 1 room counted
+  7
+KS-REG
+ 11
+5.63
+ 21
+8.005999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+84
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+7.833999999999995
+ 30
+0.0
+ 40
+0.079
+  1
+Equipment storage (mats + floor covers)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+7.833999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+85
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+7.833999999999995
+ 30
+0.0
+ 40
+0.079
+  1
+700
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+7.833999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+86
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+7.833999999999995
+ 30
+0.0
+ 40
+0.079
+  1
+700
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+7.833999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+87
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+7.833999999999995
+ 30
+0.0
+ 40
+0.069
+  1
+Loudoun gym storage proxy
+  7
+KS-REG
+ 11
+5.63
+ 21
+7.833999999999995
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+88
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+7.6619999999999955
+ 30
+0.0
+ 40
+0.079
+  1
+Equipment room
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+7.6619999999999955
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+89
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+7.6619999999999955
+ 30
+0.0
+ 40
+0.079
+  1
+300
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+7.6619999999999955
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+8A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+7.6619999999999955
+ 30
+0.0
+ 40
+0.079
+  1
+300
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+7.6619999999999955
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+8B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+7.6619999999999955
+ 30
+0.0
+ 40
+0.069
+  1
+Loudoun equip./maint. proxy
+  7
+KS-REG
+ 11
+5.63
+ 21
+7.6619999999999955
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+8C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+7.489999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+Stairs (4) + elevator
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+7.489999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+8D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+7.489999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+890
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+7.489999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+8E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+7.489999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+890
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+7.489999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+8F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+7.489999999999996
+ 30
+0.0
+ 40
+0.069
+  1
+R-015
+  7
+KS-REG
+ 11
+5.63
+ 21
+7.489999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+90
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+7.317999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+L1 net
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+7.317999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+91
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+7.317999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+39,913
+  7
+KS-BOLD
+ 72
+2
+ 11
+4.38
+ 21
+7.317999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+92
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+7.317999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+37,032
+  7
+KS-BOLD
+ 72
+2
+ 11
+5.43
+ 21
+7.317999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+93
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+7.145999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+Mechanical (5% of total gross, at grade)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+7.145999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+94
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+7.145999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+4,047
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+7.145999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+95
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+7.145999999999996
+ 30
+0.0
+ 40
+0.079
+  1
+3,662
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+7.145999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+96
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+7.145999999999996
+ 30
+0.0
+ 40
+0.069
+  1
+R-014 · LOW
+  7
+KS-REG
+ 11
+5.63
+ 21
+7.145999999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+97
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+6.973999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+L1 GROSS (x 1.25)
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+6.973999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+98
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+6.973999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+54,949
+  7
+KS-BOLD
+ 72
+2
+ 11
+4.38
+ 21
+6.973999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+99
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+6.973999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+50,868
+  7
+KS-BOLD
+ 72
+2
+ 11
+5.43
+ 21
+6.973999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+9A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+6.973999999999997
+ 30
+0.0
+ 40
+0.069
+  1
+R-014 gross-up
+  7
+KS-REG
+ 11
+5.63
+ 21
+6.973999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+9B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbLine
+ 10
+0.6799999999999999
+ 20
+6.923999999999997
+ 30
+0.0
+ 11
+7.83
+ 21
+6.923999999999997
+ 31
+0.0
+  0
+TEXT
+  5
+9C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+6.771999999999997
+ 30
+0.0
+ 40
+0.07999999999999999
+  1
+LEVEL 2 (net SF)
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+6.771999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+9D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+6.599999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+Upper tier seats (1,100)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+6.599999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+9E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+6.599999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+6,600
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+6.599999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+9F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+6.599999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+3,719
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+6.599999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A0
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+6.599999999999997
+ 30
+0.0
+ 40
+0.069
+  1
+6.0 / 3.38 SF/seat (R-008)
+  7
+KS-REG
+ 11
+5.63
+ 21
+6.599999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A1
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+6.427999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+Strength & Conditioning
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+6.427999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A2
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+6.427999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+6,000
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+6.427999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A3
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+6.427999999999997
+ 30
+0.0
+ 40
+0.079
+  1
+6,000
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+6.427999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A4
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+6.427999999999997
+ 30
+0.0
+ 40
+0.069
+  1
+phase2.yaml tag
+  7
+KS-REG
+ 11
+5.63
+ 21
+6.427999999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A5
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+6.255999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+Cross-Training Mat Area
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+6.255999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A6
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+6.255999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+4,000
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+6.255999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A7
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+6.255999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+4,000
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+6.255999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A8
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+6.255999999999998
+ 30
+0.0
+ 40
+0.069
+  1
+phase2.yaml tag
+  7
+KS-REG
+ 11
+5.63
+ 21
+6.255999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+A9
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+6.083999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+Administrative office
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+6.083999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+AA
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+6.083999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+470
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+6.083999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+AB
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+6.083999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+470
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+6.083999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+AC
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+6.083999999999998
+ 30
+0.0
+ 40
+0.069
+  1
+150 + 120 + 200 (Loudoun 2014)
+  7
+KS-REG
+ 11
+5.63
+ 21
+6.083999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+AD
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+5.911999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+Upper concourse / hall of champions wall
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+5.911999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+AE
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+5.911999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+1,375
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+5.911999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+AF
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+5.911999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+1,375
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+5.911999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B0
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+5.911999999999998
+ 30
+0.0
+ 40
+0.069
+  1
+same factor, upper seats
+  7
+KS-REG
+ 11
+5.63
+ 21
+5.911999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B1
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+5.739999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+Public restrooms L2 (29 fixtures)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+5.739999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B2
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+5.739999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+1,450
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+5.739999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B3
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+5.739999999999998
+ 30
+0.0
+ 40
+0.079
+  1
+1,450
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+5.739999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B4
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+5.739999999999998
+ 30
+0.0
+ 40
+0.069
+  1
+T2902.1 x 50 SF (R-009)
+  7
+KS-REG
+ 11
+5.63
+ 21
+5.739999999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B5
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+5.567999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+Stairs (4) + elevator
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+5.567999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B6
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+5.567999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+890
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+5.567999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B7
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+5.567999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+890
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+5.567999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B8
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+5.567999999999999
+ 30
+0.0
+ 40
+0.069
+  1
+R-015
+  7
+KS-REG
+ 11
+5.63
+ 21
+5.567999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+B9
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+5.395999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+L2 net
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+5.395999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+BA
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+5.395999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+20,785
+  7
+KS-BOLD
+ 72
+2
+ 11
+4.38
+ 21
+5.395999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+BB
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+5.395999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+17,904
+  7
+KS-BOLD
+ 72
+2
+ 11
+5.43
+ 21
+5.395999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+BC
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+5.223999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+L2 GROSS (x 1.25)
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+5.223999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+BD
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+5.223999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+25,981
+  7
+KS-BOLD
+ 72
+2
+ 11
+4.38
+ 21
+5.223999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+BE
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+5.223999999999999
+ 30
+0.0
+ 40
+0.079
+  1
+22,380
+  7
+KS-BOLD
+ 72
+2
+ 11
+5.43
+ 21
+5.223999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+BF
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbLine
+ 10
+0.6799999999999999
+ 20
+5.1739999999999995
+ 30
+0.0
+ 11
+7.83
+ 21
+5.1739999999999995
+ 31
+0.0
+  0
+TEXT
+  5
+C0
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+5.021999999999999
+ 30
+0.0
+ 40
+0.07999999999999999
+  1
+FIT CHECK
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+5.021999999999999
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+C1
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+4.85
+ 30
+0.0
+ 40
+0.079
+  1
+Arena volume gross (floor + lower tier, double height)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+4.85
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+C2
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+4.85
+ 30
+0.0
+ 40
+0.079
+  1
+28,750
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+4.85
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+C3
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+4.85
+ 30
+0.0
+ 40
+0.079
+  1
+25,149
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+4.85
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+C4
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+4.678
+ 30
+0.0
+ 40
+0.079
+  1
+L1 ring = L1 − arena volume (L2 must sit over it)
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+4.678
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+C5
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+4.678
+ 30
+0.0
+ 40
+0.079
+  1
+26,199
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+4.678
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+C6
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+4.678
+ 30
+0.0
+ 40
+0.079
+  1
+25,719
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+4.678
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+C7
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+4.506
+ 30
+0.0
+ 40
+0.079
+  1
+L2 over the ring?
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+4.506
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+C8
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+4.506
+ 30
+0.0
+ 40
+0.079
+  1
+YES
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+4.506
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+C9
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+4.506
+ 30
+0.0
+ 40
+0.079
+  1
+YES
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+4.506
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+CA
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+4.506
+ 30
+0.0
+ 40
+0.069
+  1
+margin 218 / 3,339
+  7
+KS-REG
+ 11
+5.63
+ 21
+4.506
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+CB
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+4.3340000000000005
+ 30
+0.0
+ 40
+0.079
+  1
+FOOTPRINT = max(L1, arena volume + L2)
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+4.3340000000000005
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+CC
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+4.3340000000000005
+ 30
+0.0
+ 40
+0.079
+  1
+54,949
+  7
+KS-BOLD
+ 72
+2
+ 11
+4.38
+ 21
+4.3340000000000005
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+CD
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+4.3340000000000005
+ 30
+0.0
+ 40
+0.079
+  1
+50,868
+  7
+KS-BOLD
+ 72
+2
+ 11
+5.43
+ 21
+4.3340000000000005
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+CE
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.7599999999999999
+ 20
+4.162000000000001
+ 30
+0.0
+ 40
+0.079
+  1
+Footprint cap (D-031) · margin
+  7
+KS-REG
+ 11
+0.7599999999999999
+ 21
+4.162000000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+CF
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+4.162000000000001
+ 30
+0.0
+ 40
+0.079
+  1
+51
+  7
+KS-REG
+ 72
+2
+ 11
+4.38
+ 21
+4.162000000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D0
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+4.162000000000001
+ 30
+0.0
+ 40
+0.079
+  1
+4,132
+  7
+KS-REG
+ 72
+2
+ 11
+5.43
+ 21
+4.162000000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D1
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+4.162000000000001
+ 30
+0.0
+ 40
+0.069
+  1
+cap 55,000 SF
+  7
+KS-REG
+ 11
+5.63
+ 21
+4.162000000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D2
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+3.9900000000000007
+ 30
+0.0
+ 40
+0.079
+  1
+FITS 55,000 FOOTPRINT?
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+3.9900000000000007
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D3
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+3.9900000000000007
+ 30
+0.0
+ 40
+0.079
+  1
+YES
+  7
+KS-BOLD
+ 72
+2
+ 11
+4.38
+ 21
+3.9900000000000007
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D4
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+3.9900000000000007
+ 30
+0.0
+ 40
+0.079
+  1
+YES
+  7
+KS-BOLD
+ 72
+2
+ 11
+5.43
+ 21
+3.9900000000000007
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D5
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+3.8180000000000005
+ 30
+0.0
+ 40
+0.079
+  1
+TOTAL GSF (2 levels)
+  7
+KS-BOLD
+ 11
+0.6799999999999999
+ 21
+3.8180000000000005
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D6
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+4.38
+ 20
+3.8180000000000005
+ 30
+0.0
+ 40
+0.079
+  1
+80,930
+  7
+KS-BOLD
+ 72
+2
+ 11
+4.38
+ 21
+3.8180000000000005
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D7
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.43
+ 20
+3.8180000000000005
+ 30
+0.0
+ 40
+0.079
+  1
+73,248
+  7
+KS-BOLD
+ 72
+2
+ 11
+5.43
+ 21
+3.8180000000000005
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D8
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+5.63
+ 20
+3.8180000000000005
+ 30
+0.0
+ 40
+0.069
+  1
+not capped (D-031)
+  7
+KS-REG
+ 11
+5.63
+ 21
+3.8180000000000005
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+D9
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbLine
+ 10
+0.6799999999999999
+ 20
+3.7680000000000007
+ 30
+0.0
+ 11
+7.83
+ 21
+3.7680000000000007
+ 31
+0.0
+  0
+TEXT
+  5
+DA
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+3.6489666666666674
+ 30
+0.0
+ 40
+0.079
+  1
+FIXED = 6.0 SF/seat elevated seating. TELESCOPIC = every bowl seat on bleacher geometry (3.38 SF/seat). Both columns use the
+  7
+KS-REG
+ 11
+0.6799999999999999
+ 21
+3.6489666666666674
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+DB
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+3.504133333333334
+ 30
+0.0
+ 40
+0.079
+  1
+same x 1.25 gross-up, so only the seating type differs. Tier split 50/50 ASSUMED. Stage and utility room: no source, left out.
+  7
+KS-REG
+ 11
+0.6799999999999999
+ 21
+3.504133333333334
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+DC
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+0.6799999999999999
+ 20
+3.359300000000001
+ 30
+0.0
+ 40
+0.079
+  1
+Seating type stays OPEN (D-009).
+  7
+KS-REG
+ 11
+0.6799999999999999
+ 21
+3.359300000000001
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+DD
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.01
+ 20
+1.9700000000000002
+ 30
+0.0
+ 11
+8.01
+ 21
+10.38
+ 31
+0.0
+  0
+TEXT
+  5
+DE
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+10.180000000000001
+ 30
+0.0
+ 40
+0.105
+  1
+2  EVENT FLOOR CHECK (R-005, R-012)
+  7
+KS-BOLD
+ 11
+8.18
+ 21
+10.180000000000001
+ 31
+0.0
+100
+AcDbText
+  0
+LWPOLYLINE
+  5
+DF
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+8.28
+ 20
+7.768000000000002
+ 10
+10.046999999999999
+ 20
+7.768000000000002
+ 10
+10.046999999999999
+ 20
+10.000000000000002
+ 10
+8.28
+ 20
+10.000000000000002
+  0
+LINE
+  5
+E0
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.28
+ 20
+8.000500000000002
+ 30
+0.0
+ 11
+8.399999999999999
+ 21
+8.000500000000002
+ 31
+0.0
+  0
+LINE
+  5
+E1
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.479999999999999
+ 20
+8.000500000000002
+ 30
+0.0
+ 11
+8.6
+ 21
+8.000500000000002
+ 31
+0.0
+  0
+LINE
+  5
+E2
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.68
+ 20
+8.000500000000002
+ 30
+0.0
+ 11
+8.799999999999999
+ 21
+8.000500000000002
+ 31
+0.0
+  0
+LINE
+  5
+E3
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.879999999999999
+ 20
+8.000500000000002
+ 30
+0.0
+ 11
+9.0
+ 21
+8.000500000000002
+ 31
+0.0
+  0
+LINE
+  5
+E4
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.08
+ 20
+8.000500000000002
+ 30
+0.0
+ 11
+9.2
+ 21
+8.000500000000002
+ 31
+0.0
+  0
+LINE
+  5
+E5
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.28
+ 20
+8.000500000000002
+ 30
+0.0
+ 11
+9.399999999999999
+ 21
+8.000500000000002
+ 31
+0.0
+  0
+LINE
+  5
+E6
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.479999999999999
+ 20
+8.000500000000002
+ 30
+0.0
+ 11
+9.6
+ 21
+8.000500000000002
+ 31
+0.0
+  0
+LINE
+  5
+E7
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.68
+ 20
+8.000500000000002
+ 30
+0.0
+ 11
+9.799999999999999
+ 21
+8.000500000000002
+ 31
+0.0
+  0
+LINE
+  5
+E8
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.879999999999999
+ 20
+8.000500000000002
+ 30
+0.0
+ 11
+10.0
+ 21
+8.000500000000002
+ 31
+0.0
+  0
+LINE
+  5
+E9
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.28
+ 20
+9.767500000000002
+ 30
+0.0
+ 11
+8.399999999999999
+ 21
+9.767500000000002
+ 31
+0.0
+  0
+LINE
+  5
+EA
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.479999999999999
+ 20
+9.767500000000002
+ 30
+0.0
+ 11
+8.6
+ 21
+9.767500000000002
+ 31
+0.0
+  0
+LINE
+  5
+EB
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.68
+ 20
+9.767500000000002
+ 30
+0.0
+ 11
+8.799999999999999
+ 21
+9.767500000000002
+ 31
+0.0
+  0
+LINE
+  5
+EC
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.879999999999999
+ 20
+9.767500000000002
+ 30
+0.0
+ 11
+9.0
+ 21
+9.767500000000002
+ 31
+0.0
+  0
+LINE
+  5
+ED
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.08
+ 20
+9.767500000000002
+ 30
+0.0
+ 11
+9.2
+ 21
+9.767500000000002
+ 31
+0.0
+  0
+LINE
+  5
+EE
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.28
+ 20
+9.767500000000002
+ 30
+0.0
+ 11
+9.399999999999999
+ 21
+9.767500000000002
+ 31
+0.0
+  0
+LINE
+  5
+EF
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.479999999999999
+ 20
+9.767500000000002
+ 30
+0.0
+ 11
+9.6
+ 21
+9.767500000000002
+ 31
+0.0
+  0
+LINE
+  5
+F0
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.68
+ 20
+9.767500000000002
+ 30
+0.0
+ 11
+9.799999999999999
+ 21
+9.767500000000002
+ 31
+0.0
+  0
+LINE
+  5
+F1
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.879999999999999
+ 20
+9.767500000000002
+ 30
+0.0
+ 11
+10.0
+ 21
+9.767500000000002
+ 31
+0.0
+  0
+LWPOLYLINE
+  5
+F2
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+8.434999999999999
+ 20
+8.961500000000001
+ 10
+9.085999999999999
+ 20
+8.961500000000001
+ 10
+9.085999999999999
+ 20
+9.6125
+ 10
+8.434999999999999
+ 20
+9.6125
+  0
+TEXT
+  5
+F3
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.481499999999999
+ 20
+9.476000000000003
+ 30
+0.0
+ 40
+0.065
+  1
+M1
+  7
+KS-BOLD
+ 11
+8.481499999999999
+ 21
+9.476000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+LWPOLYLINE
+  5
+F4
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+9.241
+ 20
+8.961500000000001
+ 10
+9.892
+ 20
+8.961500000000001
+ 10
+9.892
+ 20
+9.6125
+ 10
+9.241
+ 20
+9.6125
+  0
+TEXT
+  5
+F5
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+9.2875
+ 20
+9.476000000000003
+ 30
+0.0
+ 40
+0.065
+  1
+M2
+  7
+KS-BOLD
+ 11
+9.2875
+ 21
+9.476000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+LWPOLYLINE
+  5
+F6
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+8.434999999999999
+ 20
+8.155500000000002
+ 10
+9.085999999999999
+ 20
+8.155500000000002
+ 10
+9.085999999999999
+ 20
+8.806500000000002
+ 10
+8.434999999999999
+ 20
+8.806500000000002
+  0
+TEXT
+  5
+F7
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.481499999999999
+ 20
+8.670000000000002
+ 30
+0.0
+ 40
+0.065
+  1
+M3
+  7
+KS-BOLD
+ 11
+8.481499999999999
+ 21
+8.670000000000002
+ 31
+0.0
+100
+AcDbText
+  0
+LWPOLYLINE
+  5
+F8
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+9.241
+ 20
+8.155500000000002
+ 10
+9.892
+ 20
+8.155500000000002
+ 10
+9.892
+ 20
+8.806500000000002
+ 10
+9.241
+ 20
+8.806500000000002
+  0
+TEXT
+  5
+F9
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+9.2875
+ 20
+8.670000000000002
+ 30
+0.0
+ 40
+0.065
+  1
+M4
+  7
+KS-BOLD
+ 11
+9.2875
+ 21
+8.670000000000002
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+FA
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+8.836
+ 21
+8.233000000000002
+ 31
+0.0
+  0
+LINE
+  5
+FB
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.876
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+8.936
+ 21
+8.233000000000002
+ 31
+0.0
+  0
+LINE
+  5
+FC
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.975999999999999
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+9.036
+ 21
+8.233000000000002
+ 31
+0.0
+  0
+LINE
+  5
+FD
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.076
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+9.136
+ 21
+8.233000000000002
+ 31
+0.0
+  0
+LINE
+  5
+FE
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.176
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+9.236
+ 21
+8.233000000000002
+ 31
+0.0
+  0
+LINE
+  5
+FF
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.276
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+9.336
+ 21
+8.233000000000002
+ 31
+0.0
+  0
+LINE
+  5
+100
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.376
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+9.436
+ 21
+8.233000000000002
+ 31
+0.0
+  0
+LINE
+  5
+101
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.475999999999999
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+9.536
+ 21
+8.233000000000002
+ 31
+0.0
+  0
+LINE
+  5
+102
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+9.535000000000002
+ 30
+0.0
+ 11
+8.836
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+LINE
+  5
+103
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.876
+ 20
+9.535000000000002
+ 30
+0.0
+ 11
+8.936
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+LINE
+  5
+104
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.975999999999999
+ 20
+9.535000000000002
+ 30
+0.0
+ 11
+9.036
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+LINE
+  5
+105
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.076
+ 20
+9.535000000000002
+ 30
+0.0
+ 11
+9.136
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+LINE
+  5
+106
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.176
+ 20
+9.535000000000002
+ 30
+0.0
+ 11
+9.236
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+LINE
+  5
+107
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.276
+ 20
+9.535000000000002
+ 30
+0.0
+ 11
+9.336
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+LINE
+  5
+108
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.376
+ 20
+9.535000000000002
+ 30
+0.0
+ 11
+9.436
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+LINE
+  5
+109
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.475999999999999
+ 20
+9.535000000000002
+ 30
+0.0
+ 11
+9.536
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+LINE
+  5
+10A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+8.776
+ 21
+8.293000000000003
+ 31
+0.0
+  0
+LINE
+  5
+10B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+8.333000000000002
+ 30
+0.0
+ 11
+8.776
+ 21
+8.393000000000002
+ 31
+0.0
+  0
+LINE
+  5
+10C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+8.433000000000002
+ 30
+0.0
+ 11
+8.776
+ 21
+8.493000000000002
+ 31
+0.0
+  0
+LINE
+  5
+10D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+8.533000000000003
+ 30
+0.0
+ 11
+8.776
+ 21
+8.593000000000002
+ 31
+0.0
+  0
+LINE
+  5
+10E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+8.633000000000003
+ 30
+0.0
+ 11
+8.776
+ 21
+8.693000000000001
+ 31
+0.0
+  0
+LINE
+  5
+10F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+8.733000000000002
+ 30
+0.0
+ 11
+8.776
+ 21
+8.793000000000003
+ 31
+0.0
+  0
+LINE
+  5
+110
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+8.833000000000002
+ 30
+0.0
+ 11
+8.776
+ 21
+8.893000000000002
+ 31
+0.0
+  0
+LINE
+  5
+111
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+8.933000000000002
+ 30
+0.0
+ 11
+8.776
+ 21
+8.993000000000002
+ 31
+0.0
+  0
+LINE
+  5
+112
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+9.033000000000003
+ 30
+0.0
+ 11
+8.776
+ 21
+9.093000000000002
+ 31
+0.0
+  0
+LINE
+  5
+113
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+9.133000000000003
+ 30
+0.0
+ 11
+8.776
+ 21
+9.193000000000003
+ 31
+0.0
+  0
+LINE
+  5
+114
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+9.233000000000002
+ 30
+0.0
+ 11
+8.776
+ 21
+9.293000000000003
+ 31
+0.0
+  0
+LINE
+  5
+115
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+9.333000000000002
+ 30
+0.0
+ 11
+8.776
+ 21
+9.393000000000002
+ 31
+0.0
+  0
+LINE
+  5
+116
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+9.433000000000003
+ 30
+0.0
+ 11
+8.776
+ 21
+9.493000000000002
+ 31
+0.0
+  0
+LINE
+  5
+117
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+8.776
+ 20
+9.533000000000003
+ 30
+0.0
+ 11
+8.776
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+LINE
+  5
+118
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+8.233000000000002
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+8.293000000000003
+ 31
+0.0
+  0
+LINE
+  5
+119
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+8.333000000000002
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+8.393000000000002
+ 31
+0.0
+  0
+LINE
+  5
+11A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+8.433000000000002
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+8.493000000000002
+ 31
+0.0
+  0
+LINE
+  5
+11B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+8.533000000000003
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+8.593000000000002
+ 31
+0.0
+  0
+LINE
+  5
+11C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+8.633000000000003
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+8.693000000000001
+ 31
+0.0
+  0
+LINE
+  5
+11D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+8.733000000000002
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+8.793000000000003
+ 31
+0.0
+  0
+LINE
+  5
+11E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+8.833000000000002
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+8.893000000000002
+ 31
+0.0
+  0
+LINE
+  5
+11F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+8.933000000000002
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+8.993000000000002
+ 31
+0.0
+  0
+LINE
+  5
+120
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+9.033000000000003
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+9.093000000000002
+ 31
+0.0
+  0
+LINE
+  5
+121
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+9.133000000000003
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+9.193000000000003
+ 31
+0.0
+  0
+LINE
+  5
+122
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+9.233000000000002
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+9.293000000000003
+ 31
+0.0
+  0
+LINE
+  5
+123
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+9.333000000000002
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+9.393000000000002
+ 31
+0.0
+  0
+LINE
+  5
+124
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+9.433000000000003
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+9.493000000000002
+ 31
+0.0
+  0
+LINE
+  5
+125
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+9.550999999999998
+ 20
+9.533000000000003
+ 30
+0.0
+ 11
+9.550999999999998
+ 21
+9.535000000000002
+ 31
+0.0
+  0
+TEXT
+  5
+126
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+9.163499999999999
+ 20
+10.050000000000002
+ 30
+0.0
+ 40
+0.065
+  1
+114 ft
+  7
+KS-REG
+ 72
+1
+ 11
+9.163499999999999
+ 21
+10.050000000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+127
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.229999999999999
+ 20
+8.884000000000002
+ 30
+0.0
+ 40
+0.065
+  1
+144 ft
+ 50
+90.0
+  7
+KS-REG
+ 72
+1
+ 11
+8.229999999999999
+ 21
+8.884000000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+128
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.806
+ 20
+8.273000000000001
+ 30
+0.0
+ 40
+0.054000000000000006
+  1
+court
+  7
+KS-REG
+ 11
+8.806
+ 21
+8.273000000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+129
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+9.163499999999999
+ 20
+7.838000000000002
+ 30
+0.0
+ 40
+0.054000000000000006
+  1
+table / bench zone
+  7
+KS-REG
+ 72
+1
+ 11
+9.163499999999999
+ 21
+7.838000000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+12A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+9.163499999999999
+ 20
+9.870000000000001
+ 30
+0.0
+ 40
+0.054000000000000006
+  1
+table / bench zone
+  7
+KS-REG
+ 72
+1
+ 11
+9.163499999999999
+ 21
+9.870000000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+12B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.197
+ 20
+9.920766666666667
+ 30
+0.0
+ 40
+0.073
+  1
+·
+  7
+KS-REG
+ 11
+10.197
+ 21
+9.920766666666667
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+12C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+9.920766666666667
+ 30
+0.0
+ 40
+0.073
+  1
+Drawn 114 x 144 ft = 16,416 SF
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+9.920766666666667
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+12D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+9.786933333333334
+ 30
+0.0
+ 40
+0.073
+  1
+(locked 16,400; +16 SF).
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+9.786933333333334
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+12E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.197
+ 20
+9.639641666666666
+ 30
+0.0
+ 40
+0.073
+  1
+·
+  7
+KS-REG
+ 11
+10.197
+ 21
+9.639641666666666
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+12F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+9.639641666666666
+ 30
+0.0
+ 40
+0.073
+  1
+E-W: 2 x 42 ft mats + 3 x 10 ft clear
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+9.639641666666666
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+130
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+9.505808333333333
+ 30
+0.0
+ 40
+0.073
+  1
+(NFHS 2-1-5) = 114 ft.
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+9.505808333333333
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+131
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.197
+ 20
+9.358516666666665
+ 30
+0.0
+ 40
+0.073
+  1
+·
+  7
+KS-REG
+ 11
+10.197
+ 21
+9.358516666666665
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+132
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+9.358516666666665
+ 30
+0.0
+ 40
+0.073
+  1
+N-S: same 114 ft + two 15 ft
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+9.358516666666665
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+133
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+9.224683333333331
+ 30
+0.0
+ 40
+0.073
+  1
+table/bench zones (table ≥ 10 ft from
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+9.224683333333331
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+134
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+9.090849999999998
+ 30
+0.0
+ 40
+0.073
+  1
+mat, NFHS 2-3; depth ASSUMED).
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+9.090849999999998
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+135
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.197
+ 20
+8.94355833333333
+ 30
+0.0
+ 40
+0.073
+  1
+·
+  7
+KS-REG
+ 11
+10.197
+ 21
+8.94355833333333
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+136
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+8.94355833333333
+ 30
+0.0
+ 40
+0.073
+  1
+Rev A layout 114 x 126 = 14,364 SF
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+8.94355833333333
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+137
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+8.809724999999997
+ 30
+0.0
+ 40
+0.073
+  1
+(6 ft tables) fits inside: YES.
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+8.809724999999997
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+138
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.197
+ 20
+8.662433333333329
+ 30
+0.0
+ 40
+0.073
+  1
+·
+  7
+KS-REG
+ 11
+10.197
+ 21
+8.662433333333329
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+139
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+8.662433333333329
+ 30
+0.0
+ 40
+0.073
+  1
+Court 84 x 50 + 10 ft runout = 104 x
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+8.662433333333329
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+13A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+8.528599999999996
+ 30
+0.0
+ 40
+0.073
+  1
+70 ft (dashed, long axis N-S): fits,
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+8.528599999999996
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+13B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+10.296999999999999
+ 20
+8.394766666666662
+ 30
+0.0
+ 40
+0.073
+  1
+YES.
+  7
+KS-REG
+ 11
+10.296999999999999
+ 21
+8.394766666666662
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+13C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+7.308000000000002
+ 30
+0.0
+ 40
+0.105
+  1
+3  FIXTURES BY LEVEL (IBC 2021 T2902.1)
+  7
+KS-BOLD
+ 11
+8.18
+ 21
+7.308000000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+13D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+8.18
+ 20
+7.1060000000000025
+ 30
+0.0
+ 40
+0.072
+  1
+LEVEL
+  7
+KS-BOLD
+ 11
+8.18
+ 21
+7.1060000000000025
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+13E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+9.23
+ 20
+7.1060000000000025
+ 30
+0.0
+ 40
+0.072
+  1
+LOAD
+  7
+KS-BOLD
+ 72
+2
+ 11
+9.23
+ 21
+7.1060000000000025
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+13F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+9.73
+ 20
+7.1060000000000025
+ 30
+0.0
+ 40
+0.072
+  1
+WC M
+  7
+KS-BOLD
+ 72
+2
+ 11
+9.73
+ 21
+7.1060000000000025
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+140
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+10.23
+ 20
+7.1060000000000025
+ 30
+0.0
+ 40
+0.072
+  1
+WC W
+  7
+KS-BOLD
+ 72
+2
+ 11
+10.23
+ 21
+7.1060000000000025
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+141
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+10.73
+ 20
+7.1060000000000025
+ 30
+0.0
+ 40
+0.072
+  1
+LAV M
+  7
+KS-BOLD
+ 72
+2
+ 11
+10.73
+ 21
+7.1060000000000025
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+142
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+11.23
+ 20
+7.1060000000000025
+ 30
+0.0
+ 40
+0.072
+  1
+LAV W
+  7
+KS-BOLD
+ 72
+2
+ 11
+11.23
+ 21
+7.1060000000000025
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+143
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+11.58
+ 20
+7.1060000000000025
+ 30
+0.0
+ 40
+0.072
+  1
+DF
+  7
+KS-BOLD
+ 72
+2
+ 11
+11.58
+ 21
+7.1060000000000025
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+144
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+12.129999999999999
+ 20
+7.1060000000000025
+ 30
+0.0
+ 40
+0.072
+  1
+SUM
+  7
+KS-BOLD
+ 72
+2
+ 11
+12.129999999999999
+ 21
+7.1060000000000025
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+145
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbLine
+ 10
+8.18
+ 20
+7.036000000000002
+ 30
+0.0
+ 11
+12.23
+ 21
+7.036000000000002
+ 31
+0.0
+  0
+TEXT
+  5
+146
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+8.18
+ 20
+6.904000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+L1
+  7
+KS-REG
+ 11
+8.18
+ 21
+6.904000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+147
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+9.23
+ 20
+6.904000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+1,428
+  7
+KS-REG
+ 72
+2
+ 11
+9.23
+ 21
+6.904000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+148
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+9.73
+ 20
+6.904000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+10
+  7
+KS-REG
+ 72
+2
+ 11
+9.73
+ 21
+6.904000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+149
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+10.23
+ 20
+6.904000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+18
+  7
+KS-REG
+ 72
+2
+ 11
+10.23
+ 21
+6.904000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+14A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+10.73
+ 20
+6.904000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+4
+  7
+KS-REG
+ 72
+2
+ 11
+10.73
+ 21
+6.904000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+14B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+11.23
+ 20
+6.904000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+5
+  7
+KS-REG
+ 72
+2
+ 11
+11.23
+ 21
+6.904000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+14C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+11.58
+ 20
+6.904000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+2
+  7
+KS-REG
+ 72
+2
+ 11
+11.58
+ 21
+6.904000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+14D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+12.129999999999999
+ 20
+6.904000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+37
+  7
+KS-REG
+ 72
+2
+ 11
+12.129999999999999
+ 21
+6.904000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+14E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+8.18
+ 20
+6.732000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+L2
+  7
+KS-REG
+ 11
+8.18
+ 21
+6.732000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+14F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+9.23
+ 20
+6.732000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+1,100
+  7
+KS-REG
+ 72
+2
+ 11
+9.23
+ 21
+6.732000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+150
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+9.73
+ 20
+6.732000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+8
+  7
+KS-REG
+ 72
+2
+ 11
+9.73
+ 21
+6.732000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+151
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+10.23
+ 20
+6.732000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+14
+  7
+KS-REG
+ 72
+2
+ 11
+10.23
+ 21
+6.732000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+152
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+10.73
+ 20
+6.732000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+3
+  7
+KS-REG
+ 72
+2
+ 11
+10.73
+ 21
+6.732000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+153
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+11.23
+ 20
+6.732000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+4
+  7
+KS-REG
+ 72
+2
+ 11
+11.23
+ 21
+6.732000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+154
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+11.58
+ 20
+6.732000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+2
+  7
+KS-REG
+ 72
+2
+ 11
+11.58
+ 21
+6.732000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+155
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+12.129999999999999
+ 20
+6.732000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+29
+  7
+KS-REG
+ 72
+2
+ 11
+12.129999999999999
+ 21
+6.732000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+156
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+8.18
+ 20
+6.560000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+TOTAL
+  7
+KS-BOLD
+ 11
+8.18
+ 21
+6.560000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+157
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+9.23
+ 20
+6.560000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+2,528
+  7
+KS-BOLD
+ 72
+2
+ 11
+9.23
+ 21
+6.560000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+158
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+9.73
+ 20
+6.560000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+18
+  7
+KS-BOLD
+ 72
+2
+ 11
+9.73
+ 21
+6.560000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+159
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+10.23
+ 20
+6.560000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+32
+  7
+KS-BOLD
+ 72
+2
+ 11
+10.23
+ 21
+6.560000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+15A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+10.73
+ 20
+6.560000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+7
+  7
+KS-BOLD
+ 72
+2
+ 11
+10.73
+ 21
+6.560000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+15B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+11.23
+ 20
+6.560000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+9
+  7
+KS-BOLD
+ 72
+2
+ 11
+11.23
+ 21
+6.560000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+15C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+11.58
+ 20
+6.560000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+4
+  7
+KS-BOLD
+ 72
+2
+ 11
+11.58
+ 21
+6.560000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+15D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TABL
+100
+AcDbText
+ 10
+12.129999999999999
+ 20
+6.560000000000003
+ 30
+0.0
+ 40
+0.078
+  1
+66
+  7
+KS-BOLD
+ 72
+2
+ 11
+12.129999999999999
+ 21
+6.560000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+15E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+6.39586666666667
+ 30
+0.0
+ 40
+0.076
+  1
+L1 load = lower seats + 328 floor occupants (50 SF each); L2 = upper seats.
+  7
+KS-REG
+ 11
+8.18
+ 21
+6.39586666666667
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+15F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+6.256533333333337
+ 30
+0.0
+ 40
+0.076
+  1
+Same in both columns (load follows seats, not seat type). Urinals may
+  7
+KS-REG
+ 11
+8.18
+ 21
+6.256533333333337
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+160
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+6.117200000000004
+ 30
+0.0
+ 40
+0.076
+  1
+replace up to 67% of men's WCs (IPC 424.2). 1 service sink. SUM = WCs +
+  7
+KS-REG
+ 11
+8.18
+ 21
+6.117200000000004
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+161
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+5.977866666666671
+ 30
+0.0
+ 40
+0.076
+  1
+lavatories (50 SF each, ASSUMED).
+  7
+KS-REG
+ 11
+8.18
+ 21
+5.977866666666671
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+162
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+5.587833333333338
+ 30
+0.0
+ 40
+0.105
+  1
+4  STAIRS + ELEVATOR (R-015)
+  7
+KS-BOLD
+ 11
+8.18
+ 21
+5.587833333333338
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+163
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+5.403700000000005
+ 30
+0.0
+ 40
+0.076
+  1
+L2 load 1,304 (1,100 seats + 204 in S&C, cross-training, admin) → 4 stairs
+  7
+KS-REG
+ 11
+8.18
+ 21
+5.403700000000005
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+164
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+5.264366666666672
+ 30
+0.0
+ 40
+0.076
+  1
+(T1006.3.3) x 65 in (0.2 in/occupant, sprinklered + voice alarm, 1005.3.1),
+  7
+KS-REG
+ 11
+8.18
+ 21
+5.264366666666672
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+165
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+5.125033333333339
+ 30
+0.0
+ 40
+0.076
+  1
+≈ 206 SF each per level; 1 elevator (1104.4), 64 SF hoistway ASSUMED. 890
+  7
+KS-REG
+ 11
+8.18
+ 21
+5.125033333333339
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+166
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+4.985700000000006
+ 30
+0.0
+ 40
+0.076
+  1
+SF per level, same on both levels and aligned. Open stairs OK for two
+  7
+KS-REG
+ 11
+8.18
+ 21
+4.985700000000006
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+167
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+4.846366666666673
+ 30
+0.0
+ 40
+0.076
+  1
+stories (1019.3 exc. 1). Floor-to-floor 15 ft ASSUMED.
+  7
+KS-REG
+ 11
+8.18
+ 21
+4.846366666666673
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+168
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+4.4563333333333395
+ 30
+0.0
+ 40
+0.105
+  1
+5  WHEELCHAIR SPACES
+  7
+KS-BOLD
+ 11
+8.18
+ 21
+4.4563333333333395
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+169
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+4.272200000000007
+ 30
+0.0
+ 40
+0.076
+  1
+2,200 bowl seats → 18 wheelchair spaces (IBC T1109.2.2.1 / ADA
+  7
+KS-REG
+ 11
+8.18
+ 21
+4.272200000000007
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+16A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+4.132866666666674
+ 30
+0.0
+ 40
+0.076
+  1
+T221.2.1.1: 6 + 1 per 150 over 500), each with a companion seat (ADA
+  7
+KS-REG
+ 11
+8.18
+ 21
+4.132866666666674
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+16B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+3.9935333333333403
+ 30
+0.0
+ 40
+0.076
+  1
+221.3), dispersed across both tiers with lines of sight (ADA 221.2.3, 802.2).
+  7
+KS-REG
+ 11
+8.18
+ 21
+3.9935333333333403
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+16C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+3.8542000000000067
+ 30
+0.0
+ 40
+0.076
+  1
+Same count for either seating type; where they sit in a telescopic bank is an
+  7
+KS-REG
+ 11
+8.18
+ 21
+3.8542000000000067
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+16D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+8.18
+ 20
+3.714866666666673
+ 30
+0.0
+ 40
+0.076
+  1
+architect task.
+  7
+KS-REG
+ 11
+8.18
+ 21
+3.714866666666673
+ 31
+0.0
+100
+AcDbText
+  0
+LINE
+  5
+16E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbLine
+ 10
+12.41
+ 20
+1.9700000000000002
+ 30
+0.0
+ 11
+12.41
+ 21
+10.38
+ 31
+0.0
+  0
+TEXT
+  5
+16F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+10.180000000000001
+ 30
+0.0
+ 40
+0.105
+  1
+6  RESULT
+  7
+KS-BOLD
+ 11
+12.58
+ 21
+10.180000000000001
+ 31
+0.0
+100
+AcDbText
+  0
+LWPOLYLINE
+  5
+170
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+12.58
+ 20
+8.780000000000001
+ 10
+16.22
+ 20
+8.780000000000001
+ 10
+16.22
+ 20
+10.080000000000002
+ 10
+12.58
+ 20
+10.080000000000002
+  0
+TEXT
+  5
+171
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+14.399999999999999
+ 20
+9.820000000000002
+ 30
+0.0
+ 40
+0.1
+  1
+LOCKED PROGRAM (D-030)
+  7
+KS-BOLD
+ 72
+1
+ 11
+14.399999999999999
+ 21
+9.820000000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+172
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+14.399999999999999
+ 20
+9.585000000000003
+ 30
+0.0
+ 40
+0.094
+  1
+16,400 SF floor · 2,200 bowl seats
+  7
+KS-BOLD
+ 72
+1
+ 11
+14.399999999999999
+ 21
+9.585000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+173
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+14.399999999999999
+ 20
+9.350000000000003
+ 30
+0.0
+ 40
+0.094
+  1
+2 levels · no suites
+  7
+KS-BOLD
+ 72
+1
+ 11
+14.399999999999999
+ 21
+9.350000000000003
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+174
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+14.399999999999999
+ 20
+9.115000000000004
+ 30
+0.0
+ 40
+0.086
+  1
+Fixed: footprint 54,949 · FITS
+  7
+KS-REG
+ 72
+1
+ 11
+14.399999999999999
+ 21
+9.115000000000004
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+175
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+14.399999999999999
+ 20
+8.880000000000004
+ 30
+0.0
+ 40
+0.086
+  1
+Telescopic: 50,868 · FITS
+  7
+KS-REG
+ 72
+1
+ 11
+14.399999999999999
+ 21
+8.880000000000004
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+176
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+8.61096666666667
+ 30
+0.0
+ 40
+0.079
+  1
+Total 80,930 GSF fixed / 73,248 telescopic. Fixed leaves only 51
+  7
+KS-REG
+ 11
+12.58
+ 21
+8.61096666666667
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+177
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+8.466133333333337
+ 30
+0.0
+ 40
+0.079
+  1
+SF under the cap; the drawn 16,416 SF floor uses 16 more.
+  7
+KS-REG
+ 11
+12.58
+ 21
+8.466133333333337
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+178
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+8.321300000000004
+ 30
+0.0
+ 40
+0.079
+  1
+Telescopic frees ≈ 3,300 SF over the ring and ≈ 4,100 SF of
+  7
+KS-REG
+ 11
+12.58
+ 21
+8.321300000000004
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+179
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+8.176466666666672
+ 30
+0.0
+ 40
+0.079
+  1
+footprint.
+  7
+KS-REG
+ 11
+12.58
+ 21
+8.176466666666672
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+17A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+7.784458333333339
+ 30
+0.0
+ 40
+0.105
+  1
+7  LOCKED IN phase2.yaml
+  7
+KS-BOLD
+ 11
+12.58
+ 21
+7.784458333333339
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+17B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+7.618691666666671
+ 30
+0.0
+ 40
+0.077
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+7.618691666666671
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+17C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+7.618691666666671
+ 30
+0.0
+ 40
+0.077
+  1
+Event floor 16,400 SF (D-030); 4 x 42 ft mats, 2 x 2.
+  7
+KS-REG
+ 11
+12.7
+ 21
+7.618691666666671
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+17D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+7.462233333333337
+ 30
+0.0
+ 40
+0.077
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+7.462233333333337
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+17E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+7.462233333333337
+ 30
+0.0
+ 40
+0.077
+  1
+2,200 seats, all in the bowl; 2 levels; footprint cap 55,000 SF
+  7
+KS-REG
+ 11
+12.7
+ 21
+7.462233333333337
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+17F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+7.32106666666667
+ 30
+0.0
+ 40
+0.077
+  1
+(D-031).
+  7
+KS-REG
+ 11
+12.7
+ 21
+7.32106666666667
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+180
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+7.164608333333336
+ 30
+0.0
+ 40
+0.077
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+7.164608333333336
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+181
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+7.164608333333336
+ 30
+0.0
+ 40
+0.077
+  1
+S&C + cross-training on Level 2 over the lockers.
+  7
+KS-REG
+ 11
+12.7
+ 21
+7.164608333333336
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+182
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+7.008150000000002
+ 30
+0.0
+ 40
+0.077
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+7.008150000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+183
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+7.008150000000002
+ 30
+0.0
+ 40
+0.077
+  1
+The 22,000 SF arena tag is SUPERSEDED for the event floor (kept
+  7
+KS-REG
+ 11
+12.7
+ 21
+7.008150000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+184
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+6.866983333333335
+ 30
+0.0
+ 40
+0.077
+  1
+as history).
+  7
+KS-REG
+ 11
+12.7
+ 21
+6.866983333333335
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+185
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+6.710525000000001
+ 30
+0.0
+ 40
+0.077
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+6.710525000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+186
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+6.710525000000001
+ 30
+0.0
+ 40
+0.077
+  1
+Changes only on CHANGE APPROVED.
+  7
+KS-REG
+ 11
+12.7
+ 21
+6.710525000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+187
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+6.319833333333335
+ 30
+0.0
+ 40
+0.105
+  1
+8  STILL OPEN
+  7
+KS-BOLD
+ 11
+12.58
+ 21
+6.319833333333335
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+188
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+6.154066666666668
+ 30
+0.0
+ 40
+0.077
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+6.154066666666668
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+189
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+6.154066666666668
+ 30
+0.0
+ 40
+0.077
+  1
+Seating type, fixed vs telescopic (D-009): plans P2-A-101/102
+  7
+KS-REG
+ 11
+12.7
+ 21
+6.154066666666668
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+18A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+6.012900000000001
+ 30
+0.0
+ 40
+0.077
+  1
+show fixed solid, telescopic dashed.
+  7
+KS-REG
+ 11
+12.7
+ 21
+6.012900000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+18B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+5.856441666666667
+ 30
+0.0
+ 40
+0.077
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+5.856441666666667
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+18C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+5.856441666666667
+ 30
+0.0
+ 40
+0.077
+  1
+Suites: PARKED, future add-on, study after attendance is proven.
+  7
+KS-REG
+ 11
+12.7
+ 21
+5.856441666666667
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+18D
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+5.699983333333333
+ 30
+0.0
+ 40
+0.077
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+5.699983333333333
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+18E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+5.699983333333333
+ 30
+0.0
+ 40
+0.077
+  1
+AHJ / code edition (D-008); girls locker size (D-013); concession
+  7
+KS-REG
+ 11
+12.7
+ 21
+5.699983333333333
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+18F
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+5.558816666666666
+ 30
+0.0
+ 40
+0.077
+  1
+scope (D-011).
+  7
+KS-REG
+ 11
+12.7
+ 21
+5.558816666666666
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+190
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+5.168125
+ 30
+0.0
+ 40
+0.105
+  1
+9  CITED vs ASSUMED
+  7
+KS-BOLD
+ 11
+12.58
+ 21
+5.168125
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+191
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+4.987258333333334
+ 30
+0.0
+ 40
+0.07400000000000001
+  1
+CITED: seat SF (R-008), fixtures + egress + wheelchair tables (R-009,
+  7
+KS-REG
+ 11
+12.58
+ 21
+4.987258333333334
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+192
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+4.851591666666668
+ 30
+0.0
+ 40
+0.07400000000000001
+  1
+R-015, R-016), gross-up and mechanical share (R-014), mat and court
+  7
+KS-REG
+ 11
+12.58
+ 21
+4.851591666666668
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+193
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+4.715925000000001
+ 30
+0.0
+ 40
+0.07400000000000001
+  1
+clearances (R-005, R-012). ASSUMED: 50/50 tiers, 50 SF/fixture, 15 ft
+  7
+KS-REG
+ 11
+12.58
+ 21
+4.715925000000001
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+194
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+4.580258333333335
+ 30
+0.0
+ 40
+0.07400000000000001
+  1
+floor-to-floor, table zone depth, concourse share, same gross-up for
+  7
+KS-REG
+ 11
+12.58
+ 21
+4.580258333333335
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+195
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+4.4445916666666685
+ 30
+0.0
+ 40
+0.07400000000000001
+  1
+telescopic.
+  7
+KS-REG
+ 11
+12.58
+ 21
+4.4445916666666685
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+196
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+4.055875000000002
+ 30
+0.0
+ 40
+0.1
+  1
+10  SOURCES (retrieved 2026-10-03)
+  7
+KS-BOLD
+ 11
+12.58
+ 21
+4.055875000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+197
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+3.908275000000002
+ 30
+0.0
+ 40
+0.072
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+3.908275000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+198
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+3.908275000000002
+ 30
+0.0
+ 40
+0.072
+  1
+Shane 11:39 PM CT (D-030 decision)
+  7
+KS-REG
+ 11
+12.7
+ 21
+3.908275000000002
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+199
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+3.7732750000000017
+ 30
+0.0
+ 40
+0.072
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+3.7732750000000017
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+19A
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+3.7732750000000017
+ 30
+0.0
+ 40
+0.072
+  1
+R-005, R-008, R-009, R-012, R-014, R-015, R-016
+  7
+KS-REG
+ 11
+12.7
+ 21
+3.7732750000000017
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+19B
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.58
+ 20
+3.6382750000000015
+ 30
+0.0
+ 40
+0.072
+  1
+·
+  7
+KS-REG
+ 11
+12.58
+ 21
+3.6382750000000015
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+19C
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+12.7
+ 20
+3.6382750000000015
+ 30
+0.0
+ 40
+0.072
+  1
+Rev C (suites) frozen; history in Revs A-C
+  7
+KS-REG
+ 11
+12.7
+ 21
+3.6382750000000015
+ 31
+0.0
+100
+AcDbText
+  0
+ENDSEC
+  0
+SECTION
+  2
+OBJECTS
+  0
+DICTIONARY
+  5
+A
+330
+0
+100
+AcDbDictionary
+281
+1
+  3
+ACAD_COLOR
+350
+B
+  3
+ACAD_GROUP
+350
+C
+  3
+ACAD_LAYOUT
+350
+D
+  3
+ACAD_MATERIAL
+350
+E
+  3
+ACAD_MLEADERSTYLE
+350
+F
+  3
+ACAD_MLINESTYLE
+350
+10
+  3
+ACAD_PLOTSETTINGS
+350
+11
+  3
+ACAD_PLOTSTYLENAME
+350
+12
+  3
+ACAD_SCALELIST
+350
+14
+  3
+ACAD_TABLESTYLE
+350
+15
+  3
+ACAD_VISUALSTYLE
+350
+16
+  3
+EZDXF_META
+350
+2D
+  0
+DICTIONARY
+  5
+B
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+C
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+D
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Model
+350
+1A
+  3
+Layout1
+350
+1E
+  0
+DICTIONARY
+  5
+E
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+ByBlock
+350
+1F
+  3
+ByLayer
+350
+20
+  3
+Global
+350
+21
+  0
+DICTIONARY
+  5
+F
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Standard
+350
+2C
+  0
+DICTIONARY
+  5
+10
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Standard
+350
+22
+  0
+DICTIONARY
+  5
+11
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+ACDBDICTIONARYWDFLT
+  5
+12
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Normal
+350
+13
+100
+AcDbDictionaryWithDefault
+340
+13
+  0
+ACDBPLACEHOLDER
+  5
+13
+330
+12
+  0
+DICTIONARY
+  5
+14
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+15
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+16
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+LAYOUT
+  5
+1A
+330
+D
+100
+AcDbPlotSettings
+  1
+
+  4
+A3
+  6
+
+ 40
+7.5
+ 41
+20.0
+ 42
+7.5
+ 43
+20.0
+ 44
+420.0
+ 45
+297.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+ 49
+0.0
+140
+0.0
+141
+0.0
+142
+1.0
+143
+1.0
+ 70
+1024
+ 72
+1
+ 73
+0
+ 74
+5
+  7
+
+ 75
+16
+ 76
+0
+ 77
+2
+ 78
+300
+147
+1.0
+148
+0.0
+149
+0.0
+100
+AcDbLayout
+  1
+Model
+ 70
+1
+ 71
+0
+ 10
+0.0
+ 20
+0.0
+ 11
+420.0
+ 21
+297.0
+ 12
+0.0
+ 22
+0.0
+ 32
+0.0
+ 14
+1e+20
+ 24
+1e+20
+ 34
+1e+20
+ 15
+-1e+20
+ 25
+-1e+20
+ 35
+-1e+20
+146
+0.0
+ 13
+0.0
+ 23
+0.0
+ 33
+0.0
+ 16
+1.0
+ 26
+0.0
+ 36
+0.0
+ 17
+0.0
+ 27
+1.0
+ 37
+0.0
+ 76
+1
+330
+17
+  0
+LAYOUT
+  5
+1E
+330
+D
+100
+AcDbPlotSettings
+  1
+
+  4
+A3
+  6
+
+ 40
+7.5
+ 41
+20.0
+ 42
+7.5
+ 43
+20.0
+ 44
+420.0
+ 45
+297.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+ 49
+0.0
+140
+0.0
+141
+0.0
+142
+1.0
+143
+1.0
+ 70
+0
+ 72
+1
+ 73
+0
+ 74
+5
+  7
+
+ 75
+16
+ 76
+0
+ 77
+2
+ 78
+300
+147
+1.0
+148
+0.0
+149
+0.0
+100
+AcDbLayout
+  1
+Layout1
+ 70
+1
+ 71
+1
+ 10
+0.0
+ 20
+0.0
+ 11
+420.0
+ 21
+297.0
+ 12
+0.0
+ 22
+0.0
+ 32
+0.0
+ 14
+1e+20
+ 24
+1e+20
+ 34
+1e+20
+ 15
+-1e+20
+ 25
+-1e+20
+ 35
+-1e+20
+146
+0.0
+ 13
+0.0
+ 23
+0.0
+ 33
+0.0
+ 16
+1.0
+ 26
+0.0
+ 36
+0.0
+ 17
+0.0
+ 27
+1.0
+ 37
+0.0
+ 76
+1
+330
+1B
+  0
+MATERIAL
+  5
+1F
+102
+{ACAD_REACTORS
+330
+E
+102
+}
+330
+E
+100
+AcDbMaterial
+  1
+ByBlock
+  2
+
+ 70
+0
+ 40
+1.0
+ 71
+1
+ 41
+1.0
+ 91
+-1023410177
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 44
+0.5
+ 73
+0
+ 45
+1.0
+ 46
+1.0
+ 77
+1
+  4
+
+ 78
+1
+ 79
+1
+170
+1
+ 48
+1.0
+171
+1
+  6
+
+172
+1
+173
+1
+174
+1
+140
+1.0
+141
+1.0
+175
+1
+  7
+
+176
+1
+177
+1
+178
+1
+143
+1.0
+179
+1
+  8
+
+270
+1
+271
+1
+272
+1
+145
+1.0
+146
+1.0
+273
+1
+  9
+
+274
+1
+275
+1
+276
+1
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 94
+63
+  0
+MATERIAL
+  5
+20
+102
+{ACAD_REACTORS
+330
+E
+102
+}
+330
+E
+100
+AcDbMaterial
+  1
+ByLayer
+  2
+
+ 70
+0
+ 40
+1.0
+ 71
+1
+ 41
+1.0
+ 91
+-1023410177
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 44
+0.5
+ 73
+0
+ 45
+1.0
+ 46
+1.0
+ 77
+1
+  4
+
+ 78
+1
+ 79
+1
+170
+1
+ 48
+1.0
+171
+1
+  6
+
+172
+1
+173
+1
+174
+1
+140
+1.0
+141
+1.0
+175
+1
+  7
+
+176
+1
+177
+1
+178
+1
+143
+1.0
+179
+1
+  8
+
+270
+1
+271
+1
+272
+1
+145
+1.0
+146
+1.0
+273
+1
+  9
+
+274
+1
+275
+1
+276
+1
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 94
+63
+  0
+MATERIAL
+  5
+21
+102
+{ACAD_REACTORS
+330
+E
+102
+}
+330
+E
+100
+AcDbMaterial
+  1
+Global
+  2
+
+ 70
+0
+ 40
+1.0
+ 71
+1
+ 41
+1.0
+ 91
+-1023410177
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 44
+0.5
+ 73
+0
+ 45
+1.0
+ 46
+1.0
+ 77
+1
+  4
+
+ 78
+1
+ 79
+1
+170
+1
+ 48
+1.0
+171
+1
+  6
+
+172
+1
+173
+1
+174
+1
+140
+1.0
+141
+1.0
+175
+1
+  7
+
+176
+1
+177
+1
+178
+1
+143
+1.0
+179
+1
+  8
+
+270
+1
+271
+1
+272
+1
+145
+1.0
+146
+1.0
+273
+1
+  9
+
+274
+1
+275
+1
+276
+1
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 94
+63
+  0
+MLINESTYLE
+  5
+22
+102
+{ACAD_REACTORS
+330
+10
+102
+}
+330
+10
+100
+AcDbMlineStyle
+  2
+Standard
+ 70
+0
+  3
+
+ 62
+256
+ 51
+90.0
+ 52
+90.0
+ 71
+2
+ 49
+0.5
+ 62
+256
+  6
+BYLAYER
+ 49
+-0.5
+ 62
+256
+  6
+BYLAYER
+  0
+MLEADERSTYLE
+  5
+2C
+102
+{ACAD_REACTORS
+330
+F
+102
+}
+330
+F
+100
+AcDbMLeaderStyle
+179
+2
+170
+2
+171
+1
+172
+0
+ 90
+2
+ 40
+0.0
+ 41
+0.0
+173
+1
+ 91
+-1056964608
+ 92
+-2
+290
+1
+ 42
+2.0
+291
+1
+ 43
+8.0
+  3
+Standard
+ 44
+4.0
+300
+
+342
+29
+174
+1
+175
+1
+176
+0
+178
+1
+ 93
+-1056964608
+ 45
+4.0
+292
+0
+297
+0
+ 46
+4.0
+ 94
+-1056964608
+ 47
+1.0
+ 49
+1.0
+140
+1.0
+294
+1
+141
+0.0
+177
+0
+142
+1.0
+295
+0
+296
+0
+143
+3.75
+271
+0
+272
+9
+273
+9
+  0
+DICTIONARY
+  5
+2D
+330
+A
+100
+AcDbDictionary
+280
+1
+281
+1
+  3
+CREATED_BY_EZDXF
+350
+2E
+  3
+WRITTEN_BY_EZDXF
+350
+19F
+  0
+DICTIONARYVAR
+  5
+2E
+330
+2D
+100
+DictionaryVariables
+280
+0
+  1
+1.4.4 @ 2026-10-04T04:46:26.807967+00:00
+  0
+DICTIONARYVAR
+  5
+19F
+330
+2D
+100
+DictionaryVariables
+280
+0
+  1
+1.4.4 @ 2026-10-04T04:46:26.816468+00:00
+  0
+ENDSEC
+  0
+EOF

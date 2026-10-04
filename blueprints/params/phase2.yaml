@@ -5,6 +5,9 @@
 # Program test-fit inputs live in params/phase2_program.yaml (P2-T-003b).
 # v3, 2026-10-03 11:09 PM CT: 55,000 SF is a FOOTPRINT cap; up to 2 levels; total GSF no longer capped at 55,000 (D-031).
 # v4, 2026-10-03 11:26 PM CT: ~1,370-seat option rejected (D-032); suites to keep ~2,200 spectators under study (D-030 OPEN).
+# v5, 2026-10-03 11:39 PM CT: PROGRAM LOCKED (D-030 DECIDED): 16,400 SF event floor, 4 x 42 ft mats, 2,200 bowl seats, 2 levels,
+#     no suites (PARKED), S&C + cross-training on Level 2 over the lockers. The 22,000 SF tag is SUPERSEDED for the event
+#     floor and kept as history (sf_tagged_superseded). Locked facts change only on "CHANGE APPROVED".
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -51,27 +54,35 @@ building:
   total_sf: 55000
   total_sf_meaning: "the 55,000 SF is the building FOOTPRINT cap (D-031), not a cap on total floor area"
   footprint_cap_sf: 55000
-  levels: up to 2
-  stories: up to 2 (D-031)
+  levels: 2
+  levels_basis: "LOCKED 2 levels (D-030 DECIDED, Shane 11:39 PM CT); D-031 allowed up to 2"
+  stories: 2 (D-030, D-031)
   total_gsf_cap: "none — total GSF across two levels is no longer capped at 55,000 (D-031)"
   structure: TBD
   clear_span: TBD
   north: up (same as the floor plan)
-  source: "concept sheet; reference plan legend agrees (digits partly garbled); footprint cap + levels → D-031 DECIDED (Shane, firsthand, 2026-10-03 11:09 PM CT)"
+  source: "concept sheet; reference plan legend agrees (digits partly garbled); footprint cap → D-031 DECIDED (Shane, firsthand, 2026-10-03 11:09 PM CT); levels 2 → D-030 DECIDED (Shane, firsthand, 11:39 PM CT)"
 
 spaces:
   arena:
     name: Championship Wrestling Arena
-    sf: 22000
+    event_floor_sf: 16400
+    event_floor_status: "LOCKED (D-030 DECIDED, Shane 11:39 PM CT). Change only on CHANGE APPROVED"
+    event_floor_dims: "114 ft E-W x 144 ft N-S = 16,416 SF drawn (KEYSTONE layout; +16 SF over 16,400)"
+    event_floor_dims_basis: "E-W 114 = 2 mats x 42 + 3 x 10 ft clear (NFHS 2-1-5, R-005); N-S 144 = 2 x 42 + 3 x 10 + two 15 ft table/bench zones (scorer's table >= 10 ft from mat, NFHS 2-3, R-005; 15 ft depth ASSUMED); holds the 114 x 126 option B layout and an 84 x 50 court + 10 ft runout = 104 x 70 (NFHS Basketball 1-1, 1-2-1, R-012)"
+    sf_tagged_superseded: 22000
+    sf_tagged_note: "HISTORY: concept-sheet / reference-plan tag; SUPERSEDED for the event floor by D-030 (16,400 SF). Read only by frozen P2-G-003 Revs A-C"
     mats: 4
     mat_labels: [Wrestling Mat 1, Wrestling Mat 2, Wrestling Mat 3, Wrestling Mat 4]
     mat_size: 42 ft x 42 ft
+    mat_ft: 42
+    mat_layout: "2 x 2 grid on the event floor (LOCKED, D-030)"
     mat_size_basis: "DECIDED (D-014). Meets NFHS 28 ft minimum circle + 5 ft safety area (R-005)"
     design_events: home duals + AHSAA / regional tournaments
     location: east / center-right of the building
     floor_converts: mats up → court or martial-arts surface down; seats stay
     event_floor_daily_practice: false
-    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); mat_size → D-014 DECIDED 2026-10-03 10:45 PM CT (Shane); design_events → D-029 (Shane 10:45 PM CT); R-005"
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); mat_size → D-014 DECIDED 2026-10-03 10:45 PM CT (Shane); design_events → D-029 (Shane 10:45 PM CT); event_floor_sf → D-030 DECIDED (Shane, firsthand, 11:39 PM CT); dims → KEYSTONE from R-005, R-012"
   courts:
     basketball_full_courts: 1
     basketball_second_court: TBD
@@ -80,12 +91,16 @@ spaces:
     source: "concept sheet; R-012 (partial 2026-10-03: NFHS basketball 84 x 50 ft + 3 ft min / 10 ft preferred runout; volleyball not yet researched)"
   seating:
     total: 2200
-    placement: outside the 22,000 SF competition floor
+    bowl: 2200
+    bowl_status: "LOCKED: all 2,200 seats in the bowl (D-030 DECIDED, Shane 11:39 PM CT)"
+    suites: "none — PARKED as a future add-on (PARKING_LOT, D-030)"
+    placement: outside the event floor (16,400 SF, D-030)
     banks_on_plan: north, south, east, plus short corner banks flanking the stage on the west
     type: TBD
     conflict_note: "Reference plan labels say north bank 3,200 / south bank 2,200; legend says 2,200 spectators. Locked total stays 2,200 (D-016 OPEN)"
     rejected_option: "~1,370 bowl seats with no make-up — REJECTED by Shane ('not enough', D-032)"
-    suites_direction: "UNDER STUDY (D-030 OPEN): keep ~2,200 total spectators = bowl seats + rentable suites just above the top seats (P2-G-003 Rev C)"
+    suites_direction: "studied in P2-G-003 Rev C; not chosen — PARKED (D-030 DECIDED 11:39 PM CT)"
+    type_note: "fixed vs telescopic stays OPEN (D-009); plans show both as an overlay"
     source: "concept sheet; Shane 2026-10-03 (2,200 total stays locked); reference plan (banks); type → D-009; rejected_option → D-032 (Shane 11:26 PM CT); suites_direction → Shane 11:26 PM CT, D-030"
   boys_locker:
     name: Boys Locker Room
@@ -102,12 +117,16 @@ spaces:
     name: Strength & Conditioning Center
     sf: 6000
     location: northwest corner
-    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+    level: 2
+    level_status: "LOCKED: Level 2, over the locker rooms (D-030 DECIDED, Shane 11:39 PM CT)"
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); level → D-030"
   cross_training:
     name: Cross-Training Mat Area
     sf: 4000
     location: north center, north of concourse, east of S&C (open mat)
-    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+    level: 2
+    level_status: "LOCKED: Level 2, over the locker rooms (D-030 DECIDED, Shane 11:39 PM CT)"
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); level → D-030"
   concourse:
     name: Concourse / hall of champions spine
     sf: TBD
@@ -283,7 +302,7 @@ open_items:
   budget: TBD
   seating_type: TBD
   concessions_scope: TBD
-  program_fit: "OPEN — Rev B two-level test-fit + Rev C suites study (P2-G-003) vs the 55,000 SF footprint cap (D-031); ~1,370 seats rejected (D-032); direction OPEN (D-030)"
+  program_fit: "DECIDED (D-030, 11:39 PM CT): 16,400 SF floor, 2,200 bowl seats, 2 levels, no suites; P2-G-003 Rev D = locked program sheet"
   source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030, D-031, D-032; Shane 2026-10-03 10:45 PM + 11:09 PM + 11:26 PM CT"
 
 sheets:
@@ -304,7 +323,34 @@ sheets:
         source: "Shane 2026-10-03 11:09 PM CT (redo test-fit as Rev B, Rev A frozen); frozen 11:26 PM CT when Rev C was ordered"
       C:
         file: P2-G-003_RevC
-        frozen: false
+        frozen: true
         note: suites to keep ~2,200 spectators; suite level above the upper tier; hybrids with a smaller floor
-        source: "Shane 2026-10-03 11:26 PM CT (Rev C, Rev B frozen)"
+        source: "Shane 2026-10-03 11:26 PM CT (Rev C, Rev B frozen); frozen 11:39 PM CT when Rev D was ordered"
+      D:
+        file: P2-G-003_RevD
+        frozen: false
+        note: LOCKED PROGRAM sheet (D-030)
+        source: "Shane 2026-10-03 11:39 PM CT (Rev D = locked program; Rev C frozen)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
+  P2-A-101:
+    title: OVERALL FLOOR PLAN — LEVEL 1
+    size: "17 x 11 in (tabloid), landscape"
+    scale: "1/32 in = 1 ft-0 in"
+    inputs: params/phase2_plan.yaml
+    revisions:
+      A:
+        file: P2-A-101_RevA
+        frozen: false
+        source: "Shane 2026-10-03 11:39 PM CT (start P2-A-101 Level 1, schematic block plan)"
+    source: "Shane 2026-10-03 11:39 PM CT"
+  P2-A-102:
+    title: OVERALL FLOOR PLAN — LEVEL 2
+    size: "17 x 11 in (tabloid), landscape"
+    scale: "1/32 in = 1 ft-0 in"
+    inputs: params/phase2_plan.yaml
+    revisions:
+      A:
+        file: P2-A-102_RevA
+        frozen: false
+        source: "Shane 2026-10-03 11:39 PM CT (start P2-A-102 Level 2, schematic block plan)"
+    source: "Shane 2026-10-03 11:39 PM CT"

@@ -6,9 +6,9 @@
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 45,
-  "phase2_percent": 18,
-  "current_ticket": "P2-T-003b",
-  "current_ticket_title": "Phase 2 suites study (P2-G-003 Rev C): bowl seats + suites to keep ~2,200 spectators inside the 55,000 SF footprint",
+  "phase2_percent": 28,
+  "current_ticket": "P2-T-004",
+  "current_ticket_title": "Phase 2 schematic block plans P2-A-101 (Level 1) + P2-A-102 (Level 2) Rev A from the locked program (D-030, P2-G-003 Rev D)",
   "sheets_done": [
     "P1-G-001 Rev A (internal)",
     "P1-G-001 Rev B (principal)",
@@ -17,15 +17,19 @@
     "P1-A-101 Rev A (approved)",
     "P2-G-003 Rev A (one-level test-fit, frozen)",
     "P2-G-003 Rev B (two-level test-fit, frozen)",
-    "P2-G-003 Rev C (suites study)"
+    "P2-G-003 Rev C (suites study, frozen)",
+    "P2-G-003 Rev D (locked program)"
   ],
-  "sheets_in_progress": [],
+  "sheets_in_progress": [
+    "P2-A-101 Rev A (Level 1 block plan)",
+    "P2-A-102 Rev A (Level 2 block plan)"
+  ],
   "last_commit": "87fde10",
   "branch": "grok/keystone",
-  "open_decisions": 16,
-  "blocked_on": "P1: Dr. Headen / support wing measurements + photos. P2: Shane's pick on D-030 (suites vs smaller floor vs lean) before any floor plan; owner (D-007) and AHJ (D-008) open",
-  "what_changed": "D-032: ~1,370 seats rejected. P2-G-003 Rev C (Rev B frozen): at 22,000 SF suites reach only ~1,640 inside 55,000. 18,000 SF floor + 1,940 bowl + 13 suites x 20 = 2,200, footprint ~54,994, ~92,300 GSF, 3 levels. R-016 written.",
-  "what_to_verify": "Rev C assumptions: 25 SF/guest from one suite precedent (Diddle 400 SF/16), suite width rule, 44 in corridor, no pantry, suite level over the L1 ring, mechanical at grade. A suite level is a 3rd story: enclosed stairs, elevator stop.",
-  "next_action": "Shane picks D-030: 18,000 SF floor + suites (3 levels), 16,400 SF floor with no suites (2 levels), or 22,000 SF on lean inputs (2 levels). Then P2-T-004 floor plan. Phase 1 first when Dr. Headen's data arrives.",
-  "question_for_shane": "Suites can't get the 22,000 SF floor to 2,200 inside 55,000 (max ~1,640). Would you trade floor down to ~18,000 SF (still holds 4 mats) for 1,940 bowl seats + ~13-22 suites on a third level?"
+  "open_decisions": 15,
+  "blocked_on": "P1: Dr. Headen / support wing measurements + photos. P2: seating type (D-009), owner (D-007), AHJ (D-008); site TBD (D-006)",
+  "what_changed": "D-030 DECIDED: 16,400 SF floor, 2,200 bowl seats, 2 levels, no suites (parked). phase2.yaml locked. P2-G-003 Rev D: footprint 54,949 fixed / 50,868 telescopic; 80,930 / 73,248 GSF. P2-A-101/102 Rev A block plans at 1/32 in.",
+  "what_to_verify": "Block layout is KEYSTONE's: entry SW, lockers west on an athlete corridor, event lockers N + E via vomitories, no west tier or stage, floor 114 x 144 ft with 15 ft table zones. Fixed seating leaves only 51 SF of footprint.",
+  "next_action": "Shane reviews the A-101/A-102 block plans and picks seating type (D-009). Then P2-A-103 overlays and code analysis (R-006/R-007). Phase 1 first when Dr. Headen's data arrives.",
+  "question_for_shane": "Fixed seats use the 55,000 footprint with only 51 SF to spare; telescopic bleachers free about 4,100 SF. Fixed, telescopic, or a mix (telescopic lower tier, fixed upper)?"
 }

@@ -295,3 +295,32 @@
   - `P2-G-003_RevB.png` kept.
   - `P2-G-003.pdf` = Rev C.
 - BACKLOG, ASSETS and STATUS updated.
+
+## 2026-10-03 ~11:50 PM CT · D-030 DECIDED · locked program (P2-G-003 Rev D) · P2-T-004 block plans (P2-A-101/102 Rev A)
+- **D-030 DECIDED** — 16,400 SF event floor, all 2,200 seats in the bowl, 2 levels, no suites — "Shane, firsthand, 11:39 PM CT". Open decisions 16 → 15.
+- Suites → PARKING_LOT ("future add-on, study after attendance is proven"). Seating type stays OPEN (D-009); D-009 notes updated.
+- `params/phase2.yaml` v5 (locked, change only on CHANGE APPROVED):
+  - `spaces.arena.event_floor_sf: 16400`, `event_floor_dims` 114 ft E-W × 144 ft N-S = 16,416 SF drawn, with basis (NFHS 2-1-5, 2-3 from R-005; court from R-012).
+  - `spaces.arena.sf: 22000` renamed `sf_tagged_superseded: 22000` + history note (frozen Revs A-C read it; their PDFs regenerate byte-identical).
+  - `mat_ft: 42`, `mat_layout` 2 × 2; `seating.bowl: 2200` (+ suites PARKED, `type_note` D-009); `building.levels: 2`; S&C + cross-training `level: 2`.
+  - `open_items.program_fit` DECIDED; `sheets.P2-G-003` Rev C frozen, Rev D added; new `sheets.P2-A-101`, `P2-A-102` (Rev A).
+- `shared/validate.py`: locked checks added for event_floor_sf 16400, sf_tagged_superseded 22000, mat_ft 42, seating.bowl 2200, levels 2, S&C + cross-training level 2.
+- **Floor check:** E-W 2 × 42 + 3 × 10 clear = 114 ft; N-S 114 + two 15 ft table/bench zones (depth ASSUMED) = 144 ft. Holds the Rev A 114 × 126 = 14,364 SF layout and an 84 × 50 court + 10 ft runout (104 × 70).
+- `params/phase2_program.yaml`: new `meta_rev_d`, `locked_program` (50/50 tiers, FIXED vs TELESCOPIC columns, same 1.25 gross-up, wheelchair table). Earlier sections unchanged.
+- `phase2/src/p2_testfit.py`: new `wheelchair_spaces`, `compute_locked` (Rev B method at the locked floor + bowl), `summary_d` (`--rev-d`). Frozen functions read `ARENA_TAG`.
+- `phase2/src/p2_g_003.py`: `--rev A|B|C|D` (default D), new `build_d()`; `build()`, `build_b()`, `build_c()` untouched.
+- **Frozen checks:** Revs A, B, C regenerated to /tmp after the key rename: PDFs byte-identical, DXFs entity-identical (227 / 294 / 320).
+- **P2-G-003 Rev D (LOCKED PROGRAM)**, base = FIXED 6.0 SF/seat, alt = TELESCOPIC 3.38 SF/seat:
+  - L1 gross 54,949 / 50,868; L2 gross 25,981 / 22,380; arena volume 28,750 / 25,149.
+  - Footprint 54,949 / 50,868 vs 55,000: both FIT (fixed margin 51 SF; the drawn 16,416 floor gives ≈ 54,971).
+  - Total 80,930 / 73,248 GSF.
+  - Fixtures: L1 37 (WC 10 M / 18 W, lav 4 / 5), L2 29 (WC 8 / 14, lav 3 / 4) = 66; 4 drinking fountains; same both columns.
+  - 4 stairs × 65 in (L2 load 1,304), ≈ 206 SF each per level + 1 elevator (64 SF hoistway) = 890 SF per level.
+  - Wheelchair spaces 18 (T1109.2.2.1), dispersed.
+- **New `params/phase2_plan.yaml`** + **`phase2/src/p2_a_plan.py`** → `phase2/out/{pdf,dxf}/P2-A-101_RevA` (Level 1), `P2-A-102_RevA` (Level 2):
+  - Schematic block plans at 1/32 in = 1 ft-0 in (1/16 does not fit) on tabloid; building 250 × 220 ft = 55,000 SF footprint.
+  - Floor with 4 mats + court overlay; fixed tiers solid, telescopic depth dashed (9.5 ft lower, 8.5 ft upper vs 16.5 / 15 fixed).
+  - 4 stairs + elevator at the same coordinates on both levels; room tags with drawn SF; room schedules vs program.
+  - Level 2: S&C + cross-training over the lockers, restrooms + admin stacked, open to the lobby and arena below. Drawn L2 ≈ 27,570 SF vs 25,981 program.
+- Previews: `P2-G-003.png/.pdf` = Rev D, `P2-G-003_RevC.png` kept, `P2-A-101.png/.pdf`, `P2-A-102.png/.pdf`.
+- DECISIONS, PARKING_LOT, BACKLOG (P2-T-003b done, P2-T-004 in progress, P2-T-005 → A-103), ASSETS, STATUS updated.

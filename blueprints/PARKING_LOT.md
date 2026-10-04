@@ -15,6 +15,10 @@ The concept compares Phase 2 to **Mercedes-Benz Stadium**. **These are that stad
 
 If Shane asks later: a cited R-file on what *scaled* versions would mean here (rooftop solar, rainwater harvest for field irrigation, daylighting, LED + efficient HVAC). Source: prompt §4 and intake LOOK & FEEL.
 
+## Phase 2 program (parked by D-030)
+
+- 2026-10-03 11:39 PM CT (D-030, "Shane, firsthand"): **Suites** — future add-on, study after attendance is proven. Not drawn and not in the locked program. Starting point when promoted: P2-G-003 Rev C (frozen) + R-016 (suite sizes, precedents, code flags; a suite level would be a 3rd story).
+
 ## Other parked items
 
 - From the 2026-10-03 intake: an early Gemini prompt used Kelly Green #006B3C + gold. **Rejected.** Red and black, never green. Kept here only so nobody brings it back.

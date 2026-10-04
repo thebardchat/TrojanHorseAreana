@@ -9,8 +9,9 @@ Checks (v2, 2026-10-03: phase2.yaml seed added):
   2. Every mapping that holds values carries a non-empty `source` (both files)
   3. No superseded Feb 2026 concept numbers in any params file
   4. No Phase 2 program numbers in phase1.yaml; no Phase 1 values in phase2.yaml
-  5. phase2.yaml locked values unchanged (55,000 SF total, 22,000 SF arena,
-     2,200 seats total) and the girls locker carries the D-013 draw-equal rule
+  5. phase2.yaml locked values unchanged (55,000 SF footprint, 16,400 SF event floor per D-030 with the
+     22,000 SF tag kept as history, 2,200 bowl seats, 2 levels, S&C + cross-training on Level 2)
+     and the girls locker carries the D-013 draw-equal rule
   6. Every PDF in phase*/out/pdf contains the PRELIMINARY stamp text (passes if no PDFs)
      6b. Principal-facing PDFs (*principal*.pdf, e.g. P1-G-001 Rev B/C/D, and *Package*.pdf print bundles) contain no 'D-0'/'R-0' codes and no 'spelling'
   7. STATUS.json (if present) matches schema_version 2 and its open_decisions
@@ -66,9 +67,15 @@ PHASE1_ONLY = [
 # Locked Phase 2 values (prompt §3; Shane 2026-10-03). Change only with "CHANGE APPROVED".
 PHASE2_LOCKED = [
     (("building", "total_sf"), 55000),
-    (("spaces", "arena", "sf"), 22000),
+    (("spaces", "arena", "event_floor_sf"), 16400),          # D-030 DECIDED 2026-10-03 11:39 PM CT
+    (("spaces", "arena", "sf_tagged_superseded"), 22000),    # history (frozen P2-G-003 Revs A-C read it)
     (("spaces", "arena", "mats"), 4),
+    (("spaces", "arena", "mat_ft"), 42),                     # D-014; locked with D-030
     (("spaces", "seating", "total"), 2200),
+    (("spaces", "seating", "bowl"), 2200),                   # D-030
+    (("building", "levels"), 2),                             # D-030
+    (("spaces", "strength_conditioning", "level"), 2),       # D-030
+    (("spaces", "cross_training", "level"), 2),              # D-030
     (("spaces", "boys_locker", "sf"), 3500),
     (("spaces", "strength_conditioning", "sf"), 6000),
     (("spaces", "cross_training", "sf"), 4000),
