@@ -205,3 +205,7 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **New research** `research/R-018-level-2-egress-assembly.md`, `research/R-019-arena-clear-height.md`. IBC 2021 Ch. 10 text copy kept box-only (`/workspace/research_src/ibc2021_ch10_upcodes_full.txt`, not committed).
 - **Look references used (box only, not committed):** `/workspace/trojan-horse-arena/PROJECT-BRIEF.md`, `assets/arch_src.png` (portal proportions, colors); `assets/logo_hghs_rgba.png` reviewed but NOT used (D-040).
 - **Previews (box only):** `/workspace/keystone_previews/P2-A-201.png` + `.pdf`, `Phase2_Schematic_Set_RevA.pdf`; `P2-A-101.png` + `.pdf` (Rev D with FLEX labels).
+
+## 2026-10-04 additions (~6:10 AM CT session, P1-T-008 plumbing scope)
+- **New Phase 1 sheet** `phase1/out/{pdf,dxf}/P1-P-001_RevA` (plumbing / water restore scope narrative, 11x17 landscape, NTS), from new `phase1/src/p1_p_001.py`. Params: `existing.plumbing` structured inventory/scope/asks/licensed_trade + `sheets.P1-P-001`. Scope narrative only — no pipe sizing / no design. Cross-refs frozen P1-G-001 Rev D + P1-A-101 Rev A (`Phase1_Package_for_Dr_Headen`).
+- **Preview (box only):** `/workspace/keystone_previews/P1-P-001.png`.

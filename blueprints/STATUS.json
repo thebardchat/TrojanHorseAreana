@@ -2,19 +2,20 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-04T05:40:48-05:00",
+  "updated_at": "2026-10-04T06:11:15-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
-  "phase1_percent": 45,
+  "phase1_percent": 50,
   "phase2_percent": 40,
   "current_ticket": "P2-T-009",
-  "current_ticket_title": "P2-A-201 Exterior Elevations Rev A (south portal primary + N/E/W schematic); Phase 2 Schematic Set Rev A frozen (D-036)",
+  "current_ticket_title": "P2-A-301 sections next (P2-A-201 Rev A done); P1-T-008 P1-P-001 Rev A shipped",
   "sheets_done": [
     "P1-G-001 Rev A (internal)",
     "P1-G-001 Rev B (principal)",
     "P1-G-001 Rev C (principal)",
     "P1-G-001 Rev D (principal, approved)",
     "P1-A-101 Rev A (approved)",
+    "P1-P-001 Rev A (plumbing / water restore scope narrative)",
     "P2-G-003 Rev A (one-level test-fit, frozen)",
     "P2-G-003 Rev B (two-level test-fit, frozen)",
     "P2-G-003 Rev C (suites study, frozen)",
@@ -29,17 +30,18 @@
     "P2-G-003 Rev F (locked program + Level 2 loop, approved, frozen)",
     "P2-A-101 Rev D (Level 1 block plan, FLEX labels, approved, frozen)",
     "P2-A-102 Rev D (Level 2 block plan, approved, frozen)",
-    "Phase 2 Schematic Set Rev A (G-003 F + A-101 D + A-102 D, one 17 x 11 PDF, frozen)"
-  ],
-  "sheets_in_progress": [
+    "Phase 2 Schematic Set Rev A (G-003 F + A-101 D + A-102 D, one 17 x 11 PDF, frozen)",
     "P2-A-201 Rev A (exterior elevations)"
   ],
-  "last_commit": "0ec1fb2",
+  "sheets_in_progress": [
+    "P2-A-301 sections (not started)"
+  ],
+  "last_commit": "PENDING",
   "branch": "grok/keystone",
   "open_decisions": 17,
-  "blocked_on": "P1: Dr. Headen / support wing measurements + photos. P2: owner (D-007), AHJ (D-008); egress confirm (D-038); brand (D-040); site TBD (D-006); deliveries / buses (D-034)",
-  "what_changed": "Shane approved Rev D plans + G-003 Rev F; frozen as Phase 2 Schematic Set Rev A (one PDF, tag p2-schematic-revA). West space labeled FLEX. R-018 egress: 7 ft loop meets code on our calc. P2-A-201 Rev A elevations started.",
-  "what_to_verify": "R-018: loop needs 64 in (balanced) / 79.2 in (worst) vs 84 in drawn; stairs 4 x 64 in, zero slack. A-201 heights ASSUMED (L2 15 ft, ring 30, arena 42; clear >= 25 ft cited). Portal sizes ASSUMED.",
-  "next_action": "Shane reviews P2-A-201 Rev A and answers D-040 (brand). Architect/AHJ confirm egress (D-038). Then A-301 sections and code analysis (R-006/R-007). Phase 1 first when Dr. Headen's data arrives.",
+  "blocked_on": "P1: Dr. Headen / support wing measurements + photos (D-002 cause/sink/lines still OPEN). P2: owner (D-007), AHJ (D-008); egress confirm (D-038); brand (D-040); site TBD (D-006); deliveries / buses (D-034)",
+  "what_changed": "P1-T-008 done: P1-P-001 Rev A plumbing/water restore scope narrative (fixture list, licensed-plumber note, no design). Phase 1 unblocked ticket ahead of A-301.",
+  "what_to_verify": "P1-P-001 Rev A: fixture counts match Shane's 2026-10-03 report; sink count still TBD; no pipe sizes invented. D-002 stays OPEN until plumber visit + photos.",
+  "next_action": "Resume P2-T-009 (P2-A-301 sections) or P2-T-007 (R-006/R-007). Phase 1 first when Dr. Headen's data arrives. Answer D-040 (brand).",
   "question_for_shane": "Phase 2 is your build, not the school's. Should the south portal carry the Hazel Green Trojans (HGHS) badge, or your own complex name and logo? For now it says BRAND / SIGNAGE — TBD."
 }

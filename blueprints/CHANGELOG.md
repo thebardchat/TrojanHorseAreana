@@ -1,5 +1,15 @@
 # CHANGELOG — KEYSTONE
 
+## 2026-10-04 ~6:10 AM CT · P1-T-008 · P1-P-001 Rev A plumbing / water restore scope narrative
+- **Unblocked Phase 1 ticket** taken ahead of P2-T-009 A-301 (Phase 1 outranks; P1-T-005…007 still wait on Dr. Headen / support-wing measurements).
+- **params/phase1.yaml:** structured `existing.plumbing` fields for the sheet — `fixture_inventory.items` (2 showers, 1 private toilet, 2 toilets, 1 urinal, sinks TBD, 1 water fountain/sink; all OOS), `scope_of_work.items`, `open_asks.items`, `licensed_trade` (note + R-004.3 cite), `cross_refs` to frozen P1-G-001 Rev D / P1-A-101 Rev A package. New `sheets.P1-P-001` register (Rev A). Every group sourced; no invented pipe sizes or costs. D-002 stays OPEN.
+- **New sheet** `phase1/out/{pdf,dxf}/P1-P-001_RevA` from new `phase1/src/p1_p_001.py` (11x17 landscape, NTS): existing-condition narrative, fixture inventory table, scope-of-work bullets (diagnose / restore / repair as plumber directs — NOT design), BY LICENSED PLUMBER / ENGINEER OF RECORD callout (Ala. Code §§34-37-6(a), 34-37-15 via R-004.3), open asks, cross-refs. PRELIMINARY stamp + title block via shared/titleblock.py. Drawn by KEYSTONE (AI) for Shane Brazelton.
+- Preview (box only): `/workspace/keystone_previews/P1-P-001.png`.
+- Frozen P1-G-001 Revs A–D and P1-A-101 Rev A untouched. Phase 2 Schematic Set Rev A untouched.
+- BACKLOG: P1-T-008 done. Next: resume P2-T-009 (A-301) or P2-T-007; Phase 1 jumps when data arrives.
+- DECISIONS: no new decisions; D-002 remains OPEN until plumber visit + photos.
+- ASSETS + STATUS updated.
+
 ## 2026-10-03 · P1-T-000 · bootstrap blueprints/
 - Environment check recorded in ENVIRONMENT.md. KEYSTONE runs on a separate Linux box, not pulsar00100. Python 3.13.5, git 2.47.3, no FreeCAD. Venv `/workspace/.venv-keystone`: ezdxf, matplotlib, numpy, pillow, pyyaml, cadquery 2.8.0 all installed.
 - Cloned repo. Created branch `grok/keystone` from `main` @ 8a2f4c6.

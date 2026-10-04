@@ -141,7 +141,68 @@ existing:
     drain_lines: TBD
     condition: "no running water to the area; all fixtures (showers, toilets, sinks) out of service, not just leaking; cause unknown"
     condition_before_2026_10_03: plumbing already failing in the existing building
-    source: "Shane, firsthand 2026-10-03 (condition; failure_location, leak_or_damage_spots, existing_fixtures added 10:06 PM CT); concept sheet (earlier condition wording); sink count, lines, cause pending photos + plumber diagnosis (D-002)"
+    cause: TBD
+    # Structured for P1-P-001 Rev A (scope narrative only — no design). Counts from existing_fixtures.
+    fixture_inventory:
+      items:
+        - fixture: Shower
+          count: 2
+          status: out of service
+          note: "broken before the water loss"
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Private toilet
+          count: 1
+          status: out of service
+          note: ""
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Toilet
+          count: 2
+          status: out of service
+          note: ""
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Urinal
+          count: 1
+          status: out of service
+          note: ""
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Sink
+          count: TBD
+          status: out of service
+          note: "count TBD"
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Water fountain / sink
+          count: 1
+          status: out of service
+          note: "marked near urinal / hallway on aerial sketch"
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT; aerial sketch location note; D-002"
+      source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); aerial sketch for fountain/sink location note; sink count still TBD (D-002)"
+    scope_of_work:
+      items:
+        - Diagnose the cause of the water loss (shutoff, supply line, or other) — plumber to determine
+        - Restore running water to the support wing / wrestling-room area
+        - Repair or replace fixtures and piping as the licensed plumber directs after diagnosis
+        - "Do NOT size pipe, design layouts, or seal plumbing drawings on this sheet — BY LICENSED PLUMBER / ENGINEER OF RECORD"
+      source: "phase1.yaml work_items W2 (scope, design_by, keystone_output); Shane, firsthand 2026-10-03 (D-024 priority W2 first); prompt §2"
+    open_asks:
+      items:
+        - Licensed plumber visit to diagnose why there is no water
+        - Photos of shutoff valves, supply / drain lines, and each fixture
+        - Confirm sink count (still TBD)
+        - Confirm water-line and drain-line routing (still TBD)
+        - Copies of the photos Dr. Headen already took
+        - District confirmation of approval path for this repair work (D-004)
+      source: "P1-G-001 Rev D waiting_on + D-002 remaining TBDs; contacts.principal.photos_taken"
+    licensed_trade:
+      note: "Plumbing work on this project is BY LICENSED PLUMBER / ENGINEER OF RECORD. Alabama requires a state plumbing certificate to engage in plumbing work except listed exemptions (owner; owner's regular maintenance employee). How those exemptions apply on public school property was not found — ask the district / PGFB / DCM inspector. KEYSTONE produces a scope narrative and fixture list only; no pipe sizing, no plumbing design."
+      cite: "R-004.3 (Ala. Code §§34-37-6(a), 34-37-15; PGFB FAQ); phase1.yaml standards.approvals_refs.plumbing_license; prompt §2"
+      source: "R-004.3; standards.approvals_refs.plumbing_license; prompt §2 / W2 design_by"
+    cross_refs:
+      items:
+        - "P1-G-001 Rev D (principal scope sheet) — Phase1_Package_for_Dr_Headen"
+        - "P1-A-101 Rev A (existing conditions — wrestling room outline; support wing not yet measured)"
+      package: Phase1_Package_for_Dr_Headen
+      source: "frozen Phase 1 package 2026-10-03; do not regenerate those sheets"
+    source: "Shane, firsthand 2026-10-03 (condition; failure_location, leak_or_damage_spots, existing_fixtures added 10:06 PM CT); concept sheet (earlier condition wording); sink count, lines, cause pending photos + plumber diagnosis (D-002); fixture_inventory / scope_of_work / open_asks / licensed_trade_note structured for P1-P-001 Rev A 2026-10-04 (P1-T-008)"
 
 work_items:
   - id: W1
@@ -515,3 +576,28 @@ sheets:
         show_why: true
         show_requester: true
         source: "Rev C + Shane, firsthand 2026-10-03 10:06 PM CT (W2 where / problem spots / fixtures; W1 pad estimate) + 10:12 PM CT (Dr. Headen named, ask 1 reworded, ask 5, W3 where, revised W1 estimate). Revised in place before Shane saw it."
+
+  P1-P-001:
+    title: PLUMBING / WATER RESTORE SCOPE
+    subtitle: "PHASE 1 — WORK ITEM W2 (PRIORITY 1) — SCOPE NARRATIVE ONLY"
+    scale: NTS
+    size: "11x17 tabloid, landscape"
+    audience: principal + district facilities + licensed plumber
+    keystone_role: "scope narrative + fixture list only (no plumbing design)"
+    design_by: BY LICENSED PLUMBER / ENGINEER OF RECORD
+    priority: 1
+    work_item: W2
+    cross_ref_package: Phase1_Package_for_Dr_Headen
+    cross_ref_sheets: ["P1-G-001 Rev D", "P1-A-101 Rev A"]
+    notes:
+      - "This sheet is a scope narrative. It is not a plumbing design, pipe schedule, or construction document."
+      - "All fixture counts and conditions come from Shane's firsthand report 2026-10-03; unknowns print TBD."
+      - "Work is BY LICENSED PLUMBER / ENGINEER OF RECORD (Alabama state certificate required except listed exemptions — R-004)."
+      - "Cross-ref: P1-G-001 Rev D and P1-A-101 Rev A in Phase1_Package_for_Dr_Headen (frozen — do not regenerate)."
+    revisions:
+      A:
+        file: P1-P-001_RevA
+        frozen: false
+        content: existing-condition narrative, fixture inventory table, scope-of-work bullets, licensed-trade note, open asks, cross-refs
+        source: "P1-T-008 2026-10-04; values from existing.plumbing + work_items W2 + R-004.3"
+    source: "prompt §9 sheet list (P1-P-001); Shane W2 priority D-024; KEYSTONE P1-T-008 2026-10-04"

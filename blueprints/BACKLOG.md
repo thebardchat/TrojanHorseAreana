@@ -13,7 +13,7 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - [ ] **P1-T-005** P1-A-101 existing conditions (needs measurements) — **WAITING ON DATA** (Rev A approved + frozen 2026-10-03, D-026; rest waits on support wing measurements / Dr. Headen; jumps the line when data arrives)
 - [ ] **P1-T-006** P1-A-102 remodel plan (restroom split, pad extents)
 - [ ] **P1-T-007** P1-A-201 wall pad elevations
-- [ ] **P1-T-008** P1-P-001 plumbing scope narrative
+- [x] **P1-T-008** P1-P-001 plumbing scope narrative — **DONE 2026-10-04 ~6:10 AM CT:** P1-P-001 Rev A (scope narrative + fixture list; BY LICENSED PLUMBER; no design)
 - [x] **P1-T-009** R-002 + R-004 approval/donation path → add "Who approves" to G-001
 - [ ] **P1-T-010** Bundle `THA_Phase1_Remodel_RevA.pdf` → PR to `main`
 
@@ -27,7 +27,7 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - [ ] **P2-T-006** C-101 campus diagram (SITE TBD)
 - [ ] **P2-T-007** R-006…R-009 → G-002 code analysis
 - [ ] **P2-T-008** A-111 life safety
-- [ ] **P2-T-009** A-201 elevations (south portal) + A-301 sections — **IN PROGRESS** (P2-A-201 Rev A exterior elevations 2026-10-04: south portal primary + N / E / W schematic; A-301 sections not started)
+- [ ] **P2-T-009** A-201 elevations (south portal) + A-301 sections — **IN PROGRESS** (P2-A-201 Rev A done 2026-10-04; **next: A-301 sections**. Paused 2026-10-04 ~6:10 AM CT for unblocked Phase 1 P1-T-008)
 - [ ] **P2-T-010** A-401 enlarged plans incl. 4 event locker rooms
 - [ ] **P2-T-011** 3D model + A-901 renders
 - [ ] **P2-T-012** G-001 cover + bundle `THA_Phase2_SD_RevA.pdf` → PR
@@ -70,3 +70,4 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - 2026-10-04 4:43 AM CT: Shane, firsthand: **D-033 DECIDED** — single controlled entry for public, teams and staff at the south grand entrance (checkpoint). P2-A-101/102 Rev B frozen; **Rev C**: SW entry removed (team assembly + storage), security checkpoint (size TBD), CD-1 controlled door → athlete route, X1-X10 EXIT ONLY (IBC 2021 1010.2 / 1010.2.9 / 1030.2-1030.3, R-015.6), exit passages N + E, S1 service / loading. **D-034 OPEN** (deliveries / buses). P2-G-003 Rev E unchanged. Open decisions 15.
 - 2026-10-04 4:55 AM CT: Shane, firsthand: **D-035 DECIDED** — continuous Level 2 running / training loop (N, E, S + new west leg); S&C 5,224 and cross-training 3,500 SF (were 6,000 / 4,000). P2-A-101/102 Rev C + P2-G-003 Rev E frozen; **Rev D** plans: loop 2 x 42 in = 7 ft, 706 ft centerline, 7.48 laps/mile; ST-1 west, ST-2 in a 19 x 5 ft NE stair tower, elevator 1 ft south; building 51,503 SF. **P2-G-003 Rev F**: footprint 52,738, margin 2,262, 78,784 GSF. Research R-017. Open decisions 15.
 - 2026-10-04 5:27 AM CT: Shane, firsthand: P2-A-101/102 Rev D + P2-G-003 Rev F **approved** (D-036) → frozen as **Phase 2 Schematic Set Rev A** (3-page bundle, tag `p2-schematic-revA`); loop 7 ft DECIDED for now (D-037); D-038 OPEN (concourse vs egress; R-018: 7 ft is enough on KEYSTONE's calc, stairs zero slack); west space kept as FLEX (D-039, label-only); P2-T-009 started: **P2-A-201 Rev A** elevations; D-040 OPEN (brand / HGHS badge). Open decisions 17.
+- 2026-10-04 ~6:10 AM CT: **P1-T-008 DONE** — P1-P-001 Rev A plumbing / water restore scope narrative (`phase1/out/{pdf,dxf}/P1-P-001_RevA`, generator `phase1/src/p1_p_001.py`; params under `existing.plumbing` + `sheets.P1-P-001`). Scope narrative + fixture inventory only; BY LICENSED PLUMBER / ENGINEER OF RECORD (R-004.3). D-002 stays OPEN (cause, sink count, lines). P1-T-005…007 still waiting on Dr. Headen / support-wing measurements. **Next:** resume P2-T-009 (A-301 sections) or P2-T-007 (R-006/R-007); Phase 1 jumps the line when data arrives.
