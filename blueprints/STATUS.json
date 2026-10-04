@@ -2,7 +2,7 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-03T23:16:55-05:00",
+  "updated_at": "2026-10-03T23:17:33-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 45,
@@ -19,7 +19,7 @@
     "P2-G-003 Rev B (two-level test-fit)"
   ],
   "sheets_in_progress": [],
-  "last_commit": "a3a4299",
+  "last_commit": "6a1c70b",
   "branch": "grok/keystone",
   "open_decisions": 16,
   "blocked_on": "P1: Dr. Headen / support wing measurements + photos. P2: Shane's pick on D-030 (two-level test-fit direction) before any floor plan; owner (D-007) and AHJ (D-008) open",
