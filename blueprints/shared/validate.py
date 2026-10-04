@@ -11,7 +11,8 @@ Checks (v2, 2026-10-03: phase2.yaml seed added):
   4. No Phase 2 program numbers in phase1.yaml; no Phase 1 values in phase2.yaml
   5. phase2.yaml locked values unchanged (55,000 SF footprint, 16,400 SF event floor per D-030 with the
      22,000 SF tag kept as history, 2,200 bowl seats, 2 levels, S&C + cross-training on Level 2,
-     seating MIX per D-009: telescopic lower tier, fixed upper tier)
+     seating MIX per D-009: telescopic lower tier, fixed upper tier; S&C 5,224 / cross-training 3,500
+     and the Level 2 training loop per D-035, old tags kept as sf_tagged_superseded)
      and the girls locker carries the D-013 draw-equal rule
   6. Every PDF in phase*/out/pdf contains the PRELIMINARY stamp text (passes if no PDFs)
      6b. Principal-facing PDFs (*principal*.pdf, e.g. P1-G-001 Rev B/C/D, and *Package*.pdf print bundles) contain no 'D-0'/'R-0' codes and no 'spelling'
@@ -80,8 +81,11 @@ PHASE2_LOCKED = [
     (("spaces", "strength_conditioning", "level"), 2),       # D-030
     (("spaces", "cross_training", "level"), 2),              # D-030
     (("spaces", "boys_locker", "sf"), 3500),
-    (("spaces", "strength_conditioning", "sf"), 6000),
-    (("spaces", "cross_training", "sf"), 4000),
+    (("spaces", "strength_conditioning", "sf"), 5224),       # D-035 DECIDED 2026-10-04 4:55 AM CT (loop)
+    (("spaces", "strength_conditioning", "sf_tagged_superseded"), 6000),   # history (frozen revisions read it)
+    (("spaces", "cross_training", "sf"), 3500),              # D-035
+    (("spaces", "cross_training", "sf_tagged_superseded"), 4000),   # history (frozen revisions read it)
+    (("spaces", "training_loop", "level"), 2),               # D-035
 ]
 STATUS_KEYS = [
     "agent", "project", "schema_version", "updated_at", "health", "active_phase",

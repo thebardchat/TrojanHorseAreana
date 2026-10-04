@@ -12,6 +12,8 @@
 #     Block plan Rev B direction: entry south-center on the arena N-S axis, mech off the west public side (Shane review).
 # v7, 2026-10-04 4:43 AM CT: ACCESS CONTROL DECIDED (D-033): single controlled entry for everyone at the south grand entrance
 #     (security checkpoint); perimeter doors EXIT ONLY; deliveries / buses OPEN (D-034). Block plan Rev C.
+# v8, 2026-10-04 4:55 AM CT: LEVEL 2 RUNNING / TRAINING LOOP DECIDED (D-035): S&C 6,000 → 5,224 SF and cross-training
+#     4,000 → 3,500 SF (Shane's approval to change these locked values); new spaces.training_loop. Block plan Rev D.
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -123,18 +125,37 @@ spaces:
     source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); D-013 (draw equal)"
   strength_conditioning:
     name: Strength & Conditioning Center
-    sf: 6000
+    sf: 5224
+    sf_tagged_superseded: 6000
+    sf_note: "LOCKED 5,224 SF (D-035, Shane 2026-10-04 4:55 AM CT: room trimmed for the Level 2 running / training loop; drawn 49 x 110.8 ft less ST-1). The 6,000 SF tag is SUPERSEDED and kept as history (frozen P2-G-003 Revs A-E and P2-A Revs A-C read it)"
     location: northwest corner
     level: 2
     level_status: "LOCKED: Level 2, over the locker rooms (D-030 DECIDED, Shane 11:39 PM CT)"
-    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); level → D-030"
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); level → D-030; sf → D-035 (Shane 2026-10-04 4:55 AM CT)"
   cross_training:
     name: Cross-Training Mat Area
-    sf: 4000
+    sf: 3500
+    sf_tagged_superseded: 4000
+    sf_note: "LOCKED 3,500 SF (D-035, Shane 2026-10-04 4:55 AM CT: room trimmed for the Level 2 running / training loop; drawn 49 x 71.43 ft). The 4,000 SF tag is SUPERSEDED and kept as history (frozen revisions read it)"
     location: north center, north of concourse, east of S&C (open mat)
     level: 2
     level_status: "LOCKED: Level 2, over the locker rooms (D-030 DECIDED, Shane 11:39 PM CT)"
-    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); level → D-030"
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); level → D-030; sf → D-035 (Shane 2026-10-04 4:55 AM CT)"
+  training_loop:
+    name: Level 2 running / training loop
+    level: 2
+    form: "complete continuous loop around the top of Level 2 behind the upper tier (N, E, S legs + new W leg along the arena-side edge of S&C and cross-training)"
+    lanes: 2
+    lane_width_in: 42
+    width_ft: 7
+    width_basis: "2 lanes x 42 in = 84 in = 7 ft (lane width per UFC 4-740-02N 4.1.7 and Athletic Business 36-42 in; guidelines prefer 3 lanes — 3 x 42 in needs 10.5 ft, more than the 7 ft east side allows without moving the upper tier or the box)"
+    corners: squared
+    centerline_ft: 706
+    laps_per_mile: 7.48
+    event_day_use: "upper concourse on event days (spectators cross at the upper-tier entries); training loop on non-event days"
+    guards: "42 in guards at open edges over the arena and the lobby (IBC 2021 1015.2, 1015.3)"
+    status: "DECIDED loop (D-035); lane count, width and layout ASSUMED"
+    source: "Shane, firsthand, 2026-10-04 4:55 AM CT (D-035); UFC 4-740-02N; Athletic Business 'A Running Start' + 'Designing Tracks for Recreational Users'; NCAA indoor lane 36 in min; IBC 2021 1015 (UpCodes, retrieved 2026-10-04)"
   concourse:
     name: Concourse / hall of champions spine
     sf: TBD
@@ -354,9 +375,14 @@ sheets:
         source: "Shane 2026-10-03 11:39 PM CT (Rev D = locked program; Rev C frozen); frozen 2026-10-04 4:30 AM CT when Rev E was ordered"
       E:
         file: P2-G-003_RevE
-        frozen: false
+        frozen: true
         note: LOCKED PROGRAM with MIX seating (D-009); footprint margin; seats by side and tier
-        source: "Shane 2026-10-04 4:30 AM CT (Rev E; Rev D frozen)"
+        source: "Shane 2026-10-04 4:30 AM CT (Rev E; Rev D frozen); frozen 4:55 AM CT when Rev F was ordered"
+      F:
+        file: P2-G-003_RevF
+        frozen: false
+        note: LOCKED PROGRAM with the Level 2 running / training loop (D-035); S&C 5,224, cross-training 3,500
+        source: "Shane 2026-10-04 4:55 AM CT (Rev F; Rev E frozen; keep >= 2,000 SF footprint margin)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
   P2-A-101:
     title: OVERALL FLOOR PLAN — LEVEL 1
@@ -376,9 +402,14 @@ sheets:
         source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating); frozen 4:43 AM CT when Rev C was ordered"
       C:
         file: P2-A-101_RevC
-        frozen: false
+        frozen: true
         inputs: params/phase2_plan_rev_c.yaml
-        source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed)"
+        source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed); frozen 4:55 AM CT when Rev D was ordered"
+      D:
+        file: P2-A-101_RevD
+        frozen: false
+        inputs: params/phase2_plan_rev_d.yaml
+        source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2
@@ -398,7 +429,12 @@ sheets:
         source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating); frozen 4:43 AM CT when Rev C was ordered"
       C:
         file: P2-A-102_RevC
-        frozen: false
+        frozen: true
         inputs: params/phase2_plan_rev_c.yaml
-        source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed)"
+        source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed); frozen 4:55 AM CT when Rev D was ordered"
+      D:
+        file: P2-A-102_RevD
+        frozen: false
+        inputs: params/phase2_plan_rev_d.yaml
+        source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
     source: "Shane 2026-10-03 11:39 PM CT"

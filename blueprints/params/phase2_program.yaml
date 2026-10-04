@@ -79,8 +79,8 @@ rooms:
   - {id: arena, short: "phase2.yaml tag (concept sheet)", group: main, name: Championship Wrestling Arena (event floor), method: tag, tag_path: spaces.arena.sf_tagged_superseded, status: TAG, confidence: HIGH, source: "phase2.yaml (concept sheet / reference plan)"}
   - {id: boys_locker, short: "phase2.yaml tag", group: main, name: Boys Locker Room, method: tag, tag_path: spaces.boys_locker.sf, status: TAG, confidence: HIGH, source: "phase2.yaml"}
   - {id: girls_locker, short: "phase2.yaml tag; D-013 open", group: main, name: Girls Locker Room (as tagged; D-013), method: tag, tag_path: spaces.girls_locker.sf_tagged, status: TAG, confidence: HIGH, source: "phase2.yaml; D-013 open (draw equal)"}
-  - {id: strength_conditioning, short: "phase2.yaml tag", group: main, name: Strength & Conditioning, method: tag, tag_path: spaces.strength_conditioning.sf, status: TAG, confidence: HIGH, source: "phase2.yaml"}
-  - {id: cross_training, short: "phase2.yaml tag", group: main, name: Cross-Training Mat Area, method: tag, tag_path: spaces.cross_training.sf, status: TAG, confidence: HIGH, source: "phase2.yaml"}
+  - {id: strength_conditioning, short: "phase2.yaml tag", group: main, name: Strength & Conditioning, method: tag, tag_path: spaces.strength_conditioning.sf_tagged_superseded, status: TAG, confidence: HIGH, source: "phase2.yaml"}
+  - {id: cross_training, short: "phase2.yaml tag", group: main, name: Cross-Training Mat Area, method: tag, tag_path: spaces.cross_training.sf_tagged_superseded, status: TAG, confidence: HIGH, source: "phase2.yaml"}
   - {id: seating, short: "2,200 x 6.0 SF/seat (Loudoun 2014)", group: bowl, name: "Spectator seating (2,200 seats)", method: seating, status: CITED, confidence: MEDIUM, source: "R-008"}
   - {id: event_lockers, short: "4 x (14 wrestlers + 4 staff) x 50 SF", group: bowl, name: Event / visitor locker rooms (DR3), count: 4, method: locker_load, team_wrestlers: 14, team_staff: 4, sf_per_occupant: 50, basis: "14 = AHSAA 2026-27 high school weight classes; 4 staff per team ASSUMED; 50 gross SF/occupant = IBC Table 1004.5 locker rooms (an egress factor used here as a sizing yardstick — ASSUMED method)", status: ASSUMED, confidence: LOW, source: "AHSAA 2026-27 Wrestling handbook item 7; IBC 2021 Table 1004.5; R-014"}
   - {id: concourse, short: "25% of seats x 5 SF standing (T1004.5)", group: public, name: Concourse / hall of champions spine, method: concourse, peak_share: 0.25, sf_per_person: 5, basis: "IBC Table 1004.5 standing space 5 net SF/person (CITED) x 25% of spectators on the concourse at peak (ASSUMED)", status: ASSUMED, confidence: LOW, source: "IBC 2021 Table 1004.5; share ASSUMED by KEYSTONE; R-014"}
@@ -317,3 +317,29 @@ mixed_seating:
   status: DECIDED (mix) / CITED (seat factors) / ASSUMED (50/50 split)
   confidence: MEDIUM
   source: "Shane 2026-10-04 4:30 AM CT (D-009); R-008"
+
+meta_rev_f:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "LOCKED PROGRAM + LOOP"
+  subtitle: "D-035 · AREA BY LEVEL ONLY"
+  revision: F
+  file: P2-G-003_RevF
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev E method with S&C and cross-training at their D-035 SF; the Level 2 loop (drawn area, P2-A-102 Rev D) replaces the upper concourse line and is added to L2 gross without the gross-up"
+  source: "Shane 2026-10-04 4:55 AM CT (D-035 DECIDED: continuous L2 running/training loop; S&C and cross-training reduced to fit; Rev E frozen)"
+
+training_loop:
+  replaces: concourse_upper
+  area_basis: "drawn loop area from phase2_plan_rev_d.yaml level_2.loop (outer rect minus inner rect)"
+  gross_up: false
+  gross_up_note: "ASSUMED: the loop is itself circulation drawn at full width, so it is not multiplied by the 1.25 gross-up (R-014); the grossed-up alternative is shown on the sheet"
+  lane_width_in: 42
+  lane_width_sources:
+    - {ref: "UFC 4-740-02N (DoD fitness/recreation design) 4.1.7", text: "indoor running track >= 12 ft wide, minimum 3 lanes at 42 in", url: "https://www.constructionknowledge.net/public_domain_documents/Div_11_Equipment/DOD_Fitness_and_Rec_facilities_4_740_02n.pdf", retrieved: 2026-10-04, source: "UFC 4-740-02N"}
+    - {ref: "Athletic Business, A Running Start", text: "three lanes of 36-42 in typically adequate; ACSM 20 ft inside radius on turns", url: "https://www.athleticbusiness.com/facilities/fitness/article/15140481/a-running-start", retrieved: 2026-10-04, source: "Athletic Business"}
+    - {ref: "Athletic Business, Designing Tracks for Recreational Users", text: "max 12 laps per mile, 8-10 preferred; users crossing the track is a hazard", url: "https://www.athleticbusiness.com/facilities/rec-center/article/15146121/designing-tracks-for-recreational-users", retrieved: 2026-10-04, source: "Athletic Business"}
+  lanes_status: "ASSUMED 2 lanes (guides prefer 3 = 10.5-12 ft, which does not fit without moving the upper tier or growing the box)"
+  guards: "IBC 2021 1015.2 (open side > 30 in above the floor below), 1015.3 (42 in high), 1015.4 (4 in sphere)"
+  source: "Shane 2026-10-04 4:55 AM CT (D-035); sources retrieved 2026-10-04"

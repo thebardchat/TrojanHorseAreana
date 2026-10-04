@@ -190,3 +190,10 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **New Phase 2 data file** `params/phase2_plan_rev_c.yaml` (Rev C geometry: checkpoint, controlled door, perimeter doors, exit passages; ASSUMED). `phase2_plan_rev_b.yaml` stays as the frozen Rev B geometry (also read by P2-G-003 Rev E).
 - **Research:** `research/R-015-two-level-stacking-and-vertical-circulation.md` gains R-015.6 (single controlled entry: exit-only doors, main exit, checkpoint; IBC 2021 Ch. 10 re-read 2026-10-04).
 - **Previews (box only):** `/workspace/keystone_previews/P2-A-101.png` + `.pdf`, `P2-A-102.png` + `.pdf` (now Rev C); `P2-A-101_RevB.png`, `P2-A-102_RevB.png` (Rev B kept); Rev A previews kept.
+
+## 2026-10-04 additions (4:55 AM CT session, D-035 Level 2 loop, Rev D block plans, P2-G-003 Rev F)
+- **New Phase 2 sheets** `phase2/out/{pdf,dxf}/P2-A-101_RevD` (Level 1) and `P2-A-102_RevD` (Level 2), from `phase2/src/p2_a_plan.py --sheet P2-A-101|P2-A-102` (`--rev D` default). Revs A-C are FROZEN and unchanged.
+- **New Phase 2 sheet** `phase2/out/{pdf,dxf}/P2-G-003_RevF` (locked program + Level 2 loop), from `phase2/src/p2_g_003.py` (`--rev F` default). Revs A-E are FROZEN and unchanged.
+- **New Phase 2 data file** `params/phase2_plan_rev_d.yaml` (Rev D geometry: loop, NE stair tower, moved stairs / elevator, trimmed S&C + cross-training; ASSUMED). `phase2_plan_rev_c.yaml` stays as the frozen Rev C geometry.
+- **New research** `research/R-017-indoor-running-track-and-guards.md`.
+- **Previews (box only):** `/workspace/keystone_previews/P2-G-003.png` + `.pdf` (now Rev F), `P2-G-003_RevE.png` (Rev E kept); `P2-A-101.png` + `.pdf`, `P2-A-102.png` + `.pdf` (now Rev D), `P2-A-101_RevC.png`, `P2-A-102_RevC.png` (Rev C kept).

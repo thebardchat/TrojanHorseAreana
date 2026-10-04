@@ -496,6 +496,65 @@ def summary_e():
     return p2, prog, ob, out
 
 
+# ============================ REV F: LEVEL 2 RUNNING / TRAINING LOOP (D-035, Shane 2026-10-04 4:55 AM CT) ============================
+# S&C and cross-training read their new locked SF (phase2.yaml spaces.*.sf; frozen revisions read sf_tagged_superseded).
+# The loop replaces the upper concourse line (on event days the loop IS the upper concourse). The loop is circulation drawn
+# at full size, so it is added to L2 gross WITHOUT the x 1.25 gross-up (ASSUMED; the gross-up allowance is for circulation
+# and walls around net rooms). The fully grossed-up alternative is reported too.
+
+LOOP_ROOMS = ("strength_conditioning", "cross_training")
+
+
+def loop_geometry(plan):
+    lp = plan["level_2"]["loop"]
+    o, i = lp["outer"], lp["inner"]
+    w = lp["width_ft"]
+    area_ = (o[2] - o[0]) * (o[3] - o[1]) - (i[2] - i[0]) * (i[3] - i[1])
+    cx = (o[2] - o[0]) - w
+    cy = (o[3] - o[1]) - w
+    cl = 2 * (cx + cy)
+    legs = {"S": [o[0], o[1], o[2], i[1]], "N": [o[0], i[3], o[2], o[3]], "W": [o[0], i[1], i[0], i[3]], "E": [i[2], i[1], o[2], i[3]]}
+    return dict(area=area_, centerline=cl, laps_per_mile=5280 / cl, legs=legs, width=w, cx=cx, cy=cy)
+
+
+def compute_loop(p2, prog, loop_sf):
+    import copy
+    pr = copy.deepcopy(prog)
+    for r in pr["rooms"]:
+        if r["id"] in LOOP_ROOMS:
+            r["tag_path"] = f"spaces.{r['id']}.sf"
+    m = compute_mix(p2, pr)
+    g, mech = m["g"], m["mech"]
+    sf = dict(m["sf"])
+    N1 = m["N1"]
+    N2x = m["N2"] - sf["concourse_upper"]
+    G = (g * (N1 + N2x) + loop_sf) / (1 - g * mech)
+    M = mech * G
+    L1, L2 = g * (N1 + M), g * N2x + loop_sf
+    AV = m["AV"]
+    F = max(L1, AV + L2)
+    Galt = g * (N1 + N2x + loop_sf) / (1 - g * mech)
+    L2alt = g * (N2x + loop_sf)
+    Malt = mech * Galt
+    Falt = max(g * (N1 + Malt), AV + L2alt)
+    cap = p2["building"]["footprint_cap_sf"]
+    d = dict(m)
+    d.update(scenario="loop", sf=sf, loop=loop_sf, N2x=N2x, N2=N2x + loop_sf, G=G, M=M, L1=L1, L2=L2, ring=L1 - AV, F=F,
+             over=F - cap, fits=F <= cap, l2_fits_over_ring=L2 <= L1 - AV, margin=cap - F,
+             governs="arena volume + L2" if AV + L2 >= L1 else "L1", alt=dict(G=Galt, L2=L2alt, F=Falt, margin=cap - Falt, M=Malt))
+    return d
+
+
+def summary_f():
+    p2, prog, ob, out = summary_e()
+    plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_d.yaml").read_text(encoding="utf-8"))
+    lg = loop_geometry(plan)
+    lp = compute_loop(p2, prog, lg["area"])
+    rows, tot = seats_by_side(plan, prog, lp)
+    out_f = dict(loop=lp, mix=out["mix"], geom=lg, rows=rows, tot=tot, plan=plan)
+    return p2, prog, ob, out_f
+
+
 if __name__ == "__main__":
     import sys as _s
     if "--rev-e" in _s.argv:
