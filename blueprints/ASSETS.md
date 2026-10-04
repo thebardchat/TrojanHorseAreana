@@ -432,7 +432,7 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
   - `P2-A-111_RevB` `a07197bb4fc4f967`
   - `P2-G-002_RevB` `7cf8fc84ada11452`
   - `P2-G-003_RevJ` `eb4008bceb9dc5f9`
-  - `P2-A-401_RevB` `d1854ca729a39c8c`
+  - `P2-A-401_RevB` `9065da62c61f7be2`
   - `P2-A-103_RevB` `2ce22f72dcf88d23`
   - `P2-C-101_RevD` `abdf40208c9256f8`
   - `P2-A-901_RevB` `91e30b16546e38c3`

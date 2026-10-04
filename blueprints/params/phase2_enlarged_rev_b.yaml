@@ -70,9 +70,9 @@ core:
   planning_factor_sf: 50
   planning_note: "Program planning factor 50 SF per fixture (R-009, ASSUMED) gives the larger figure carried on G-002 / A-101 / D-069"
   options:
-    - "Option 1 — grow in place: women's room east into the E concourse, men's room north / west into the SW flex (changes D-039); test-fit shows it is a few hundred SF, not thousands"
-    - "Option 2 — second restroom pair in a bump-out (planning factor about +2,400 SF; test-fit about +535 SF)"
-    - "Option 3 — mix: grow the women's room in place, temporary units for the men's shortfall at the largest events"
+    - "Option 1 — grow inside the building: women's room east into the E concourse (about +340 to +1,550 SF; X8 kept reachable), men's room west into the SW flex / storage (about +160 to +850 SF; changes D-039)"
+    - "Option 2 — second L1 restroom pair in a one-storey bump-out (about +535 SF test-fit to +2,400 SF planning factor; location TBD, east side by the concourse closest)"
+    - "Option 3 — mix: Option 1 for the men's room + Option 2 for the women's room (as D-069)"
   interim: "Until D-069 is decided: events above the drawn fixture count use temporary units (D-064 Option 2)."
   source: "Shane 1:22 PM CT (A-401 Rev B; no silent redesign — finding with options); IBC 2021 T2902.1; IPC 2021 405.3.1, 405.3.5, 424.2 (UpCodes, retrieved 2026-10-04); ADA 2010 213.3, 304.3, 604.8, 605, 606"
 

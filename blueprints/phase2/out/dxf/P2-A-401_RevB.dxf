@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461318.5793634257
+2461318.5893055554
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461318.5793634257
+2461318.5893171295
   9
 $TDUUPDATE
  40
@@ -549,7 +549,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-1181
+1182
   9
 $SURFTAB1
  70
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{E4EE057B-9102-4317-A9A0-CF0C7F11E5BA}
+{5D69D738-C4DA-46E4-9D10-9EC364ED3A13}
   9
 $VERSIONGUID
   2
-{4E67DB2C-B335-4E33-8875-D336AFF549B4}
+{3C6B4BF2-B0B4-45CA-9B09-7DDCEBDDC95F}
   9
 $EXTNAMES
 290
@@ -1997,7 +1997,7 @@ ACAD
   0
 APPID
   5
-117E
+117F
 330
 3
 100
@@ -2011,7 +2011,7 @@ HATCHBACKGROUNDCOLOR
   0
 APPID
   5
-117F
+1180
 330
 3
 100
@@ -111455,7 +111455,7 @@ AcDbText
  40
 0.05
   1
-Option 1 — grow in place: women's room east into the E concourse, men's room north / west into the SW flex (changes
+Option 1 — grow inside the building: women's room east into the E concourse (about +340 to +1,550 SF; X8 kept
   7
 KS-REG
  11
@@ -111487,7 +111487,7 @@ AcDbText
  40
 0.05
   1
-D-039); test-fit shows it is a few hundred SF, not thousands
+reachable), men's room west into the SW flex / storage (about +160 to +850 SF; changes D-039)
   7
 KS-REG
  11
@@ -111551,7 +111551,7 @@ AcDbText
  40
 0.05
   1
-Option 2 — second restroom pair in a bump-out (planning factor about +2,400 SF; test-fit about +535 SF)
+Option 2 — second L1 restroom pair in a one-storey bump-out (about +535 SF test-fit to +2,400 SF planning factor;
   7
 KS-REG
  11
@@ -111575,21 +111575,21 @@ A-ANNO-TEXT
 100
 AcDbText
  10
-11.85
+11.95
  20
-5.074874999999998
+5.097791666666664
  30
 0.0
  40
 0.05
   1
-·
+location TBD, east side by the concourse closest)
   7
 KS-REG
  11
-11.85
+11.95
  21
-5.074874999999998
+5.097791666666664
  31
 0.0
 100
@@ -111607,21 +111607,21 @@ A-ANNO-TEXT
 100
 AcDbText
  10
-11.95
+11.85
  20
-5.074874999999998
+4.983208333333331
  30
 0.0
  40
 0.05
   1
-Option 3 — mix: grow the women's room in place, temporary units for the men's shortfall at the largest events
+·
   7
 KS-REG
  11
-11.95
+11.85
  21
-5.074874999999998
+4.983208333333331
  31
 0.0
 100
@@ -111639,21 +111639,21 @@ A-ANNO-TEXT
 100
 AcDbText
  10
-11.85
+11.95
  20
-4.960291666666665
+4.983208333333331
  30
 0.0
  40
 0.05
   1
-Until D-069 is decided: events above the drawn fixture count use temporary units (D-064 Option 2).
+Option 3 — mix: Option 1 for the men's room + Option 2 for the women's room (as D-069)
   7
 KS-REG
  11
-11.85
+11.95
  21
-4.960291666666665
+4.983208333333331
  31
 0.0
 100
@@ -111673,19 +111673,19 @@ AcDbText
  10
 11.85
  20
-4.849374999999998
+4.868624999999998
  30
 0.0
  40
-0.048
+0.05
   1
-Sources: params/phase2_enlarged.yaml, phase2_enlarged_rev_b.yaml, phase2_plan_rev_h.yaml; IBC 2021 T2902.1, 2902.1.1,
+Until D-069 is decided: events above the drawn fixture count use temporary units (D-064 Option 2).
   7
 KS-REG
  11
 11.85
  21
-4.849374999999998
+4.868624999999998
  31
 0.0
 100
@@ -111705,19 +111705,19 @@ AcDbText
  10
 11.85
  20
-4.761374999999998
+4.757708333333332
  30
 0.0
  40
 0.048
   1
-1006.2.1, T1004.5, T1017.2; IPC 2021 405.3.1, 405.3.5, 424.2 (UpCodes, retrieved 2026-10-04); ADA 2010 213.3, 304.3, 604.8,
+Sources: params/phase2_enlarged.yaml, phase2_enlarged_rev_b.yaml, phase2_plan_rev_h.yaml; IBC 2021 T2902.1, 2902.1.1,
   7
 KS-REG
  11
 11.85
  21
-4.761374999999998
+4.757708333333332
  31
 0.0
 100
@@ -111737,7 +111737,39 @@ AcDbText
  10
 11.85
  20
-4.673374999999998
+4.669708333333332
+ 30
+0.0
+ 40
+0.048
+  1
+1006.2.1, T1004.5, T1017.2; IPC 2021 405.3.1, 405.3.5, 424.2 (UpCodes, retrieved 2026-10-04); ADA 2010 213.3, 304.3, 604.8,
+  7
+KS-REG
+ 11
+11.85
+ 21
+4.669708333333332
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+117E
+330
+17
+100
+AcDbEntity
+  8
+A-ANNO-TEXT
+100
+AcDbText
+ 10
+11.85
+ 20
+4.5817083333333315
  30
 0.0
  40
@@ -111749,7 +111781,7 @@ KS-REG
  11
 11.85
  21
-4.673374999999998
+4.5817083333333315
  31
 0.0
 100
@@ -112745,7 +112777,7 @@ CREATED_BY_EZDXF
   3
 WRITTEN_BY_EZDXF
 350
-1180
+1181
   0
 DICTIONARYVAR
   5
@@ -112757,11 +112789,11 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-04T18:54:17.653042+00:00
+1.4.4 @ 2026-10-04T19:08:36.965020+00:00
   0
 DICTIONARYVAR
   5
-1180
+1181
 330
 2D
 100
@@ -112769,7 +112801,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-04T18:54:17.709985+00:00
+1.4.4 @ 2026-10-04T19:08:37.037780+00:00
   0
 ENDSEC
   0
