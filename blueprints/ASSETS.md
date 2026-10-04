@@ -410,3 +410,10 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **New research source (box only):** `research_src/ada2010_v2.txt`, the 2010 ADA Standards text from www.ada.gov (retrieved 2026-10-04). New note `research/R-024-ada-locker-rooms.md`.
 - **New file in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-401_RevA.pdf`.
 - **Preview (box only):** `/workspace/keystone_previews/P2-A-401.png` / `.pdf`.
+
+## 2026-10-04 additions (11:45 AM CT session, P2-A-103 Rev A)
+- **New data:** `params/phase2_overlays.yaml` holds the wrestling clearances (NFHS, R-005), the furniture sets (ASSUMED), the court notes, the telescopic open / closed basis and the floor-case hatches and notes. `phase2.yaml` is now v20.
+- **New sheet (repo):** `phase2/out/{pdf,dxf}/P2-A-103_RevA` (PDF sha256 `c2c743efd8592130…`).
+- **Research:** `research/R-007-occupancy-and-occupant-load.md` §R-007.5 (sections quoted from `research_src/upc_ibc10.txt`).
+- **New file in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-103_RevA.pdf`.
+- **Preview (box only):** `/workspace/keystone_previews/P2-A-103.png` / `.pdf`.

@@ -42,6 +42,7 @@
 # v18, 2026-10-04 11:07 AM CT: L1 exits Option 1 DECIDED (E1 8-pair door bank, 512 in clear; D-054 note); P2-A-101 Rev G
 #     (params/phase2_plan_rev_g.yaml), Rev F frozen; new sheet P2-A-111 Rev A life safety plan (params/phase2_life_safety.yaml).
 # v19, 2026-10-04 11:24 AM CT: new sheet P2-A-401 Rev A enlarged plans, event locker rooms 1-4 (params/phase2_enlarged.yaml); D-066 OPEN.
+# v20, 2026-10-04 11:45 AM CT: new sheet P2-A-103 Rev A floor overlays (mats, court, telescopic open / closed, floor cases; params/phase2_overlays.yaml).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -746,6 +747,17 @@ sheets:
         inputs: "params/phase2_enlarged.yaml + params/phase2_plan_rev_g.yaml"
         source: "Shane 2026-10-04 11:24 AM CT (next standard step P2-T-010: P2-A-401 Rev A, the 4 event locker rooms only at 1/8 in scale; restroom core waits on D-064; doors so the common path <= 75 ft; ADA 2010 cited)"
     source: "Shane 2026-10-04 11:24 AM CT; BACKLOG P2-T-010"
+  P2-A-103:
+    title: FLOOR OVERLAYS — MATS, SEATING + FLOOR CONVERSIONS
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_overlays.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml"
+    revisions:
+      A:
+        file: P2-A-103_RevA
+        frozen: false
+        inputs: "params/phase2_overlays.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml"
+        source: "Shane 2026-10-04 11:45 AM CT (next standard step P2-T-005: P2-A-103 Rev A overlays on the Rev G plan: wrestling 4 x 42 ft mats 2 x 2 with NFHS clearances; basketball / volleyball only if in params / decisions; telescopic tier open vs closed; G-002 floor cases hatched; D-054 OPEN)"
+    source: "Shane 2026-10-04 11:45 AM CT; BACKLOG P2-T-005"
 
 sets:
   phase2_schematic_set_rev_a:

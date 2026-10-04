@@ -1,0 +1,105 @@
+# phase2_overlays.yaml: P2-A-103 FLOOR OVERLAYS — MATS, SEATING + FLOOR CONVERSIONS (Phase 2, BACKLOG P2-T-005). Read by
+# phase2/src/p2_a_103.py. Rev A, 2026-10-04 (Shane 11:45 AM CT): overlays on the P2-A-101 Rev G plan: (a) wrestling 4 x 42 ft mats
+# 2 x 2 with NFHS-cited clearances; (b) basketball / volleyball only where params / decisions already hold them (else TBD, no new
+# program); (c) telescopic lower tier open vs closed floor zones; (d) event-floor occupancy cases from P2-G-002 Rev A as hatched
+# zones with layout notes. D-054 (floor uses) stays OPEN; D-064 / D-065 / D-066 stay OPEN (not assumed).
+# Units: feet on plan (origin = SW building corner, x east, y north; same as phase2_plan_rev_g.yaml).
+# Status: every furniture position is ASSUMED (KEYSTONE, LOW) unless a field cites a rule.
+
+meta:
+  sheet: P2-A-103
+  title: "FLOOR OVERLAYS — MATS, SEATING + FLOOR CONVERSIONS"
+  revision: A
+  file: P2-A-103_RevA
+  size: "17 x 11 in (tabloid), landscape"
+  scale_text: "AS NOTED"
+  panel_scale_ft_per_in: 50
+  panel_scale_text: "1\" = 50'-0\""
+  mini_scale_ft_per_in: 100
+  mini_scale_text: "1\" = 100'-0\""
+  view: [50, 50, 194, 230]
+  disclaimer: "Schematic overlays for the owner, the architect of record and the AHJ. Not a code review and no statement of approval (D-008). Sports rules quoted from older NFHS editions (current books paywalled): UNVERIFIED against the current edition. Furniture positions ASSUMED."
+  source: "Shane 2026-10-04 11:45 AM CT (next standard step P2-T-005: P2-A-103 Rev A overlays on the Rev G plan, items a-d; params first; cite or ASSUMED)"
+
+basis:
+  plan: params/phase2_plan_rev_g.yaml
+  plan_text: "P2-A-101 Rev G (event floor 120 x 144 ft, x 56-176 / y 68-212; mats, court, tiers, portal, V1, V2 read from the plan params)"
+  loads: "params/phase2_code.yaml event_floor (the P2-G-002 Rev A cases)"
+  source: "phase2_plan_rev_g.yaml; phase2_code.yaml; P2-G-002 Rev A"
+
+wrestling:
+  mat_ft: 42
+  circle_min_ft: 28
+  safety_ft: 5
+  clear_ft: 10
+  table_from_mat_ft: 10
+  bench_from_mat_ft: 10
+  bench_from_table_ft: 10
+  wall_rec_ft: 10
+  rules:
+    - {id: circle, text: "Wrestling area = circle >= 28 ft diameter + safety mat area approximately 5 ft wide", rule: "NFHS 2-1-2", source: "R-005.1 (NFHS 2014-15 text; current edition UNVERIFIED)"}
+    - {id: clear, text: "Mat area = the mat + at least 10 ft surrounding it (+ benches and scorer's table where facilities permit)", rule: "NFHS 2-1-5", source: "R-005.3"}
+    - {id: table, text: "Scorer's table at least 10 ft from the mat edge and the benches, where facilities permit", rule: "NFHS 2-3", source: "R-005.3"}
+    - {id: bench, text: "Team bench (dual meets) at least 10 ft from the mat and 10 ft from the scorer's table", rule: "NFHS 2-1-5, 2-2-1", source: "R-005.3"}
+    - {id: overlap, text: "Safety areas of adjoining mats must not overlap; about 10 ft from the circle to walls / immovable objects recommended", rule: "KHSAA (state interpretation)", source: "R-005.3 S5 (secondary)"}
+    - {id: height, text: "No NFHS competition clear height found; basketball 25 ft governs the multi-use floor", rule: "R-019", source: "R-019 (P2-A-201: >= 25 ft clear, cited)"}
+  furniture:
+    table: {len_ft: 8, depth_ft: 2.5, status: ASSUMED, source: "KEYSTONE (typical folding table; size not in NFHS text found)"}
+    bench: {len_ft: 10, depth_ft: 1.5, status: ASSUMED, source: "KEYSTONE (bench length not in NFHS text found)"}
+    offset_ft: 10.5
+    offset_basis: "front edge 10.5 ft from the mat edge (>= 10 ft, NFHS 2-1-5 / 2-3; 0.5 ft tolerance ASSUMED)"
+    sets:
+      - {mat: M1, side: N, table_x: [78, 86], benches_x: [[58, 68], [96, 106]], source: "KEYSTONE layout"}
+      - {mat: M2, side: N, table_x: [133, 141], benches_x: [[113, 123], [151, 161]], source: "KEYSTONE layout: west bench ends 0.85 ft west of V1 (x 123.85-131.85) so the vomitory path stays clear"}
+      - {mat: M3, side: S, table_x: [78, 86], benches_x: [[58, 68], [96, 106]], source: "KEYSTONE layout: east bench ends 1 ft west of the portal (x 107-119)"}
+      - {mat: M4, side: S, table_x: [140, 148], benches_x: [[120, 130], [158, 168]], source: "KEYSTONE layout: west bench starts 1 ft east of the portal"}
+    keep_clear: "portal aisle x 107-119 (S) and V1 aisle x 123.85-131.85 (N) kept clear of tables and benches (egress paths T2 / V1, P2-A-111)"
+    tournament: "Tournaments: up to two team personnel in chairs at the mat edge (NFHS 2-2-2); dual meets can use one mat (R-005.5)"
+    source: "R-005.3, R-005.5; KEYSTONE layout (ASSUMED)"
+  source: "R-005 (NFHS Wrestling 2-1-2, 2-1-5, 2-2-1, 2-2-2, 2-3); D-014 (42 ft mats); D-030 (2 x 2); D-053 (east 16 ft); R-019"
+
+court:
+  markings: "boundary + division line only (other markings not drawn: not researched)"
+  benches_table: "team benches / scorer's table for basketball: TBD (not in params or decisions)"
+  volleyball: "VOLLEYBALL: TBD — phase2.yaml volleyball_courts: TBD; R-012 volleyball not researched. Nothing drawn (no new program)."
+  second_court: "2nd basketball court: TBD (phase2.yaml basketball_second_court: TBD; 'only after clear span is measured')"
+  height_ft: 25
+  height_source: "R-019 S1 (Draper reprint of NFHS: >= 25 ft above the court recommended; volleyball >= 23 ft); P2-A-201 cites >= 25 ft"
+  source: "phase2.yaml spaces.courts (basketball_full_courts: 1, volleyball_courts: TBD); phase2_plan_rev_g.yaml court; R-012 (NFHS Basketball 1-1, 1-2-1); R-019"
+
+tiers:
+  closed_depth_in: 42
+  closed_basis: "Hussey MAXAM 6 rows closed 3'-6\" (wall attached), research_src/hussey_maxam.pdf (R-008 S4); phase2_sightlines.yaml stack"
+  placement: "stack closes against the upper-tier face line (N y = 224, S y = 56, E x = 188): P2-A-302 Rev C keeps the stack in front of the upper-tier face, not recessed (open rows 5-6 would sit under < 7'-6\")"
+  sides: "each side (N, S, E) operates on its own (ASSUMED; banks and motorization TBD, manufacturer)"
+  code: "Folding and telescopic seating that is not a building element: ICC 300 (IBC 2021 1030.1.1). Spaces under bleachers: 1-hour separation unless an exception applies (1030.1.1.1) — architect"
+  code_source: "IBC 2021 1030.1.1, 1030.1.1.1 (UpCodes, research_src/upc_ibc10.txt, retrieved 2026-10-04)"
+  source: "phase2_plan_rev_g.yaml tiers.lower; phase2_sightlines.yaml stack; phase2_sect.yaml seating.lower; P2-A-302 Rev C; D-009 (telescopic lower tier)"
+
+occupancy:
+  zone: [56, 68, 170, 212]
+  zone_basis: "P2-G-002 Rev A counts 114 x 144 ft = 16,416 SF (the D-030 program floor). Hatched from the west floor edge; the east 6 ft strip (D-053 east clear zone) is left unhatched"
+  drawn_sf: 17280
+  drawn_note: "whole drawn floor zone 120 x 144 = 17,280 SF: standing 3,456 (P2-A-111 sensitivity; E1 479.4 in, still under 512)"
+  hatch:
+    sports: {source: "KEYSTONE drafting convention", angle: 45, step_ft: 12}
+    tables: {source: "KEYSTONE drafting convention", angle: 45, step_ft: 8, cross: true}
+    chairs: {source: "KEYSTONE drafting convention", angle: 0, step_ft: 5}
+    standing: {source: "KEYSTONE drafting convention", angle: 45, step_ft: 3.5}
+  notes:
+    sports: "Mats (a) or court (b) on the floor; tier open. Exercise 50 gross ASSUMED for sports use (AHJ assigns)."
+    tables: "Tables + chairs: aisle widths measured 19 in from the table edge (1030.13.1); level aisles 42 in (seats both sides) / 36 in (one side) (1030.9.1). Table layout TBD."
+    chairs: "Chairs in rows: >= 12 in clear between rows up to 14 seats, + 0.3 in per seat beyond 14 (backrests), <= 100 seats per row with aisles both ends (1030.13.2, 1030.13.2.1). Row plan TBD."
+    standing: "Open floor, no stage drawn (stage / platform TBD, D-054). Worst case: L1 exits sized for it (P2-A-111 Rev A); restrooms short (D-064 OPEN)."
+    source: "IBC 2021 1030.9.1, 1030.13.1, 1030.13.2, 1030.13.2.1 (UpCodes, research_src/upc_ibc10.txt); R-007.2; P2-A-111 Rev A; D-054, D-064"
+  posting: "Post the occupant load for each intended configuration near the main exit (IBC 2021 1004.9)"
+  closed_case: "tier closed: floor zone grows to 128.5 x 161 ft; lower seats unavailable"
+  source: "P2-G-002 Rev A (phase2_code.yaml event_floor, IBC 2021 Table 1004.5, R-007.2); D-054 OPEN (floor uses); Shane 2026-10-04 10:48 AM CT (worst-case egress rule) + 11:07 AM CT (E1 bank); IBC 2021 1004.9, 1030.9.1, 1030.13.1, 1030.13.2, 1030.13.2.1 (UpCodes, research_src/upc_ibc10.txt, retrieved 2026-10-04)"
+
+open_items:
+  - {id: D-054, text: "Floor uses beyond sports (concerts, graduations, expos): OPEN — cases shown for planning only", source: "DECISIONS.md D-054"}
+  - {id: D-064, text: "Restrooms at the worst case: OPEN", source: "DECISIONS.md D-064"}
+  - {id: D-065, text: "Checkpoint vs egress: OPEN", source: "DECISIONS.md D-065"}
+  - {id: D-066, text: "Exit discharge from E1 vs the 28 ft walk / arch: OPEN", source: "DECISIONS.md D-066"}
+
+source: "KEYSTONE 2026-10-04 (Shane 11:45 AM CT); params/phase2_plan_rev_g.yaml; params/phase2_code.yaml; R-005, R-008, R-012, R-019, R-007"

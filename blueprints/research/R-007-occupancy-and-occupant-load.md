@@ -91,3 +91,14 @@ Application (P2-A-111 Rev A, plan Rev G):
 - **Exit discharge from E1:** must be at least 466.5 in. The 28 ft walk is 336 in. TBD (site).
 
 CONFIDENCE: HIGH for the text / LOW for the geometry (walls, doors, aisles not laid out). NEEDS ARCHITECT CONFIRMATION: YES.
+
+## R-007.5 — Addendum 2026-10-04 11:45 AM CT (P2-A-103 Rev A floor overlays)
+
+Source: IBC 2021 Chapter 10 (UpCodes copy, `research_src/upc_ibc10.txt`, retrieved 2026-10-04). Quoted for the floor configurations on P2-A-103. CONFIDENCE: HIGH (code text); application: NEEDS ARCHITECT + AHJ CONFIRMATION.
+
+- **1004.9 Posting of occupant load:** "Every room or space that is an assembly occupancy shall have the occupant load of the room or space posted in a conspicuous place, near the main exit or exit access doorway from the room or space, for the intended configurations."
+- **1030.1.1 Bleachers:** "Bleachers, grandstands and folding and telescopic seating, that are not building elements, shall comply with ICC 300." **1030.1.1.1:** spaces under grandstands or bleachers get 1-hour fire barriers / horizontal assemblies, with exceptions (ticket booths < 100 SF, toilet rooms, other accessory areas ≤ 1,000 SF if sprinklered). ICC 300 itself was not reviewed.
+- **1030.9.1 Minimum aisle width:** 48 in for stepped aisles with seats both sides (36 in if < 50 seats); 36 in one side; **42 in for level or ramped aisles with seating on both sides** (36 in if < 50 seats; 30 in if < 15 seats and not an accessible route); 36 in level, one side.
+- **1030.13.1 Seating at tables:** aisle / aisle accessway width measured to a line 19 in from the table edge (from the back of fixed seats).
+- **1030.13.2 Rows:** rows of 14 or fewer seats need ≥ 12 in clear between rows. **1030.13.2.1 Dual access:** ≤ 100 seats per row with aisles at both ends; + 0.3 in per seat beyond 14 (backrests) or beyond 21 (no backrests); never more than 22 in.
+- Not researched: crowd managers (IFC), stage / platform rules, temporary seating layout approval.

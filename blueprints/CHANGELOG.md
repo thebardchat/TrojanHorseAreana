@@ -615,3 +615,20 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
   - The restroom core is NOT drawn: it waits on D-064, and the sheet says so.
 - **Research:** ADA 2010 Standards text saved to the box (`research_src/ada2010_v2.txt`, www.ada.gov, retrieved 2026-10-04). Sections are quoted in the new note `research/R-024-ada-locker-rooms.md`.
 - **Frozen check:** every other revision re-renders byte-identical.
+
+## 2026-10-04 11:45 AM CT — P2-A-103 Rev A floor overlays (mats, court, telescopic tier, floor cases)
+- D-064, D-065 and D-066 stay OPEN (Shane has not answered; nothing assumed). D-054 (floor uses) stays OPEN. Open count stays 20.
+- **P2-A-103 Rev A** (new `params/phase2_overlays.yaml`, `phase2/src/p2_a_103.py`; `phase2.yaml` v20): four overlays on the P2-A-101 Rev G plan at 1" = 50'-0" (cases at 1" = 100'-0").
+  - **(a) Wrestling:** 4 × 42 ft mats, 2 × 2 (D-014, D-030). Checked on the layout, all PASS:
+    - circle + safety area: 42 ft mat vs ≥ 38 ft (NFHS 2-1-2);
+    - space around each mat: W 10 / between 10 / E 16 / S and N 25 ft vs ≥ 10 (2-1-5);
+    - scorer's table 10.5 ft from the mat (2-3); benches 10.5 ft from the mat and 10 ft from the table (2-1-5);
+    - circle to walls / tier front: W 17 / E 23 / S and N 32 ft vs about 10 ft (KHSAA recommendation).
+    - Tables (8 × 2.5 ft) and benches (10 × 1.5 ft) are ASSUMED. The portal and V1 aisles are kept clear. NFHS text is the 2014-15 edition (current book UNVERIFIED).
+  - **(b) Basketball:** only the 1 court already in params: 84 × 50 ft (NFHS 1-1) + 10 ft runout (1-2-1); 22 / 28 / 20 / 20 ft to the floor edges. Volleyball and a 2nd court are TBD (not in params or decisions; not drawn).
+  - **(c) Telescopic lower tier:** open (12 ft) floor 120 × 144 = 17,280 SF vs closed (3'-6" Hussey stack at the upper-tier face) 128'-6" × 161'-0" = 20,689 SF (+3,409 SF, lower seats stowed). ICC 300 via IBC 1030.1.1.
+  - **(d) Floor cases from P2-G-002 Rev A,** hatched on 114 × 144 = 16,416 SF: sports 329 / tables + chairs 1,095 / chairs 2,346 / standing 3,284 (L1 1,803 / 2,569 / 3,820 / 4,758), with layout notes (IBC 1030.9.1, 1030.13.1, 1030.13.2, 1030.13.2.1; posting 1004.9).
+    - Tier closed: standing 4,138 / chairs 2,956 with no lower seats gives L1 4,512 / 3,330, below the 4,758 design case (arithmetic).
+  - Flag (no new program): chair / table / stage storage is not in the program (TBD, D-054).
+- **Research:** R-007.5 addendum (1004.9, 1030.1.1, 1030.1.1.1, 1030.9.1, 1030.13.1, 1030.13.2, 1030.13.2.1).
+- **Frozen check:** every other revision re-renders byte-identical.
