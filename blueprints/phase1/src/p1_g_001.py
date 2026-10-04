@@ -70,7 +70,10 @@ def box(sh: Sheet, x, y, w, h, title):
     sh.rect(x, y, w, h, lw=1.0)
     hb = 0.34
     sh.line(x, y + h - hb, x + w, y + h - hb, lw=0.8)
-    sh.text(x + 0.1, y + h - hb + 0.1, title, size=HEAD, bold=True)
+    hs = HEAD
+    while text_width_in(title, hs, True) > w - 0.2 and hs > 9:
+        hs -= 0.5                                   # shrink long headings to fit the box
+    sh.text(x + 0.1, y + h - hb + 0.1, title, size=hs, bold=True)
     return x + 0.12, y + h - hb - 0.04, w - 0.24
 
 
@@ -243,7 +246,7 @@ def build(p1: dict, p2: dict, rev: str = "B") -> Sheet:
     fits("W3 table", sh.para(x, yy - 0.02, w, rv["table_footnote"], size=8.5), r1_y)
 
     # ---- row 2: not included / who approves / waiting on / photos --------
-    ws2 = [avail * f for f in (0.19, 0.25, 0.33)]
+    ws2 = [avail * f for f in ((0.19, 0.25, 0.33) if codes else (0.17, 0.335, 0.275))]
     ws2.append(avail + 2 * GAP - sum(ws2) - 3 * GAP + GAP)   # photos column
     xs2 = [x0]
     for wv in ws2[:-1]:
@@ -266,8 +269,11 @@ def build(p1: dict, p2: dict, rev: str = "B") -> Sheet:
     chain = rv.get("approvals_chain") or p1["approvals"]["chain_plain"]
     for i, step in enumerate(chain, 1):
         y = sh.para(x, y, w, step, size=BODY + 0.5, indent=0.25, bullet=f"{i}.")
-    if rv.get("approvals_note"):
-        y = sh.para(x, y - 0.03, w, rv["approvals_note"], size=BODY)
+    note = rv.get("approvals_note")
+    if rv.get("approvals_note_from") == "approvals.note_plain":
+        note = p1["approvals"]["note_plain"]
+    if note:
+        y = sh.para(x, y - 0.03, w, note, size=BODY if codes else BODY - 1)
     sch = p1["schedule"]
     y = labeled(sh, x, y, w, "Scope confirmation expected", f"{sch['scope_confirmation_expected']} ({sch['confirming_parties']})")
     fits("WHO APPROVES", y, r2_y)

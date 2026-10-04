@@ -109,3 +109,23 @@
 - New phase1.yaml fields, sourced "Shane 2026-10-03": `contacts.requester`, W1/W2 `why`, `approvals.chain_plain`, `standards.wall_pads.sheet_basis_plain`.
 - `shared/titleblock.py`: the PDF CreationDate is no longer stamped, so later builds can be reproduced exactly.
 - `shared/validate.py` adds check 6b: every `*principal*.pdf` must contain no `D-0`/`R-0` codes and no "spelling". Tested against the Rev A text, it catches 9 codes plus "spelling".
+
+## 2026-10-03 · P1-T-009 · R-002 approval path + R-004 donated labor/materials
+- `research/R-002-approval-path.md`:
+  - DCM says all public K-12 work gets DCM plan review, a pre-construction conference and inspections, at any cost and from any funding source, donations included. DCM fees are waived at or below $750k. DCM's own "Step 1" verifies each small scope.
+  - The MCSS Booster & Support Organizations Guidelines (2021 file) say: campus building/land improvements go to the Board of Education; a Board employee is in charge; full design team; state review and inspection; "same process regardless of funding."
+  - District facilities office: MCSS Operations & Facilities.
+  - Gap: MCSS board policy (Simbli) was not readable.
+- `research/R-004-donated-labor-materials.md`:
+  - Public works sealed bids above $100,000 (§39-2-2). School-board purchases $40,000+ (§16-13B-1, per Examiners Feb 2025).
+  - AG opinions (via Examiners): work paid entirely with private funds is not "public works" for bid law. None involve a school board.
+  - GC license at $100,000+ (Act 2024-277).
+  - Plumbing (§34-37-15) and electrical (303-X-3-.07) licenses required except owner / owner-employee exemptions. Volunteers are not addressed.
+  - Bonds not required under $100,000. Insurance: DCM tells self-performing owners to consult their carrier.
+  - Every finding is flagged NEEDS DISTRICT CONFIRMATION. No legal advice.
+- phase1.yaml: `approvals.chain_per_sources`, `approvals.district_facilities_office`, `approvals.note_plain`, `standards.approvals_refs` (sources R-002 / R-004). Rev B approver line 2 is now "District facilities (MCSS Operations & Facilities)".
+- P1-G-001 Rev B regenerated:
+  - WHO APPROVES adds a plain note: "District guidelines send campus building improvements to the Board of Education. State building review (Alabama DCM) may also apply."
+  - Row-2 widths changed for Rev B, and long box headings now shrink to fit.
+- **Rev A unchanged.** Regenerating to /tmp still gives identical text. It stays frozen as the internal copy, so its "Who approves" was not edited, even though the R-files are in.
+- D-004 notes updated; still OPEN. DECISIONS open count: 16.

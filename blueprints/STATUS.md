@@ -1,6 +1,6 @@
 # KEYSTONE — 2026-10-03
-HEALTH: YELLOW · P1 20% · P2 2% · Ticket P1-T-009
-WHAT CHANGED: P1-G-001 Rev B principal version shipped: plain words, no internal codes, requester line, asks list. Rev A kept frozen as internal copy. D-003 decided: pads 6 ft high. Walls + pad supplier still open (D-021).
+HEALTH: YELLOW · P1 30% · P2 2% · Ticket P1-T-010
+WHAT CHANGED: R-002 + R-004 done: DCM reviews/inspects all public K-12 work (any cost, any funding); district guidelines send campus improvements to the Board. Rev B approval wording refined. Pads 6 ft decided.
 WHAT TO VERIFY: Rev B wording before it goes to the principal (phone + email print on the sheet, and the repo is public)
-NEXT ACTION: P1-T-009: research R-002 + R-004 (approval and donation path on school property) and fill 'Who approves' on P1-G-001. P1-T-005..008 wait on measurements.
-QUESTION FOR SHANE: Can you tape-measure the wrestling room and walk-through room, snap photos, and get the coach's call on pad height (6 ft or ___ ft)?
+NEXT ACTION: Waiting on room measurements + photos for P1-T-005..008 (P1-A-101, A-102, A-201, P-001); then P1-T-010 bundle + PR. Approval path needs district confirmation.
+QUESTION FOR SHANE: Can you tape-measure the wrestling room and walk-through room and snap photos this week? (Rev B asks the school for permission to do this.)

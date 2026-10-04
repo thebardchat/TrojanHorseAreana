@@ -129,10 +129,17 @@ approvals:
   chain: TBD          # principal → district facilities → anyone else
   chain_plain:        # plain-words order shown on P1-G-001 Rev B (principal version)
     - Principal
-    - District facilities (Madison County Schools)
+    - District facilities (MCSS Operations & Facilities)
     - Others as the district requires
+  note_plain: "District guidelines send campus building improvements to the Board of Education. State building review (Alabama DCM) may also apply."
+  chain_per_sources:  # draft from R-002; NEEDS DISTRICT CONFIRMATION (D-004 stays OPEN)
+    - Principal
+    - MCSS Operations & Facilities
+    - Madison County Board of Education (building/land improvements)
+    - Alabama DCM plan review + inspections; SDE School Architect reviews contracts if any
+  district_facilities_office: MCSS Operations & Facilities, 1275 Jordan Road, Huntsville
   donated_labor_materials_allowed: TBD
-  source: "D-004; chain_plain → Shane 2026-10-03; research → R-002, R-004"
+  source: "D-004 (OPEN); chain_plain → Shane 2026-10-03, line 2 office name + note_plain → R-002; chain_per_sources, district_facilities_office → R-002; donated work → R-004 (needs district confirmation)"
 
 schedule:
   scope_confirmation_expected: "~end of October 2026"
@@ -227,6 +234,19 @@ standards:
       tactile_sign_baseline_height_in: "703.4"
       source: "R-003 (section numbers per 2010 ADA Standards)"
 
+  approvals_refs:      # reference values only (R-002 / R-004); NOT legal or procurement advice
+    dcm_review_k12: "all public K-12 projects: DCM plan review + pre-construction conference + inspections, regardless of cost or funding (incl. donations); DCM verifies small scopes case by case"
+    dcm_fee_exempt_max_usd: 750000      # fully locally-funded K-12: no DCM fees at or below; still reviewed/inspected
+    public_works_sealed_bid_over_usd: 100000   # Ala. Code 39-2-2(a)(1); DCM asks 3 quotes at or below
+    school_board_purchase_bid_min_usd: 40000   # Ala. Code 16-13B-1 (Act 2023-203), per Examiners Feb 2025; MEDIUM
+    gc_license_min_usd: 100000          # Ala. Code 34-8-1(a), Act 2024-277
+    bonds_not_required_under_usd: 100000   # performance/payment 39-1-1(e); bid bonds DCM MOP 6.D.2
+    plumbing_license: state certificate required except 34-37-15 exemptions (owner; owner's regular maintenance employee); volunteers not addressed
+    electrical_license: state license required except 303-X-3-.07 exemptions (owner; owner's employee/maintenance person); volunteers not addressed
+    privately_funded_work: AG opinions (via Examiners) say work paid entirely with private funds is not "public works" for bid law; none involve a school board
+    confidence: "DCM review HIGH; thresholds HIGH ($40k MEDIUM); donated/volunteer application LOW"
+    source: "R-002, R-004 (retrieved 2026-10-03); NEEDS DISTRICT CONFIRMATION"
+
 # ---------------------------------------------------------------------------
 # Sheet register (title block data). Drawing code reads these; nothing hard-coded.
 sheets:
@@ -275,7 +295,7 @@ sheets:
           - A district facilities contact
           - How approval works for this kind of work
         approvals_heading: WHO APPROVES
-        approvals_note: ""
+        approvals_note_from: approvals.note_plain
         table_heading: KEY 2010 ADA NUMBERS FOR EACH RESTROOM
         table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
         show_why: true
