@@ -1,6 +1,6 @@
 # KEYSTONE — 2026-10-04
 HEALTH: YELLOW · P1 50% · P2 40% · Ticket P2-T-009
-WHAT CHANGED: P1-T-008 done: P1-P-001 Rev A plumbing/water restore scope narrative (fixture list, licensed-plumber note, no design). Phase 1 unblocked ticket ahead of A-301.
-WHAT TO VERIFY: P1-P-001 Rev A: fixture counts match Shane's 2026-10-03 report; sink count still TBD; no pipe sizes invented. D-002 stays OPEN until plumber visit + photos.
-NEXT ACTION: Resume P2-T-009 (P2-A-301 sections) or P2-T-007 (R-006/R-007). Phase 1 first when Dr. Headen's data arrives. Answer D-040 (brand).
-QUESTION FOR SHANE: Phase 2 is your build, not the school's. Should the south portal carry the Hazel Green Trojans (HGHS) badge, or your own complex name and logo? For now it says BRAND / SIGNAGE — TBD.
+WHAT CHANGED: Official mark logged (D-041), on the portal above the arch with TROJAN HORSE ARENA + side panel. Portal is freestanding over the brick Champion Walk (D-043). P2-A-201 Rev A frozen; Rev B drawn with key plan. Trademark search and walk details OPEN.
+WHAT TO VERIFY: Rev B sizes ASSUMED: mark 6 ft dia, wordmark 18 in caps, side panel 46 x 7.5 ft, portal 30 ft in front of the entrance, walk 28 ft wide. Soffit drawn crimson with a thin gold edge. Next A-101 revision adds portal + walk.
+NEXT ACTION: Shane reviews P2-A-201 Rev B and answers the soffit color and D-044 (walk size, donor bricks). Trademark search (D-042) before any signage. Then A-301 sections and the A-101 site revision. Phase 1 first when Dr. Headen data arrives.
+QUESTION FOR SHANE: Your photo shows the underside of the arch in crimson, but earlier you said gold soffit. Should the underside be crimson with gold trim (as drawn), or all gold?

@@ -209,3 +209,17 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 ## 2026-10-04 additions (~6:10 AM CT session, P1-T-008 plumbing scope)
 - **New Phase 1 sheet** `phase1/out/{pdf,dxf}/P1-P-001_RevA` (plumbing / water restore scope narrative, 11x17 landscape, NTS), from new `phase1/src/p1_p_001.py`. Params: `existing.plumbing` structured inventory/scope/asks/licensed_trade + `sheets.P1-P-001`. Scope narrative only — no pipe sizing / no design. Cross-refs frozen P1-G-001 Rev D + P1-A-101 Rev A (`Phase1_Package_for_Dr_Headen`).
 - **Preview (box only):** `/workspace/keystone_previews/P1-P-001.png`.
+
+## 2026-10-04 additions (6:16 / 6:22 AM CT session, official mark, freestanding portal, P2-A-201 Rev B)
+- **New brand files** (`blueprints/brand/`), Shane's chat attachments 6:16 AM CT = copies of `Desktop\ARENA\THA_logo_*.svg` on his PC; colour identified by the `fill` of the single path; identical geometry; official mark per D-041:
+
+| File | Fill | sha256 |
+|---|---|---|
+| `brand/THA_logo_black.svg` | #1A1A1A | `81d190a7d3f9f95072ce683fa216d7c94a93202f9e7d77f8e41255cd67e6487f` |
+| `brand/THA_logo_red.svg` | #CC0000 | `ae2423c926759bc07babfaef70b2154fb73be7a09222250de45687104741ed16` |
+| `brand/THA_logo_white.svg` | #FFFFFF | `b6a8fea9a77b0e7d3d9a6cde903e0f5daa9e9f690e63ed5ca385aeb387b50510` |
+
+- Not committed: Shane's JPG preview (black mark on a transparency checker, 2256 x 1888, sha256 `452cbfde78659d0dbed0a75ba7c9b553d9c1884c664992064f6f03eaf06ddd81`, box attachment only) and the `THA_logo_*.png` files on his PC (not on the box). Logo Concepts 01 / 02: SUPERSEDED by D-041, kept as history; not located in the repo or on the box.
+- **New reference** `references/portal_freestanding_champion_walk_ref.png` (Shane 6:22 AM CT: freestanding limestone arch, crimson soffit, paved promenade, low walls / planters; 1024 x 576 PNG; sha256 `93ae1c778c192c3db4af6a21463264571d8e39402b64d5c71a8b80eedadd7570`). Look reference only (D-043).
+- **New Phase 2 sheet** `phase2/out/{pdf,dxf}/P2-A-201_RevB` (exterior elevations with the official mark, freestanding portal, Champion Walk, key plan, brand detail) from `phase2/src/p2_a_201.py --rev B` (default); Rev A FROZEN and unchanged. New data file `params/phase2_elev_rev_b.yaml` (Rev B overlay; `phase2_elev.yaml` stays the frozen Rev A input).
+- **Previews (box only):** `/workspace/keystone_previews/P2-A-201.png` + `.pdf` (now Rev B), `P2-A-201_RevA.png` (Rev A kept).

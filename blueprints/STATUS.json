@@ -8,7 +8,7 @@
   "phase1_percent": 50,
   "phase2_percent": 40,
   "current_ticket": "P2-T-009",
-  "current_ticket_title": "P2-A-301 sections next (P2-A-201 Rev A done); P1-T-008 P1-P-001 Rev A shipped",
+  "current_ticket_title": "P2-A-201 Exterior Elevations Rev B: official Trojan Horse Arena mark (D-041) on a freestanding portal over the brick Champion Walk (D-043); Rev A frozen",
   "sheets_done": [
     "P1-G-001 Rev A (internal)",
     "P1-G-001 Rev B (principal)",
@@ -31,17 +31,18 @@
     "P2-A-101 Rev D (Level 1 block plan, FLEX labels, approved, frozen)",
     "P2-A-102 Rev D (Level 2 block plan, approved, frozen)",
     "Phase 2 Schematic Set Rev A (G-003 F + A-101 D + A-102 D, one 17 x 11 PDF, frozen)",
-    "P2-A-201 Rev A (exterior elevations)"
+    "P2-A-201 Rev A (exterior elevations, placeholders, frozen)"
   ],
   "sheets_in_progress": [
+    "P2-A-201 Rev B (exterior elevations, official mark, freestanding portal)",
     "P2-A-301 sections (not started)"
   ],
   "last_commit": "901cb24",
   "branch": "grok/keystone",
-  "open_decisions": 17,
-  "blocked_on": "P1: Dr. Headen / support wing measurements + photos (D-002 cause/sink/lines still OPEN). P2: owner (D-007), AHJ (D-008); egress confirm (D-038); brand (D-040); site TBD (D-006); deliveries / buses (D-034)",
-  "what_changed": "P1-T-008 done: P1-P-001 Rev A plumbing/water restore scope narrative (fixture list, licensed-plumber note, no design). Phase 1 unblocked ticket ahead of A-301.",
-  "what_to_verify": "P1-P-001 Rev A: fixture counts match Shane's 2026-10-03 report; sink count still TBD; no pipe sizes invented. D-002 stays OPEN until plumber visit + photos.",
-  "next_action": "Resume P2-T-009 (P2-A-301 sections) or P2-T-007 (R-006/R-007). Phase 1 first when Dr. Headen's data arrives. Answer D-040 (brand).",
-  "question_for_shane": "Phase 2 is your build, not the school's. Should the south portal carry the Hazel Green Trojans (HGHS) badge, or your own complex name and logo? For now it says BRAND / SIGNAGE \u2014 TBD."
+  "open_decisions": 18,
+  "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002 still OPEN). P2: owner (D-007), AHJ (D-008); egress (D-038); trademark search (D-042); Champion Walk size / donor program (D-044); site TBD (D-006); deliveries (D-034)",
+  "what_changed": "Official mark logged (D-041), on the portal above the arch with TROJAN HORSE ARENA + side panel. Portal is freestanding over the brick Champion Walk (D-043). P2-A-201 Rev A frozen; Rev B drawn with key plan. Trademark search and walk details OPEN.",
+  "what_to_verify": "Rev B sizes ASSUMED: mark 6 ft dia, wordmark 18 in caps, side panel 46 x 7.5 ft, portal 30 ft in front of the entrance, walk 28 ft wide. Soffit drawn crimson with a thin gold edge. Next A-101 revision adds portal + walk.",
+  "next_action": "Shane reviews P2-A-201 Rev B and answers the soffit color and D-044 (walk size, donor bricks). Trademark search (D-042) before any signage. Then A-301 sections and the A-101 site revision. Phase 1 first when Dr. Headen data arrives.",
+  "question_for_shane": "Your photo shows the underside of the arch in crimson, but earlier you said gold soffit. Should the underside be crimson with gold trim (as drawn), or all gold?"
 }

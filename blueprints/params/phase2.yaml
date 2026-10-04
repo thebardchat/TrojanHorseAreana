@@ -17,6 +17,11 @@
 # v9, 2026-10-04 5:27 AM CT: P2-A-101/102 Rev D + P2-G-003 Rev F APPROVED (D-036) and FROZEN as "Phase 2 Schematic Set
 #     Rev A" (sets.phase2_schematic_set_rev_a). Loop 2 lanes x 42 in DECIDED for now (D-037); concourse width vs egress
 #     OPEN (D-038, R-018). West unprogrammed space kept as-is, labeled FLEX (D-039). P2-A-201 elevations Rev A started.
+# v10, 2026-10-04 6:16 AM CT: OFFICIAL MARK DECIDED (D-041): circular horse-head badge with Greek key border
+#     (brand.official_mark, blueprints/brand/THA_logo_*.svg); D-040 closed; trademark search OPEN (D-042). P2-A-201 Rev A
+#     frozen; Rev B puts the mark on the portal.
+# v11, 2026-10-04 6:22 AM CT: GRAND ENTRANCE PORTAL FREESTANDING over the brick CHAMPION WALK (donor bricks) (D-043; approach);
+#     walk size + donor-brick program OPEN (D-044). P2-A-201 Rev B shows it; next A-101 revision adds it to the plan.
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -58,6 +63,13 @@ brand:
   accent: gold only at the south portal soffit (not a team color)
   rule: red, never green; reference plan's green/gold legend ignored
   source: "Shane (colors, rule); concept sheet (accent); D-017"
+  official_mark:
+    name: "Trojan Horse Arena official mark — circular horse-head badge with Greek key border"
+    files: {black: brand/THA_logo_black.svg, red: brand/THA_logo_red.svg, white: brand/THA_logo_white.svg, source: "Shane 2026-10-04 6:16 AM CT (3 SVG attachments; copies of Desktop\\ARENA\\THA_logo_*.svg); colour identified by fill #1A1A1A / #CC0000 / #FFFFFF"}
+    supersedes: "logo Concepts 01 / 02 (kept as history, SUPERSEDED, not deleted)"
+    school_badge: "not used on the building: the portal carries the Trojan Horse Arena mark, not the HGHS badge (D-040 closed by D-041)"
+    trademark: "OPEN (D-042): trademark search before signage / apparel"
+    source: "Shane, firsthand, 2026-10-04 6:16 AM CT (D-041)"
 
 building:
   total_sf: 55000
@@ -186,6 +198,21 @@ spaces:
     service_door: "SERVICE / LOADING door at equipment storage — staff-controlled, not a people entrance; deliveries / buses under the single-entry rule OPEN (D-034); no size set"
     status: "DECIDED rule (D-033); layout ASSUMED"
     source: "Shane, firsthand, 2026-10-04 4:43 AM CT (D-033); R-015; IBC 2021 Ch. 10 (UpCodes, Alabama, retrieved 2026-10-04); D-034 OPEN"
+
+approach:
+  grand_entrance_portal:
+    form: "FREESTANDING limestone arch, not attached to the building; just before the south entrance, on the way in, straddling Champion Walk"
+    setback_from_building: "TBD (30 ft ASSUMED on P2-A-201 Rev B)"
+    reference: references/portal_freestanding_champion_walk_ref.png
+    source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043)"
+  champion_walk:
+    paving: "brick — engraved donor / sponsor bricks"
+    width: "TBD (28 ft = arch opening ASSUMED on P2-A-201 Rev B)"
+    length: TBD
+    donor_brick_program: "OPEN (D-044)"
+    source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043, D-044)"
+  site_plan: "portal + Champion Walk to be added at the next P2-A-101 revision (Rev D stays frozen in Phase 2 Schematic Set Rev A)"
+  source: "Shane 2026-10-04 6:22 AM CT; D-043"
 
 support_rooms:
   - id: stage
@@ -451,9 +478,14 @@ sheets:
     revisions:
       A:
         file: P2-A-201_RevA
-        frozen: false
+        frozen: true
         inputs: params/phase2_elev.yaml
-        source: "Shane 2026-10-04 5:27 AM CT (start P2-A-201: south elevation primary with the portal, plus north, east, west; schematic)"
+        source: "Shane 2026-10-04 5:27 AM CT (start P2-A-201: south elevation primary with the portal, plus north, east, west; schematic); frozen 6:16 AM CT when Rev B was ordered"
+      B:
+        file: P2-A-201_RevB
+        frozen: false
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_b.yaml"
+        source: "Shane 2026-10-04 6:16 AM CT (official Trojan Horse Arena mark on the portal above the arch + TROJAN HORSE ARENA wordmark; side panel 'Hazel Green Regional Athletic Complex'; Rev A frozen); Shane 6:22 AM CT (portal freestanding over the brick Champion Walk, D-043)"
     source: "Shane 2026-10-04 5:27 AM CT"
 
 sets:
