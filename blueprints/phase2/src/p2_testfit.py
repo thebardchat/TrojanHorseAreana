@@ -145,7 +145,10 @@ def stair_sf(vc, width_in: float) -> dict:
     per_flight = math.ceil(risers / flights)
     run = (per_flight - 1) * vc["tread_min_in"]
     landing = min(width_in, 48)
-    sf = 2 * width_in * (run + 2 * landing) / 144.0 * (flights // 2)
+    if vc.get("intermediate_landing_equals_width"):  # Rev G (D-051): intermediate landing = stair width
+        sf = 2 * width_in * (run + landing + width_in) / 144.0 * (flights // 2)
+    else:
+        sf = 2 * width_in * (run + 2 * landing) / 144.0 * (flights // 2)
     return dict(risers=risers, flights=flights, per_flight=per_flight, riser_in=vc["floor_to_floor_in"] / risers,
                 run_in=run, landing_in=landing, width_in=width_in, sf=sf)
 
@@ -553,6 +556,53 @@ def summary_f():
     rows, tot = seats_by_side(plan, prog, lp)
     out_f = dict(loop=lp, mix=out["mix"], geom=lg, rows=rows, tot=tot, plan=plan)
     return p2, prog, ob, out_f
+
+
+# ============================ REV G (Shane 2026-10-04 9:10 AM CT): Plan Rev E set ============================
+def compute_rev_g(p2, prog, loop_sf):
+    """Rev F method + 76 in stairs with 76 in intermediate landings (D-052, D-051) + 6 ft east clear zone (D-053)."""
+    import copy
+    rg = prog["rev_g"]
+    pr = copy.deepcopy(prog)
+    pr["vertical_circulation"]["stair_min_width_in"] = rg["stair_width_in"]
+    pr["vertical_circulation"]["intermediate_landing_equals_width"] = True
+    d = compute_loop(p2, pr, loop_sf)
+    g, mech = d["g"], d["mech"]
+    ex = rg["east_clear_sf"]
+    N1 = d["N1"] + ex
+    AV = d["AV"] + g * ex
+    N2x = d["N2x"]
+    G = (g * (N1 + N2x) + loop_sf) / (1 - g * mech)
+    M = mech * G
+    L1, L2 = g * (N1 + M), g * N2x + loop_sf
+    F = max(L1, AV + L2)
+    sf = dict(d["sf"])
+    sf["arena"] = sf["arena"] + ex
+    d.update(scenario="rev_g", sf=sf, east_clear=ex, N1=N1, AV=AV, G=G, M=M, L1=L1, L2=L2, ring=L1 - AV, F=F,
+             governs="arena volume + L2" if AV + L2 >= L1 else "L1", l2_fits_over_ring=L2 <= L1 - AV)
+    for k_ in ("over", "fits", "margin", "alt", "cap"):
+        d.pop(k_, None)
+    return d
+
+
+def drawn_size(plan):
+    """D-057 size of a drawn block plan: L1 footprint (box + projection), L2 area (footprint minus open-to-below), TOTAL GSF."""
+    def a_(r):
+        return (r[2] - r[0]) * (r[3] - r[1])
+    l1 = a_(plan["building"]["rect"]) + a_(plan["building"]["projection"]["rect"])
+    l2 = l1 - sum(a_(o["rect"]) for o in plan["level_2"]["open_below"])
+    return dict(L1=l1, L2=l2, G=l1 + l2)
+
+
+def summary_g():
+    p2, prog, ob, out_f = summary_f()
+    plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_e.yaml").read_text(encoding="utf-8"))
+    lg = loop_geometry(plan)
+    lp = compute_rev_g(p2, prog, lg["area"])
+    rows, tot = seats_by_side(plan, prog, lp)
+    out_g = dict(loop=lp, mix=out_f["mix"], geom=lg, rows=rows, tot=tot, plan=plan, rev_f=out_f,
+                 drawn=drawn_size(plan), drawn_d=drawn_size(out_f["plan"]))
+    return p2, prog, ob, out_g
 
 
 if __name__ == "__main__":

@@ -1683,14 +1683,553 @@ def build_d(sheet_no, p2, prog, plan, X_, seats, lg):
     print(f"layout margin right panel (in): {y - fl:.2f}")
     return sh
 
+
+def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
+    """Rev E (Shane 2026-10-04 9:10 AM CT, reviewer C-1..C-4): 76 in stairs (D-052), east tier +6 ft (D-053), under-tier rule (D-049), D-057 areas."""
+    lvl = LEVEL_OF[sheet_no]
+    meta2 = p2["meta"]
+    pm = plan["meta"]
+    rows, tot = seats
+    bys = {r["side"]: r for r in rows}
+    sh = Sheet(W, H)
+    body_bottom = add_titleblock(sh, {
+        "project": f"{meta2['project']}\n{meta2['arena_name']} · {meta2['location']}",
+        "phase": "PHASE 2",
+        "title": f"OVERALL FLOOR PLAN\nLEVEL {lvl} · BLOCK PLAN",
+        "scale": "1/32\" = 1'-0\"",
+        "date": meta2["sheet_date"],
+        "revision": "E",
+        "drawn_by": meta2["drawn_by"],
+        "sheet_no": sheet_no,
+        "stamp": meta2["stamp"],
+    }, margin=M, tb_h=0.95, stamp_h=0.40)
+    top = H - M - 0.12
+    s = 1.0 / pm["scale_ft_per_in"]
+    bx0, by0, bx1, by1 = plan["building"]["rect"]
+    px0, py0 = M + 0.62, body_bottom + 0.50
+    pl = Plan(sh, px0, py0, s)
+    floor = plan["event_floor"]["rect"]
+    av = plan["arena_volume"]["rect"]
+    lv = plan["level_1"] if lvl == 1 else plan["level_2"]
+    vert = plan["vertical"]
+    axis = plan["entry_axis_x"]["value"]
+    sched = []
+    probs = check_overlaps(lv, vert)
+    lvr = [st_["rect"] for st_ in vert["stairs"]] + [vert["elevator"]["rect"]]
+    probs += [f"loop {k_} x stair/elevator {v_}" for k_, leg in lg["legs"].items() for v_ in lvr if overlap(leg, v_) > 0.01]
+    probs += [f"loop {k_} x room {r_['id']}" for k_, leg in lg["legs"].items() for r_ in plan["level_2"]["rooms"] if overlap(leg, r_["rect"]) > 0.01]
+    if probs:
+        raise SystemExit(f"ROOM OVERLAP on level {lvl}: {probs}")
+
+
+    pj = plan["building"]["projection"]["rect"]
+    outline = [(bx0, by0), (bx1, by0), (bx1, pj[3]), (pj[0], pj[3]), (pj[0], by1), (bx0, by1), (bx0, by0)]
+    for (xa, ya), (xb, yb) in zip(outline[:-1], outline[1:]):
+        pl.line(xa, ya, xb, yb, L_WALL, lw=2.2)
+    fp = area(plan["building"]["rect"]) + area(pj)
+    yd = by0 - 9
+    pl.line(bx0, yd, bx1, yd, L_DIM, lw=0.4)
+    for xx in (bx0, bx1):
+        pl.line(xx, yd - 2.5, xx, yd + 2.5, L_DIM, lw=0.4)
+    tx, ty = pl.P((bx0 + bx1) / 2, yd)
+    sh.text(tx, ty - 0.14, f"{bx1 - bx0:g}'-0\"  (building {bx1 - bx0:g} x {by1 - by0:g} ft + {pj[2] - pj[0]:.2f} x {pj[3] - pj[1]:.2f} ft NE stair tower = {n(fp)} SF footprint)", size=7, align="center", layer=L_DIM)
+    xd = bx0 - 9
+    pl.line(xd, by0, xd, by1, L_DIM, lw=0.4)
+    for yy in (by0, by1):
+        pl.line(xd - 2.5, yy, xd + 2.5, yy, L_DIM, lw=0.4)
+    tx, ty = pl.P(xd, (by0 + by1) / 2)
+    sh.text(tx - 0.06, ty, f"{by1 - by0:g}'-0\"", size=7, align="center", layer=L_DIM, rot=90)
+
+    lo, up = plan["tiers"]["lower"], plan["tiers"]["upper"]
+    names = {"N": "N", "S": "S", "E": "E"}
+    if lvl == 1:
+        pl.rect(av, L_FIX, lw=0.9)
+        pl.rect(floor, L_MAT, lw=1.4)
+        fx0, fy0, fx1, fy1 = floor
+        for b in lo["bands"]:
+            r = b["rect"]
+            pl.rect(r, L_TEL, lw=0.9)
+            horiz = (r[2] - r[0]) >= (r[3] - r[1])
+            ops = [o["rect"] for o in lo["openings"] if o["side"] == b["side"]]
+            # back-half row lines (rows 4-6), broken at openings; label in the front half
+            for k in range(lo["rows"] // 2, lo["rows"]):
+                dk = k * lo["row_depth_ft"]
+                if horiz:
+                    yy = r[1] + dk if b["side"] == "N" else r[3] - dk
+                    xs = [r[0]] + sum(([o[0], o[2]] for o in sorted(ops)), []) + [r[2]]
+                    for a_, b_ in zip(xs[0::2], xs[1::2]):
+                        pl.line(a_, yy, b_, yy, L_TEL, lw=0.2)
+                else:
+                    xx = r[0] + dk
+                    ys = [r[1]] + sum(([o[1], o[3]] for o in sorted(ops, key=lambda o: o[1])), []) + [r[3]]
+                    for a_, b_ in zip(ys[0::2], ys[1::2]):
+                        pl.line(xx, a_, xx, b_, L_TEL, lw=0.2)
+            t_ = f"LOWER ({b['side']}) · TELESCOPIC · {n(bys[b['side']]['lower'])} SEATS"
+            if horiz:
+                yy = r[1] + 2.4 if b["side"] == "N" else r[3] - 3.6
+                x_lab = r[0] + 2.5 if b["side"] == "N" else lo["openings"][0]["rect"][2] + 3   # S: east of the portal
+                x_, y_ = pl.P(x_lab, yy)
+                sh.text(x_, y_ - 0.035, t_, size=5.2, bold=True, layer=L_TAG)
+            else:
+                x_, y_ = pl.P(r[0] + 3.4, (r[1] + r[3]) / 2 - 22)
+                sh.text(x_ + 0.035, y_, t_, size=5.2, bold=True, align="center", layer=L_TAG, rot=90)
+        for o in lo["openings"]:
+            pl.drect(o["rect"], L_ROOM, lw=0.5, dash=0.04, gap=0.03)
+            r = o["rect"]
+            horiz = (r[2] - r[0]) < (r[3] - r[1])           # openings run through the band
+            x_, y_ = pl.P((r[0] + r[2]) / 2, (r[1] + r[3]) / 2)
+            if o["id"] == "PORTAL":
+                sh.text(x_, y_ + 0.0, "PORTAL", size=4.8, bold=True, align="center", layer=L_TAG)
+            else:
+                sh.text(x_, y_ - 0.03, o["id"], size=5.0, bold=True, align="center", layer=L_TAG)
+        mft = p2["spaces"]["arena"]["mat_ft"]
+        for m in plan["mats"]:
+            mx, my = m["origin"]
+            pl.rect((mx, my, mx + mft, my + mft), L_MAT, lw=1.0)
+            left = mx + mft / 2 < (floor[0] + floor[2]) / 2
+            x_, y_ = pl.P(mx + 2 if left else mx + mft - 2, my + mft - 2.5)
+            sh.text(x_, y_ - 0.09, m["id"], size=6.2, bold=True, align="left" if left else "right", layer=L_TAG)
+        cr = plan["court"]["rect"]
+        ro = plan["court"]["runout_ft"]
+        pl.drect(cr, L_CORT, lw=0.7, dash=0.07, gap=0.04)
+        pl.drect((cr[0] - ro, cr[1] - ro, cr[2] + ro, cr[3] + ro), L_CORT, lw=0.35, dash=0.03, gap=0.04)
+        pl.dashed(cr[0], (cr[1] + cr[3]) / 2, cr[2], (cr[1] + cr[3]) / 2, L_CORT, lw=0.4, dash=0.07, gap=0.04)
+        x_, y_ = pl.P((fx0 + fx1) / 2, fy1 - 6)
+        sh.text(x_, y_, f"EVENT FLOOR {fx1 - fx0:g}' x {fy1 - fy0:g}' = {n(area(floor))} SF", size=6.6, bold=True, align="center", layer=L_TAG)
+        sh.text(x_, y_ - 0.12, "table / bench zone (15')", size=5.4, align="center", layer=L_TAG)
+        x_, y_ = pl.P((fx0 + fx1) / 2, fy0 + 7.5)
+        sh.text(x_, y_, "table / bench zone (15')", size=5.4, align="center", layer=L_TAG)
+        x_, y_ = pl.P((cr[0] + cr[2]) / 2, (cr[1] + cr[3]) / 2 + 2.5)
+        sh.text(x_, y_, "COURT 84' x 50' (OVERLAY)", size=5.4, align="center", layer=L_TAG)
+        # upper tier above (D-049): outline dashed; low-headroom band under rows 1-2
+        lbf = up["low_band_ft"]
+        lows = {"N": [56, 224, 188, 224 + lbf], "E": [188, 56, 188 + lbf, 239], "S": [56, 56 - lbf, 188, 56]}
+        for k_, lr in lows.items():
+            pl.drect(lr, L_TAG, lw=0.5, dash=0.03, gap=0.03)
+        for z in lv["zones"]:
+            if z.get("under_tier"):
+                r_ = z["rect"]
+                for t_ in range(1, 12):
+                    u_ = t_ / 12
+                    if (r_[2] - r_[0]) >= (r_[3] - r_[1]):
+                        xa = r_[0] + (r_[2] - r_[0]) * u_
+                        pl.line(xa - 3, r_[1], xa, r_[3], L_HID, lw=0.2)
+                    else:
+                        ya = r_[1] + (r_[3] - r_[1]) * u_
+                        pl.line(r_[0], ya - 3, r_[2], ya, L_HID, lw=0.2)
+        x_, y_ = pl.P(116, 197.5)
+        sh.text(x_, y_, "UPPER TIER ABOVE steps DOWN to the court · fine dash = LOW BAND under its rows 1-2, < 7'-6\": storage / mech only (D-049)", size=4.4, align="center", layer=L_TAG)
+        lower_drawn = sum(area(b["rect"]) for b in lo["bands"])
+        sched.append(("—", "Event floor + east zone (D-053)", area(floor), X_["sf"]["arena"], f"{floor[2] - floor[0]:g}' x {floor[3] - floor[1]:g}'; east tier 16 ft from mats"))
+        sched.append(("—", f"Lower tier, telescopic ({n(tot['lower'])} seats)", lower_drawn, X_["sf"]["seating_lower"],
+                      f"{lo['rows']} rows; N {bys['N']['lower']} / S {bys['S']['lower']} / E {bys['E']['lower']}"))
+        # team side / public side walls (Rev C): team assembly vs west concourse, athlete route vs west concourse
+        pl.line(56, 34, 56, 48, L_ROOM, lw=0.9)
+        pl.line(56, 48, 84, 48, L_ROOM, lw=0.9)
+        # single controlled entry (D-033): entry arrow on the axis
+        pl.line(axis, -6, axis, 0, L_DIM, lw=1.0)
+        pl.line(axis, 0, axis - 1.8, -2.6, L_DIM, lw=1.0); pl.line(axis, 0, axis + 1.8, -2.6, L_DIM, lw=1.0)
+        x_, y_ = pl.P(axis - 3, -5.2)
+        sh.text(x_, y_, "ARENA N-S AXIS · ROAD ASSUMED SOUTH", size=5.6, align="right", layer=L_TAG)
+        x_, y_ = pl.P(axis + 3, -4.4)
+        sh.text(x_, y_, "E1 MAIN ENTRY / EXIT (D-033)", size=6.0, bold=True, layer=L_TAG)
+        x_, y_ = pl.P(axis + 3, -7.0)
+        sh.text(x_, y_, "↓ 30' S: FREESTANDING PORTAL + 28' x 30' CHAMPION WALK (D-043, D-046; P2-C-101)", size=4.4, layer=L_TAG)
+        # security checkpoint (location only; size TBD)
+        ck = lv["checkpoint"]
+        pl.drect(ck["rect"], L_TAG, lw=0.9, dash=0.06, gap=0.035)
+        x_, y_ = pl.P((ck["rect"][0] + ck["rect"][2]) / 2, (ck["rect"][1] + ck["rect"][3]) / 2)
+        sh.text(x_, y_ + 0.015, "SECURITY CHECKPOINT", size=5.0, bold=True, align="center", layer=L_TAG)
+        sh.text(x_, y_ - 0.085, "— size TBD (ASSUMED)", size=5.0, align="center", layer=L_TAG)
+        # controlled door off the lobby to the athlete route
+        cdx, cdy = lv["controlled_door"]["at"]
+        pl.line(cdx, cdy - 4, cdx, cdy + 4, L_TAG, lw=2.4)
+        x_, y_ = pl.P(cdx + 1.2, cdy - 7.2)
+        sh.text(x_, y_, "CD-1 CONTROLLED DOOR", size=5.0, bold=True, layer=L_TAG)
+        sh.text(x_, y_ - 0.08, "(staff / teams)", size=4.8, layer=L_TAG)
+        # perimeter doors: symbols only (widths not drawn)
+        stair_exit = {}
+        for d_ in lv["doors"]["items"]:
+            w_, at = d_["wall"], d_["at"]
+            if d_["kind"] == "main":
+                continue
+            if w_ in ("N", "S"):
+                yy = by1 if w_ == "N" else by0
+                pl.line(at - 2.5, yy, at + 2.5, yy, L_TAG, lw=3.0)
+                o = 1 if w_ == "N" else -1
+                if d_["kind"] == "exit":
+                    pl.line(at, yy, at, yy + 3.2 * o, L_TAG, lw=0.8)
+                    pl.line(at, yy + 3.2 * o, at - 1.2, yy + 1.8 * o, L_TAG, lw=0.8); pl.line(at, yy + 3.2 * o, at + 1.2, yy + 1.8 * o, L_TAG, lw=0.8)
+            else:
+                xx = bx0 if w_ == "W" else bx1
+                pl.line(xx, at - 2.5, xx, at + 2.5, L_TAG, lw=3.0)
+                o = -1 if w_ == "W" else 1
+                if d_["kind"] == "exit":
+                    pl.line(xx, at, xx + 3.2 * o, at, L_TAG, lw=0.8)
+                    pl.line(xx + 3.2 * o, at, xx + 1.8 * o, at - 1.2, L_TAG, lw=0.8); pl.line(xx + 3.2 * o, at, xx + 1.8 * o, at + 1.2, L_TAG, lw=0.8)
+            if "ST-" in d_.get("serves", ""):
+                stair_exit[d_["serves"].split()[0]] = d_["id"]
+                continue
+            if d_["kind"] == "service":
+                x_, y_ = pl.P(at - 3, by1 + 1.6)
+                sh.text(x_, y_, "S1 SERVICE / LOADING (D-034)", size=5.2, bold=True, layer=L_TAG)
+            elif w_ == "N":
+                x_, y_ = pl.P(at + 2.2, by1 + 1.6)
+                sh.text(x_, y_, f"{d_['id']} EXIT ONLY", size=5.4, bold=True, layer=L_TAG)
+            elif w_ == "W":
+                x_, y_ = pl.P(bx0 - 4.6, at + 12)
+                sh.text(x_ + 0.03, y_, f"{d_['id']} EXIT ONLY", size=5.4, bold=True, align="center", layer=L_TAG, rot=90)
+            elif w_ == "E":
+                x_, y_ = pl.P(bx1 + 4.4, at)
+                sh.text(x_, y_ - 0.03, f"{d_['id']} EXIT ONLY", size=5.4, bold=True, layer=L_TAG)
+    else:
+        for ob in lv["open_below"]:
+            r = ob["rect"]
+            pl.rect(r, L_HID, lw=0.5)
+            for (xa, ya, xb, yb) in ((r[0], r[1], r[2], r[3]), (r[0], r[3], r[2], r[1])):
+                for t0, t1 in ((0.0, 0.36), (0.64, 1.0)):
+                    pl.dashed(xa + (xb - xa) * t0, ya + (yb - ya) * t0, xa + (xb - xa) * t1, ya + (yb - ya) * t1, L_HID, lw=0.25, dash=0.06, gap=0.06)
+        pl.drect(floor, L_HID, lw=0.4, dash=0.05, gap=0.05)
+        for b in up["bands"]:
+            r = b["rect"]
+            pl.rect(r, L_FIX, lw=0.9)
+            t_ = f"UPPER ({b['side']}) · FIXED · {n(bys[b['side']]['upper'])} SEATS"
+            if (r[2] - r[0]) >= (r[3] - r[1]):
+                x_, y_ = pl.P(r[0] + 3, (r[1] + r[3]) / 2)
+                sh.text(x_, y_ - 0.035, t_, size=5.6, bold=True, layer=L_TAG)
+            else:
+                x_, y_ = pl.P((r[0] + r[2]) / 2, (r[1] + r[3]) / 2)
+                sh.text(x_ + 0.035, y_, t_, size=5.6, bold=True, align="center", layer=L_TAG, rot=90)
+        oba = next(o for o in lv["open_below"] if o["id"] == "ob_arena")["rect"]
+        x_, y_ = pl.P((oba[0] + oba[2]) / 2, (oba[1] + oba[3]) / 2)
+        sh.text(x_, y_ + 0.05, "OPEN TO ARENA BELOW", size=8, bold=True, align="center", layer=L_TAG)
+        sh.text(x_, y_ - 0.10, "(event floor + telescopic lower tier, double height)", size=6, align="center", layer=L_TAG)
+        obl = next(o for o in lv["open_below"] if o["id"] == "ob_lobby")["rect"]
+        pl.tag(obl, ["OPEN TO LOBBY BELOW", "(hall of champions,", "double height)"], sizes=(6.4, 6.0, 5.5), bold_first=True, allow_rot=False)
+        upper_drawn = sum(area(b["rect"]) for b in up["bands"])
+        sched.append(("—", f"Upper tier, fixed ({n(tot['upper'])} seats)", upper_drawn, X_["sf"]["seating_upper"],
+                      f"N {bys['N']['upper']} / S {bys['S']['upper']} / E {bys['E']['upper']}"))
+        # ---- Level 2 running / training loop (D-035) ----
+        lp = lv["loop"]
+        lo_, li_ = lp["outer"], lp["inner"]
+        pl.rect(lo_, L_LOOP, lw=1.3)
+        pl.rect(li_, L_LOOP, lw=0.7)
+        w2 = lp["width_ft"] / 2
+        cl = [lo_[0] + w2, lo_[1] + w2, lo_[2] - w2, lo_[3] - w2]
+        # lane line (2 lanes -> one line on the centerline), broken where the leg labels sit
+        legtxt = {"S": (f"LOOP (S) · UPPER CONCOURSE / HALL OF CHAMPIONS BALCONY · 2 LANES x {lp['lane_width_in']} IN = {lp['width_ft']:g} FT", 115),
+                  "N": (f"LOOP (N) · REAR CONCOURSE ON EVENT DAYS · 2 LANES x {lp['lane_width_in']} IN", 110),
+                  "E": (f"LOOP (E) · 2 LANES x {lp['lane_width_in']} IN = {lp['width_ft']:g} FT", 140),
+                  "W": ("LOOP (W) · NEW LEG (D-035)", 105)}
+        szl = 4.6
+        gaps = {}
+        for k_, (t_, c_) in legtxt.items():
+            half = (text_width_in(t_, szl, True) / s) / 2 + 2
+            gaps[k_] = (c_ - half, c_ + half)
+            if k_ in ("N", "S"):
+                x_, y_ = pl.P(c_, cl[1] if k_ == "S" else cl[3])
+                sh.text(x_, y_ - 0.022, t_, size=szl, bold=True, align="center", layer=L_LOOP)
+            else:
+                x_, y_ = pl.P(cl[0] if k_ == "W" else cl[2], c_)
+                sh.text(x_ + 0.022, y_, t_, size=szl, bold=True, align="center", layer=L_LOOP, rot=90)
+        for k_, (a0, a1, fixed, horiz) in {"S": (cl[0], cl[2], cl[1], True), "N": (cl[0], cl[2], cl[3], True),
+                                            "W": (cl[1], cl[3], cl[0], False), "E": (cl[1], cl[3], cl[2], False)}.items():
+            g0, g1 = gaps[k_]
+            for u0, u1 in ((a0, g0), (g1, a1)):
+                if horiz:
+                    pl.dashed(u0, fixed, u1, fixed, L_LOOP, lw=0.35, dash=0.06, gap=0.04)
+                else:
+                    pl.dashed(fixed, u0, fixed, u1, L_LOOP, lw=0.35, dash=0.06, gap=0.04)
+        # guards at open edges (IBC 1015.2 / 1015.3)
+        for g_ in lp["guards"]:
+            xa, ya, xb, yb = g_["line"]
+            pl.line(xa, ya, xb, yb, L_GRD, lw=2.0)
+        gw = next(g_ for g_ in lp["guards"] if g_["id"] == "G-W")["line"]
+        x_, y_ = pl.P(gw[0] + 2.2, (gw[1] + gw[3]) / 2 + 40)
+        sh.text(x_ + 0.03, y_, "42 IN GUARD (IBC 1015.2, 1015.3)", size=4.8, bold=True, align="center", layer=L_GRD, rot=90)
+        gs = next(g_ for g_ in lp["guards"] if g_["id"] == "G-S")["line"]
+        x_, y_ = pl.P((gs[0] + gs[2]) / 2, gs[1] - 2.6)
+        sh.text(x_, y_, "42 IN GUARD (IBC 1015)", size=4.8, bold=True, align="center", layer=L_GRD)
+        # event-day crossings at the upper-tier entries (locations ASSUMED: mid-side)
+        for (xa, ya, xb, yb) in ((172, li_[3], 172, lo_[3]), (172, lo_[1], 172, li_[1]), (li_[2], 100, lo_[2], 100)):
+            pl.line(xa, ya, xb, yb, L_TAG, lw=0.6)
+            if xa == xb:
+                for yy_, o_ in ((ya, 1), (yb, -1)):
+                    pl.line(xa, yy_, xa - 1, yy_ + 1.4 * o_, L_TAG, lw=0.6); pl.line(xa, yy_, xa + 1, yy_ + 1.4 * o_, L_TAG, lw=0.6)
+            else:
+                for xx_, o_ in ((xa, 1), (xb, -1)):
+                    pl.line(xx_, ya, xx_ + 1.4 * o_, ya - 1, L_TAG, lw=0.6); pl.line(xx_, ya, xx_ + 1.4 * o_, ya + 1, L_TAG, lw=0.6)
+        x_, y_ = pl.P(170, li_[3] - 3.2)
+        sh.text(x_, y_, "event-day crossing (typ.)", size=4.4, align="right", layer=L_TAG)
+        sn = next(z for z in lv["zones"] if z["id"] == "stretch_n")["rect"]
+        x_, y_ = pl.P((sn[0] + sn[2]) / 2, (sn[1] + sn[3]) / 2)
+        sh.text(x_, y_ - 0.02, f"STRETCH / WARM-UP STRIP (N) · {sn[3] - sn[1]:g} FT · ASSUMED", size=4.4, bold=True, align="center", layer=L_TAG)
+        # loop summary in the arena void
+        oba_ = next(o for o in lv["open_below"] if o["id"] == "ob_arena")["rect"]
+        x_, y_ = pl.P((oba_[0] + oba_[2]) / 2, (oba_[1] + oba_[3]) / 2 - 22)
+        sh.text(x_, y_ + 0.05, "CONTINUOUS RUNNING / TRAINING LOOP (D-035)", size=7.0, bold=True, align="center", layer=L_LOOP)
+        sh.text(x_, y_ - 0.09, f"centerline {lg['cx']:g}' x {lg['cy']:g}' = {n(lg['centerline'])} FT · 5,280 / {n(lg['centerline'])} = {lg['laps_per_mile']:.2f} LAPS / MILE",
+                size=6.0, align="center", layer=L_LOOP)
+        sh.text(x_, y_ - 0.21, f"{lp['lanes']} lanes x {lp['lane_width_in']} in = {lp['width_ft']:g} ft all around · squared corners · {n(lg['area'])} SF",
+                size=6.0, align="center", layer=L_LOOP)
+        sh.text(x_, y_ - 0.33, "non-event days: training · event days: upper concourse (spectators cross at tier entries)",
+                size=5.6, align="center", layer=L_LOOP)
+        sched.append(("—", "Running / training loop", lg["area"], X_["loop"], f"{lp['lanes']} x {lp['lane_width_in']} in; {n(lg['centerline'])} ft CL; {lg['laps_per_mile']:.2f} laps/mi"))
+
+    if lvl == 1:
+        ut = [z for z in lv["zones"] if z.get("under_tier")]
+        sched.append(("—", "Under-tier storage (hatched)", sum(area(z["rect"]) for z in ut), None, "low band in front of event lockers 1-4 (D-049)"))
+    # rooms (stairs / elevator inside a room are subtracted from its drawn SF)
+    mech_rooms = [r for r in plan["level_1"]["rooms"] if r["prog"] == "mechanical"]
+    mech_drawn = sum(area(r["rect"]) for r in mech_rooms)
+    vrects = [st_["rect"] for st_ in vert["stairs"]] + [vert["elevator"]["rect"]]
+    for r in lv["rooms"]:
+        pl.rect(r["rect"], L_ROOM, lw=0.9)
+        a_ = area(r["rect"]) - sum(overlap(r["rect"], v) for v in vrects)
+        if r["prog"] == "mechanical":
+            ps = X_["M"] * area(r["rect"]) / mech_drawn
+        elif r["prog"] is None:
+            ps = None
+        else:
+            ps = X_["sf"][r["prog"]] * r.get("share", 1)
+        note = r.get("note", "")
+        extra = []
+        if "fixtures" in r:
+            wc, lav, ur = fixture_lines(X_, r["fixtures"])
+            ps = (wc + lav) * prog["factors"]["restrooms"]["sf_per_fixture"]
+            extra = [f"WC {wc} · LAV {lav}"]
+            note = f"{wc + lav} fixtures (WC {wc}, LAV {lav}" + (f"; urinals ≤ {ur} of the WCs)" if ur is not None else ")")
+        if r["id"] == "sc":
+            note = f"ST-1 (76 in) inside: {'+' if a_ >= ps else '−'}{n(abs(a_ - ps))} vs program (C-3)"
+        if r["id"] == "xt":
+            note = "trimmed 7 ft for the loop (D-035)"
+        if r["id"].startswith("evl_"):
+            note = f"behind the low band (D-049): {'+' if a_ >= ps else '−'}{n(abs(a_ - ps))}"
+        if r["id"] == "storage_sw":
+            note = "FLEX, unprogrammed, label kept (D-039, C-1)"
+        full = [f"{r['tag']}  {r['name']}", f"{n(a_)} SF"] + extra
+        if not pl.tag(r["rect"], full, fallback=[f"{r['tag']}", f"{n(a_)}"]):
+            pl.tag(r["rect"], [r["tag"]], sizes=(5.5, 5.0, 4.5))
+        nm = r["name"].title().replace("(Nw)", "(NW)").replace("(Ne)", "(NE)").replace("(Sw)", "(SW)").replace("(Se)", "(SE)").replace("Mat", "Mat Area")
+        sched.append((r["tag"], nm, a_, ps, note))
+    for z in lv["zones"]:
+        if z["id"] == "stretch_n" or z.get("under_tier"):
+            continue
+        if z.get("vertical"):
+            r = z["rect"]
+            x_, y_ = pl.P((r[0] + r[2]) / 2, (r[1] + r[3]) / 2)
+            sz = 6.2
+            while text_width_in(z["name"], sz, True) > (r[3] - r[1]) * s - 0.1 and sz > 4.5:
+                sz -= 0.3
+            sh.text(x_ + 0.03, y_, z["name"], size=sz, bold=True, align="center", layer=L_TAG, rot=90)
+        else:
+            lines = z["name"].replace(" / ", " /|").split("|")
+            if z["id"] == "lobby":
+                lines = lines + ["(double height)"]
+            if z.get("sub"):
+                lines = lines + z["sub"].split("|")
+            pl.tag(z.get("label_rect", z["rect"]), lines, sizes=(6.4, 6.0, 5.5, 5.0, 4.6), allow_rot=False)
+    for st in vert["stairs"]:
+        r = st["rect"]
+        pl.rect(r, L_VERT, lw=1.0)
+        horiz = (r[2] - r[0]) > (r[3] - r[1])
+        if horiz:
+            my_ = (r[1] + r[3]) / 2
+            pl.line(r[0] + 2, my_, r[2] - 2, my_, L_VERT, lw=0.4)
+            for k in range(1, 6):
+                xx = r[0] + 2 + k * (r[2] - r[0] - 4) / 6
+                pl.line(xx, r[1], xx, r[3], L_VERT, lw=0.2)
+        else:
+            mxs = (r[0] + r[2]) / 2
+            pl.line(mxs, r[1] + 2, mxs, r[3] - 2, L_VERT, lw=0.4)
+            for k in range(1, 6):
+                yy = r[1] + 2 + k * (r[3] - r[1] - 4) / 6
+                pl.line(r[0], yy, r[2], yy, L_VERT, lw=0.2)
+        cxs = (r[0] + r[2]) / 2
+        x_, y_ = pl.P(cxs, max(by1, r[3]) + 1.6) if r[1] > 100 else pl.P(cxs, by0 - 4.6)
+        lab = st["id"] + (f" · {stair_exit[st['id']]} EXIT ONLY" if lvl == 1 and st["id"] in stair_exit else "")
+        al_ = "center"
+        if lvl == 1 and st["id"] == "ST-2":
+            lab = st["id"]
+        elif lvl == 1 and st["id"] in stair_exit:
+            al_ = "right" if st["id"] == "ST-1" else "left"
+            x_, y_ = pl.P(cxs - 2.2 if al_ == "right" else cxs + 2.2, by1 + 1.6 if r[1] > 100 else by0 - 4.6)
+        sh.text(x_, y_, lab, size=5.6, bold=True, align=al_, layer=L_TAG)
+    el = vert["elevator"]
+    pl.rect(el["rect"], L_VERT, lw=1.0)
+    pl.line(el["rect"][0], el["rect"][1], el["rect"][2], el["rect"][3], L_VERT, lw=0.4)
+    pl.line(el["rect"][0], el["rect"][3], el["rect"][2], el["rect"][1], L_VERT, lw=0.4)
+    ex_, ey_ = pl.P(el["rect"][0] - 0.8, (el["rect"][1] + el["rect"][3]) / 2)
+    sh.text(ex_, ey_ - 0.03, "EL", size=5.6, bold=True, align="right", layer=L_TAG)
+
+    if lvl == 1:
+        x_, y_ = pl.P(bx1 + 4.4, next(d_["at"] for d_ in lv["doors"]["items"] if d_["id"] == stair_exit.get("ST-2")))
+        sh.text(x_, y_ - 0.03, f"{stair_exit.get('ST-2', '')} EXIT ONLY (ST-2)", size=5.4, bold=True, layer=L_TAG)
+    nx, ny = pl.P(bx1 + 9, by1 - 52)
+    sh.line(nx, ny, nx, ny + 0.55, layer=L_DIM, lw=1.1)
+    sh.line(nx, ny + 0.55, nx - 0.09, ny + 0.36, layer=L_DIM, lw=1.1)
+    sh.line(nx, ny + 0.55, nx + 0.09, ny + 0.36, layer=L_DIM, lw=1.1)
+    sh.text(nx, ny + 0.62, "N", size=10, bold=True, align="center", layer=L_DIM)
+    sh.text(nx, ny - 0.13, "APPROX.", size=5.6, align="center", layer=L_DIM)
+    sh.text(nx, ny - 0.24, "SITE TBD", size=5.6, align="center", layer=L_DIM)
+    gx0, gy0 = pl.P(bx1 + 4, by0 + 100)
+    for a_, b_, k in ((0, 8, 0), (8, 16, 1), (16, 32, 2)):
+        sh.rect(gx0 + a_ * s, gy0 - 0.30, (b_ - a_) * s, 0.06, layer=L_DIM, lw=0.6)
+        if k != 1:
+            sh.line(gx0 + a_ * s, gy0 - 0.30, gx0 + b_ * s, gy0 - 0.24, layer=L_DIM, lw=0.3)
+    for v in (0, 8, 16, 32):
+        sh.text(gx0 + v * s, gy0 - 0.42, f"{v}'", size=5.6, align="center", layer=L_DIM)
+    sh.text(gx0, gy0 - 0.14, "GRAPHIC SCALE (FT)", size=5.6, layer=L_DIM)
+
+    # ================= right panel =================
+    rx = max(px0 + (bx1 - bx0) * s + 1.05, 9.35)
+    rw = W - M - 0.22 - rx
+    sh.line(rx - 0.2, body_bottom + 0.12, rx - 0.2, top, lw=0.5)
+    y = top - 0.05
+    sh.rect(rx, y - 0.42, rw, 0.42, lw=1.6)
+    sh.text(rx + rw / 2, y - 0.29, pm["label"], size=14, bold=True, align="center")
+    sh.text(rx, y - 0.68, f"LEVEL {lvl} — OVERALL FLOOR PLAN (REV E)", size=12, bold=True)
+    sh.text(rx, y - 0.88, "scale 1/32\" = 1'-0\" on 17 x 11 in · north approximate, road assumed south, site TBD", size=7.8)
+    y -= 1.18
+    sh.text(rx, y, "LEGEND", size=9.5, bold=True)
+    y -= 0.05
+    if lvl == 1:
+        leg = [("box", f"Lower tier, TELESCOPIC (extended, {lo['rows']} rows x 24 in; {X_['seat_sf_lower']:.2f} SF/seat) — D-009"),
+               ("mat", "42' wrestling mat (4, 2 x 2)"), ("court", "84' x 50' court + 10' runout (overlay)"),
+               ("dash", "Portal / vomitory through the telescopic tier (V1, V2)"),
+               ("exit", "X# = EXIT ONLY — alarmed, no exterior entry hardware (symbol; width not drawn)"),
+               ("svc", "S1 = SERVICE / LOADING door (staff-controlled, not a people entrance; D-034)"),
+               ("dash", "Fine dash = low band under upper-tier rows 1-2 (D-049); hatch = under-tier storage"),
+               ("ck", "Security checkpoint zone (size TBD) · CD-1 controlled door (staff / teams)")]
+    else:
+        leg = [("box", f"Upper tier, FIXED ({X_['seat_sf_upper']:.1f} SF/seat) on the Level 2 deck — D-009"),
+               ("open", "Open to below (arena; lobby double height)"),
+               ("loop", "Running / training loop, 2 lanes x 42 in (dashed = lane line) — D-035"),
+               ("guard", "42 in guard at an open edge (IBC 2021 1015.2, 1015.3)")]
+    leg += [("box", "Room block (tag number + drawn SF)"), ("stair", "Stair (4) / elevator (X), same position on both levels")]
+    for kind, t_ in leg:
+        y -= 0.150 if lvl == 1 else 0.165
+        lx = rx + 0.05
+        if kind == "dash":
+            sh.dashed(lx, y + 0.04, lx + 0.4, y + 0.04, lw=0.6, dash=0.04, gap=0.03)
+        elif kind in ("box", "mat"):
+            sh.rect(lx + 0.08, y - 0.03, 0.24, 0.14, lw=1.0)
+        elif kind == "court":
+            sh.dashed(lx, y + 0.04, lx + 0.4, y + 0.04, lw=0.7, dash=0.07, gap=0.04)
+        elif kind == "open":
+            sh.rect(lx + 0.08, y - 0.03, 0.24, 0.14, lw=0.5); sh.line(lx + 0.08, y - 0.03, lx + 0.32, y + 0.11, lw=0.25)
+        elif kind == "exit":
+            sh.line(lx + 0.08, y + 0.04, lx + 0.24, y + 0.04, lw=3.0); sh.line(lx + 0.16, y + 0.04, lx + 0.16, y + 0.14, lw=0.8)
+            sh.line(lx + 0.16, y + 0.14, lx + 0.12, y + 0.10, lw=0.8); sh.line(lx + 0.16, y + 0.14, lx + 0.20, y + 0.10, lw=0.8)
+        elif kind == "svc":
+            sh.line(lx + 0.08, y + 0.04, lx + 0.24, y + 0.04, lw=3.0)
+        elif kind == "ck":
+            sh.dashed(lx + 0.02, y - 0.03, lx + 0.30, y - 0.03, lw=0.9, dash=0.05, gap=0.03); sh.dashed(lx + 0.02, y + 0.11, lx + 0.30, y + 0.11, lw=0.9, dash=0.05, gap=0.03)
+            sh.line(lx + 0.40, y - 0.04, lx + 0.40, y + 0.12, lw=2.4)
+        elif kind == "loop":
+            sh.rect(lx + 0.02, y - 0.03, 0.40, 0.14, lw=1.0); sh.dashed(lx + 0.02, y + 0.04, lx + 0.42, y + 0.04, lw=0.35, dash=0.06, gap=0.04)
+        elif kind == "guard":
+            sh.line(lx + 0.02, y + 0.04, lx + 0.42, y + 0.04, lw=2.0)
+        elif kind == "stair":
+            sh.rect(lx + 0.08, y - 0.03, 0.12, 0.14, lw=1.0); sh.rect(lx + 0.24, y - 0.03, 0.12, 0.14, lw=1.0)
+            sh.line(lx + 0.24, y - 0.03, lx + 0.36, y + 0.11, lw=0.4)
+        sh.text(lx + 0.55, y, t_, size=7.2)
+    y -= 0.30
+    sh.text(rx, y, f"ROOM SCHEDULE — LEVEL {lvl} (DRAWN vs PROGRAM side by side, P2-G-003 Rev G; C-3)", size=9.5, bold=True)
+    hdr = [("TAG", 0, "l"), ("ROOM", 0.36, "l"), ("DRAWN SF", 2.65, "r"), ("PROGRAM", 3.35, "r"), ("NOTE", 3.5, "l")]
+    rp = 0.126 if lvl == 1 else 0.138
+    y -= rp
+    for lab, dx, al in hdr:
+        sh.text(rx + dx, y + 0.02, lab, size=6.8, bold=True, align="left" if al == "l" else "right", layer=TB)
+    sh.line(rx, y - 0.04, rx + rw, y - 0.04, layer=TB, lw=0.6)
+    for tg, nm, a_, ps, note in sched:
+        y -= rp
+        while text_width_in(note, 6.4) > rw - 3.52 and len(note) > 4:
+            note = note[:-2].rstrip() + "…"
+        for (lab, dx, al), c in zip(hdr, [tg, nm, n(a_), "—" if ps is None else n(ps), note]):
+            sh.text(rx + dx, y, c, size=6.4 if lab == "NOTE" else 7.0, align="left" if al == "l" else "right", layer=TB)
+    sh.line(rx, y - 0.05, rx + rw, y - 0.05, layer=TB, lw=0.4)
+    lv2 = plan["level_2"]
+    lp2 = lv2["loop"]
+    l2_drawn = fp - sum(area(o["rect"]) for o in lv2["open_below"])
+    y -= 0.03
+    sh.text(rx, y - 0.16, "AREA CHECK — D-057 (no SF cap, D-056)", size=9.0, bold=True)
+    y -= 0.18
+    at = [("", 0, "l"), ("DRAWN REV E", 1.75, "r"), ("REV D", 2.45, "r"), ("CHANGE", 3.10, "r"), ("PROGRAM G-003 G", 4.20, "r"), ("DRAWN − PROG.", rw, "r")]
+    y -= rp
+    for lab, dx, al in at:
+        sh.text(rx + dx, y + 0.02, lab, size=6.4, bold=True, align="left" if al == "l" else "right", layer=TB)
+    sh.line(rx, y - 0.04, rx + rw, y - 0.04, layer=TB, lw=0.6)
+
+    def sgn(v):
+        return ("+" if v > 0.05 else "−" if v < -0.05 else "±") + n(abs(v))
+    for lab, d_, dd, pg in (("L1 FOOTPRINT", DR["L1"], DD["L1"], X_["F"]), ("L2 AREA", DR["L2"], DD["L2"], X_["L2"]),
+                            ("TOTAL GSF", DR["G"], DD["G"], X_["F"] + X_["L2"])):
+        y -= rp
+        for (l_, dx, al), c in zip(at, [lab, n(d_), n(dd), sgn(d_ - dd), n(pg), sgn(d_ - pg)]):
+            sh.text(rx + dx, y, c, size=7.0, bold=l_ in ("", "DRAWN REV E"), align="left" if al == "l" else "right", layer=TB)
+    sh.line(rx, y - 0.05, rx + rw, y - 0.05, layer=TB, lw=0.4)
+    y -= 0.06
+    team = next(z for z in plan["level_1"]["zones"] if z["id"] == "team_asm")
+    sw = next(r for r in plan["level_1"]["rooms"] if r["id"] == "storage_sw")
+    if lvl == 1:
+        txt = (f"Floor 120 x 144, east tier 16 ft from the mats (D-053). Program = footprint / L2 gross (R-021). Seats N {bys['N']['total']} / "
+               f"S {bys['S']['total']} / E {bys['E']['total']} (Rev D {' / '.join(str(r_['lower'] + r_['upper']) for r_ in rows_f)}). Mech {n(mech_drawn)} vs "
+               f"{n(X_['M'])}. FLEX kept: team assembly ≈ {n(area(team['rect']))}, FLEX / STORAGE {n(area(sw['rect']))} SF.")
+    else:
+        txt = (f"L2 = footprint minus open-to-below (arena 132 x 168, lobby 58 x 34). S&C {n(X_['sf']['strength_conditioning'])} program vs "
+               f"{n(49 * 110.8 - 12.667 * 21.333)} drawn: the 76 in ST-1 takes {n(12.667 * 21.333 - 10.8 * 19)} SF more than Rev D (C-3).")
+    y = sh.para(rx, y, rw, txt, size=6.9)
+    sh.text(rx, y - 0.14, "ACCESS CONTROL + EGRESS (D-033 DECIDED; layout ASSUMED)" if lvl == 1 else
+            "LEVEL 2 LOOP (D-035 DECIDED; geometry ASSUMED) + EGRESS", size=9.0, bold=True)
+    y -= 0.16
+    acc1 = ["ONE WAY IN (D-033): E1 → security checkpoint (size TBD) → lobby; teams go west through CD-1 to team assembly, athlete corridor, lockers.",
+            "X1-X10 EXIT ONLY: alarmed, no exterior entry hardware, free egress (IBC 2021 1010.2), panic hardware (1010.2.9), no delayed egress in "
+            "Group A (1010.2.13). > 1,000 per story → 4 exits (T1006.3.3); main exit ≥ 1/2 the load (1030.2); checkpoint must not narrow it (R-015).",
+            "S1 service / deliveries at the north door (D-034 DECIDED); team / bus drop loop south, offset E / W of E1. Freestanding portal "
+            "30 ft south of E1 over the 28 x 30 ft brick Champion Walk (D-043, D-046, D-050): outside, drawn on P2-C-101 / P2-A-201."]
+    acc2 = [f"LOOP (D-035, Shane 4:55 AM CT): continuous around the top of Level 2 — rear walkway (N), walkway (E), upper concourse / "
+            f"balcony (S) and a new west leg cut from S&C + cross-training. {lp2['lanes']} lanes x {lp2['lane_width_in']} in = {lp2['width_ft']:g} ft "
+            f"everywhere, squared corners; {n(lg['centerline'])} ft centerline = {lg['laps_per_mile']:.2f} laps/mile.",
+            "Lane width: UFC 4-740-02N 4.1.7 (indoor track ≥ 12 ft, 3 lanes x 42 in); Athletic Business (3 lanes of 36-42 in; max 12 "
+            "laps/mile, 8-10 preferred). 2 lanes ASSUMED (3 would need 10.5 ft; the upper tier would move).",
+            "Event days the loop is the upper concourse: spectators cross it at the upper-tier entries (marked, locations ASSUMED) and at "
+            "the stairs / elevator, which open onto it. Training on non-event days; crossing users are a known track hazard (Athletic Business).",
+            "Guards 42 in min. where the loop is open more than 30 in above the floor below (IBC 2021 1015.2, 1015.3; 4 in sphere 1015.4): "
+            "west edge over the arena, south edge over the lobby. Tier backs: rail / guard per 1030.17 (architect).",
+            "Stairs 76 in (D-052) with 76 in intermediate landings (D-051) = 12.67 x 21.33 ft, same spot both levels. ST-2 sits in a 21.33 x "
+            "6.67 ft NE stair tower (Rev D 19 x 5): 6.67 ft is what keeps it clear of the loop's north leg. Egress: 4 stairs discharge at L1 "
+            "through EXIT ONLY doors X4, X6, X9, X10 (D-033)."]
+    for t_ in (acc1 if lvl == 1 else acc2):
+        y = sh.para(rx, y + 0.02, rw, t_, size=6.4 if lvl == 1 else 6.6, indent=0.12, bullet="·")
+    if lvl == 2:
+        sh.text(rx, y - 0.14, "LAYOUT NOTES (KEYSTONE, ASSUMED — architect to confirm)", size=9.0, bold=True)
+        y -= 0.16
+    notes1 = ["D-049: rows 1-2 of the upper tier (front 6 ft) leave < 7'-6\" clear (≈ 1'-6\" structure ASSUMED): storage / mech only; event lockers "
+              "start behind them. FINDING: EXIT (N), EXIT (E), SE concourse, lobby / portal / athlete-route edge also pass under rows 1-2; egress "
+              "needs ≥ 7'-6\" (IBC 1003.2): omit or raise rows 1-2 there. Travel distance NOT checked."]
+    notes2 = [f"Upper tier 15 ft deep: {up['rows']} rows x {up['row_depth_in']} in, {up['riser_in']} in risers (D-053; section P2-A-301 / A-302), stepping "
+              "DOWN from the loop to the court (D-049). N / S bands now 132 ft (east shift); seat split by side changes, totals stay 1,100 + 1,100.",
+              "6 ft stretch strip on the N side. Exit separation, travel distance, structure NOT checked. Floor-to-floor 15 ft ASSUMED."]
+    for t_ in (notes1 if lvl == 1 else notes2):
+        y = sh.para(rx, y + 0.02, rw, t_, size=6.4 if lvl == 1 else 6.6, indent=0.12, bullet="·")
+    y = sh.para(rx, y - 0.02, rw, "Sources: phase2.yaml (D-009, D-030, D-033, D-034, D-035, D-049, D-051-D-053, D-056, D-057); Shane 2026-10-04 9:10 AM CT; "
+                "P2-G-003 Rev G; R-008, R-009, R-014, R-015, R-020, R-021; IBC 2021 Ch. 10 (UpCodes, Alabama); UFC 4-740-02N (retrieved 2026-10-04). "
+                "Geometry: params/phase2_plan_rev_e.yaml.", size=6.3)
+    fl = body_bottom + 0.08
+    if y < fl:
+        raise SystemExit(f"LAYOUT OVERFLOW: right panel runs {fl - y:.2f} in into the stamp band")
+    print(f"layout margin right panel (in): {y - fl:.2f}")
+    return sh
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sheet", choices=list(LEVEL_OF), required=True)
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")
-    ap.add_argument("--rev", choices=["A", "B", "C", "D"], default="D",
-                    help="A = first block plan (frozen); B = Shane 4:30 AM CT changes (frozen); C = single controlled entry, D-033 (frozen); D = Level 2 loop, D-035 (default)")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E"], default="E",
+                    help="A = first block plan (frozen); B = Shane 4:30 AM CT changes (frozen); C = single controlled entry, D-033 (frozen); D = Level 2 loop, D-035 (frozen); E = reviewer C-1..C-4: 76 in stairs, east +6 ft, D-049, D-057 (default)")
     a = ap.parse_args()
     if a.rev == "A":
         p2, prog, plan, F_, T_ = load_all()
@@ -1698,6 +2237,10 @@ def main():
     elif a.rev == "B":
         p2, prog, ob, out = tf.summary_e()
         sh, rv_letter = build_b(a.sheet, p2, prog, out["plan"], out["mix"], (out["rows"], out["tot"])), "B"
+    elif a.rev == "E":
+        p2, prog, ob, out = tf.summary_g()
+        sh, rv_letter = build_e(a.sheet, p2, prog, out["plan"], out["loop"], (out["rows"], out["tot"]), out["geom"],
+                                out["drawn"], out["drawn_d"], out["rev_f"]["rows"]), "E"
     elif a.rev == "D":
         p2, prog, ob, out_e = tf.summary_e()
         p2, prog, ob, out = tf.summary_f()

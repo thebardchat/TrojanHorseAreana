@@ -99,6 +99,7 @@ building:
     change_vs_rev_d: {l1_footprint_sf: 1523.7, l2_area_sf: 515.7, total_gsf: 2039.3, source: "R-021 arithmetic"}
     program_estimate: "P2-G-003 Rev F method with 76 in stairs + east shift: footprint 54,588.9, L2 28,432.1, GSF 81,521.9 (planning-factor estimate, not the size)"
     detail: "research/R-021-area-reconciliation.md"
+    rev_e_drawn: {l1_footprint_sf: 53062.2, l2_area_sf: 28914.2, total_gsf: 81976.4, change_vs_rev_d: "+1,559.2 / +551.2 / +2,110.4", basis: "P2-A-101/102 Rev E: 210 x 252 + 21.33 x 6.67 NE stair tower (142.2) = 53,062.2; L2 = 53,062.2 - arena open 132 x 168 (22,176) - lobby open 58 x 34 (1,972) = 28,914.2. Differs from the R-021 decided value (53,026.7) by +35.6 SF on each level: the 76 in ST-2 needs a 6.67 ft tower, not 5 ft, to clear the loop", program_rev_g: "P2-G-003 Rev G: footprint 54,240.9, L2 gross 28,012.1, L1 + L2 gross 80,747.5", source: "phase2_plan_rev_e.yaml; p2_testfit.py drawn_size() / compute_rev_g(); Shane 2026-10-04 9:10 AM CT"}
     source: "D-052, D-053, D-056, D-057; KEYSTONE arithmetic 2026-10-04 8:36 AM CT (R-021)"
   levels: 2
   levels_basis: "LOCKED 2 levels (D-030 DECIDED, Shane 11:39 PM CT); D-031 allowed up to 2"
@@ -283,8 +284,8 @@ approach:
     source: "Shane 2026-10-04 7:49 AM CT (D-052 DECIDED); R-018.9"
   under_tier_use:
     rule: "upper tier steps DOWN from the L2 loop toward the court (as drawn); under its low front edge: telescopic stack, storage, mechanical; lockers only where headroom is full (DECIDED, D-049)"
-    full_headroom: "under the flat L2 slab behind the tier back line (ASSUMED reading)"
-    next_revision: "event lockers 1-4 re-planned to their full-height parts; exit passages under the tier front need >= 7'-6 in (IBC 2021 1003.2); telescopic stack stays at the tier face (P2-A-302 stack check)"
+    full_headroom: "Rev E (ASSUMED, D-060 OPEN): clear height >= 7 ft 6 in (IBC 2021 1003.2) = under upper-tier rows 3-5; rows 1-2 (front 6 ft) are the low band (storage / mech / stack). Earlier reading: under the flat L2 slab behind the tier back line"
+    next_revision: "done on P2-A-101 Rev E: event lockers 1-4 start behind the 6 ft low band (2,723 SF vs 3,600); exit passages N / E, SE concourse and the lobby / portal edge under rows 1-2 still need >= 7 ft 6 in (omit or raise rows 1-2 there); telescopic stack stays at the tier face (P2-A-302)"
     source: "Shane 2026-10-04 7:24 AM CT (D-049); R-020; P2-A-301 Rev B"
   sight_lines:
     study: "P2-A-302 Rev A / R-020: upper tier (14 in risers) fails every side; east side (10 ft focal) fails; PROPOSED upper 19 in risers + east tier 6 ft further out (D-053 OPEN)"
@@ -493,6 +494,12 @@ sheets:
         approved: "Shane 2026-10-04 5:27 AM CT (D-036); frozen in Phase 2 Schematic Set Rev A"
         note: LOCKED PROGRAM with the Level 2 running / training loop (D-035); S&C 5,224, cross-training 3,500
         source: "Shane 2026-10-04 4:55 AM CT (Rev F; Rev E frozen; keep >= 2,000 SF footprint margin)"
+      G:
+        file: P2-G-003_RevG
+        frozen: false
+        inputs: "params/phase2_program.yaml (rev_g, meta_rev_g) + params/phase2_plan_rev_e.yaml"
+        note: "Rev F + 76 in stairs / 76 in intermediate landings (D-052, D-051) + 6 ft east clear zone (D-053) + Rev E loop; D-057 size table (L1 footprint, L2 area, TOTAL GSF, change vs Rev F / Rev D), drawn vs program side by side (C-3); no cap, no margin (D-056)"
+        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4; Rev F stays frozen)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
   P2-A-101:
     title: OVERALL FLOOR PLAN — LEVEL 1
@@ -521,6 +528,11 @@ sheets:
         approved: "Shane 2026-10-04 5:27 AM CT (D-036); frozen in Phase 2 Schematic Set Rev A after a label-only re-issue (FLEX labels, D-039)"
         inputs: params/phase2_plan_rev_d.yaml
         source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
+      E:
+        file: P2-A-101_RevE
+        frozen: false
+        inputs: params/phase2_plan_rev_e.yaml
+        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4: 76 in stairs + 76 in landings D-052 / D-051, east tier +6 ft D-053, 19 in upper risers noted, FLEX / STORAGE kept D-039 = C-1, portal + Champion Walk + S1 / bus notes, upper tier steps down D-049, D-057 area table, drawn vs program C-3); Rev D stays frozen"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2
@@ -549,6 +561,11 @@ sheets:
         approved: "Shane 2026-10-04 5:27 AM CT (D-036); frozen in Phase 2 Schematic Set Rev A"
         inputs: params/phase2_plan_rev_d.yaml
         source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
+      E:
+        file: P2-A-102_RevE
+        frozen: false
+        inputs: params/phase2_plan_rev_e.yaml
+        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4: 76 in stairs + 76 in landings D-052 / D-051, east tier +6 ft D-053, 19 in upper risers noted, FLEX / STORAGE kept D-039 = C-1, portal + Champion Walk + S1 / bus notes, upper tier steps down D-049, D-057 area table, drawn vs program C-3); Rev D stays frozen"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-201:
     title: EXTERIOR ELEVATIONS

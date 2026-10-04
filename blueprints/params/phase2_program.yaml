@@ -331,6 +331,28 @@ meta_rev_f:
   rule: "Rev E method with S&C and cross-training at their D-035 SF; the Level 2 loop (drawn area, P2-A-102 Rev D) replaces the upper concourse line and is added to L2 gross without the gross-up"
   source: "Shane 2026-10-04 4:55 AM CT (D-035 DECIDED: continuous L2 running/training loop; S&C and cross-training reduced to fit; Rev E frozen)"
 
+meta_rev_g:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "LOCKED PROGRAM + LOOP"
+  subtitle: "REV E PLAN · D-057 SIZES"
+  revision: G
+  file: P2-G-003_RevG
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev F method with 76 in stairs and 76 in intermediate landings (D-052, D-051), the 6 ft east clear zone (D-053) added to L1 and the arena volume, and the Rev E loop area; size reported as L1 footprint, L2 area, TOTAL GSF and change vs the last revision (D-057); no cap, no margin (D-056)"
+  source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4; Rev F frozen)"
+
+rev_g:
+  stair_width_in: 76
+  intermediate_landing_in: 76
+  stair_basis: "D-052 DECIDED 7:49 AM CT: 76 in stairs; D-051: switch-back intermediate landing >= stair width (IBC 2021 1011.6); floor landing stays min(width, 48 in)"
+  east_clear_sf: 864
+  east_clear_basis: "event floor 6 ft wider on the east side x 144 ft = 864 SF net (D-053 APPROVED 7:44 AM CT: east tier front 16 ft from the mats); counted in L1 and in the arena volume, grossed up like the floor"
+  loop_basis: "drawn loop area from phase2_plan_rev_e.yaml level_2.loop (east leg 6 ft further east), not grossed up (as Rev F)"
+  status: "DECIDED inputs (D-051, D-052, D-053) / ASSUMED method (Rev F)"
+  source: "Shane 2026-10-04 7:44, 7:49, 9:10 AM CT; D-051; D-052; D-053; P2-G-003 Rev F"
+
 training_loop:
   replaces: concourse_upper
   area_basis: "drawn loop area from phase2_plan_rev_d.yaml level_2.loop (outer rect minus inner rect)"

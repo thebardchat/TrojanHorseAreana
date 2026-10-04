@@ -468,3 +468,12 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - Frozen checks: all frozen PDFs byte-identical, DXFs entity-identical (known P1-G-001 Rev A internal byte drift only); P2-A-201 D, A-301 B, A-302 A, C-101 A unchanged.
 - v1.3.1 ERRATA block drafted for Shane's review — **not saved anywhere** (per order).
 
+## 2026-10-04 ~9:40 AM CT · D-058 · v1.3.1 errata saved · Plan Rev E set (C-1..C-4) · D-059 backup live
+- **D-058 DECIDED (Shane 9:10 AM CT):** no GO waits / no "next build options" — proceed with the standard next step (overrides v1.3 §11 / §14). Errata E-1..E-11 accepted → NEW file `ARENA\_KEYSTONE\KEYSTONE_PROMPT_v1.3.1_ERRATA.md` + repo mirror.
+- **P2-A-101 / P2-A-102 Rev E** (new `build_e`, `params/phase2_plan_rev_e.yaml`): event floor 120 x 144 (east tier 16 ft from the mats, D-053), building 210 x 252; 4 stairs 76 in with 76 in intermediate landings (D-052 / D-051) = 12.67 x 21.33 ft; ST-2 in a 21.33 x 6.67 ft NE tower (must project 6.67 ft, not 5, to clear the loop); loop 5,026 SF, 718 ft, 7.35 laps/mile; FLEX / STORAGE kept (D-039 → C-1); D-049 low band under upper-tier rows 1-2 drawn, event lockers 1-4 start behind it (−877 SF), under-tier storage hatched; portal + Champion Walk label near E1 and S1 / bus notes (D-034 DECIDED; "D-034 OPEN" removed); 19 in risers noted; D-057 area check with drawn vs program side by side (C-3); no cap / margin text.
+- **P2-G-003 Rev G** (new `build_g`, `compute_rev_g`, `summary_g`, `drawn_size`): Rev F + 76 in stairs (vc 874 → 1,145 SF) + 864 SF east clear zone + Rev E loop. Program footprint 54,240.9, L2 28,012.1, L1 + L2 80,747.5. D-057 table: drawn 53,062.2 / 28,914.2 / 81,976.4 (+1,559.2 / +551.2 / +2,110.4 vs Rev D).
+- **C-4:** A-201 Rev D (= ARENA `P2-A-201.pdf`) already says the highest aisle is the loop at 15', matching A-301 → no change. A-201 Rev E still needed later for the 210 ft width + 6.67 ft tower (BACKLOG).
+- **D-060 OPEN:** D-049 headroom reading + egress passages under rows 1-2.
+- **D-059 DECIDED (Shane 9:35 AM CT):** ARENA backup live (nightly scp to shanebrain:/tank/backups/ARENA + ZFS snapshots, 30 days); no-backup flag cleared; bullfrog retired (no references found anywhere).
+- Frozen revs unchanged (see report); Rev D / F generators untouched.
+
