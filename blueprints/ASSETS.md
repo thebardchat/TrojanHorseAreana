@@ -391,3 +391,15 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **Research updated:** `research/R-007-occupancy-and-occupant-load.md` §R-007.3 (sections looked up this session, from the box copy `research_src/upc_ibc10.txt`).
 - **New file in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-G-002_RevA.pdf`.
 - **Preview (box only):** `/workspace/keystone_previews/P2-G-002.png` / `.pdf`.
+
+## 2026-10-04 additions (11:07 AM CT session, Option 1 + P2-A-101 Rev G + P2-A-111 Rev A)
+- **New data:**
+  - `params/phase2_plan_rev_g.yaml`: Plan Rev G, Level 1 only. Adds the E1 bank, the widened vestibule, the moved first aid room and the checkpoint conflict flag.
+  - `params/phase2_life_safety.yaml`: P2-A-111 inputs (travel paths, common path, separation pairs, findings).
+  - `phase2.yaml` v18.
+- **New sheets (repo):**
+  - `phase2/out/{pdf,dxf}/P2-A-101_RevG` (PDF sha256 `745973e0c547eabf…`). Rev F is frozen.
+  - `phase2/out/{pdf,dxf}/P2-A-111_RevA` (PDF sha256 `190e8cfbb03360ca…`).
+- **Research updated:** `research/R-007-occupancy-and-occupant-load.md` §R-007.4 (life safety sections, from `research_src/upc_ibc10.txt`).
+- **New files in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-101_RevG.pdf`, `P2-A-111_RevA.pdf`.
+- **Previews (box only):** `/workspace/keystone_previews/P2-A-101.png` / `.pdf` (Rev G), `P2-A-111.png` / `.pdf`.

@@ -65,3 +65,29 @@ L1 doors at 0.15 in (1005.3.2 exception) with 11 openings × 64 in = 704 in:
 - **Sports case:** the total passes (489.8 in), but the main exit E1 still needs 244.9 in = 4 pairs.
 
 CONFIDENCE: HIGH for the text (2021 read) / LOW for the door widths (not drawn) and the floor function (D-054). NEEDS ARCHITECT CONFIRMATION: YES.
+
+## R-007.4 Addendum 2026-10-04 11:07 AM CT — sections looked up for P2-A-111 Rev A (life safety plan)
+
+Source: IBC 2021 Chapter 10, UpCodes (Alabama), retrieved 2026-10-04 (`/workspace/research_src/upc_ibc10.txt`). Quotes are short excerpts.
+
+- **1003.6 Means of egress continuity:** "Obstructions shall not be placed in the minimum width or required capacity of a means of egress component … The minimum width or required capacity of a means of egress system shall not be diminished along the path of egress travel."
+- **1010.5 Turnstiles and similar devices:** "Turnstiles or similar devices that restrict travel to one direction shall not be placed so as to obstruct any required means of egress", except as 1010.5.1–1010.5.3 allow. Used for the security checkpoint finding (D-065).
+- **1007.1.1 Two exits:** at least "one-half of the length of the maximum overall diagonal dimension of the building or area to be served". **Exception 2:** sprinklered throughout (903.3.1.1 / 903.3.1.2): "not less than one-third of the length of the maximum overall diagonal dimension of the area served."
+- **1007.1.1.1 Measurement point:** to doorways, "any point along the width of the doorway"; to exit access stairways, "the closest riser".
+- **1007.1.2 Three or more exits:** two of them meet 1007.1.1; the others are "a reasonable distance apart so that if one becomes blocked, the others will be available."
+- **1017.3 Measurement:** "from the most remote point of each room, area or space along the natural and unobstructed path of horizontal and vertical egress travel to the entrance to an exit … measured to the nearest exit." Table 1017.2, Group A: 200 ft without sprinklers, 250 ft with sprinklers.
+- **1006.2.1 / Table 1006.2.1:** Group A, one exit allowed up to 49 occupants with a common path of 75 ft (sprinklered). Footnote c sends fixed seating to 1030.8. **Exception 3:** "Unoccupied mechanical rooms and penthouses are not required to comply with the common path of egress travel distance measurement."
+- **1030.8 Common path (assembly seating):** "shall not exceed 30 feet (9144 mm) from any seat to a point where an occupant has a choice of two paths of egress travel to two exits." The limit is 75 ft for areas serving fewer than 50 occupants, and 50 ft for smoke-protected or open-air seating.
+- **1028.3 Exit discharge width:** "not less than the minimum width or required capacity of the exits being served." **1028.5:** the exit discharge needs "direct and unobstructed access to a public way". If that is not possible, a safe dispersal area of at least 5 SF per person, at least 50 ft from the building, can be used.
+
+Application (P2-A-111 Rev A, plan Rev G):
+- **Separation:** the diagonal is 333.2 ft, so the minimum is 1/3 = 111.1 ft.
+  - L1 E1 ↔ X5: 252.0 ft.
+  - L2 ST-1 ↔ ST-3: 255.1 ft.
+  - L2 ST-2 ↔ ST-4: 281.5 ft.
+  - All PASS.
+- **Travel (diagram measurements, UNVERIFIED):** L1 maximum 133 ft and L2 maximum 128 ft, both against 250 ft.
+- **Checkpoint:** clear width beside it is 312 in, against 466.5 in needed. FINDING D-065.
+- **Exit discharge from E1:** must be at least 466.5 in. The 28 ft walk is 336 in. TBD (site).
+
+CONFIDENCE: HIGH for the text / LOW for the geometry (walls, doors, aisles not laid out). NEEDS ARCHITECT CONFIRMATION: YES.

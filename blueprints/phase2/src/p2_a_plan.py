@@ -1687,8 +1687,12 @@ def build_d(sheet_no, p2, prog, plan, X_, seats, lg):
 def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
     """Rev E (Shane 2026-10-04 9:10 AM CT, reviewer C-1..C-4): 76 in stairs (D-052), east tier +6 ft (D-053), under-tier rule (D-049), D-057 areas.
     Rev F (Shane 10:27 AM CT): D-061 Option B (L2 FF 17'-9", 21 in risers, front row 9.0 ft = 7'-6" clear, no low band), 31-riser
-    stairs, event lockers 3,600 SF (D-060 settled). rev="F" branches only; Rev E output stays byte-identical."""
-    rf = rev == "F"
+    stairs, event lockers 3,600 SF (D-060 settled). rev="F" branches only; Rev E output stays byte-identical.
+    Rev G (Shane 11:07 AM CT, Level 1 only): Option 1 DECIDED, E1 = 8-pair door bank (512 in clear) across the lobby's 58 ft south
+    wall, vestibule widened, first aid moved, checkpoint FLAGGED (egress conflict, D-065). rev="G" branches only; Rev F stays
+    byte-identical."""
+    rf = rev in ("F", "G")
+    rg = rev == "G"
     lvl = LEVEL_OF[sheet_no]
     meta2 = p2["meta"]
     pm = plan["meta"]
@@ -1838,7 +1842,18 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
         x_, y_ = pl.P(axis - 3, -5.2)
         sh.text(x_, y_, "ARENA N-S AXIS · ROAD ASSUMED SOUTH", size=5.6, align="right", layer=L_TAG)
         x_, y_ = pl.P(axis + 3, -4.4)
-        sh.text(x_, y_, "E1 MAIN ENTRY / EXIT (D-033)", size=6.0, bold=True, layer=L_TAG)
+        if rg:
+            e1 = next(d_ for d_ in lv["doors"]["items"] if d_["id"] == "E1")["bank"]
+            for k_ in range(e1["pairs"]):
+                xa = e1["x0"] + k_ * (e1["pair_ft"] + e1["mullion_ft"])
+                pl.line(xa, 0, xa + e1["pair_ft"], 0, L_TAG, lw=3.0)
+                pl.line(xa + 0.4, e1["inner_bank_y"], xa + e1["pair_ft"] - 0.4, e1["inner_bank_y"], L_TAG, lw=1.6)
+                for xt_ in (xa, xa + e1["pair_ft"]):
+                    pl.line(xt_, -1.6, xt_, 1.6, L_TAG, lw=0.5)
+                    pl.line(xt_, e1["inner_bank_y"] - 1.2, xt_, e1["inner_bank_y"] + 1.2, L_TAG, lw=0.4)
+            sh.text(x_, y_, f"E1 MAIN ENTRY / EXIT — {e1['pairs']}-PAIR BANK, {e1['clear_in']} in CLEAR", size=5.4, bold=True, layer=L_TAG)
+        else:
+            sh.text(x_, y_, "E1 MAIN ENTRY / EXIT (D-033)", size=6.0, bold=True, layer=L_TAG)
         x_, y_ = pl.P(axis + 3, -7.0)
         sh.text(x_, y_, "↓ 30' S: FREESTANDING PORTAL + 28' x 30' CHAMPION WALK (D-043, D-046; P2-C-101)", size=4.4, layer=L_TAG)
         # security checkpoint (location only; size TBD)
@@ -1846,7 +1861,10 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
         pl.drect(ck["rect"], L_TAG, lw=0.9, dash=0.06, gap=0.035)
         x_, y_ = pl.P((ck["rect"][0] + ck["rect"][2]) / 2, (ck["rect"][1] + ck["rect"][3]) / 2)
         sh.text(x_, y_ + 0.015, "SECURITY CHECKPOINT", size=5.0, bold=True, align="center", layer=L_TAG)
-        sh.text(x_, y_ - 0.085, "— size TBD (ASSUMED)", size=5.0, align="center", layer=L_TAG)
+        if rg:
+            sh.text(x_, y_ - 0.085, "EGRESS CONFLICT — see P2-A-111", size=5.0, bold=True, align="center", layer=L_TAG, color="#CC0000")
+        else:
+            sh.text(x_, y_ - 0.085, "— size TBD (ASSUMED)", size=5.0, align="center", layer=L_TAG)
         # controlled door off the lobby to the athlete route
         cdx, cdy = lv["controlled_door"]["at"]
         pl.line(cdx, cdy - 4, cdx, cdy + 4, L_TAG, lw=2.4)
@@ -2111,7 +2129,8 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
                ("svc", "S1 = SERVICE / LOADING door (staff-controlled, not a people entrance; D-034)"),
                ("note", f"Upper tier above: front row {up['front_row_ft']:.1f}' = 7'-6\" clear, no low band (D-061)") if rf else
                ("dash", "Fine dash = low band under upper-tier rows 1-2 (D-049); hatch = under-tier storage"),
-               ("ck", "Security checkpoint zone (size TBD) · CD-1 controlled door (staff / teams)")]
+               ("ck", "Security checkpoint zone (size TBD; Rev G: egress conflict, P2-A-111) · CD-1 controlled door" if rg else
+                "Security checkpoint zone (size TBD) · CD-1 controlled door (staff / teams)")]
     else:
         leg = [("box", f"Upper tier, FIXED ({X_['seat_sf_upper']:.1f} SF/seat) on the Level 2 deck — D-009"),
                ("open", "Open to below (arena; lobby double height)"),
@@ -2169,6 +2188,8 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
     at = [("", 0, "l"), ("DRAWN REV E", 1.75, "r"), ("REV D", 2.45, "r"), ("CHANGE", 3.10, "r"), ("PROGRAM G-003 G", 4.20, "r"), ("DRAWN − PROG.", rw, "r")]
     if rf:
         at = [("", 0, "l"), ("DRAWN REV F", 1.75, "r"), ("REV E", 2.45, "r"), ("CHANGE", 3.10, "r"), ("PROGRAM G-003 I", 4.20, "r"), ("DRAWN − PROG.", rw, "r")]
+    if rg:
+        at = [("", 0, "l"), ("DRAWN REV G", 1.75, "r"), ("REV F", 2.45, "r"), ("CHANGE", 3.10, "r"), ("PROGRAM G-003 I", 4.20, "r"), ("DRAWN − PROG.", rw, "r")]
     y -= rp
     for lab, dx, al in at:
         sh.text(rx + dx, y + 0.02, lab, size=6.4, bold=True, align="left" if al == "l" else "right", layer=TB)
@@ -2180,7 +2201,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
                             ("TOTAL GSF", DR["G"], DD["G"], X_["F"] + X_["L2"])):
         y -= rp
         for (l_, dx, al), c in zip(at, [lab, n(d_), n(dd), sgn(d_ - dd), n(pg), sgn(d_ - pg)]):
-            sh.text(rx + dx, y, c, size=7.0, bold=l_ in ("", "DRAWN REV E", "DRAWN REV F"), align="left" if al == "l" else "right", layer=TB)
+            sh.text(rx + dx, y, c, size=7.0, bold=l_ in ("", "DRAWN REV E", "DRAWN REV F", "DRAWN REV G"), align="left" if al == "l" else "right", layer=TB)
     sh.line(rx, y - 0.05, rx + rw, y - 0.05, layer=TB, lw=0.4)
     y -= 0.06
     team = next(z for z in plan["level_1"]["zones"] if z["id"] == "team_asm")
@@ -2196,7 +2217,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
         st1 = next(st_["rect"] for st_ in vert["stairs"] if st_["id"] == "ST-1")
         if lvl == 1:
             txt = (f"Floor 120 x 144, east tier 16 ft from the mats. Program = footprint / L2 gross (R-021). Seats N {bys['N']['total']} / "
-                   f"S {bys['S']['total']} / E {bys['E']['total']} (Rev E {' / '.join(str(r_['lower'] + r_['upper']) for r_ in rows_f)}). Mech {n(mech_drawn)} vs "
+                   f"S {bys['S']['total']} / E {bys['E']['total']} (Rev {'F' if rg else 'E'} {' / '.join(str(r_['lower'] + r_['upper']) for r_ in rows_f)}). Mech {n(mech_drawn)} vs "
                    f"{n(X_['M'])}. Event lockers {n(sum(area(r_['rect']) for r_ in lv['rooms'] if r_['id'].startswith('evl_')))} SF (D-060). "
                    f"FLEX kept: team assembly ≈ {n(area(team['rect']))}, FLEX / STORAGE {n(area(sw['rect']))} SF.")
         else:
@@ -2227,6 +2248,14 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
         acc2[-1] = ("Stairs 76 in, 31 risers of 6.87 in for the 17'-9\" floor-to-floor (D-061), 76 in intermediate landings = 12.67 x 24.08 ft, "
                     "same spot both levels. The NE stair tower grows 2.75 ft west to 24.08 x 6.67 ft (Rev E 21.33 x 6.67), still clear of the "
                     "loop's north leg. Egress: 4 stairs discharge at L1 through EXIT ONLY doors X4, X6, X9, X10 (D-033).")
+    if rg:
+        acc1 = ["ONE WAY IN (D-033): E1 → vestibule → security checkpoint (size TBD) → lobby; teams go west through CD-1 to team assembly, athlete corridor, lockers.",
+                "E1 (Shane 11:07 AM CT, Option 1 DECIDED): 8-pair door bank across the lobby's 58 ft south wall, 512 in clear (64 in per pair ASSUMED), "
+                "inner vestibule bank the same; sized for the standing worst case (466.5 in needed, IBC 1030.2; floor use D-054 OPEN). First aid moved to the "
+                "lobby's east side (ASSUMED). FINDING: the checkpoint stands in the main-exit path (312 in clear beside it): options on P2-A-111.",
+                "X1-X10 EXIT ONLY: alarmed, no exterior entry hardware, free egress (IBC 2021 1010.2), panic hardware (1010.2.9), no delayed egress in "
+                "Group A (1010.2.13). Capacities, travel distance, exit separation: P2-A-111. S1 service at the north door (D-034); portal + Champion Walk "
+                "30 ft south of E1 (D-043, D-046, D-050; P2-C-101 / P2-A-201)."]
     for t_ in (acc1 if lvl == 1 else acc2):
         y = sh.para(rx, y + 0.02, rw, t_, size=6.4 if lvl == 1 else 6.6, indent=0.12, bullet="·")
     if lvl == 2:
@@ -2251,6 +2280,12 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
         src_ = ("Sources: phase2.yaml (D-009, D-030, D-033-D-035, D-049, D-051-D-053, D-056, D-057, D-060, D-061); Shane 2026-10-04 9:10 + 10:27 AM CT; "
                 "P2-G-003 Rev I; R-008, R-009, R-014, R-015, R-020-R-022; IBC 2021 Ch. 10 (UpCodes, Alabama); UFC 4-740-02N (retrieved 2026-10-04). "
                 "Geometry: params/phase2_plan_rev_f.yaml.")
+    if rg:
+        notes1 = [f"D-061 (Option B): Level 2 at 17'-9\", {up['riser_in']} in upper risers, front row {up['front_row_ft']:.1f} ft: 7'-6\" clear under row 1 "
+                  "(≈ 1'-6\" structure ASSUMED; IBC 1003.2 minimum, no margin). Exit paths under the tier are clear; no low band, no seats lost."]
+        src_ = ("Sources: phase2.yaml (D-009, D-033-D-035, D-049, D-051-D-054, D-056, D-057, D-060, D-061); Shane 2026-10-04 9:10, 10:27 + 11:07 AM CT; "
+                "P2-G-002 Rev A, P2-G-003 Rev I, P2-A-111 Rev A; R-007, R-008, R-014, R-015, R-018, R-020-R-022; IBC 2021 Ch. 10 (UpCodes). "
+                "Geometry: params/phase2_plan_rev_g.yaml.")
     for t_ in (notes1 if lvl == 1 else notes2):
         y = sh.para(rx, y + 0.02, rw, t_, size=6.4 if lvl == 1 else 6.6, indent=0.12, bullet="·")
     y = sh.para(rx, y - 0.02, rw, src_, size=6.3)
@@ -2266,8 +2301,8 @@ def main():
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")
-    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F"], default="F",
-                    help="A = first block plan (frozen); B = Shane 4:30 AM CT changes (frozen); C = single controlled entry, D-033 (frozen); D = Level 2 loop, D-035 (frozen); E = reviewer C-1..C-4: 76 in stairs, east +6 ft, D-049, D-057 (frozen); F = D-061 Option B (L2 17'-9\", 21 in risers, 31-riser stairs), D-060 lockers 3,600 (default)")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F", "G"], default="F",
+                    help="A = first block plan (frozen); B = Shane 4:30 AM CT changes (frozen); C = single controlled entry, D-033 (frozen); D = Level 2 loop, D-035 (frozen); E = reviewer C-1..C-4: 76 in stairs, east +6 ft, D-049, D-057 (frozen); F = D-061 Option B (L2 17'-9\", 21 in risers, 31-riser stairs), D-060 lockers 3,600 (default; A-101 Rev F frozen at Rev G); G = Level 1 only: E1 8-pair door bank, Option 1 (Shane 11:07 AM CT)")
     a = ap.parse_args()
     if a.rev == "A":
         p2, prog, plan, F_, T_ = load_all()
@@ -2279,6 +2314,16 @@ def main():
         p2, prog, ob, out = tf.summary_h()
         sh, rv_letter = build_e(a.sheet, p2, prog, out["plan"], out["loop"], (out["rows"], out["tot"]), out["geom"],
                                 out["drawn"], out["drawn_d"], out["rev_f"]["rows"], rev="F"), "F"
+    elif a.rev == "G":
+        if a.sheet != "P2-A-101":
+            sys.exit("Rev G is Level 1 only (P2-A-101); P2-A-102 stays at Rev F.")
+        p2, prog, ob, out = tf.summary_h()
+        plan_g = yaml.safe_load((BP / "params" / "phase2_plan_rev_g.yaml").read_text(encoding="utf-8"))
+        rows_g, tot_g = tf.seats_by_side(plan_g, prog, out["loop"])
+        if [(r["side"], r["lower"], r["upper"]) for r in rows_g] != [(r["side"], r["lower"], r["upper"]) for r in out["rows"]]:
+            sys.exit(f"Rev G seat counts differ from Plan Rev F: {rows_g}")
+        sh, rv_letter = build_e(a.sheet, p2, prog, plan_g, out["loop"], (rows_g, tot_g), tf.loop_geometry(plan_g),
+                                tf.drawn_size(plan_g), out["drawn"], out["rows"], rev="G"), "G"
     elif a.rev == "E":
         p2, prog, ob, out = tf.summary_g()
         sh, rv_letter = build_e(a.sheet, p2, prog, out["plan"], out["loop"], (out["rows"], out["tot"]), out["geom"],

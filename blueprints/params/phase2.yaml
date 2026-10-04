@@ -39,6 +39,8 @@
 # v16, 2026-10-04 10:27 AM CT: D-061 DECIDED Option B (L2 FF 17'-9", 21 in upper risers, front row 9.0 ft = 7'-6" clear, no
 #     seats lost); D-060 settled (event lockers 3,600 SF); A-201 Rev F, G-003 Rev H, P1-G-001 Rev E, R-023 APPROVED + frozen (D-062).
 # v17, 2026-10-04 10:48 AM CT: new sheet P2-G-002 Rev A (code analysis, params/phase2_code.yaml); C-12 rule D-063 (Phase 1 only).
+# v18, 2026-10-04 11:07 AM CT: L1 exits Option 1 DECIDED (E1 8-pair door bank, 512 in clear; D-054 note); P2-A-101 Rev G
+#     (params/phase2_plan_rev_g.yaml), Rev F frozen; new sheet P2-A-111 Rev A life safety plan (params/phase2_life_safety.yaml).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -553,9 +555,14 @@ sheets:
         source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4: 76 in stairs + 76 in landings D-052 / D-051, east tier +6 ft D-053, 19 in upper risers noted, FLEX / STORAGE kept D-039 = C-1, portal + Champion Walk + S1 / bus notes, upper tier steps down D-049, D-057 area table, drawn vs program C-3); Rev D stays frozen; frozen 10:27 AM CT when Rev F was ordered"
       F:
         file: P2-A-101_RevF
-        frozen: false
+        frozen: true
         inputs: params/phase2_plan_rev_f.yaml
-        source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B: L2 17'-9\", 21 in upper risers, front row 7'-6\" clear over all exit paths, no low band; stairs 31 risers / longer stair footprint; D-060 settled: event lockers 3,600 SF); Rev E frozen"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B: L2 17'-9\", 21 in upper risers, front row 7'-6\" clear over all exit paths, no low band; stairs 31 risers / longer stair footprint; D-060 settled: event lockers 3,600 SF); Rev E frozen; frozen 11:07 AM CT when Rev G was ordered"
+      G:
+        file: P2-A-101_RevG
+        frozen: false
+        inputs: params/phase2_plan_rev_g.yaml
+        source: "Shane 2026-10-04 11:07 AM CT (L1 exits Option 1 DECIDED: 8-pair door bank at E1 across the lobby's 58 ft south wall, 512 in clear, 64 in per pair ASSUMED; single controlled entry kept, D-033; bundle with P2-A-111 Rev A because the bank must be drawn on the plan); Level 1 only, P2-A-102 stays at Rev F"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2
@@ -716,6 +723,17 @@ sheets:
         inputs: "params/phase2_code.yaml + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_i)"
         source: "Shane 2026-10-04 10:48 AM CT (next backlog item P2-T-007: G-002 Rev A code analysis from cited R-files; D-054 worst-case L1 egress check with the 329 / 1,095 / 2,346 cases alongside)"
     source: "Shane 2026-10-04 10:48 AM CT; BACKLOG P2-T-007"
+  P2-A-111:
+    title: LIFE SAFETY PLAN (SCHEMATIC) — LEVELS 1 + 2
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_life_safety.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml (via p2_g_002.compute)"
+    revisions:
+      A:
+        file: P2-A-111_RevA
+        frozen: false
+        inputs: "params/phase2_life_safety.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml"
+        source: "Shane 2026-10-04 11:07 AM CT (next standard step: P2-A-111 Rev A life safety plan, L1 + L2: exits with capacities, egress widths, occupant loads per P2-G-002, travel distance / common path, exit separation, E1 door bank drawn)"
+    source: "Shane 2026-10-04 11:07 AM CT"
 
 sets:
   phase2_schematic_set_rev_a:

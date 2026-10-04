@@ -556,3 +556,39 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
   - **Other sections:** travel and common path, plus open items.
 - **Research:** R-007.3 addendum quotes the sections looked up this session: 1010.1.1, 1030.2 (full), 1030.3, 1004.2.1, 1005.5, T1006.2.1, T1017.2. A D-054 note is added (still OPEN).
 - No frozen sheet changed.
+
+## 2026-10-04 11:07 AM CT — L1 exits Option 1 DECIDED; P2-A-101 Rev G + P2-A-111 Rev A (life safety)
+- **Decision (Shane 11:07 AM CT):** Level 1 exits use Option 1, an 8-pair door bank at E1 across the lobby's 58 ft south wall.
+  - 512 in clear, with 64 in per pair ASSUMED.
+  - The single controlled entry stays (D-033).
+  - Folded into the D-054 note. D-054 floor use stays OPEN, but the exits are sized for the standing worst case.
+- **New findings (OPEN, not redesigned):**
+  - **D-064 restrooms at the worst case:** 26 M / 50 W WC needed vs 10 / 18 drawn.
+    - Option 1: size the restrooms for the worst case.
+    - Option 2: limit standing events, or bring temporary facilities.
+  - **D-065 security checkpoint vs egress:** the clear width beside the checkpoint is 312 in, but the main exit needs 466.5 in (IBC 1003.6, 1010.5, 1030.2).
+    - Option 1: move screening to a side bay of the lobby.
+    - Option 2: move screening outdoors onto the plaza.
+  - Open count 17 → 19.
+- **P2-A-101 Rev G** (Level 1 only; new `params/phase2_plan_rev_g.yaml`; `p2_a_plan.py --rev G`):
+  - E1 drawn as an 8-pair bank, with an outer bank and an inner (vestibule) bank.
+  - Vestibule widened to 52 ft (520 SF).
+  - First aid moved to the lobby's east side (ASSUMED).
+  - Checkpoint flagged "EGRESS CONFLICT — see P2-A-111".
+  - Rev F is frozen and byte-identical. P2-A-102 stays at Rev F. Footprint, areas and seats are unchanged.
+- **P2-A-111 Rev A life safety plan** (new `params/phase2_life_safety.yaml`, `phase2/src/p2_a_111.py`): L1 + L2 at 1" = 50'-0".
+  - Exits are shown with clear widths and capacities, and occupant loads per room come from P2-G-002.
+  - **L1 checks at the worst case (6,220), all PASS:**
+    - Total: 1,152 in vs 933.0.
+    - E1: 512 vs 466.5.
+    - Other L1 exits: 420.7 vs 356.8.
+    - Lose E1: 640 vs 466.5.
+    - Sensitivity, whole floor zone of 17,280 SF standing: E1 needs 479.4 in, which also passes.
+  - **L2 stairs:** 304 vs 292.4 in. Lose one stair: 228 vs 146.2. Loop: 84 vs 78.6.
+  - **Travel distance (T1017.2 limit 250 ft; diagram measurements, UNVERIFIED):** L1 maximum 133 ft, L2 maximum 128 ft.
+  - **Exit separation (1007.1.1 exception 2):** the diagonal is 333.2 ft, so the minimum is 111.1 ft. E1–X5 is 252.0 ft, ST-1–ST-3 255.1 ft and ST-2–ST-4 281.5 ft. All PASS.
+  - **Common path:** event lockers pass if their door is placed within 75 ft (UNVERIFIED). Seating is TBD.
+  - **TBD:** exit discharge from E1 needs ≥ 466.5 in (1028.3). The 28 ft walk is 336 in.
+- **Data:** `phase2.yaml` v18 (A-101 Rev F frozen, Rev G entry, new sheet P2-A-111).
+- **Research:** R-007.4 addendum (1003.6, 1010.5, 1007.1.1–1007.1.2, 1017.3, T1006.2.1 / 1006.2.1 exception 3, 1030.8, 1028.3, 1028.5).
+- **Frozen check:** every other revision re-renders byte-identical (PDF cmp, DXF entities).
