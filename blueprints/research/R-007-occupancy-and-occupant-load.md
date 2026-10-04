@@ -36,3 +36,32 @@ NEEDS ARCHITECT CONFIRMATION: YES
 - A-4 confirmed (the program and plans already ASSUMED it) → G-002 can cite 303.5.
 - Telescopic lower tier: if benches, occupant load = seat length ÷ 18 in, which may exceed the nominal 1,100 seats; seat type OPEN (D-009 mixed seating decided, product TBD).
 - D-054 OPEN: event floor uses (wrestling / sports only vs concerts, graduations, expos with floor chairs or standing).
+
+## R-007.3 Addendum 2026-10-04 10:48 AM CT — sections looked up for P2-G-002 Rev A (code analysis)
+
+Source: IBC 2021 (Alabama) Chapter 10 on UpCodes (https://up.codes/viewer/alabama/ibc-2021/chapter/10/means-of-egress), from the box copy `research_src/upc_ibc10.txt` (retrieved 2026-10-04, S2 above). The 2018 text was NOT re-read (R-006, D-008).
+
+- **1010.1.1 Size of doors:** "The required capacity of each door opening shall be sufficient for the occupant load thereof and shall provide a minimum clear opening width of 32 inches … measured between the face of the door and the stop, with the door open 90 degrees … Where … a door opening includes two door leaves without a mullion, one leaf shall provide a minimum clear opening width of 32 inches." Used for the ASSUMED 64 in clear per door pair (2 × 32 in). Real leaf widths are the architect's call.
+- **1030.2 Assembly main exit (full text):** the main exit carries "not less than one-half of the occupant load, but such capacity shall be not less than the total required capacity of all means of egress leading to the exit." In Group A it fronts a street, or an unoccupied space ≥ 10 ft that adjoins a street or public way. Alternative: "where there is not a well-defined main exit or where multiple main exits are provided, exits shall be permitted to be distributed around the perimeter of the building provided that the total capacity of egress is not less than 100 percent of the required capacity." This alternative is G-002 Option 2.
+- **1030.3 Assembly other exits:** each level has additional means of egress for "not less than one-half of the total occupant load served by that level." It carries the same distributed-perimeter alternative (total width ≥ 100%).
+- **1004.2.1 Intervening spaces:** egress capacity is based on "the cumulative portion of occupant loads of all rooms, areas or spaces to that point along the path of egress travel." Lobbies and concourses are therefore not added as separate loads (R-018.1 method). Their exits still carry the cumulative load (1006.2.1 exception).
+- **1005.5:** losing any one exit must not reduce capacity below 50% of the required.
+- **Table 1006.2.1** (Group A, sprinklered): 49 occupants / 75 ft common path for a space with one exit.
+- **Table 1017.2** (A, sprinklered): 250 ft exit access travel.
+
+**G-002 numbers.** These are KEYSTONE arithmetic on the drawn Plan Rev F areas.
+
+| | Value |
+|---|---|
+| L1 without the floor | 1,474 |
+| L1 with the floor | 1,803 / 2,569 / 3,820 / 4,758 (floor 329 / 1,095 / 2,346 / 3,284) |
+| L2 | 1,277 base / 1,462 worst (D-052) |
+| Building at the worst case | 6,220 |
+
+L1 doors at 0.15 in (1005.3.2 exception) with 11 openings × 64 in = 704 in:
+- **Worst case: SHORT.**
+  - Total: 933.0 in needed, short 229.0 in.
+  - Main exit: 466.5 in needed vs 64 in.
+- **Sports case:** the total passes (489.8 in), but the main exit E1 still needs 244.9 in = 4 pairs.
+
+CONFIDENCE: HIGH for the text (2021 read) / LOW for the door widths (not drawn) and the floor function (D-054). NEEDS ARCHITECT CONFIRMATION: YES.

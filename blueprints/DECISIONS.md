@@ -137,7 +137,7 @@ Source for D-001…D-012: KEYSTONE_ARCHITECT_PROMPT.md v1.1 Section 5. D-013…D
 
 | ID | Question | Status | Notes / feeds |
 |---|---|---|---|
-| D-054 | Event floor uses beyond sports (concerts, graduations, expos with floor chairs or standing)? | OPEN | Opened by KEYSTONE 2026-10-04 (R-007.2). The floor (114 x 144 ft = 16,416 SF) is counted at 50 gross ("exercise rooms", ASSUMED) → 329 occupants. IBC 2021 Table 1004.5 if used otherwise: unconcentrated 15 net → 1,095; chairs only 7 net → 2,346; standing 5 net → 3,284. Changes Level 1 exits / main exit (1030.2) and fixtures, not the L2 stairs (D-052). Needs Shane (intended uses); the building official assigns the load. |
+| D-054 | Event floor uses beyond sports (concerts, graduations, expos with floor chairs or standing)? | OPEN | Opened by KEYSTONE 2026-10-04 (R-007.2). The floor (114 x 144 ft = 16,416 SF) is counted at 50 gross ("exercise rooms", ASSUMED) → 329 occupants. IBC 2021 Table 1004.5 if used otherwise: unconcentrated 15 net → 1,095; chairs only 7 net → 2,346; standing 5 net → 3,284. Changes Level 1 exits / main exit (1030.2) and fixtures, not the L2 stairs (D-052). Needs Shane (intended uses); the building official assigns the load. **2026-10-04 10:48 AM CT (Shane): design L1 exits to PASS the worst case (standing), other cases shown alongside.** P2-G-002 Rev A finding: with door widths ASSUMED (11 pairs × 64 in = 704 in), the worst case is SHORT (total 933.0 in, main exit E1 466.5 in vs 64 in). Options 1 (E1 bank of 8 pairs) / 2 (distributed exits, +4 pairs) in G-002 §10. L1 fixtures in the standing case: 26 men's / 50 women's WC (vs 10 / 18). Still OPEN. |
 
 ## Logged 2026-10-04 8:14 AM CT
 
@@ -177,3 +177,9 @@ Source for D-001…D-012: KEYSTONE_ARCHITECT_PROMPT.md v1.1 Section 5. D-013…D
 | ID | Question | Status | Notes / feeds |
 |---|---|---|---|
 | D-062 | Are P2-A-201 Rev F, P2-G-003 Rev H, P1-G-001 Rev E and R-023 approved? | DECIDED | **DECIDED 2026-10-04 — "Shane, Grok chat" (10:27 AM CT): "APPROVED: A-201 Rev F, G-003 Rev H, P1-G-001 Rev E, R-023 (log approvals; freeze those revs)."** Frozen (phase2.yaml / phase1.yaml `frozen: true` + `approved`); PDFs stay byte-identical. R-023 (Champion Walk brick budget, D-044) approved as research; no sheet. Same message decided D-061 (Option B) and settled D-060. |
+
+## Logged 2026-10-04 10:48 AM CT
+
+| ID | Question | Status | Notes / feeds |
+|---|---|---|---|
+| D-063 | RULE (reviewer C-12, prompt v1.3 §15): may the distance labels on Shane's Google measure markup be used as dimensions? | DECIDED | **DECIDED 2026-10-04 — "Shane, Grok chat" (10:48 AM CT), quoting v1.3 §15: "Ignore the 250 / 150 / 50 / 276.85 ft labels on Shane's Google measure markup; never use them as dimensions."** Applies to `wrestle-room-measure.png` (ASSETS #11, §1c). Phase 1 dimensions come only from Shane's tape (inside 55'-0" x 45'-0", D-001 inputs). phase1.yaml `existing.wrestling_room.estimate_aerial` is kept as history / cross-check only and is marked with the rule. `shared/validate.py` check 8 fails if 276.85 appears as a numeric params value, or if 250 / 150 / 50 / 276.85 appear as a dimension value under phase1.yaml `existing`. **C-12 CLOSED.** |

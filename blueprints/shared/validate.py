@@ -18,6 +18,10 @@ Checks (v2, 2026-10-03: phase2.yaml seed added):
      6b. Principal-facing PDFs (*principal*.pdf, e.g. P1-G-001 Rev B/C/D, and *Package*.pdf print bundles) contain no 'D-0'/'R-0' codes and no 'spelling'
   7. STATUS.json (if present) matches schema_version 2 and its open_decisions
      equals the OPEN count in DECISIONS.md
+  8. C-12 / D-063 (v1.3 §15): the 250 / 150 / 50 / 276.85 ft labels on Shane's Google measure markup are never dimensions.
+     FAIL if 276.85 is a numeric value anywhere in params, or if 250 / 150 / 50 / 276.85 is a numeric value of a
+     dimension key (ft / in / length / width / depth / height / diagonal / footprint / dim) under phase1.yaml `existing`.
+     (250 / 150 / 50 stay legal elsewhere: e.g. frozen Phase 2 Rev A plan 250 ft, 50 gross load factors, cut planes.)
 SKIPPED for now: Phase 2 area reconciliation in code (done by hand in R-021; no cap since D-056). Most support
 room SFs are TBD. Not yet built: room overlap, mat fit, occupant-load factor
 checks. Those come with drawings (P2-T-002).
@@ -192,6 +196,41 @@ def check_phase2_locked(data):
     ok("phase2.yaml area reconciliation in code SKIPPED (R-021 by hand; no area cap, D-056)")
 
 
+MARKUP_LABELS = (250, 150, 50, 276.85)                       # C-12 / D-063
+DIM_KEY = re.compile(r"(_ft|_in|length|width|depth|height|diagonal|footprint|dim)", re.IGNORECASE)
+
+
+def _walk(node, path=""):
+    if isinstance(node, dict):
+        for k, v in node.items():
+            yield from _walk(v, f"{path}.{k}" if path else str(k))
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            yield from _walk(v, f"{path}[{i}]")
+    else:
+        yield path, node
+
+
+def check_markup_labels():
+    """C-12 / D-063: Google measure markup labels (250 / 150 / 50 / 276.85 ft) must never be used as dimensions."""
+    before = len(failures)
+    for f in sorted(PARAMS.glob("*.yaml")):
+        try:
+            data = yaml.safe_load(f.read_text(encoding="utf-8"))
+        except yaml.YAMLError:
+            continue
+        for path, v in _walk(data):
+            if isinstance(v, bool) or not isinstance(v, (int, float)):
+                continue
+            if abs(v - 276.85) < 1e-6:
+                fail(f"{f.name}: {path} = {v} is the Google measure path label (C-12 / D-063: never a dimension)")
+            elif (f.name == "phase1.yaml" and path.startswith("existing.") and DIM_KEY.search(path.split(".")[-1])
+                  and any(abs(v - x) < 1e-6 for x in MARKUP_LABELS)):
+                fail(f"{f.name}: {path} = {v} matches a Google measure markup label (C-12 / D-063: never a dimension)")
+    if len(failures) == before:
+        ok("C-12 / D-063: no Google measure markup label (250 / 150 / 50 / 276.85 ft) used as a dimension in params")
+
+
 def pdf_text(pdf):
     if shutil.which("pdftotext"):
         r = subprocess.run(["pdftotext", "-q", str(pdf), "-"], capture_output=True)
@@ -275,6 +314,7 @@ def check_status():
 if __name__ == "__main__":
     print(f"KEYSTONE validate: {ROOT}")
     check_params()
+    check_markup_labels()
     check_pdfs()
     check_principal_pdfs()
     check_status()

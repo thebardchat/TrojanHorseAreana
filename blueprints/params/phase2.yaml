@@ -38,6 +38,7 @@
 #     and change vs the last revision (D-057). Size is controlled by budget and parcel. building.size_next_revision (R-021).
 # v16, 2026-10-04 10:27 AM CT: D-061 DECIDED Option B (L2 FF 17'-9", 21 in upper risers, front row 9.0 ft = 7'-6" clear, no
 #     seats lost); D-060 settled (event lockers 3,600 SF); A-201 Rev F, G-003 Rev H, P1-G-001 Rev E, R-023 APPROVED + frozen (D-062).
+# v17, 2026-10-04 10:48 AM CT: new sheet P2-G-002 Rev A (code analysis, params/phase2_code.yaml); C-12 rule D-063 (Phase 1 only).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -704,6 +705,17 @@ sheets:
         inputs: "params/phase2_site.yaml (incl. rev_b + rev_c) + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_g, rev_i)"
         source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: C-101 Rev C because the NE stair tower grows 21.33 -> 24.08 ft and the D-057 table changes)"
     source: "Shane 2026-10-04 7:44 AM CT"
+  P2-G-002:
+    title: CODE ANALYSIS (SCHEMATIC)
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_code.yaml + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_i, via p2_testfit.summary_h)"
+    revisions:
+      A:
+        file: P2-G-002_RevA
+        frozen: false
+        inputs: "params/phase2_code.yaml + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_i)"
+        source: "Shane 2026-10-04 10:48 AM CT (next backlog item P2-T-007: G-002 Rev A code analysis from cited R-files; D-054 worst-case L1 egress check with the 329 / 1,095 / 2,346 cases alongside)"
+    source: "Shane 2026-10-04 10:48 AM CT; BACKLOG P2-T-007"
 
 sets:
   phase2_schematic_set_rev_a:

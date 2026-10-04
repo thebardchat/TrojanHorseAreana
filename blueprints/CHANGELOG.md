@@ -529,3 +529,30 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - **IBC 2021 1030.6.2.2 (if smoke-protected):** highest aisle = loop at 17.75 ft, so the roof must be ≥ 32.75 ft. The arena's U/S structure is drawn at 36 ft: PASS, 3.25 ft margin. The ring roof at 32.75 covers the perimeter rooms, not the seating.
 - **Research:** R-022 §5 "Decided" added with the as-drawn numbers. R-023 marked APPROVED.
 - **Frozen check:** the newly frozen revs were re-rendered and compared: A-101 E, A-102 E, G-003 H, A-201 F, A-301 C, A-302 B, C-101 B and P1-G-001 E. Results are in the commit message / report.
+
+## 2026-10-04 ~11:10 AM CT · C-12 closed (D-063) + P2-G-002 Rev A code analysis
+- **C-12 / D-063 (rule, v1.3 §15):** the 250 / 150 / 50 / 276.85 ft labels on Shane's Google measure markup are ignored and never used as dimensions.
+  - Logged in DECISIONS (D-063 DECIDED).
+  - ASSETS #11 / §1a / §1c are marked.
+  - phase1.yaml `estimate_aerial.c12_rule` added (history / cross-check only; the tape governs).
+  - `validate.py` gets **check 8**. It fails if 276.85 is a numeric value anywhere in params, or if 250 / 150 / 50 / 276.85 is a dimension value under phase1.yaml `existing`. Tested by injecting both cases into a temp copy: both FAIL; the real repo passes.
+  - C-12 CLOSED.
+- **Upper-tier structure 1'-6" = ASSUMED design basis** (Shane 10:48 AM CT; not a decision) until a structural engineer sizes it. Zero margin at 7'-6". The note is `phase2_sect.yaml rev_d.structure_status` (A-301 Rev D re-rendered byte-identical) and the flag is in STATUS what_to_verify.
+- **P2-G-002 Rev A — CODE ANALYSIS (SCHEMATIC)** (`phase2/src/p2_g_002.py`, new `params/phase2_code.yaml`, phase2.yaml v17). Tabloid sheet with title block and PRELIMINARY stamp.
+  - **Code basis:** editions table, 2021 ASSUMED vs 2018 county (verify with AHJ, R-006).
+  - **Occupancy and construction:** A-4 main / A-3 or B / B / S-1, nonseparated recommended (R-007.1). Construction type TBD.
+  - **Fire protection:** sprinklers + voice alarm ASSUMED (R-015.5). Smoke-protected seating not assumed.
+  - **Occupant load by space** from the Plan Rev F drawn areas (T1004.5):
+    - L1 1,474 without the floor.
+    - L1 with the floor at 329 / 1,095 / 2,346 / 3,284: 1,803 / 2,569 / 3,820 / 4,758.
+    - L2 1,277 base / 1,462 worst. Building worst 6,220.
+  - **L1 exit check vs D-054:** door widths not drawn, so 64 in per pair is ASSUMED, giving 704 in.
+    - Worst case SHORT: total 933.0 in (−229.0) and main exit E1 466.5 in vs 64 in (−402.5).
+    - The sports case passes the total, but E1 still needs 4 pairs.
+    - Other exits (1030.3) and lose-one (1005.5) pass in every case.
+  - **Options (no redesign):** (1) an E1 bank of 8 pairs (512 in; total 1,152 in), or (2) distributed main exits under 1030.2's last sentence: 15 pairs total (+4).
+  - **L2 stairs:** 304 in vs 292.4 in worst (+11.6).
+  - **Plumbing:** fixture basis G-003 Rev I. The standing case would need 26 / 50 WC on L1 (vs 10 / 18).
+  - **Other sections:** travel and common path, plus open items.
+- **Research:** R-007.3 addendum quotes the sections looked up this session: 1010.1.1, 1030.2 (full), 1030.3, 1004.2.1, 1005.5, T1006.2.1, T1017.2. A D-054 note is added (still OPEN).
+- No frozen sheet changed.

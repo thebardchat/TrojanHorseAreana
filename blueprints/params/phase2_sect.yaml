@@ -169,6 +169,7 @@ rev_d:
     source: "Shane 2026-10-04 10:27 AM CT (D-061); phase2_plan_rev_f.yaml tiers.upper; IBC 2021 1030.14.2 (UpCodes, retrieved 2026-10-04)"
   structure_depth_ft: 1.5
   structure_source: "phase2_plan_rev_f.yaml tiers.upper.clear_basis (about 1.5 ft of deck structure, ASSUMED, unchanged from Rev C)"
+  structure_status: "ASSUMED design basis (not a decision): keep 1'-6\" upper-tier structure pending a structural engineer; zero margin at 7'-6\" (Shane 2026-10-04 10:48 AM CT)"
   low_band_ft: 0
   clear_under_rows_ft: [7.5, 9.25, 11.0, 12.75, 14.5]
   clear_basis: "row j tread 9.0 + (j - 1) x 1.75 ft, less 1.5 ft structure: row 1 = 7 ft 6 in = IBC 2021 1003.2 minimum (no margin); no low band, every exit path clear"

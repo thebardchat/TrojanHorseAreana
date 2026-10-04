@@ -103,6 +103,7 @@ existing:
       tape_check: "CROSS-CHECK ONLY. Shane's tape (inside 55 x 45 ft) agrees with this exterior estimate (55.1 x 46.9 ft) within the estimate's error. Use wrestling_room.length_ft / width_ft, never this block."
       confidence: LOW
       draw_rule: never draw as existing conditions; not on any principal sheet
+      c12_rule: "D-063 (reviewer C-12, v1.3 §15, Shane 2026-10-04 10:48 AM CT): ignore the markup labels (250 / 150 / 50 / 276.85 ft); never use them as dimensions. This block is history / cross-check only; dimensions = wrestling_room.length_ft / width_ft (tape)."
       source: "KEYSTONE estimate from Shane aerial sketch 2026-10-03 (Google Maps measure, total path 276.85 ft)"
   layout_notes:        # QUALITATIVE only, from Shane's hand markup on the aerial. No dimensions. Not drawn as existing conditions.
     wrestling_room: large west block of the building
