@@ -4,8 +4,10 @@ Revisions, all from phase1.yaml `sheets.P1-G-001.revisions`:
   A = INTERNAL copy, FROZEN as issued 2026-10-03 (codes shown).
   B = PRINCIPAL version, FROZEN as approved 2026-10-03 (plain words, no D-/R-
       codes, requester line, asks list).
-  C = PRINCIPAL version, current: Rev B + W2 no-water status, priority order
-      (panels W2, W3, W1 with PRIORITY labels), 4th ask (plumber visit).
+  C = PRINCIPAL version, FROZEN as issued 2026-10-03: Rev B + W2 no-water
+      status, priority order (panels W2, W3, W1 with PRIORITY labels), 4th ask.
+  D = PRINCIPAL version, current: Rev C + W2 where / problem spots / fixtures
+      filled in, W1 pad estimate line (Shane's estimate).
 Frozen revisions keep their committed PDF/DXF as issued; regenerate them only
 to check (use --out-dir). A frozen revision's W2 wording comes from its
 `w2_as_issued` snapshot so the regenerated sheet matches the issued one.
@@ -15,7 +17,7 @@ total from phase2.yaml, used ONLY in the "NOT INCLUDED" list). Unknowns print TB
 Layout constants below are sheet geometry in inches, not project dimensions.
 
 Run from the repo root:
-  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev C [--png PATH]
+  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev D [--png PATH]
   /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev A --out-dir /tmp/check
 """
 from __future__ import annotations
@@ -39,6 +41,10 @@ HEAD = 13.5                                        # box heading size (pt)
 # Row-1 panel width fractions. Default (Revs A/B): fixed order W1, W2, W3.
 ROW1_FRACS = (0.27, 0.215, 0.515)
 ROW1_FRACS_BY_ITEM = {"W2": 0.255, "W3": 0.475, "W1": 0.27}   # Rev C (panel_order)
+# Per-revision overrides for revisions with panel_order (Rev D has more text in W1/W2).
+ROW1_LAYOUT_BY_REV = {
+    "D": {"fracs": {"W2": 0.325, "W3": 0.36, "W1": 0.315}, "table_pt": 8.4, "table_c0": 0.335, "table_c2": 0.165, "body": 9.2},
+}
 ROW2_FRACS_PRIORITY = (0.17, 0.335, 0.275)         # Rev C row 2: not included / who approves / asks (photos = rest)
 ROW2_TRIM_PRIORITY = 0.0                           # Rev C: row 2 height given to row 1 (none needed)
 ROW1_BODY_PRIORITY = 9.6                           # Rev C row-1 body size (pt)
@@ -124,7 +130,7 @@ def callout(sh: Sheet, x, y, w, s, size=BODY + 0.5, lw=1.8):
     return y - h - 0.1
 
 
-def build(p1: dict, p2: dict, rev: str = "C") -> Sheet:
+def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
     meta, site = p1["meta"], p1["site"]
     wi = {w["id"]: w for w in p1["work_items"]}
     w1, w2, w3 = wi["W1"], wi["W2"], wi["W3"]
@@ -171,13 +177,15 @@ def build(p1: dict, p2: dict, rev: str = "C") -> Sheet:
     r1_h = r1_top - r1_y
     avail = x1 - x0 - 2 * GAP
     order = rv.get("panel_order", ["W1", "W2", "W3"])
-    fracs = [ROW1_FRACS_BY_ITEM[k] for k in order] if "panel_order" in rv else list(ROW1_FRACS)
+    lay = ROW1_LAYOUT_BY_REV.get(rev, {})
+    by_item = lay.get("fracs", ROW1_FRACS_BY_ITEM)
+    fracs = [by_item[k] for k in order] if "panel_order" in rv else list(ROW1_FRACS)
     ws_o = [avail * f for f in fracs]
     xs_o = [x0, x0 + ws_o[0] + GAP, x0 + ws_o[0] + ws_o[1] + 2 * GAP]
     slot = {k: (xs_o[i], ws_o[i]) for i, k in enumerate(order)}
     w2_issued = rv.get("w2_as_issued")             # frozen revisions: W2 wording as printed
     pri = bool(rv.get("show_priority"))
-    B1 = ROW1_BODY_PRIORITY if pri else BODY      # row-1 body text size (Rev C a bit smaller to fit the PRIORITY lines)
+    B1 = ROW1_LAYOUT_BY_REV.get(rev, {}).get("body", ROW1_BODY_PRIORITY) if pri else BODY     # row-1 body text size (Rev C a bit smaller to fit the PRIORITY lines)
 
     def priority_tag(x, y, w, item):
         """Rev C: bold PRIORITY line at the top of a work-item panel. Returns new y."""
@@ -204,6 +212,8 @@ def build(p1: dict, p2: dict, rev: str = "C") -> Sheet:
         y = labeled(sh, x, y, w, "Walls to pad", tbd(w1["walls"]), size=B1)
         y = labeled(sh, x, y, w, "Pad height", rv.get("pad_height_label") or tbd(w1["pad_height"]), size=B1)
         y = labeled(sh, x, y, w, "Pad thickness", tbd(w1["pad_thickness"]), size=B1)
+        if rv.get("show_pad_estimate"):
+            y = labeled(sh, x, y, w, rv["pad_estimate_label"], w1["pad_estimate"]["sheet_line"], size=B1)
         y = labeled(sh, x, y, w, "Who buys or donates", f"{tbd(w1['supplied_by'])} ({w1['supplied_by_options']})", size=B1)
         y = labeled(sh, x, y, w, "Door hardware", sentence(pads["doors_and_hardware"]), size=B1)
         y -= 0.08
@@ -222,9 +232,13 @@ def build(p1: dict, p2: dict, rev: str = "C") -> Sheet:
         y = sh.para(x, y, w, w2_issued["lead"] if w2_issued else sentence(w2["scope"]), size=B1)
         if rv["show_why"]:
             y = labeled(sh, x, y, w, "Why", w2_issued["why"] if w2_issued else w2["why"], size=B1)
-        y = labeled(sh, x, y, w, "Where", tbd(w2["location"]), size=B1)
-        y = labeled(sh, x, y, w, "Problem spots", tbd(plumb["leak_or_damage_spots"]), size=B1)
-        y = labeled(sh, x, y, w, "Existing fixtures", tbd(plumb["existing_fixtures"]), size=B1)
+        live = {"where": w2["location"], "problem_spots": plumb["leak_or_damage_spots"],
+                "existing_fixtures": plumb["existing_fixtures"]}
+        src = w2_issued or live                     # frozen revisions print their as-issued W2 values
+        cap = (lambda v: sentence(v)) if not w2_issued and tbd(src["where"]) != "TBD" else tbd
+        y = labeled(sh, x, y, w, "Where", cap(src["where"]), size=B1)
+        y = labeled(sh, x, y, w, "Problem spots", cap(src["problem_spots"]), size=B1)
+        y = labeled(sh, x, y, w, "Existing fixtures", cap(src["existing_fixtures"]), size=B1)
         y = labeled(sh, x, y, w, "Water / drain lines", f"{tbd(plumb['water_lines'])} / {tbd(plumb['drain_lines'])}", size=B1)
         y -= 0.08
         sh.text(x, y - pitch(B1), "WHO DESIGNS IT", size=B1, bold=True)
@@ -262,9 +276,9 @@ def build(p1: dict, p2: dict, rev: str = "C") -> Sheet:
             ("Door swing", f"not over toilet/sink clear space unless a {ada['lav_clear_floor_space_in'][0]} × {ada['lav_clear_floor_space_in'][1]} in space is beyond the swing", cites["door_swing_rule"]),
             ("Room sign", f"tactile, {rng(ada['tactile_sign_baseline_height_in'])} high, latch side", cites["tactile_sign_baseline_height_in"]),
         ]
-        ts = ROW1_TABLE_PT if pri else 9.2
+        ts = lay.get("table_pt", ROW1_TABLE_PT) if pri else 9.2
         fits("W3 text", y, r1_y)
-        c0, c2 = w * 0.36, w * 0.14
+        c0, c2 = w * lay.get("table_c0", 0.36), w * lay.get("table_c2", 0.14)
         c1 = w - c0 - c2
         rh = pitch(ts) + 0.02
         # header row
@@ -350,8 +364,8 @@ def build(p1: dict, p2: dict, rev: str = "C") -> Sheet:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", default="C", choices=["A", "B", "C"],
-                    help="A (internal, frozen), B (principal, frozen) or C (principal, current); default C")
+    ap.add_argument("--rev", default="D", choices=["A", "B", "C", "D"],
+                    help="A (internal, frozen), B/C (principal, frozen) or D (principal, current); default D")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase1/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")

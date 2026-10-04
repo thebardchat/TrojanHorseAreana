@@ -66,7 +66,15 @@ Shane's rule (D-017): **USE** zones, adjacencies, the 5 SF tags, and the room li
 
 **What it is:** a Google Maps aerial with the measure tool, plus Shane's hand markup. **It is a rough aerial estimate, NOT a tape measurement.** It is never drawn as existing conditions and does not close D-001.
 
-**Measure path (KEYSTONE check):** starts at "0" at the NW corner of the wrestling room roof, runs down the west side, across the south, up the east side, back across the north, then diagonally NW → SE. Total **276.85 ft (84.38 m)**. Side pixel lengths are about 413 / 350 / 413 / 354 px, and the diagonal is about 545 px. That gives 7.49 px/ft, and the 5 ft minor ticks independently measure 7.46 px/ft. **Exterior roof footprint ≈ 55 ft N-S × 47 ft E-W (diagonal ≈ 72.7 ft), confidence LOW.** The interior room will be smaller (walls, eaves). Tick check: the 50 ft tick lands about 49.9 ft down the west side, the 150 ft tick about 7 ft below the NE corner, and the 250 ft label about 63% along the diagonal. All three match the labels. Recorded in phase1.yaml `existing.wrestling_room.estimate_aerial`. Length and width stay TBD.
+**Measure path (KEYSTONE check):** starts at "0" at the NW corner of the wrestling room roof, runs down the west side, across the south, up the east side, back across the north, then diagonally NW → SE. Total **276.85 ft (84.38 m)**. Side pixel lengths are about 413 / 350 / 413 / 354 px, and the diagonal is about 545 px. That gives 7.49 px/ft, and the 5 ft minor ticks independently measure 7.46 px/ft. **Exterior roof footprint ≈ 55 ft N-S × 47 ft E-W (diagonal ≈ 72.7 ft), confidence LOW.** The interior room will be smaller (walls, eaves). Tick check: the 50 ft tick lands about 49.9 ft down the west side, the 150 ft tick about 7 ft below the NE corner, and the 250 ft label about 63% along the diagonal. All three match the labels. Recorded in phase1.yaml `existing.wrestling_room.estimate_aerial`. **Update 2026-10-03 10:06 PM CT:** Shane's tape gives the inside dimensions as 55'-0" × 45'-0", which agrees with the estimate. The estimate stays a cross-check only.
+
+**Used on P1-A-101 Rev A (door marks only):** the four door/exit triangles were read off this sketch as APPROX. positions along each wall (`existing.wrestling_room.doors_approx`):
+- west exit about 0.65 of the way down from the north
+- south exit at about mid-wall (two triangles, possibly a pair of doors)
+- NE exit on the east wall about 0.30 from the north
+- hallway door on the east wall about 0.70 from the north
+
+These are not measured, and no dimensions are given.
 
 **Layout per Shane's markup (qualitative, phase1.yaml `existing.layout_notes`):**
 - The **wrestling room** is the large west block.

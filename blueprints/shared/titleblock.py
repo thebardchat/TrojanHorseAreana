@@ -66,9 +66,25 @@ class Sheet:
     def line(self, x1, y1, x2, y2, layer=TEXT, lw=0.6):
         self.prims.append(("line", dict(x1=x1, y1=y1, x2=x2, y2=y2, layer=layer, lw=lw)))
 
-    def text(self, x, y, s, size=10.5, bold=False, align="left", layer=TEXT):
-        """One line of text; (x, y) is the baseline point at `align`."""
-        self.prims.append(("text", dict(x=x, y=y, s=s, size=size, bold=bold, align=align, layer=layer)))
+    def dashed(self, x1, y1, x2, y2, layer=TEXT, lw=0.6, dash=0.12, gap=0.08):
+        """Dashed line drawn as short solid segments (same in PDF and DXF)."""
+        import math
+        L = math.hypot(x2 - x1, y2 - y1)
+        if L == 0:
+            return
+        ux, uy = (x2 - x1) / L, (y2 - y1) / L
+        s = 0.0
+        while s < L:
+            e = min(s + dash, L)
+            self.line(x1 + ux * s, y1 + uy * s, x1 + ux * e, y1 + uy * e, layer=layer, lw=lw)
+            s = e + gap
+
+    def text(self, x, y, s, size=10.5, bold=False, align="left", layer=TEXT, rot=0):
+        """One line of text; (x, y) is the baseline point at `align`. rot = degrees CCW."""
+        d = dict(x=x, y=y, s=s, size=size, bold=bold, align=align, layer=layer)
+        if rot:
+            d["rot"] = rot                       # only stored when used (older sheets unchanged)
+        self.prims.append(("text", d))
 
     def para(self, x, y_top, width, s, size=10.5, bold=False, layer=TEXT, indent=0.0, bullet=None):
         """Wrapped paragraph starting below y_top. Returns the y below the last line."""
@@ -116,8 +132,9 @@ class Sheet:
                 ax.plot([p["x1"], p["x2"]], [p["y1"], p["y2"]], color="black",
                         linewidth=p["lw"], solid_capstyle="butt")
             elif kind == "text":
+                kw = {"rotation": p["rot"], "rotation_mode": "anchor"} if p.get("rot") else {}
                 ax.text(p["x"], p["y"], p["s"], fontsize=p["size"], ha=p["align"], va="baseline",
-                        fontweight="bold" if p["bold"] else "normal", color="black", zorder=3)
+                        fontweight="bold" if p["bold"] else "normal", color="black", zorder=3, **kw)
         meta = {"Title": title, "Author": "KEYSTONE (AI) for Shane Brazelton", "Creator": "KEYSTONE titleblock.py", "CreationDate": None}
         fig.savefig(path, format="pdf", metadata=meta)
         if png_path:
@@ -136,6 +153,10 @@ class Sheet:
         doc.styles.new("KS-BOLD", dxfattribs={"font": "DejaVuSans-Bold.ttf"})
         for name, col in LAYER_COLORS.items():
             doc.layers.add(name, color=col)
+        for _, p in self.prims:                   # extra layers (plans) only when a sheet uses them
+            lay = p.get("layer")
+            if lay and lay not in doc.layers:
+                doc.layers.add(lay, color=7)
         msp = doc.modelspace()
         align = {"left": TextEntityAlignment.LEFT, "center": TextEntityAlignment.CENTER,
                  "right": TextEntityAlignment.RIGHT}
@@ -149,6 +170,8 @@ class Sheet:
             elif kind == "text":
                 t = msp.add_text(p["s"], height=p["size"] / 72.0 * DXF_CAP,
                                  dxfattribs={"layer": p["layer"], "style": "KS-BOLD" if p["bold"] else "KS-REG"})
+                if p.get("rot"):
+                    t.dxf.rotation = p["rot"]
                 t.set_placement((p["x"], p["y"]), align=align[p["align"]])
         doc.saveas(path)
 

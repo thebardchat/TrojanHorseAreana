@@ -8,7 +8,7 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - [x] **P1-T-002** Send Shane the measurement + photo checklist (room L×W×H, doors, windows, outlets, existing fixtures, where water leaks show, wall material, walk-through room layout)
 - [x] **P1-T-003** R-001 wall pads + R-003 single-user restroom ADA minimums
 - [x] **P1-T-004** P1-G-001 one-page scope sheet (can ship before measurements — uses TBDs)
-- [ ] **P1-T-005** P1-A-101 existing conditions (needs measurements)
+- [ ] **P1-T-005** P1-A-101 existing conditions (needs measurements) — **IN PROGRESS** (Rev A: room outline only, 2026-10-03)
 - [ ] **P1-T-006** P1-A-102 remodel plan (restroom split, pad extents)
 - [ ] **P1-T-007** P1-A-201 wall pad elevations
 - [ ] **P1-T-008** P1-P-001 plumbing scope narrative
@@ -51,3 +51,6 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - 2026-10-03: Shane, firsthand: **no running water to the area; all fixtures out of service; cause unknown.** W2 is renamed "Restore water / plumbing repair". **D-024:** priority W2 → W3 → W1 (pads can run in parallel). P1-G-001 Rev C (principal) adds the no-water status, priority order, and ask #4 (plumber visit). Rev B is frozen.
   - Shane's aerial sketch gave a rough roof-footprint estimate (≈55 × 47 ft, LOW, never drawn) plus layout notes. **D-001 is still open: tape measurements + photos are needed.**
   - D-022 is still OPEN, so there is no 1A/1B restructure. Ticket order unchanged.
+- 2026-10-03 10:06 PM CT: Shane taped the wrestling room: **55'-0" × 45'-0" inside, long side N-S.** **P1-T-005 IN PROGRESS:** P1-A-101 Rev A (room outline only, 1/8" = 1'-0", doors APPROX., support wing dashed + not measured). The W2 TBDs (where, problem spots, fixtures) and the W1 pad estimate were filled in, giving P1-G-001 Rev D (principal); Rev C is frozen.
+  - **Next for P1-A-101:** door positions/widths, wall thickness, ceiling, support wing dims, photos.
+  - D-022 is still OPEN, so there is no 1A/1B restructure.

@@ -2,25 +2,28 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-03T21:57:42-05:00",
+  "updated_at": "2026-10-03T22:17:02-05:00",
   "health": "YELLOW",
   "active_phase": "P1",
-  "phase1_percent": 32,
+  "phase1_percent": 40,
   "phase2_percent": 2,
-  "current_ticket": "P1-T-010",
-  "current_ticket_title": "Bundle prep (blocked: P1-T-005..008 need room measurements)",
+  "current_ticket": "P1-T-005",
+  "current_ticket_title": "P1-A-101 existing conditions plan (Rev A: wrestling room outline only)",
   "sheets_done": [
     "P1-G-001 Rev A (internal)",
     "P1-G-001 Rev B (principal)",
-    "P1-G-001 Rev C (principal)"
+    "P1-G-001 Rev C (principal)",
+    "P1-G-001 Rev D (principal)"
   ],
-  "sheets_in_progress": [],
+  "sheets_in_progress": [
+    "P1-A-101 Rev A (room outline only)"
+  ],
   "last_commit": "ba9aa2e",
   "branch": "grok/keystone",
   "open_decisions": 17,
-  "blocked_on": "Room measurements and photos from Shane",
-  "what_changed": "Shane: no running water to the area, all fixtures out, cause unknown. W2 now 'Restore water / plumbing repair'; priority W2>W3>W1 (D-024). P1-G-001 Rev C adds this + plumber-visit ask. Rough aerial roof estimate ~55x47 ft logged (LOW, not drawn).",
-  "what_to_verify": "Rev C wording: W2 no-water status + Why, PRIORITY 1/2/3 labels (W1 'can run in parallel'), ask #4 plumber visit. Rev B unchanged.",
-  "next_action": "Waiting on room measurements + photos for P1-T-005..008 (P1-A-101, A-102, A-201, P-001); then P1-T-010 bundle + PR. Approval path needs district confirmation.",
-  "question_for_shane": "Can you tape-measure the wrestling room and snap photos of its interior and the support wing (showers, toilets, office, storage, hallway)? The aerial estimate can't be drawn."
+  "blocked_on": "Support wing measurements, door positions/widths, and photos from Shane",
+  "what_changed": "Shane taped the wrestling room: 55'-0\" x 45'-0\" inside, long side N-S. P1-G-001 Rev D fills W2 where/problem spots/fixtures + W1 pad estimate (~200 LF, ~1,200 SF, ~100 panels). P1-A-101 Rev A started: room outline, doors APPROX.",
+  "what_to_verify": "Rev D W2/W1 wording; P1-A-101 approx. door spots (W exit, S exit mid-wall, NE exit, E hallway door) and the 1/8\" scale.",
+  "next_action": "Finish P1-A-101 (door positions/widths, wall thickness, support wing) once measured; then P1-A-102, A-201, P-001 and P1-T-010 bundle. Approval path needs district confirmation.",
+  "question_for_shane": "Can you tape the support wing (rooms + open hallway) and measure each door's width and distance from the nearest corner, with photos? That finishes P1-A-101."
 }

@@ -157,3 +157,30 @@
 - Generator: `--rev A|B|C` (default C). It refuses to overwrite frozen A/B files without `--force`.
   - validate 6b already checks every `*principal*.pdf` (B and C); only the docstring was updated.
 - D-022 is still OPEN. No 1A/1B restructure.
+
+## 2026-10-03 ~10:30 PM CT · tape measurement, W2 fill-ins, P1-G-001 Rev D, P1-A-101 Rev A started
+- **Wrestling room taped by Shane** ("Shane tape, inside wall-to-wall, 2026-10-03"): 55'-0" N-S × 45'-0" E-W, rectangle, long side N-S.
+  - Recorded as `existing.wrestling_room.length_ft: 55` / `width_ft: 45`, with shape, long_side, and measured_at.
+  - `floor_area_sf_calc: 2475` is calculated by KEYSTONE.
+  - `estimate_aerial` is kept as a cross-check only and notes the agreement (55.1 × 46.9 ft exterior).
+- **W2 fill-ins (Shane, firsthand):**
+  - Fixtures: 2 showers, 1 private toilet, 2 toilets, 1 urinal, sinks (count TBD), water fountain/sink. All are out of service, with no running water.
+  - Problem spots: the entire support wing. The showers were broken before the water loss.
+  - Where: the support wing east of the wrestling room, along the open hallway.
+- **W1 `pad_estimate` (Shane's estimate):** ~200 LF, ~1,200 SF at 6 ft, ~100 panels of 2×6 ft, before door deductions (3 exits + 1 hallway door). It assumes all 4 walls. KEYSTONE checked the math: 2(55+45) = 200; 200 × 6 = 1,200; 1,200 / 12 = 100. Walls stay TBD (D-021 OPEN). Pad thickness stays TBD.
+- **P1-G-001 Rev D (principal)** = Rev C plus:
+  - W2 Where / Problem spots / Existing fixtures filled in.
+  - A W1 "Estimate:" line.
+  - Rev D layout only: panel widths W2 .325 / W3 .36 / W1 .315, 9.2 pt body, ADA table columns widened. Content unchanged.
+  - Outputs: `out/pdf/P1-G-001_RevD_principal.pdf` + `.dxf`. Default `--rev` is now D.
+  - Shane's single-file copy: `/workspace/keystone_previews/P1-G-001.pdf`.
+- **Rev C is now frozen** too. Revs A, B, and C print W2 from their `w2_as_issued` snapshots. Regenerating A/B/C to /tmp gives PDFs identical to before (B and C byte-identical to the committed files).
+- **P1-A-101 Rev A (new, `phase1/src/p1_a_101.py`):** existing conditions plan at 1/8" = 1'-0". The 1/4" and 3/16" scales do not fit 55 ft on the 11x17 body.
+  - Inside-face rectangle with overall dimension strings.
+  - Four door marks tagged APPROX. (west, south, NE exits + east hallway door), with no dimensioned locations or widths.
+  - Wall thickness TBD (single line at the inside face).
+  - Support wing as a dashed, undimensioned "NOT YET MEASURED" outline.
+  - Also: north arrow (approx.), graphic scale, notes, legend, PRELIMINARY stamp.
+  - Outputs: `out/pdf/P1-A-101_RevA.pdf` + `out/dxf/P1-A-101_RevA.dxf` (paper inches; 1 in = 8 ft).
+- shared/titleblock.py: optional `dashed()` lines, an optional text rotation (stored only when used), and extra DXF layers added only when a sheet uses them. Existing sheets render unchanged.
+- DECISIONS: D-001 (room measured; wing, doors, ceiling, and photos TBD), D-002 (fixtures and spots), and D-021 (the estimate assumes all 4 walls). All still OPEN; the count stays 17. ASSETS §1c notes the tape and the door reads. BACKLOG: P1-T-005 IN PROGRESS.
