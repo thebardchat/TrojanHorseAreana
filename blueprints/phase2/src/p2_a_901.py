@@ -7,6 +7,7 @@ Nothing modelled that implies a choice on D-054 / D-064 / D-065 / D-066.
 Rev B (2026-10-04, Shane 1:21 / 1:22 PM CT, P2-T-012): plan Rev H + C-101 Rev D: 40 ft walk (28 ft brick + 6 ft bands around both
 piers, D-066), one-storey storage annex with S1 on it (D-067, height ASSUMED), screening bay as a floor zone (D-065). Rev A unchanged.
 Data: params/phase2_massing.yaml (+ the files listed under its `inputs`); Rev B: + params/phase2_massing_rev_b.yaml.
+Rev C (Shane 3:31 PM CT, D-069): + params/phase2_massing_rev_c.yaml (plan Rev I east restroom bump-out, X7 on its east face).
 Usage (from the repo root):
   /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_901.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force] [--print]
 """
@@ -80,8 +81,8 @@ def build_model(mode):
     ms, plan = rd("phase2_massing.yaml"), rd("phase2_plan_rev_g.yaml")
     ev, eb, site, sect = rd("phase2_elev_rev_g.yaml"), rd("phase2_elev.yaml"), rd("phase2_site.yaml"), rd("phase2_sect.yaml")
     mb = None
-    if REV == "B":
-        mb = rd("phase2_massing_rev_b.yaml")
+    if REV in ("B", "C"):
+        mb = rd(f"phase2_massing_rev_{REV.lower()}.yaml")
         plan = rd(Path(mb["inputs"]["plan_l1"]).name)
         sd = site[mb["inputs"]["site_rev"]]
         site["service"]["apron"] = sd["service"]["apron"]
@@ -108,6 +109,9 @@ def build_model(mode):
                 out.append(("S", [(b["x0"], bx[1], 0), (b["x1"], bx[1], 0), (b["x1"], bx[1], dh), (b["x0"], bx[1], dh)], col["glazing"]))
                 continue
             a, w = d["at"], d["wall"]
+            if mb and "x" in d:                 # Rev C: X7 on the bump-out east face
+                out.append(("E", [(d["x"], a - dw / 2, 0), (d["x"], a + dw / 2, 0), (d["x"], a + dw / 2, dh), (d["x"], a - dw / 2, dh)], col["door"]))
+                continue
             if mb and "y" in d:
                 out.append(("N", [(a + dw / 2, d["y"], 0), (a - dw / 2, d["y"], 0), (a - dw / 2, d["y"], dh), (a + dw / 2, d["y"], dh)], col["door"]))
                 continue
@@ -178,10 +182,20 @@ def build_model(mode):
         else:
             boxes.append(Box("storage_annex", (an[0], an[1], 0), (an[2], an[3], ah), col["wall"], decals=adec))
         labels["annex"] = ((an[0] + an[2]) / 2, an[3], ah)
+    bo = plan["building"]["bumpout"]["rect"] if mb and "bumpout" in mb else None
+    if bo:
+        bh = mb["bumpout"]["height_ft"]
+        bdec = [d for d in door_decals() if d[0] == "E" and abs(d[1][0][0] - bo[2]) < 1e-6]
+        if mode == "cutaway":
+            boxes.append(Box("restroom_bumpout_cut", (bo[0], bo[1], 0), (bo[2], bo[3], min(bh, md["cut_z_ft"])), col["slab"]))
+        else:
+            boxes.append(Box("restroom_bumpout", (bo[0], bo[1], 0), (bo[2], bo[3], bh), col["wall"], decals=bdec))
+        labels["bumpout"] = (bo[2], (bo[1] + bo[3]) / 2, bh)
     if mode in ("exterior", "portal"):
         sp = ev["side_panel"]
         r = sp["rect"]
-        dec = [d_ for d_ in door_decals() if not (an and d_[0] == "N" and abs(d_[1][0][1] - an[3]) < 1e-6)] + [("S", [(r[0], bx[1], r[1]), (r[2], bx[1], r[1]), (r[2], bx[1], r[3]), (r[0], bx[1], r[3])], sp["panel"]),
+        dec = [d_ for d_ in door_decals() if not (an and d_[0] == "N" and abs(d_[1][0][1] - an[3]) < 1e-6)
+               and not (bo and d_[0] == "E" and abs(d_[1][0][0] - bo[2]) < 1e-6)] + [("S", [(r[0], bx[1], r[1]), (r[2], bx[1], r[1]), (r[2], bx[1], r[3]), (r[0], bx[1], r[3])], sp["panel"]),
                                ("S", [(r[0], bx[1], r[1]), (r[2], bx[1], r[1]), (r[2], bx[1], r[1] + 0.8), (r[0], bx[1], r[1] + 0.8)], sp["stripe"])]
         boxes.append(Box("building_ring", (bx[0], bx[1], 0), (bx[2], bx[3], ring), col["wall"], decals=dec))
         tdec = [d for d in door_decals() if d[0] == "N" and abs(d[1][0][1] - tw[3]) < 1e-6]
@@ -541,7 +555,7 @@ def build():
     ms = rd("phase2_massing.yaml")
     p2 = rd("phase2.yaml")
     meta2, mm = p2["meta"], ms["meta"]
-    mb = rd("phase2_massing_rev_b.yaml") if REV == "B" else None
+    mb = rd(f"phase2_massing_rev_{REV.lower()}.yaml") if REV in ("B", "C") else None
     if mb:
         mm = dict(mm, revision=mb["meta"]["revision"], model_file=mb["meta"]["model_file"])
     ext, cut, por = build_model("exterior"), build_model("cutaway"), build_model("portal")
@@ -586,11 +600,15 @@ def build():
                 leader(sh, P, lb["lobby"], -0.45, -0.3, "LOBBY — open to below", size=4.4)
                 leader(sh, P, lb["screening"], 0.35, -0.35, "SCREENING BAY floor zone (D-065)", size=4.4)
                 leader(sh, P, lb["annex"], -0.3, 0.3, "storage annex, cut", size=4.2)
+                if "bumpout" in lb:
+                    leader(sh, P, lb["bumpout"], 0.25, 0.35, "restroom bump-out, cut (D-069)", size=4.2)
             else:
                 leader(sh, P, lb["lobby"], -0.45, -0.3, "LOBBY — open to below (no checkpoint modelled, D-065)", size=4.4)
         elif v["id"] == "V3":
             leader(sh, P, lb["panel"], 0.15, 0.6, "side panel (A-201 Rev G)", size=4.2)
             leader(sh, P, lb["arena"], 0.1, 0.3, "arena volume flush with the east wall", size=4.2)
+            if "bumpout" in lb:
+                leader(sh, P, lb["bumpout"], -0.2, -0.95, f"RESTROOM BUMP-OUT 30' x 56', {mb['bumpout']['height_ft']:g}' ASSUMED (D-069) · X7", size=4.2)
         elif v["id"] == "V4":
             leader(sh, P, lb["s1"], 0.3, -0.35, "S1 SERVICE / LOADING (D-034)" + (" on the storage annex (D-067)" if mb else ""), size=4.4)
             leader(sh, P, lb["tower"], 0.2, 0.3, "NE STAIR TOWER", size=4.2)
@@ -612,7 +630,7 @@ def build():
             f"portal {hh['portal']:g}' max, crown {hh['crown']:g}', springline {hh['spr']:g}' (D-050) · tiers per P2-A-301 Rev D / A-302 Rev C. Door symbols "
             f"{ms['model']['door_width_ft']:g}' x {ms['model']['door_height_ft']:g}' ASSUMED.", size=5.1)
     if mb:
-        cr.head("DECISIONS MODELLED — SHANE 1:21 / 1:22 PM CT", size=6.6)
+        cr.head("DECISIONS MODELLED — SHANE 3:31 PM CT" if REV == "C" else "DECISIONS MODELLED — SHANE 1:21 / 1:22 PM CT", size=6.6)
         for it in mb["decisions"]:
             cr.para(f"{it['id']} DECIDED: {it['text']}.", size=5.0, bullet="·")
         for it in mb["open_items"]:
@@ -626,7 +644,11 @@ def build():
     cr.para("Colours: limestone / crimson / gold / brick / brand red + black from P2-A-201 Rev G finishes (hex ASSUMED swatches); greys "
             "= material TBD. Arch drawn as a 56-segment polyline; the crimson underside faces down and does not show in views from above.", size=5.0, bullet="·")
     cr.para(f"Model file: phase2/out/3d/{mm['model_file']}.obj + .mtl (feet, Y-up export; exterior, cutaway and portal sets).", size=5.0, bullet="·")
-    if mb:
+    if REV == "C":
+        cr.para("Sources: params/phase2_massing.yaml, phase2_massing_rev_c.yaml; phase2_plan_rev_i.yaml; phase2_elev_rev_g.yaml; phase2_elev.yaml; "
+                "phase2_site.yaml (rev_e); phase2_sect.yaml; D-034, D-043, D-045, D-046, D-050, D-054, D-061, D-065 to D-067, D-069; Shane 2026-10-04 "
+                "3:31 PM CT. P2-A-201 Rev H shows the annex + bump-out.", size=4.7, color=GRY)
+    elif mb:
         cr.para("Sources: params/phase2_massing.yaml, phase2_massing_rev_b.yaml; phase2_plan_rev_h.yaml; phase2_elev_rev_g.yaml; phase2_elev.yaml; "
                 "phase2_site.yaml (rev_d); phase2_sect.yaml; D-034, D-043, D-045, D-046, D-050, D-054, D-061, D-064 to D-069; Shane 2026-10-04 "
                 "1:21 / 1:22 PM CT. P2-A-201 (north elevation) does not show the annex yet.", size=4.7, color=GRY)
@@ -638,7 +660,7 @@ def build():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B"], default="B")
+    ap.add_argument("--rev", choices=["A", "B", "C"], default="C")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")
@@ -654,8 +676,8 @@ def main():
     p2 = rd("phase2.yaml")
     rv = p2["sheets"][SHEET_NO]["revisions"][a.rev]
     ms = rd("phase2_massing.yaml")
-    if REV == "B":
-        ms["meta"]["model_file"] = rd("phase2_massing_rev_b.yaml")["meta"]["model_file"]
+    if REV in ("B", "C"):
+        ms["meta"]["model_file"] = rd(f"phase2_massing_rev_{REV.lower()}.yaml")["meta"]["model_file"]
     if a.out_dir:
         od = Path(a.out_dir)
         pdf, dxf, obj = od / f"{rv['file']}.pdf", od / f"{rv['file']}.dxf", od / f"{ms['meta']['model_file']}.obj"

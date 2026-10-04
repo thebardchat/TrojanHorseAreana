@@ -384,6 +384,28 @@ rev_j:
   fixtures_l1_case: {floor: chairs, basis: "L1 restrooms sized to chairs-only: floor 2,346 + lower seats 1,100 = 3,446 (D-064 Option 2); drawn rooms keep the Rev I fixtures until D-069 is decided", source: "D-064 DECIDED (Shane 1:22 PM CT); IBC 2021 T2902.1 = IPC 2021 T403.1 (R-009)"}
   source: "Shane 2026-10-04 1:22 PM CT (D-064, D-067)"
 
+meta_rev_k:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "PROGRAM + LOOP + STORAGE + RESTROOMS"
+  subtitle: "REV I PLAN · D-069 · D-057"
+  revision: K
+  file: P2-G-003_RevK
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev J method and numbers + the D-069 restroom bump-out (core 2, 30 x 56 ft = 1,680 SF one storey, drawn on P2-A-101 Rev I) added gross to L1 / footprint / GSF like the D-067 annex (no x1.25, no mech share); L1 fixtures = lobby core + core 2 = chairs-only (D-064); size table A-101 Rev I vs Rev H drawn"
+  source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out)"
+
+rev_k:
+  restroom_bumpout: {id: restroom_core_2, label: "Restroom bump-out, core 2 (D-069)", sf: 1680, level: 1, gross_up: false, basis: "drawn 30 x 56 ft on Plan Rev I (P2-A-101 Rev I): men 26 x 14 = 364 SF, women 30 x 34 = 1,020 SF, DF alcove + janitor 4 x 14 = 56 SF, corridor 30 x 8 = 240 SF; test-fit P2-A-401 Rev C (stalls, 6 ft aisles, +10 % walls / chases ASSUMED). At 50 SF per fixture (R-014 ASSUMED) the 48 core-2 fixtures would be 2,400 SF", source: "Shane 2026-10-04 3:31 PM CT (D-069 Option 2); P2-A-401 Rev C test-fit; KEYSTONE layout (ASSUMED)"}
+  fixture_split:
+    required: {men_wc: 22, women_wc: 42, men_lav: 9, women_lav: 12, df: 4, source: "chairs-only L1 load 3,446 (floor 2,346 + lower seats 1,100), IBC 2021 T2902.1 = IPC 2021 T403.1 (R-009); D-064 Option 2"}
+    lobby_core: {men_wc: 10, women_wc: 18, men_lav: 4, women_lav: 5, df: 2, source: "P2-A-101 Rev H / Rev I rooms 4 and 5 as drawn (Rev I fixture basis), unchanged; Shane 3:31 PM CT split (10/18, 4/5, 2)"}
+    core_2: {men_wc: 5, men_urinals: 7, women_wc: 24, men_lav: 5, women_lav: 7, df: 2, source: "KEYSTONE split = required minus lobby core; urinals 7 of the 12 men's WC-equivalents <= 67 % (IPC 2021 424.2, R-009); DF 2 = one hi-lo pair (ADA 2010 211.2)"}
+    urinal_rule: {cite: "IPC 2021 424.2", text: "urinals shall not be substituted for more than 67 percent of the required water closets in assembly and educational occupancies", source: "IPC 2021 424.2 via UpCodes (R-009, retrieved 2026-10-04)"}
+    source: "Shane 2026-10-04 3:31 PM CT (targets 22M / 42W toilets, 9M / 12W lavs, 4 DF; split between the lobby core 10/18, 4/5, 2 and the new core)"
+  source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2)"
+
 rev_g:
   stair_width_in: 76
   intermediate_landing_in: 76

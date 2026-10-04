@@ -51,9 +51,12 @@ def rect_gap(a, b):
 
 
 def compute(rev="A"):
-    rb = rev == "B"
+    rc = rev == "C"                 # Rev C (Shane 3:31 PM CT): D-069 east restroom bump-out, plan Rev I; Revs A / B stay byte-identical
+    rb = rev in ("B", "C")
     d = g2.compute("B" if rb else "A")
     ls, plan = (rd("phase2_life_safety_rev_b.yaml"), rd("phase2_plan_rev_h.yaml")) if rb else (rd("phase2_life_safety.yaml"), rd("phase2_plan_rev_g.yaml"))
+    if rc:
+        ls, plan = rd("phase2_life_safety_rev_c.yaml"), rd("phase2_plan_rev_i.yaml")
     eg = d["code"]["egress"]
     df, sfac, dw = eg["door_in_per_occ"], eg["stair_in_per_occ"], eg["door_clear_in"]
     wc = d["wc"]
@@ -101,6 +104,14 @@ def compute(rev="A"):
     paths = [dict(p, length=plen(p["pts"])) for p in ls["travel"]["paths"]]
     (dx0, dy0), (dx1, dy1) = ls["separation"]["diagonal_from"]
     diag = math.hypot(dx1 - dx0, dy1 - dy0)
+    corner_d = {}
+    if rc:                          # every outline corner (box, NE tower, annex, bump-out): the stated diagonal must be the maximum
+        bld = plan["building"]
+        pts_ = [(r[i], r[j]) for r in (bld["rect"], bld["projection"]["rect"], bld["annex"]["rect"], bld["bumpout"]["rect"]) for i in (0, 2) for j in (1, 3)]
+        dmax = max(math.hypot(a[0] - b[0], a[1] - b[1]) for a in pts_ for b in pts_)
+        assert abs(dmax - diag) < 0.01, (dmax, diag)
+        bo, ax = bld["bumpout"]["rect"], bld["annex"]["rect"]
+        corner_d = dict(bumpout=math.hypot(bo[2], bo[3]), annex=math.hypot(ax[2], ax[3]))
     srect = {s_["id"]: s_["rect"] for s_ in plan["vertical"]["stairs"]}
     seps = []
     for p in ls["separation"]["pairs"]:
@@ -112,7 +123,7 @@ def compute(rev="A"):
     c_mc = chk(d["mc"]["l1"], d["mc"]["total"]) if rb else None
     return dict(rev=rev, c_mc=c_mc, d=d, ls=ls, plan=plan, e1=e1, df=df, sfac=sfac, dw=dw, others=others, nsd=nsd, sd_l2=sd_l2, prov=prov,
                 other_prov=other_prov, c_wc=c_wc, c_fs=c_fs, fl_s=fl_s, cases=cases, st=st, room_ol=room_ol, paths=paths,
-                diag=diag, seps=seps, l2w=l2w, tot=tot)
+                diag=diag, seps=seps, l2w=l2w, tot=tot, corner_d=corner_d)
 
 
 class Plan:
@@ -149,8 +160,18 @@ def outline(pl, plan, annex=True):
     bx0, by0, bx1, by1 = plan["building"]["rect"]
     pj = plan["building"]["projection"]["rect"]
     pts = [(bx0, by0), (bx1, by0), (bx1, pj[3]), (pj[0], pj[3]), (pj[0], by1), (bx0, by1), (bx0, by0)]
+    bo = plan["building"].get("bumpout")
     for (xa, ya), (xb, yb) in zip(pts[:-1], pts[1:]):
+        if bo and xa == xb == bx1 and annex:          # Plan Rev I: L1 east wall open where EXIT (E) runs into the bump-out
+            ez = next(z["rect"] for z in plan["level_1"]["zones"] if z["id"] == "exit_e")
+            pl.line(xa, ya, xb, ez[1], L_WALL, lw=1.8)
+            pl.line(xa, ez[3], xb, yb, L_WALL, lw=1.8)
+            continue
         pl.line(xa, ya, xb, yb, L_WALL, lw=1.8)
+    if annex and bo:                                   # Plan Rev I restroom bump-out (D-069), one storey
+        r = bo["rect"]
+        for (xa, ya, xb, yb) in ((r[0], r[1], r[2], r[1]), (r[2], r[1], r[2], r[3]), (r[2], r[3], r[0], r[3])):
+            pl.line(xa, ya, xb, yb, L_WALL, lw=1.8)
     if annex and "annex" in plan["building"]:            # Plan Rev H storage annex (D-067), one storey
         ax = plan["building"]["annex"]["rect"]
         for (xa, ya, xb, yb) in ((ax[0], ax[1], ax[0], ax[3]), (ax[0], ax[3], ax[2], ax[3]), (ax[2], ax[3], ax[2], ax[1])):
@@ -208,11 +229,15 @@ def build(c):
     e1, lv1, lv2 = c["e1"], plan["level_1"], plan["level_2"]
     ol = c["room_ol"]
     paths = {p["id"]: p for p in c["paths"]}
-    rb = c["rev"] == "B"
+    rb = c["rev"] in ("B", "C")
+    rc = c["rev"] == "C"
     py0 = 4.62
     # ---------------------------------------------------------------- LEVEL 1
     pl = Plan(sh, 1.0, py0, s)
-    if rb:
+    if rc:
+        sh.text(3.55, top - 0.16, "LEVEL 1 — PLAN REV I", size=9.5, bold=True)
+        sh.text(3.55, top - 0.31, "D-065 bay · D-067 annex · D-069 bump-out", size=6.0)
+    elif rb:
         sh.text(3.55, top - 0.16, "LEVEL 1 — PLAN REV H", size=9.5, bold=True)
         sh.text(3.55, top - 0.31, "D-065 bay · D-067 annex", size=6.0)
     else:
@@ -286,7 +311,7 @@ def build(c):
             pl.text(-4.5, at + 4, lab, size=4.6, bold=True, align="center", layer=L_EXIT, rot=90)
         else:
             yy = at if x_["id"] != "X6" else at
-            xw = bx1 if at < 252 else 210
+            xw = x_.get("x", bx1 if at < 252 else 210)
             pl.line(xw, at - 3, xw, at + 3, L_EXIT, lw=2.6); arrow(pl, xw, at, 1, 0)
             pl.text(xw + 3, at + 3.0, lab, size=4.6, bold=True, layer=L_EXIT)
     # occupant loads
@@ -304,6 +329,11 @@ def build(c):
         s1 = next(x_ for x_ in lv1["doors"]["items"] if x_["id"] == "S1")
         pl.line(s1["at"] - 3, s1["y"], s1["at"] + 3, s1["y"], L_EXIT, lw=1.6)
         pl.text(s1["at"], s1["y"] + 2.5, "S1", size=4.2, bold=True, align="center", layer=L_TAG)
+    if rc:
+        pl.text(225, 203, "WOMEN (2)", size=3.9, bold=True, align="center", layer=L_TAG)
+        pl.text(225, 197.5, "24 WC · 7 LAV", size=3.6, align="center", layer=L_TAG)
+        pl.text(222.5, 166, "MEN (2)", size=3.6, bold=True, align="center", layer=L_TAG)
+        draw_path(pl, paths["T7"], RED, 243.5, 207)
     pl.text(116, 150, "EVENT FLOOR 16,416 SF (D-054 CHAIRS-ONLY)" if rb else "EVENT FLOOR 16,416 SF (D-054 OPEN)", size=5.2, bold=True, align="center", layer=L_TAG)
     if rb:
         pl.text(116, 143.5, f"chairs 7 net = {n0(d['wc']['floor'])} occ. (DESIGN, D-054)", size=4.8, align="center", layer=L_TAG, color=GRN)
@@ -322,9 +352,10 @@ def build(c):
     pl.text(sp["a_pt"][0] + 1.8, 74, f"SEPARATION E1-X5 {sp['dist']:.0f}' ≥ {sp['req']:.1f}'", size=4.5, layer=L_SEP, color=GRN, rot=90)
 
     # ---------------------------------------------------------------- LEVEL 2
-    pl2 = Plan(sh, 6.35, py0, s)
-    sh.text(6.35, top - 0.16, "LEVEL 2 — LIFE SAFETY (PLAN REV F, UNCHANGED)", size=9.5, bold=True)
-    sh.text(6.35, top - 0.31, f"{lm['scale_text']} · 4 stairs 76 in (D-052) = the L2 exits · loop = upper concourse on event days", size=6.0)
+    xl2 = 6.55 if rc else 6.35                         # Rev C: L2 plan 0.2 in right of the L1 bump-out + X7 label
+    pl2 = Plan(sh, xl2, py0, s)
+    sh.text(xl2, top - 0.16, "LEVEL 2 — LIFE SAFETY (PLAN REV F, UNCHANGED)", size=9.5, bold=True)
+    sh.text(xl2, top - 0.31, f"{lm['scale_text']} · 4 stairs 76 in (D-052) = the L2 exits · loop = upper concourse on event days", size=6.0)
     for ob in lv2["open_below"]:
         r = ob["rect"]
         pl2.rect(r, L_ROOM, lw=0.3)
@@ -416,9 +447,9 @@ def build(c):
     cr.head("LEGEND", size=7.0)
     cr.para("Heavy bar + arrow = exit door (clear in · occupants); E1 = 8 pair bars, outer + inner (vestibule) bank. Grey box = stair. "
             "Red dashed + dot = travel path (dot = remote point; feet, rectilinear). Green line = exit separation. "
-            + ("Green zone = screening bay (D-065). " if c["rev"] == "B" else "Pink zone = checkpoint conflict. ") +
+            + ("Green zone = screening bay (D-065). " if c["rev"] in ("B", "C") else "Pink zone = checkpoint conflict. ") +
             "Numbers in rooms = occupant load (P2-G-002).", size=5.3)
-    rb = c["rev"] == "B"
+    rb = c["rev"] in ("B", "C")
     cr.head(f"OCCUPANT LOADS (P2-G-002 REV {'B' if rb else 'A'}, IBC T1004.5)", size=7.0)
     cr.table([("CASE", 0, "left"), ("FLOOR", 1.85, "right"), ("L1", 2.45, "right"), ("BLDG", 3.05, "right"), ("E1 NEED", 3.95, "right")],
              [((x_["label"].replace(" — WORST", " (WORST)").replace(" (exercise 50 gross, ASSUMED)", " (50 gross)"), n0(x_["floor"]), n0(x_["l1"]),
@@ -431,7 +462,8 @@ def build(c):
     cr.head("EXIT SEPARATION (1007.1.1 exc. 2, sprinklered)", size=7.0)
     sps = c["seps"]
     cr.para(f"Max overall diagonal {c['diag']:.1f} ft (SW corner to NE stair tower) → 1/3 = {c['diag'] / 3:.1f} ft "
-            f"(1/2 = {c['diag'] / 2:.1f} ft unsprinklered). Measured to any point of a doorway / closest riser (1007.1.1.1).", size=5.3)
+            f"(1/2 = {c['diag'] / 2:.1f} ft unsprinklered). Measured to any point of a doorway / closest riser (1007.1.1.1)."
+            + (f" All outline corners checked: bump-out NE {c['corner_d']['bumpout']:.1f} ft, annex NE {c['corner_d']['annex']:.1f} ft (shorter)." if rc else ""), size=5.3)
     for sp in sps:
         cr.para(f"L{sp['level']} {sp['a']} ↔ {sp['b']}: {sp['dist']:.1f} ft ≥ {sp['req']:.1f} ft — {'PASS' if sp['ok'] else 'FAIL'}. {sp['note']}.",
                 size=5.3, bullet="·", color=None if sp["ok"] else RED)
@@ -450,13 +482,15 @@ def build(c):
     cr.para("Rules: one exit only if ≤ 49 occ. and ≤ 75 ft (T1006.2.1, Group A, sprinklered); seats 30 ft to a choice of two paths (1030.8); "
             "unoccupied mech rooms exempt (1006.2.1 exc. 3).", size=5.3)
     fd = ls["findings"]
-    fset = ((("screening", "SCREENING BAY vs EGRESS (D-065 DECIDED) — CHECK"), ("restrooms", "FINDING — RESTROOM SPACE, CHAIRS-ONLY (D-069 OPEN)"),
+    fset = ((("screening", "SCREENING BAY vs EGRESS (D-065 DECIDED) — CHECK"), ("restrooms", "RESTROOMS — CORE 2 BUMP-OUT (D-069 DECIDED, OPTION 2)"),
+             ("discharge", "EXIT DISCHARGE — 40 FT WALK (D-066 DECIDED) — CHECK")) if rc else
+            (("screening", "SCREENING BAY vs EGRESS (D-065 DECIDED) — CHECK"), ("restrooms", "FINDING — RESTROOM SPACE, CHAIRS-ONLY (D-069 OPEN)"),
              ("discharge", "EXIT DISCHARGE — 40 FT WALK (D-066 DECIDED) — CHECK")) if rb else
             (("checkpoint", "FINDING — SECURITY CHECKPOINT vs EGRESS (OPEN)"), ("restrooms", "FINDING — RESTROOMS AT THE WORST CASE (OPEN)")))
     for k, title in fset:
         f_ = fd[k]
         cr.head(title, size=7.0)
-        cr.para(f_["text"], size=5.3, color=(GRN if f_["status"] == "DECIDED" else RED) if rb else RED)
+        cr.para(f_["text"], size=5.3, color=(GRN if f_["status"] == "DECIDED" else None if rc and f_["status"] == "CHECK" else RED) if rb else RED)
         for o in f_.get("options", []):
             cr.para(o, size=5.3, bullet="·")
     c1.head("TBD", size=7.0)
@@ -464,7 +498,12 @@ def build(c):
         c1.para(fd["discharge"]["text"], size=5.3, bullet="·")
     c1.para("Door widths, hardware and the 10 ft open space / street frontage at E1 (1030.2): architect. Seating aisles, rails, "
             "smoke-protected seating (1030.6.2): TBD. Structure 1'-6\" ASSUMED (zero margin at 7'-6\").", size=5.3, bullet="·")
-    c2.para("Sources: P2-G-002 Rev B; P2-A-101 Rev H / A-102 Rev F (params/phase2_plan_rev_h.yaml); params/phase2_life_safety_rev_b.yaml; Shane 1:21-1:22 PM CT; " if rb else
+    if rc:
+        c2.head("EXIT (E) THROUGH THE BUMP-OUT (D-069) — CHECK", size=7.0)
+        c2.para(fd["bumpout"]["text"], size=5.3)
+    c2.para("Sources: P2-G-002 Rev B; P2-A-101 Rev I / A-102 Rev F (params/phase2_plan_rev_i.yaml); params/phase2_life_safety_rev_c.yaml; IBC 2021 "
+            "1003.6, 1006.2.1, 1007.1, 1017.2-3, T1020.3, 1028, 1030.2-3, 2902.3.3; Shane 1:21-1:22 + 3:31 PM CT." if rc else
+            "Sources: P2-G-002 Rev B; P2-A-101 Rev H / A-102 Rev F (params/phase2_plan_rev_h.yaml); params/phase2_life_safety_rev_b.yaml; Shane 1:21-1:22 PM CT; " if rb else
             "Sources: P2-G-002 Rev A; P2-A-101 Rev G / A-102 Rev F (params/phase2_plan_rev_g.yaml); params/phase2_life_safety.yaml; "
             "IBC 2021 1003.6, 1005.3, 1005.5, 1006.2.1, 1007.1, 1010.5, 1017.2-3, 1028.3, 1030.2-3, 1030.8 (UpCodes, retrieved 2026-10-04; "
             "R-007, R-015, R-018); Shane 2026-10-04 11:07 AM CT.", size=5.0, color=GRY)
@@ -473,7 +512,7 @@ def build(c):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B"], default="B")
+    ap.add_argument("--rev", choices=["A", "B", "C"], default="C")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")

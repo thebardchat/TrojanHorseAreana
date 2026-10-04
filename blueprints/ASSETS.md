@@ -440,3 +440,18 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **Storage sizing source (D-067):** National Public Seating 42-8 chair / table truck, 67 x 33.25 in, 42 chairs (vendor listings, retrieved 2026-10-04); stage carts ASSUMED.
 - **New files in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-101_RevH.pdf`, `P2-A-111_RevB.pdf`, `P2-G-002_RevB.pdf`, `P2-G-003_RevJ.pdf`, `P2-A-401_RevB.pdf`, `P2-A-103_RevB.pdf`, `P2-C-101_RevD.pdf`, `P2-A-901_RevB.pdf`.
 - **Previews (box only):** `/workspace/keystone_previews/<sheet>.png` / `.pdf` for the 8 sheets above.
+
+## 2026-10-04 additions (3:31 PM CT session, D-069 east restroom bump-out)
+- **New data:** `params/phase2_plan_rev_i.yaml`, `phase2_life_safety_rev_c.yaml`, `phase2_enlarged_rev_c.yaml`, `phase2_massing_rev_c.yaml`, `phase2_elev_rev_h.yaml`; `phase2_site.yaml` rev_e; `phase2_program.yaml` rev_k. `phase2.yaml` is now v23.
+- **New sheets (repo, `phase2/out/{pdf,dxf}/`)** — PDF sha256 (first 16):
+  - `P2-G-003_RevK` `8137ed3dfe93c824`
+  - `P2-A-101_RevI` `9bcdfb8cf3a87766`
+  - `P2-A-111_RevC` `89fd682a4cf6e2bf`
+  - `P2-A-401_RevC` `414c56404fbd1cbc`
+  - `P2-C-101_RevE` `1df923e760ce6890`
+  - `P2-A-901_RevC` `0e18435e12d8bef3`
+  - `P2-A-201_RevH` `cf80e0570c34a371`
+- **New model files (repo):** `phase2/out/3d/P2-A-901_RevC_massing.obj` (sha256 `d09bf537ba0ecbb7…`) + `.mtl` (sha256 `459343775539683b…`, same materials as Rev B); feet, Y-up, massing only.
+- **Code basis:** IBC 2021 Table 2902.1 (fixtures, R-009), IPC 2021 424.2 (urinals ≤ 67% of required WC); IBC 2021 1006.2.1, 1017.2, 1007.1.1 (A-111 Rev C).
+- **New files in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-G-003_RevK.pdf`, `P2-A-101_RevI.pdf`, `P2-A-111_RevC.pdf`, `P2-A-401_RevC.pdf`, `P2-C-101_RevE.pdf`, `P2-A-901_RevC.pdf`, `P2-A-201_RevH.pdf`.
+- **Previews (box only):** `/workspace/keystone_previews/<sheet>.png` / `.pdf` for the 7 sheets above.

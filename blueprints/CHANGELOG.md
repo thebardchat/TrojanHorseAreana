@@ -664,3 +664,21 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - **Areas:** GSF drawn 82,013 → **84,113** (+2,100); L1 53,081 → 55,181; L2 28,933 unchanged.
 - **Follow-up:** P2-A-201 north elevation does not yet show the annex. G-001 cover, combined set and PR are ON HOLD (Shane 1:46 PM CT).
 - **Frozen check:** every frozen / approved revision re-renders byte-identical (PDF + DXF entities; A-901 Rev A OBJ / MTL unchanged).
+
+## 2026-10-04 3:31 PM CT — D-069 closed: east restroom bump-out (Option 2)
+- **Decision (Shane, 3:31 PM CT):** **D-069 CLOSED = Option 2** ("Option B"): second restroom pair in a one-storey bump-out opposite the lobby core. East concourse width and the SW FLEX room unchanged (D-039 unchanged). Open count 17 → **16**.
+- **Location: EAST** (KEYSTONE pick, as asked): bump-out [210,161.09]-[240,217.09] = **30 × 56 ft = 1,680 SF**, one storey, 16 ft ASSUMED, centred on V2 / EXIT (E). Why east: the north side is the back-of-house yard (service drive, S1 apron, storage annex x 52-122, X4 / X5 / ST-2 discharges); the east side is open and the public reaches it straight from the floor / east tier through V2 and the EXIT (E) passage, which continues 30 ft east as the core-2 corridor. X7 moves 30 ft east to the bump-out east face (x 240).
+- **Fixtures (chairs-only, load 3,446, IBC 2021 Table 2902.1, R-009):** required 22 M / 42 W WC, 9 / 12 lav, 4 DF. Lobby core 10 / 18, 4 / 5, 2 (unchanged) + **core 2: men 5 WC + 7 urinals, 5 lav; women 24 WC, 7 lav; 2 DF hi-lo + janitor**. Urinals 7 ≤ 67% of 12 = 8 (IPC 2021 424.2). Totals 22 / 42, 9 / 12, 4 = required.
+- **Params first:** `phase2.yaml` v23; `DECISIONS.md` D-069 DECIDED; `phase2_program.yaml` rev_k; new `phase2_plan_rev_i.yaml`, `phase2_life_safety_rev_c.yaml`, `phase2_enlarged_rev_c.yaml`, `phase2_massing_rev_c.yaml`, `phase2_elev_rev_h.yaml`; `phase2_site.yaml` rev_e.
+- **New revisions** (frozen revisions untouched):
+  - **P2-G-003 Rev K:** program + fixture split (lobby core / core 2) + bump-out 1,680 SF; program F 58,195 / L2 28,186 / total 86,381 SF.
+  - **P2-A-101 Rev I:** bump-out drawn (rooms 25-27, corridor), east wall open at EXIT (E), X7 at x 240, D-069 flags removed.
+  - **P2-A-111 Rev C:** T1 133.1 → 163.1 ft; new T7 (women's far corner → X7) 67.0 ft; common path women 38 / men 34 ft (≤ 75); diagonal unchanged at 333.2 ft (all outline corners checked); E1-X5 separation 252 ≥ 111.1 ft; locker rooms 3-4 travel 95.9 ft.
+  - **P2-A-401 Rev C:** core-2 enlarged plan at 1/16" (men 26 × 14 = 364 SF, women 30 × 34 = 1,020 SF, DF / janitor 56 SF, corridor 240 SF) + fixture table + why-east note; locker rooms unchanged.
+  - **P2-C-101 Rev E:** outline + bump-out; area table vs Rev H; X7 east discharge TBD with the parcel.
+  - **P2-A-901 Rev C:** bump-out mass (16 ft ASSUMED) with X7; model `phase2/out/3d/P2-A-901_RevC_massing.obj` + `.mtl`.
+  - **P2-A-201 Rev H:** annex + bump-out on every face where they show (north: annex in front with S1, bump-out at the east end; east: bump-out in front with X7, annex beyond; west: annex; south: bump-out beyond the east end); N / E / W at 1" = 40'.
+- **Areas (D-057):** L1 55,181 → **56,861** (+1,680); L2 28,933 (unchanged); TOTAL GSF 84,113 → **85,793** (+1,680). Program Rev K 86,381.
+- **Findings:** (1) chair layouts on the floor must keep an aisle to V2 (core 2 is reached through V2); (2) X7's discharge path from x 240 to a public way is TBD with the parcel (D-006); (3) core-2 plumbing (waste, vent, water) is an MEP item; (4) P2-G-002 Rev B still shows D-069 OPEN (no G-002 Rev C was ordered).
+- **Still PAUSED:** G-001 cover, combined set PDF and PR not built.
+- **Frozen check:** `/tmp/cur_check7.sh` (explicit `--rev`, now including the 1:21 PM revs, A-201 A-G and the new revs): every frozen / committed revision re-renders byte-identical (PDF + DXF entities; A-901 OBJ / MTL); new revs deterministic.

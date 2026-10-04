@@ -46,6 +46,8 @@
 # v21, 2026-10-04 12:10 PM CT: new sheet P2-A-901 Rev A 3D massing model + views (params/phase2_massing.yaml; model file phase2/out/3d).
 # v22, 2026-10-04 1:21-1:26 PM CT: D-054 (chairs-only), D-064 (Option 2), D-065 (Option 1), D-066 (40 ft walk) DECIDED; D-067 storage
 #     annex; D-068 approvals (A-111 A, A-401 A, A-103 A, G-002 A frozen); D-069 restroom space OPEN. New revs on plan Rev H.
+# v23, 2026-10-04 3:31 PM CT: D-069 DECIDED (Option 2): east restroom bump-out (core 2) on plan Rev I; G-003 K, A-101 I, A-111 C, A-401 C,
+#     C-101 E, A-901 C, A-201 H.
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -531,6 +533,11 @@ sheets:
         inputs: "params/phase2_program.yaml (rev_i, rev_j) + params/phase2_plan_rev_h.yaml"
         note: "Rev I method + D-067 storage room 2,100 SF (annex); D-057 size vs Plan Rev G"
         source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); program + storage room, area table L1 / L2 / TOTAL GSF / delta"
+      K:
+        file: P2-G-003_RevK
+        frozen: false
+        inputs: "params/phase2_program.yaml (rev_k) + params/phase2_plan_rev_i.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); program Rev K = Rev J + restroom bump-out 1,680 SF gross"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
   P2-A-101:
     title: OVERALL FLOOR PLAN — LEVEL 1
@@ -580,6 +587,11 @@ sheets:
         inputs: "params/phase2_plan_rev_h.yaml"
         note: "Level 1 only; restrooms not redrawn (D-069 OPEN)"
         source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); Level 1: screening bay off the egress path, first aid + concession moved, storage annex + S1"
+      I:
+        file: P2-A-101_RevI
+        frozen: false
+        inputs: "params/phase2_plan_rev_i.yaml + params/phase2_program.yaml (rev_k)"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); Plan Rev I: east bump-out 30 x 56 ft at EXIT (E), X7 moved to the bump-out east face"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2
@@ -660,6 +672,11 @@ sheets:
         frozen: false
         inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_f.yaml + params/phase2_elev_rev_g.yaml + params/phase2_plan_rev_f.yaml"
         source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: A-201 Rev G L2 line 17'-9\", ring roof 32.75'); Rev F approved and frozen"
+      H:
+        file: P2-A-201_RevH
+        frozen: false
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_f.yaml + params/phase2_elev_rev_g.yaml + params/phase2_elev_rev_h.yaml + params/phase2_plan_rev_i.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); elevations show the storage annex (D-067) and the bump-out, both one storey 16 ft ASSUMED"
     source: "Shane 2026-10-04 5:27 AM CT"
   P2-A-301:
     title: BUILDING SECTIONS
@@ -733,6 +750,11 @@ sheets:
         frozen: false
         inputs: "params/phase2_site.yaml (incl. rev_d) + params/phase2_plan_rev_h.yaml + params/phase2_program.yaml (rev_i, rev_j)"
         source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); 40 ft walk at the doors with bands around both piers (D-066), storage annex + S1 apron, D-057 table"
+      E:
+        file: P2-C-101_RevE
+        frozen: false
+        inputs: "params/phase2_site.yaml (rev_e) + params/phase2_plan_rev_i.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); building outline adds the east bump-out, X7 discharge east"
     source: "Shane 2026-10-04 7:44 AM CT"
   P2-G-002:
     title: CODE ANALYSIS (SCHEMATIC)
@@ -767,6 +789,11 @@ sheets:
         frozen: false
         inputs: "params/phase2_life_safety_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_code_rev_b.yaml"
         source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); E1 egress re-checked with the screening bay, chairs design case, standing margin"
+      C:
+        file: P2-A-111_RevC
+        frozen: false
+        inputs: "params/phase2_life_safety_rev_c.yaml + params/phase2_plan_rev_i.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); recheck travel, common path and exit separation with the bump-out"
     source: "Shane 2026-10-04 11:07 AM CT"
   P2-A-401:
     title: ENLARGED PLANS — EVENT LOCKER ROOMS 1-4
@@ -784,6 +811,11 @@ sheets:
         frozen: false
         inputs: "params/phase2_enlarged_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_code_rev_b.yaml"
         source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); restroom core test-fit to chairs-only fixtures (D-064), D-069 options"
+      C:
+        file: P2-A-401_RevC
+        frozen: false
+        inputs: "params/phase2_enlarged_rev_c.yaml + params/phase2_plan_rev_i.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); new core 2 enlarged plan; fixture split lobby core + core 2 = chairs-only"
     source: "Shane 2026-10-04 11:24 AM CT; BACKLOG P2-T-010"
   P2-A-103:
     title: FLOOR OVERLAYS — MATS, SEATING + FLOOR CONVERSIONS
@@ -817,6 +849,11 @@ sheets:
         frozen: false
         inputs: "params/phase2_massing_rev_b.yaml + phase2_plan_rev_h.yaml + phase2_elev_rev_g.yaml + phase2_elev.yaml + phase2_site.yaml (rev_d) + phase2_sect.yaml"
         source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); massing with the 40 ft walk and the storage annex"
+      C:
+        file: P2-A-901_RevC
+        frozen: false
+        inputs: "params/phase2_massing.yaml + params/phase2_massing_rev_c.yaml + params/phase2_plan_rev_i.yaml + params/phase2_site.yaml (rev_e)"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); bump-out box 16 ft ASSUMED"
     source: "Shane 2026-10-04 12:10 PM CT; BACKLOG P2-T-011"
 
 sets:

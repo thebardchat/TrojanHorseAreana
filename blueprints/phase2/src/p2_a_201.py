@@ -16,12 +16,14 @@ STRUCTURAL ENGINEER REQUIRED (callout + note); ETFE roof / solar moved from NOT 
 (phase2_elev_rev_f.yaml `se_callout`, `notes_override.not_shown` / `open_question`). Rev F approved + FROZEN 10:27 AM CT.
 Rev G (Shane 10:27 AM CT, D-061 Option B): L2 FF line 17'-9", ring roof 32.75' (ring walls 2.75' taller), NE stair tower
 24.08 x 6.67 ft and doors from P2-A-101 Rev F (phase2_elev_rev_g.yaml `heights_override`, `datum_labels`, `plan_file`).
+Rev H (Shane 3:31 PM CT, D-069 Option 2): outline from P2-A-101 Rev I: storage annex (D-067) + east restroom bump-out (D-069),
+16 ft ASSUMED, on every face where they show (faces_h); X7 on the bump-out; N / E / W at 1 in = 40 ft (phase2_elev_rev_h.yaml).
 
 South elevation (primary, 1/16 in = 1 ft) with the south portal; north, east and west (1/32 in = 1 ft).
 Heights and finishes: params/phase2_elev.yaml. Building outline, arena volume and doors: params/phase2_plan_rev_d.yaml
 (P2-A-101/102 Rev D, frozen in Phase 2 Schematic Set Rev A). DXF is in paper inches; fills are solid HATCH entities.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C|D|E|F|G] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C|D|E|F|G|H] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -47,7 +49,7 @@ def load(rev="A"):
     ev = yaml.safe_load((BP / "params" / "phase2_elev.yaml").read_text(encoding="utf-8"))
     plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_d.yaml").read_text(encoding="utf-8"))
     evb = None
-    if rev in ("B", "C", "D", "E", "F", "G"):
+    if rev in ("B", "C", "D", "E", "F", "G", "H"):
         evb = yaml.safe_load((BP / "params" / f"phase2_elev_rev_{rev.lower()}.yaml").read_text(encoding="utf-8"))
         if evb.get("plan_file"):                   # Rev E: P2-A-101/102 Rev E geometry (210 ft, 6.67 ft NE tower)
             plan = yaml.safe_load((BP / "params" / evb["plan_file"]).read_text(encoding="utf-8"))
@@ -158,6 +160,43 @@ def faces(plan, ev):
     return F
 
 
+def faces_h(plan, ev, evb):
+    """Rev H: faces with the storage annex (north wall) and the restroom bump-out (east wall), heights from evb (ASSUMED).
+    Outline extents: x 0-240 (bump-out east face), y 0-282 (annex north face). u runs from the viewer's left."""
+    bx0, by0, bx1, by1 = plan["building"]["rect"]
+    pj = plan["building"]["projection"]["rect"]
+    an = plan["building"]["annex"]["rect"]
+    bo = plan["building"]["bumpout"]["rect"]
+    ah, bh = evb["annex"]["height_ft"], evb["bumpout"]["height_ft"]
+    ar = ev["arena_volume"]["rect"]
+    hz = ev["heights"]
+    ring, top = hz["ring_roof"]["value"], hz["arena_roof_top"]["value"]
+    doors = plan["level_1"]["doors"]["items"]
+    X1, Y1 = max(bx1, bo[2]), max(by1, pj[3], an[3])          # 240, 282
+    F = {}
+    # SOUTH: viewer looks north; u = x. Bump-out beyond the east end (161' back); annex hidden behind the ring
+    F["S"] = dict(length=X1 - bx0, masses=[(bx0, bx1, ring, 0), (ar[0], ar[2], top, 1), (bo[0], bo[2], bh, 1)],
+                  doors=[(d["at"], d["id"], d["kind"]) for d in doors if d["wall"] == "S"], set_back={1: ar[1] - by0},
+                  label_l="W", label_r="E", l2_u=(bx0, bx1), ov=evb["layout"]["ground_overhang_s"])
+    # NORTH: viewer looks south; u = X1 - x. Annex in front (S1 on it), tower in front, bump-out at the east end (set back)
+    F["N"] = dict(length=X1 - bx0, masses=[(X1 - bx1, X1 - bx0, ring, 0), (X1 - pj[2], X1 - pj[0], ring, -1), (X1 - ar[2], X1 - ar[0], top, 1),
+                                           (X1 - an[2], X1 - an[0], ah, -2), (X1 - bo[2], X1 - bo[0], bh, 1)],
+                  doors=[(X1 - d["at"], d["id"], d["kind"]) for d in doors if d["wall"] == "N"], set_back={1: by1 - ar[3]},
+                  label_l="E", label_r="W", l2_u=(X1 - bx1, X1 - bx0))
+    # EAST: viewer looks west; u = y. Bump-out in front (X7), annex beyond the NE tower (far back)
+    F["E"] = dict(length=Y1 - by0, masses=[(by0, ar[1], ring, 0), (ar[3], pj[3], ring, 0), (ar[1], ar[3], top, 0), (an[1], an[3], ah, 2),
+                                           (bo[1], bo[3], bh, -1)],
+                  doors=[(d["at"], d["id"], d["kind"]) for d in doors if d["wall"] == "E"], set_back={0: bx1 - ar[2]},
+                  label_l="S", label_r="N", l2_u=(by0, pj[3]))
+    # WEST: viewer looks east; u = Y1 - y. Annex at the north end (beside the ring, set back 52'), tower sliver behind it;
+    # the bump-out is hidden behind the ring (16' < 32.75')
+    F["W"] = dict(length=Y1 - by0, masses=[(Y1 - by1, Y1 - by0, ring, 0), (Y1 - pj[3], Y1 - by1, ring, 2), (Y1 - ar[3], Y1 - ar[1], top, 1),
+                                           (Y1 - an[3], Y1 - an[1], ah, 1)],
+                  doors=[(Y1 - d["at"], d["id"], d["kind"]) for d in doors if d["wall"] == "W"], set_back={1: ar[0] - bx0},
+                  label_l="N", label_r="S", l2_u=(Y1 - by1, Y1 - by0))
+    return F
+
+
 def draw_face(sh, el, f, ev, fin, primary=False):
     hz = ev["heights"]
     ring, top, us = hz["ring_roof"]["value"], hz["arena_roof_top"]["value"], hz["arena_structure_underside"]["value"]
@@ -173,7 +212,8 @@ def draw_face(sh, el, f, ev, fin, primary=False):
         if zt == top:
             el.dashed(u0 + 1, us, u1 - 1, us)
     # L2 floor line (hidden) across the ring
-    el.dashed(0, hz["l2_ff"]["value"], f["length"], hz["l2_ff"]["value"], lw=0.3, dash=0.04, gap=0.05)
+    l2u = f.get("l2_u", (0, f["length"]))                 # Rev H: L2 line only across the 2-storey ring
+    el.dashed(l2u[0], hz["l2_ff"]["value"], l2u[1], hz["l2_ff"]["value"], lw=0.3, dash=0.04, gap=0.05)
     # doors
     dw, dh = ev["doors"]["symbol_width"], ev["doors"]["symbol_height"]
     for u, i, k in f["doors"]:
@@ -187,7 +227,7 @@ def draw_face(sh, el, f, ev, fin, primary=False):
             el.box(u - dw / 2, 0, u + dw / 2, dh, fill="#5A5A5A", layer=L_DOOR, lw=0.5)
             el.text(u, dh + 1.2, i, size=4.6 if not primary else 5.6, bold=True, align="center", layer=L_TAG)
     # ground line
-    ov = 4 if primary else 2
+    ov = f.get("ov", 4 if primary else 2)
     el.line(-ov, 0, f["length"] + ov, 0, layer=L_OUT, lw=1.8)
 
 
@@ -271,7 +311,7 @@ def draw_portal(sh, el, ev, fin, evb=None):
             el.line(uu, -1.3, uu, 0, layer=L_FILL, lw=0.2)
 
 
-def datums(sh, el, ev, length, side="left", size=5.4, which=None, short=False):
+def datums(sh, el, ev, length, side="left", size=5.4, which=None, short=False, near=False):
     hz = ev["heights"]
     rows = [("l1_ff", "L1 FF 0'-0\""), ("l2_ff", "L2 FF 15'-0\" (ASSUMED)"), ("ring_roof", "T.O. RING ROOF 30'-0\" (ASSUMED)"),
             ("arena_structure_underside", "U/S ARENA STRUCT. 36'-0\" (ASSUMED)"),
@@ -285,7 +325,11 @@ def datums(sh, el, ev, length, side="left", size=5.4, which=None, short=False):
         rows = [r for r in rows if r[0] in which]
     for k, lab in rows:
         z = hz[k]["value"]
-        if side == "left":
+        if near:                                   # Rev H south: short tick close to the wall, label just left of it
+            el.line(-4, z, -1, z, layer=L_DAT, lw=0.5)
+            x, y = el.P(-4.5, z)
+            sh.text(x, y - 0.025, lab, size=size, align="right", layer=L_DAT)
+        elif side == "left":
             el.line(-9, z, -2, z, layer=L_DAT, lw=0.5)
             x, y = el.P(-10, z)
             sh.text(x, y - 0.025, lab, size=size, align="right", layer=L_DAT)
@@ -441,12 +485,16 @@ def build(p2, ev, plan, evb=None):
         "sheet_no": SHEET_NO,
         "stamp": meta2["stamp"],
     }, margin=M, tb_h=0.95, stamp_h=0.40)
-    F = faces(plan, ev)
+    rh = bool(evb and evb.get("bumpout"))           # Rev H: annex + bump-out outline (Plan Rev I)
+    F = faces_h(plan, ev, evb) if rh else faces(plan, ev)
     s16, s32 = em["scales"]["south_ft_per_in"], em["scales"]["others_ft_per_in"]
+    if rh:
+        s32 = evb["layout"]["others_ft_per_in"]
+    so = "1\" = 40'-0\"" if rh else "1/32\" = 1'-0\""
     pt = ev["portal"]
 
     # ---------- SOUTH (primary) ----------
-    xS, yS = 2.95, (evb.get("layout", {}).get("south_y0", 6.70) if evb else 6.70)
+    xS, yS = (evb["layout"]["south_x0"] if rh else 2.95), (evb.get("layout", {}).get("south_y0", 6.70) if evb else 6.70)
     elS = Elev(sh, xS, yS, s16)
     draw_face(sh, elS, F["S"], ev, fin, primary=True)
     # arena volume south-face signage zone (placeholder)
@@ -458,7 +506,13 @@ def build(p2, ev, plan, evb=None):
         side_panel(sh, elS, evb, s16)
         key_plan(sh, ev, evb, plan)
         brand_detail(sh, ev, evb, fin)
-    datums(sh, elS, ev, F["S"]["length"], side="left", size=5.6)
+    if rh:
+        datums(sh, elS, ev, F["S"]["length"], side="left", size=5.6, short=True, near=True)
+        bo = plan["building"]["bumpout"]["rect"]
+        elS.text((bo[0] + bo[2]) / 2, evb["bumpout"]["height_ft"] + 4.2, "RESTROOM BUMP-OUT", size=4.6, bold=True, align="center", layer=L_TAG)
+        elS.text((bo[0] + bo[2]) / 2, evb["bumpout"]["height_ft"] + 1.6, "beyond, 161' back (D-069)", size=4.4, align="center", layer=L_TAG)
+    else:
+        datums(sh, elS, ev, F["S"]["length"], side="left", size=5.6)
     # tags
     elS.text(178, 8.0, "WALL MATERIAL TBD", size=6.0, align="center", layer=L_TAG)
     elS.text(30, (evb or {}).get("layout", {}).get("parapet_ring_z", 31.3), "PARAPET TBD", size=5.0, align="center", layer=L_TAG)
@@ -510,23 +564,37 @@ def build(p2, ev, plan, evb=None):
         elS.text(u, -2.6, lab, size=5.6, bold=True, align="center", layer=L_TAG)
 
     # ---------- NORTH ----------
-    xN, yN = 1.20, 4.30
+    xN, yN = 1.20, (evb["layout"]["others_y0"] if rh else 4.30)
     elN = Elev(sh, xN, yN, s32)
     draw_face(sh, elN, F["N"], ev, fin)
     datums(sh, elN, ev, F["N"]["length"], side="left", size=4.6, which=("ring_roof", "arena_roof_top", "l2_ff"), short=True)
     te = (evb or {}).get("text_rev_e", {})
     elN.text(0 + te.get("tower_u", 9.5), te.get("tower_z", 31.6), te.get("tower_label", "NE STAIR TOWER (+5')"), size=4.4, align="center", layer=L_TAG)
     x_, y_ = elN.P(0, -8.5)
-    sh.text(x_, y_, "NORTH ELEVATION — 1/32\" = 1'-0\"  (E ← → W)", size=7.2, bold=True, layer=L_TAG)
+    sh.text(x_, y_, f"NORTH ELEVATION — {so}  (E ← → W)", size=7.2, bold=True, layer=L_TAG)
+    if rh:
+        an, bo = plan["building"]["annex"]["rect"], plan["building"]["bumpout"]["rect"]
+        X1 = F["N"]["length"]
+        ua = (X1 - an[2] + X1 - 68.5 - 6) / 2                  # between the annex west end and S1
+        elN.text(ua, 6.4, "STORAGE ANNEX (D-067)", size=4.0, bold=True, align="center", layer=L_TAG)
+        elN.text(ua, 3.0, f"{an[2] - an[0]:g}' x {an[3] - an[1]:g}' · {evb['annex']['height_ft']:g}' ASSUMED", size=3.9, align="center", layer=L_TAG)
+        elN.text(X1 - (bo[0] + bo[2]) / 2, evb["bumpout"]["height_ft"] + 4.5, "RESTROOM", size=4.0, bold=True, align="center", layer=L_TAG)
+        elN.text(X1 - (bo[0] + bo[2]) / 2, evb["bumpout"]["height_ft"] + 1.5, "BUMP-OUT", size=4.0, bold=True, align="center", layer=L_TAG)
 
     # ---------- EAST ----------
-    xE, yE = 8.30, 4.30
+    xE, yE = 8.30, (evb["layout"]["others_y0"] if rh else 4.30)
     elE = Elev(sh, xE, yE, s32)
     draw_face(sh, elE, F["E"], ev, fin)
     elE.text((ar[1] + ar[3]) / 2, 38.6, "ARENA VOLUME (flush with the east wall)", size=4.8, align="center", layer=L_TAG)
+    if rh:
+        an, bo = plan["building"]["annex"]["rect"], plan["building"]["bumpout"]["rect"]
+        bm = (bo[1] + bo[3]) / 2
+        elE.text(bm, 23.0, f"RESTROOM BUMP-OUT {bo[2] - bo[0]:g}' x {bo[3] - bo[1]:g}' (D-069)", size=4.2, bold=True, align="center", layer=L_TAG)
+        elE.text(bm, 19.6, f"in front · {evb['bumpout']['height_ft']:g}' ASSUMED · X7 on its east face", size=4.0, align="center", layer=L_TAG)
+        elE.text(an[1] + 7.5, evb["annex"]["height_ft"] + 1.5, "ANNEX (beyond)", size=4.0, layer=L_TAG)
     x_, y_ = elE.P(0, -8.5)
     datums(sh, elE, ev, F["E"]["length"], side="left", size=4.6, which=("ring_roof", "arena_roof_top", "l2_ff"), short=True)
-    sh.text(x_, y_, "EAST ELEVATION — 1/32\" = 1'-0\"  (S ← → N)", size=7.2, bold=True, layer=L_TAG)
+    sh.text(x_, y_, f"EAST ELEVATION — {so}  (S ← → N)", size=7.2, bold=True, layer=L_TAG)
 
     # ---------- WEST ----------
     xW, yW = 1.20, 2.40
@@ -535,7 +603,10 @@ def build(p2, ev, plan, evb=None):
     elW.text((F["W"]["length"]) / 2, 38.6, f"ARENA VOLUME BEHIND (set back {F['W']['set_back'][1]:g}')", size=4.8, align="center", layer=L_TAG)
     x_, y_ = elW.P(0, -8.5)
     datums(sh, elW, ev, F["W"]["length"], side="left", size=4.6, which=("ring_roof", "arena_roof_top", "l2_ff"), short=True)
-    sh.text(x_, y_, "WEST ELEVATION — 1/32\" = 1'-0\"  (N ← → S)", size=7.2, bold=True, layer=L_TAG)
+    sh.text(x_, y_, f"WEST ELEVATION — {so}  (N ← → S)", size=7.2, bold=True, layer=L_TAG)
+    if rh:
+        an = plan["building"]["annex"]["rect"]
+        elW.text((an[3] - an[1]) / 2, evb["annex"]["height_ft"] + 1.5, "ANNEX", size=4.0, bold=True, align="center", layer=L_TAG)
 
     # ---------- legend + notes ----------
     lx, ly = 10.35, 3.80
@@ -547,7 +618,7 @@ def build(p2, ev, plan, evb=None):
         sh.text(lx + 0.36, y, f"{f['name']} — {f['status'].split(';')[0]}", size=5.6)
     nx = 13.05
     nw = W - M - 0.15 - nx
-    nly = ly + (evb or {}).get("layout", {}).get("notes_dy", 0)    # Rev F: notes block raised into the free band
+    nly = ly + (evb or {}).get("layout", {}).get("notes_dy_h" if rh else "notes_dy", 0)    # Rev F: notes block raised into the free band
     sh.text(nx, nly, "NOTES", size=7.6, bold=True)
     y = nly - 0.02
     hz = ev["heights"]
@@ -574,6 +645,8 @@ def build(p2, ev, plan, evb=None):
             notes[0] = no["heights"]
         if no.get("not_shown"):                    # Rev F (C-8): ETFE / solar only as an open question
             notes[-1] = no["not_shown"]
+        if no.get("outline"):                      # Rev H: annex + bump-out outline note, before NOT SHOWN
+            notes.insert(len(notes) - 1, no["outline"])
         if no.get("open_question"):
             notes.append(no["open_question"])
     for t_ in notes:
@@ -587,7 +660,7 @@ def build(p2, ev, plan, evb=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F", "G"], default="G")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F", "G", "H"], default="H")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")

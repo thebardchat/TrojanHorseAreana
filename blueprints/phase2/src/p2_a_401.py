@@ -44,8 +44,8 @@ def plen(pts):
 def compute(rev="A"):
     en, plan = rd("phase2_enlarged.yaml"), rd("phase2_plan_rev_g.yaml")
     rb = None
-    if rev == "B":
-        rb = rd("phase2_enlarged_rev_b.yaml")
+    if rev in ("B", "C"):
+        rb = rd("phase2_enlarged_rev_b.yaml" if rev == "B" else "phase2_enlarged_rev_c.yaml")
         plan = rd(Path(rb["basis"]["plan"]).name)
     rects = {r["id"]: r["rect"] for r in plan["level_1"]["rooms"]}
     doors = {d["id"]: d for d in plan["level_1"]["doors"]["items"]}
@@ -72,7 +72,7 @@ def compute(rev="A"):
         gx = r[0] + (tp["W"] - lx if mx else lx)
         gy = r[1] + (tp["D"] - ly if my else ly)
         ex = doors[b["exit"]]
-        ept = (ex["at"], by1) if ex["wall"] == "N" else (bx1, ex["at"])
+        ept = (ex["at"], by1) if ex["wall"] == "N" else (ex.get("x", bx1), ex["at"])      # Plan Rev I: X7 on the bump-out face
         onward = abs(ept[0] - gx) + abs(ept[1] - gy)
         lk = [i for i in tp["items"] if i["t"] == "lockers"]
         nl, na = sum(i["n"] for i in lk), sum(i["acc"] for i in lk)
@@ -97,7 +97,68 @@ def compute(rev="A"):
     out = dict(en=en, plan=plan, rooms=rooms, total=total, lim=lim, rev=rev, rb=rb)
     if rev == "B":
         out["core"] = core_calc(rb, plan)
+    if rev == "C":
+        out["core"] = core_calc_c(rb, plan)
     return out
+
+
+def core_calc_c(rb, plan):
+    """Rev C: core-2 test-fit vs its share of the chairs-only fixtures (prog rev_k split) and vs the drawn bump-out rooms (plan Rev I)."""
+    import p2_testfit as tf
+    lp = tf.summary_k()[3]["loop"]
+    fc, sp = lp["fx1c"], lp["split"]
+    lc, c2 = sp["lobby"], sp["core2"]
+    co = rb["core"]
+    mods = co["modules"]
+    rects = {r["id"]: r for r in plan["level_1"]["rooms"]}
+    need = {"men": (c2["men_wc"] + c2["men_urinals"], c2["men_lav"]), "women": (c2["women_wc"], c2["women_lav"])}
+    res = {}
+    for key, rm in co["rooms"].items():
+        cnt = {k: 0 for k in mods}
+        for row in rm["rows"]:
+            run = row["x0"]
+            for t_, n in row["items"]:
+                cnt[t_] += n
+                run += mods[t_]["w"] * n
+                if mods[t_]["d"] > row["y"][1] - row["y"][0] + 1e-6:
+                    sys.exit(f"{key}: {t_} deeper than its row")
+            if run > rm["L"] + 1e-6:
+                sys.exit(f"{key}: row {row['y']} runs {run} ft > room length {rm['L']}")
+        lav = rm["lav"]
+        if lav["y0"] + lav["n"] * mods["lav"]["w"] > rm["W"] + 1e-6:
+            sys.exit(f"{key}: lavatory counter longer than the {rm['W']} ft wall")
+        wc = cnt["wc_std"] + cnt["wc_amb"] + cnt["wc_acc"]
+        ur = cnt["urinal"] + cnt["urinal_acc"]
+        n_wc, n_lav = need[key]
+        ur_max = math.floor(0.67 * n_wc)                       # IPC 2021 424.2
+        if wc + ur != n_wc or lav["n"] != n_lav or ur > ur_max or cnt["wc_acc"] < 1 or (wc + ur >= 6 and cnt["wc_amb"] < 1) or (ur > 1 and cnt["urinal_acc"] < 1):
+            sys.exit(f"{key}: test-fit {wc} WC + {ur} urinals / {lav['n']} lav does not meet core 2 {n_wc} / {n_lav} (urinals <= {ur_max})")
+        dr = rects[rm["drawn_id"]]
+        r = dr["rect"]
+        dw, dh = r[2] - r[0], r[3] - r[1]
+        if rm["L"] > dw + 1e-6 or rm["W"] > dh + 1e-6:
+            sys.exit(f"{key}: test-fit {rm['L']} x {rm['W']} does not fit the drawn {dw} x {dh}")
+        c2p = dr["core2"]
+        if (c2p["wc"], c2p["ur"], c2p["lav"]) != (wc, ur, lav["n"]):
+            sys.exit(f"{key}: plan Rev I core2 tag {c2p} differs from the test-fit")
+        net = rm["L"] * rm["W"]
+        drawn = dw * dh
+        res[key] = dict(cnt=cnt, wc=wc, ur=ur, lav=lav["n"], need_wc=n_wc, need_lav=n_lav, ur_max=ur_max, drawn=drawn, drawn_wh=(dw, dh),
+                        net=net, allow=drawn / net - 1)
+    dj = rects[co["df_jan"]["drawn_id"]]
+    if dj["core2"]["df"] != c2["df"] or co["df_jan"]["df"] != c2["df"]:
+        sys.exit("core-2 drinking fountains drifted")
+    rj_ = dj["rect"]
+    ez = next(z for z in plan["level_1"]["zones"] if z["id"] == co["corridor"]["zone_id"])["rect"]
+    bo = plan["building"]["bumpout"]["rect"]
+    corr = (bo[2] - bo[0]) * (ez[3] - ez[1])
+    dfj = (rj_[2] - rj_[0]) * (rj_[3] - rj_[1])
+    tot = res["men"]["drawn"] + res["women"]["drawn"] + dfj + corr
+    bo_sf = (bo[2] - bo[0]) * (bo[3] - bo[1])
+    if abs(tot - bo_sf) > 0.5:
+        sys.exit(f"bump-out rooms {tot} != bump-out {bo_sf}")
+    res.update(fc=fc, lobby=lc, core2=c2, dfj=dfj, corr=corr, bumpout=bo_sf, bo=bo, corr_w=ez[3] - ez[1])
+    return res
 
 
 def core_calc(rb, plan):
@@ -459,6 +520,8 @@ def build(c):
         sub = (f"{em['scale_text']} · door on the {door_side} wall → {rm['b']['door_to'].split(' →')[0]} · "
                f"common path {wr['length']:.0f} ft ≤ {c['lim']} ({'PASS' if rm['ok'] else 'FAIL'})")
         sh.text(ox, ty - 0.115, sub, size=4.9, color=col)
+    if c["rev"] == "C":
+        return build_c(c, sh, body_bottom, top, rooms, en, em, rb, plan)
     if rb:
         return build_b(c, sh, body_bottom, top, rooms, en, em, rb, plan)
     # ---------------- key plan
@@ -637,6 +700,215 @@ def build_b(c, sh, body_bottom, top, rooms, en, em, rb, plan):
     return sh, body_bottom, [cr]
 
 
+def draw_core_t(sh, rm, mods, T):
+    """Rev C: one test-fit room through a plan transform T(frame x, frame y) -> sheet (rotation / mirroring allowed); no dims."""
+    def ln(x1, y1, x2, y2, layer=L_PART, lw=0.4):
+        a, b = T(x1, y1)
+        c, d = T(x2, y2)
+        sh.line(a, b, c, d, layer=layer, lw=lw)
+
+    def bx(r, layer=L_PART, lw=0.4):
+        for q in ((r[0], r[1], r[2], r[1]), (r[2], r[1], r[2], r[3]), (r[2], r[3], r[0], r[3]), (r[0], r[3], r[0], r[1])):
+            ln(*q, layer=layer, lw=lw)
+
+    def ell(cx, cy, ax, ay, layer=L_FIX, lw=0.3, dash=False):
+        pts = [T(cx + ax * math.cos(2 * math.pi * k / 20), cy + ay * math.sin(2 * math.pi * k / 20)) for k in range(21)]
+        for i, (a, b) in enumerate(zip(pts[:-1], pts[1:])):
+            if dash and i % 2:
+                continue
+            sh.line(a[0], a[1], b[0], b[1], layer=layer, lw=lw)
+
+    def lab(x, y, s_, size=3.2):
+        a, b = T(x, y)
+        sh.text(a, b - 0.02, s_, size=size, bold=True, align="center", layer=L_TAG)
+
+    L_, W_ = rm["L"], rm["W"]
+    e0, e1 = rm["entry"]
+    lv = rm["lav"]
+    lw_ = mods["lav"]["w"]
+    bx((0, lv["y0"], mods["lav"]["d"], lv["y0"] + lv["n"] * lw_), L_FIX, 0.35)
+    for i in range(lv["n"]):
+        ell(1.0, lv["y0"] + lw_ * (i + 0.5), 0.55, 0.75)
+    for row in rm["rows"]:
+        y0, y1 = row["y"]
+        x = row["x0"]
+        for t_, n in row["items"]:
+            md = mods[t_]
+            for _ in range(n):
+                w, d = md["w"], md["d"]
+                ya, yb, back = (y0, y0 + d, y0) if row["face"] == "N" else (y1 - d, y1, y1)
+                if t_.startswith("urinal"):
+                    ln(x, ya, x, yb)
+                    ln(x + w, ya, x + w, yb)
+                    ell(x + w / 2, back + (0.55 if row["face"] == "N" else -0.55), 0.6, 0.5)
+                else:
+                    bx((x, ya, x + w, yb))
+                    ell(x + w / 2, back + (1.1 if row["face"] == "N" else -1.1), 0.75, 1.0)
+                if md.get("label"):
+                    lab(x + w / 2, (ya + yb) / 2, md["label"])
+                x += w
+    for bk in rm["blocks"]:
+        r = bk["rect"]
+        sh.poly([T(r[0], r[1]), T(r[2], r[1]), T(r[2], r[3]), T(r[0], r[3])], fill="#D8D8D8" if bk["kind"] == "chase" else "#EEEEEE", layer=L_PART, lw=0.3)
+    ell(rm["turn"][0], rm["turn"][1], 2.5, 2.5, layer=L_CLR, lw=0.3, dash=True)
+    # entry: gap marks on the corridor wall (y = 0)
+    for xx in (e0, e1):
+        ln(xx, 0, xx, 0.8, L_WALL, 0.8)
+
+
+def build_c(c, sh, body_bottom, top, rooms, en, em, rb, plan):
+    """Rev C: key plan on plan Rev I, core-2 enlarged plan (rotated, plan north to the right), fixture split + areas in the right column."""
+    co, cr_ = rb["core"], c["core"]
+    bo = cr_["bo"]
+    # ---------------- key plan (Rev I)
+    kx, ky, ks = 5.45, 2.3, 1.0 / 250
+    bx0, by0, bx1, by1 = plan["building"]["rect"]
+    pj = plan["building"]["projection"]["rect"]
+    pts = [(bx0, by0), (bx1, by0), (bx1, pj[3]), (pj[0], pj[3]), (pj[0], by1), (bx0, by1), (bx0, by0)]
+    KP = lambda x, y: (kx + x * ks, ky + y * ks)  # noqa: E731
+    for (xa, ya), (xb, yb) in zip(pts[:-1], pts[1:]):
+        a, b = KP(xa, ya)
+        c2, d2 = KP(xb, yb)
+        sh.line(a, b, c2, d2, layer=L_WALL, lw=0.9)
+    an = plan["building"]["annex"]["rect"]
+    for r_ in (an, bo):
+        sh.poly([KP(r_[0], r_[1]), KP(r_[2], r_[1]), KP(r_[2], r_[3]), KP(r_[0], r_[3])], fill="#F4F4F4", layer=L_WALL, lw=0.6)
+    av = plan["arena_volume"]["rect"]
+    a, b = KP(av[0], av[1])
+    sh.rect(a, b, (av[2] - av[0]) * ks, (av[3] - av[1]) * ks, layer=L_DIM, lw=0.3)
+    for rid, rm in rooms.items():
+        r = rm["rect"]
+        sh.poly([KP(r[0], r[1]), KP(r[2], r[1]), KP(r[2], r[3]), KP(r[0], r[3])], fill="#BBBBBB", layer=L_TAG, lw=0.3)
+        cx, cy = KP((r[0] + r[2]) / 2, (r[1] + r[3]) / 2)
+        sh.text(cx, cy - 0.025, rid[-1], size=4.2, bold=True, align="center", layer=L_TAG)
+    rr = {r_["id"]: r_["rect"] for r_ in plan["level_1"]["rooms"]}
+    for rid, lab_ in (("rr_m1", "M"), ("rr_w1", "W"), ("rr_mb", ""), ("rr_wb", "")):
+        r = rr[rid]
+        sh.poly([KP(r[0], r[1]), KP(r[2], r[1]), KP(r[2], r[3]), KP(r[0], r[3])], fill="#BFD7EA", layer=L_TAG, lw=0.3)
+        if lab_:
+            cx, cy = KP((r[0] + r[2]) / 2, (r[1] + r[3]) / 2)
+            sh.text(cx, cy - 0.025, lab_, size=4.2, bold=True, align="center", layer=L_TAG)
+    a, b = KP(bo[2] + 3, (bo[1] + bo[3]) / 2)
+    sh.text(a, b - 0.02, "CORE 2", size=4.2, bold=True, layer=L_TAG)
+    sh.text(kx, ky + an[3] * ks + 0.2, "KEY PLAN — L1 (A-101 I)", size=5.2, bold=True)
+    sh.text(kx, ky + an[3] * ks + 0.09, "1\" = 250' · grey = rooms 1-4", size=4.4, color=GRY)
+    sh.text(kx, ky - 0.12, "blue = lobby core M / W + core 2", size=4.4, color=GRY)
+    # ---------------- right panel (text first; the core-2 plan sits under it)
+    sh.line(11.72, top - 0.02, 11.72, body_bottom + 0.1, lw=0.4)
+    cr = g2.Col(sh, 11.85, top + 0.12, 4.65, 1.0)
+    cr.para(em["disclaimer"], size=5.1, color=GRY)
+    cr.head("COMMON PATH — VERIFIED ON THIS LAYOUT (T1006.2.1)", size=6.8)
+    cp = en["rules"]["common_path"]
+    cr.para(f"{cp['text'][0].upper() + cp['text'][1:]} — {cp['source'].split(' (')[0]}.", size=5.1)
+    cr.table([("ROOM", 0, "left"), ("OCC.", 0.62, "right"), ("WORST POINT", 0.72, "left", 1.55), ("CP ft", 2.75, "right"), ("RESULT", 2.85, "left"),
+              ("+ TO EXIT", 4.6, "right")],
+             [((f"{r_['id'][-1]}", f"{r_['occ']}", r_["worst"]["label"], f"{r_['worst']['length']:.1f}", f"≤ {c['lim']} PASS" if r_["ok"] else "FAIL",
+                f"{r_['b']['exit']} {r_['travel']:.0f} ft"), dict(colors={4: GRN if r_["ok"] else RED})) for r_ in c["rooms"]],
+             size=5.0, rh=0.108)
+    cr.para(f"Rooms 1-4 unchanged (Rev A approved, D-068). Rooms 3-4 now reach X7 through the bump-out corridor (+30 ft): travel ≤ "
+            f"{max(r_['travel'] for r_ in c['rooms']):.0f} ft vs 250 ft (T1017.2). Locker fixtures as Rev A / B (ADA 604.8, 606, 608, 803, 811, 903).", size=5.1)
+    fc, lc, c2_ = cr_["fc"], cr_["lobby"], cr_["core2"]
+    m, w = cr_["men"], cr_["women"]
+    cr.head("L1 PUBLIC RESTROOMS — CHAIRS-ONLY (D-064 · D-069 DECIDED, OPTION 2)", size=6.8)
+    cr.para(f"Shane 3:31 PM CT: second restroom pair in a one-storey bump-out opposite the lobby core. L1 load chairs-only 2,346 + 1,100 = "
+            f"{fc['load']:,} (IBC 2021 T2902.1, 50/50 split 2902.1.1). Lobby core = rooms 4 + 5 as drawn; core 2 = the rest.", size=5.1)
+    ok = lambda a_, b_: ("PASS", GRN) if a_ >= b_ else ("SHORT", RED)  # noqa: E731
+    rows = []
+    for lab_, req, lo_, c2v, c2s in (("Men WC (incl. urinals)", fc["wc_m"], lc["men_wc"], c2_["men_wc"] + c2_["men_urinals"], f"{m['wc']} + {m['ur']} ur"),
+                                     ("Men lavatories", fc["lav_m"], lc["men_lav"], c2_["men_lav"], f"{m['lav']}"),
+                                     ("Women WC", fc["wc_f"], lc["women_wc"], c2_["women_wc"], f"{w['wc']}"),
+                                     ("Women lavatories", fc["lav_f"], lc["women_lav"], c2_["women_lav"], f"{w['lav']}"),
+                                     ("Drinking fountains", fc["df"], lc["df"], c2_["df"], f"{c2_['df']} (hi-lo)")):
+        r_, col_ = ok(lo_ + c2v, req)
+        rows.append(((lab_, f"{req}", f"{lo_}", c2s, f"{lo_ + c2v}", r_), dict(colors={5: col_})))
+    cr.table([("FIXTURE", 0, "left"), ("REQ.", 1.55, "right"), ("LOBBY", 2.05, "right"), ("CORE 2", 2.85, "right"), ("TOTAL", 3.4, "right"), ("RESULT", 3.55, "left")],
+             rows, size=5.0, rh=0.108)
+    cr.para(f"Urinals: core 2 {m['ur']} ≤ {m['ur_max']} = 67 % of its 12 (IPC 2021 424.2: \"urinals shall not be substituted for more than 67 percent of the "
+            "required water closets in assembly and educational occupancies\", R-009). 1 accessible urinal (ADA 213.3.3, 605); 1 wheelchair + 1 ambulatory "
+            "compartment per room (213.3.1, 604.8); 1 accessible lav (606); 60 in turning space (304.3); hi-lo fountains (211.2, 602).", size=5.0)
+    # ---------------- core-2 enlarged plan, rotated: plan north -> sheet right, plan east -> sheet down
+    s2 = 1.0 / co["scale_ft_per_in"]
+    ox, oy = 12.3, 2.45                                  # sheet point of plan (x 240, y bo[1])
+    P = lambda x, y: (ox + (y - bo[1]) * s2, oy + (bo[2] - x) * s2)  # noqa: E731
+
+    def pl_(x1, y1, x2, y2, layer=L_WALL, lw=1.0):
+        a_, b_ = P(x1, y1)
+        c_, d_ = P(x2, y2)
+        sh.line(a_, b_, c_, d_, layer=layer, lw=lw)
+    ez_y0, ez_y1 = 175.09, 175.09 + cr_["corr_w"]
+    pl_(bo[0], bo[1], bo[2], bo[1], lw=1.6)
+    pl_(bo[2], bo[1], bo[2], bo[3], lw=1.6)
+    pl_(bo[2], bo[3], bo[0], bo[3], lw=1.6)
+    pl_(bo[0], bo[1], bo[0], ez_y0, lw=1.6)
+    pl_(bo[0], ez_y1, bo[0], bo[3], lw=1.6)
+    rmb, rwb, rdj = rr["rr_mb"], rr["rr_wb"], rr["df_jan"]
+    pl_(rmb[0], rmb[3], rdj[2], rmb[3], lw=0.9)          # corridor wall, men + DF / JAN side
+    pl_(rwb[0], rwb[1], rwb[2], rwb[1], lw=0.9)          # corridor wall, women side
+    pl_(rdj[0], rdj[1], rdj[0], rdj[3], lw=0.9)
+    x7 = next(d for d in plan["level_1"]["doors"]["items"] if d["id"] == "X7")
+    pl_(bo[2], x7["at"] - 2.67, bo[2], x7["at"] + 2.67, lw=3.0)
+    a, b = P(bo[2], x7["at"])
+    sh.line(a, b, a, b - 0.16, layer=L_WALL, lw=0.8)
+    sh.line(a, b - 0.16, a - 0.04, b - 0.1, layer=L_WALL, lw=0.8)
+    sh.line(a, b - 0.16, a + 0.04, b - 0.1, layer=L_WALL, lw=0.8)
+    sh.text(a, b - 0.36, "X7 EXIT · 64 in pair (moved 30' E)", size=4.5, bold=True, align="center", layer=L_TAG)
+    a, b = P(bo[0], x7["at"])
+    sh.text(a, b + 0.06, "from V2 / floor ↓", size=4.3, align="center", layer=L_TAG)
+    a, b = P((bo[0] + bo[2]) / 2 + 2, x7["at"])
+    sh.text(a + 0.035, b, f"CORRIDOR = EXIT (E) · {cr_['corr_w']:g}'-0\" = {cr_['corr_w'] * 12:.0f} in", size=4.2, bold=True, align="center", layer=L_TAG, rot=90)
+    TW = lambda fx, fy: P(rwb[0] + fx, rwb[1] + fy)  # noqa: E731
+    TM = lambda fx, fy: P(rmb[0] + fx, rmb[3] - fy)  # noqa: E731
+    draw_core_t(sh, co["rooms"]["women"], co["modules"], TW)
+    draw_core_t(sh, co["rooms"]["men"], co["modules"], TM)
+    a, b = P((rdj[0] + rdj[2]) / 2, (rdj[1] + rdj[3]) / 2)
+    sh.text(a, b - 0.02, "27 DF hi-lo + JAN.", size=3.8, bold=True, align="center", layer=L_TAG)
+    for key, r_, lab_ in (("women", rwb, "26 WOMEN (2)"), ("men", rmb, "25 MEN (2)")):
+        rc_ = cr_[key]
+        a, b = P(bo[2], (r_[1] + r_[3]) / 2)
+        sh.text(a, b - 0.13, f"{lab_} · {rc_['drawn']:,.0f} SF", size=4.6, bold=True, align="center", layer=L_TAG)
+        sh.text(a, b - 0.23, f"{rc_['wc']} WC" + (f" + {rc_['ur']} UR" if rc_["ur"] else "") + f" · {rc_['lav']} LAV", size=4.4, align="center", layer=L_TAG)
+    # dims: N-S on top, E-W on the left
+    a, b = P(bo[0], bo[1])
+    c2, d2 = P(bo[2], bo[3])
+    yd = b + 0.24
+    sh.line(a, yd, c2, yd, layer=L_DIM, lw=0.3)
+    for xx in (a, c2):
+        sh.line(xx, yd - 0.03, xx, yd + 0.03, layer=L_DIM, lw=0.3)
+    sh.text((a + c2) / 2 + 0.6, yd + 0.04, f"{bo[3] - bo[1]:g}'-0\" (N-S)", size=4.8, align="center", layer=L_DIM)
+    xd = a - 0.12
+    sh.line(xd, b, xd, d2, layer=L_DIM, lw=0.3)
+    for yy in (b, d2):
+        sh.line(xd - 0.03, yy, xd + 0.03, yy, layer=L_DIM, lw=0.3)
+    sh.text(xd - 0.06, (b + d2) / 2, f"{bo[2] - bo[0]:g}'-0\" (E-W)", size=4.8, align="center", layer=L_DIM, rot=90)
+    nx, ny = c2 + 0.1, (b + d2) / 2
+    sh.line(nx, ny, nx + 0.26, ny, layer=L_DIM, lw=0.9)
+    sh.line(nx + 0.26, ny, nx + 0.18, ny + 0.045, layer=L_DIM, lw=0.9)
+    sh.line(nx + 0.26, ny, nx + 0.18, ny - 0.045, layer=L_DIM, lw=0.9)
+    sh.text(nx + 0.13, ny + 0.07, "N", size=6.5, bold=True, align="center", layer=L_DIM)
+    sh.text(11.85, b + 0.56, "RESTROOM CORE 2 — EAST BUMP-OUT (D-069) · ENLARGED PLAN", size=6.6, bold=True)
+    sh.text(11.85, b + 0.44, f"1/16\" = 1'-0\" · plan turned: north → right, building wall (x 210) on top · {bo[2] - bo[0]:g} x {bo[3] - bo[1]:g} = "
+            f"{cr_['bumpout']:,.0f} SF, one storey", size=4.6, color=GRY)
+    sh.text(11.85, 1.98, "A = accessible · AMB = ambulatory · dashed circle = 60 in turning space · grey = chase · ticks = room entry", size=4.2, color=GRY)
+    if cr.y < b + 0.75:
+        raise SystemExit(f"LAYOUT OVERFLOW: right column text runs {b + 0.75 - cr.y:.2f} in into the core-2 plan")
+    # ---------------- lower middle: areas, why east, notes, sources
+    cs = g2.Col(sh, 7.0, 4.22, 4.55, 1.0)
+    cs.table([("CORE 2 AREA (SF)", 0, "left"), ("DRAWN", 1.95, "right"), ("TEST-FIT NET", 2.95, "right"), ("WALLS / CHASE", 4.1, "right")],
+             [(("Men (2), 26 x 14", f"{m['drawn']:,.0f}", f"{m['net']:,.1f}", f"+{m['allow'] * 100:.1f} %"), None),
+              (("Women (2), 30 x 34", f"{w['drawn']:,.0f}", f"{w['net']:,.0f}", f"+{w['allow'] * 100:.1f} %"), None),
+              (("DF alcove + janitor, 4 x 14", f"{cr_['dfj']:,.0f}", "", ""), None),
+              ((f"Corridor = EXIT (E) passage, 30 x {cr_['corr_w']:g}", f"{cr_['corr']:,.0f}", "", ""), None),
+              (("BUMP-OUT 30 x 56 (A-101 I)", f"{cr_['bumpout']:,.0f}", "", f"target +{co['allowance'] * 100:.0f} %"), dict(bold=True))],
+             size=5.0, rh=0.108)
+    cs.para("WHY EAST: " + co["why_east"], size=5.0)
+    cs.para("Public toilets within one storey and 500 ft of every seat (IBC 2902.3.3): PASS. Plumbing on the east side (waste / vent): MEP. "
+            "Floor chair layouts must keep an aisle to V2 (core 2 is reached only through V2 / EXIT (E)).", size=5.0)
+    cs.para("Sources: params/phase2_enlarged.yaml, phase2_enlarged_rev_c.yaml, phase2_plan_rev_i.yaml, phase2_program.yaml (rev_k); IBC 2021 "
+            "T2902.1, 2902.1.1, 2902.3.3, 1003.6, 1006.2.1, T1017.2; IPC 2021 405.3.1, 405.3.5, 424.2 (UpCodes, retrieved 2026-10-04); ADA 2010 "
+            "211.2, 213.3, 304.3, 602, 604.8, 605, 606 (www.ada.gov); D-039, D-064, D-068, D-069; Shane 2026-10-04 3:31 PM CT.", size=4.8, color=GRY)
+    return sh, body_bottom, [cs]
+
+
 def ft_in(v):
     f = int(v)
     i = round((v - f) * 12)
@@ -647,7 +919,7 @@ def ft_in(v):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B"], default="B")
+    ap.add_argument("--rev", choices=["A", "B", "C"], default="C")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")

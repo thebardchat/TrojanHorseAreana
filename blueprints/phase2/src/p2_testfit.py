@@ -593,6 +593,8 @@ def drawn_size(plan):
     l2 = l1 - sum(a_(o["rect"]) for o in plan["level_2"]["open_below"])
     if "annex" in plan["building"]:          # Plan Rev H: one-storey annex adds to L1 only (no L2 over it)
         l1 += a_(plan["building"]["annex"]["rect"])
+    if "bumpout" in plan["building"]:        # Plan Rev I: one-storey restroom bump-out (D-069) adds to L1 only
+        l1 += a_(plan["building"]["bumpout"]["rect"])
     return dict(L1=l1, L2=l2, G=l1 + l2)
 
 
@@ -654,6 +656,40 @@ def summary_j():
     out_j = dict(loop=lp, mix=out_h["mix"], geom=lg, rows=rows, tot=tot, plan=plan, rev_f=out_h, plan_g=plan_g,
                  drawn=drawn_size(plan), drawn_d=drawn_size(plan_g))
     return p2, prog, ob, out_j
+
+
+# ============================ REV K (Shane 2026-10-04 3:31 PM CT): D-069 Option 2, east restroom bump-out, Plan Rev I ============================
+def compute_rev_k(p2, prog, loop_sf):
+    """Rev J numbers + the D-069 restroom bump-out (core 2) added gross to L1 / footprint / GSF (no x1.25, no mech share), like D-067."""
+    d = compute_rev_j(p2, prog, loop_sf)
+    rk = prog["rev_k"]
+    bo = rk["restroom_bumpout"]["sf"]
+    sp = rk["fixture_split"]
+    rq, lc, c2 = sp["required"], sp["lobby_core"], sp["core_2"]
+    fc = d["fx1c"]
+    # the split must add up to the chairs-only fixtures (D-064) and to Shane's targets
+    assert (fc["wc_m"], fc["wc_f"], fc["lav_m"], fc["lav_f"], fc["df"]) == (rq["men_wc"], rq["women_wc"], rq["men_lav"], rq["women_lav"], rq["df"]), fc
+    assert lc["men_wc"] + c2["men_wc"] + c2["men_urinals"] == rq["men_wc"] and lc["women_wc"] + c2["women_wc"] == rq["women_wc"]
+    assert lc["men_lav"] + c2["men_lav"] == rq["men_lav"] and lc["women_lav"] + c2["women_lav"] == rq["women_lav"] and lc["df"] + c2["df"] == rq["df"]
+    ur_max = math.floor(0.67 * (c2["men_wc"] + c2["men_urinals"]))          # IPC 2021 424.2, per core
+    assert c2["men_urinals"] <= ur_max
+    sf = dict(d["sf"])
+    sf["restroom_core_2"] = bo
+    d.update(scenario="rev_k", sf=sf, bumpout=bo, L1=d["L1"] + bo, F=d["F"] + bo, G=d["G"] + bo, F_j=d["F"], G_j=d["G"], L1_j=d["L1"],
+             split=dict(required=rq, lobby=lc, core2=c2, ur_max=ur_max))
+    return d
+
+
+def summary_k():
+    """P2-G-003 Rev K / P2-A-101 Rev I: program on Plan Rev I (L1) / Rev F (L2), previous = Rev J (summary_j), drawn change vs Plan Rev H."""
+    p2, prog, ob, out_j = summary_j()
+    plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_i.yaml").read_text(encoding="utf-8"))
+    lg = loop_geometry(plan)
+    lp = compute_rev_k(p2, prog, lg["area"])
+    rows, tot = seats_by_side(plan, prog, lp)
+    out_k = dict(loop=lp, mix=out_j["mix"], geom=lg, rows=rows, tot=tot, plan=plan, rev_f=out_j, plan_h=out_j["plan"],
+                 drawn=drawn_size(plan), drawn_d=drawn_size(out_j["plan"]))
+    return p2, prog, ob, out_k
 
 
 if __name__ == "__main__":
