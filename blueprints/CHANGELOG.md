@@ -497,3 +497,10 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - Frozen revisions re-rendered byte-identical (PDF) / entity-identical (DXF): A-201 D, E; A-301 B, C; A-302 A; C-101 A; G-003 A-G; P1-G-001 B-D; set Rev A. P1-G-001 Rev A internal: known PDF drift only.
 - Open decisions unchanged: 19.
 
+## 2026-10-04 ~10:20 AM CT · R-023 Champion Walk brick budget (vendor cost only)
+- **New research** `research/R-023-champion-walk-brick-budget.md` (saved to `ARENA\_KEYSTONE` first). Source: Shane's vendor price sheet (2026-10-04, REFERENCE; engraving + shipping included). 840 SF walk (D-046), nominal face sizes, no border / joint deduction (upper bound).
+- Scenarios (vendor range / S1 average / + logo on every brick): all 4x8 3,780 bricks $71,820–$73,710 / $72,450 / +$22,680; all 8x8 1,890 bricks $51,975–$58,590 / $55,755 / +$11,340; 80/20 by area (ASSUMED) 3,024 + 378 = 3,402 bricks $68,796–$69,363 / $69,111 / +$20,412.
+- Break-even donor price per brick to cover the vendor cost only: 4x8 $19.00–$19.50, 8x8 $27.50–$31.00 (+$6 with logo). Donor pricing OPEN (D-044, note added).
+- Installation, base / sub-base, border and engraving beyond the vendor price are NOT included and NOT estimated. The only published figure is HomeGuide's residential $8–$16/SF labor (REFERENCE, LOW, not added). Not a final cost estimate (v1.3 §2).
+- No sheet changed. Open decisions unchanged: 19.
+

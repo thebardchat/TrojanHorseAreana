@@ -366,3 +366,6 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **New files in the ARENA root (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED):** `P2-A-201_RevF.pdf`, `P2-G-003_RevH.pdf`, `P1-G-001_RevE.pdf`. Plain-named files untouched.
 - **Previews (box only):** `/workspace/keystone_previews/P2-A-201.png/.pdf` (Rev F), `P2-G-003.png/.pdf` (Rev H), `P1-G-001.png/.pdf` (Rev E).
 
+## 2026-10-04 additions (10:17 AM CT session, R-023 brick budget)
+- **New research:** `research/R-023-champion-walk-brick-budget.md`, also at `ARENA\_KEYSTONE\R-023-champion-walk-brick-budget.md` (saved there first). Inputs: Shane's vendor price sheet (ARENA #28 `Champion_Walk_Brick_Pricing - Vendor Prices.pdf`, sha256 `13fcc39c…`, not committed) and HomeGuide brick walkway cost page (https://homeguide.com/costs/brick-walkway-cost, retrieved 2026-10-04, REFERENCE LOW).
+
