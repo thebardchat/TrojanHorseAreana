@@ -457,3 +457,14 @@ Shane, firsthand, 7:24 AM CT (+ PDF vendor cost sheet for the Champion Walk bric
 - **C-0 (read-only):** ARENA inventoried with Get-ChildItem -Recurse + SHA256 (1 folder, 27 files, flat root). `ASSETS.md` §0: tree, full table (type, size, modified, what it shows, phase), SUPERSEDED marks (first-draft master floor plan ×2 + tabletop render, diorama zone data — protected, intake conflicts; Feb 2026 concept is repo-only), ARENA vs repo location map, 9 differences incl. **C-1 evidence** (ARENA `P2-A-101.pdf` = pre-freeze Rev D "STORAGE (SW)", sha256 6abfa622…; repo frozen `P2-A-101_RevD.pdf` "FLEX / STORAGE (D-039)", 6916d611…). Nothing fixed (ARENA wins). Saved first to `ARENA\_KEYSTONE\ASSETS.md`, then the repo.
 - `STATUS.json`: sheets_done = current revs only (11, max 12); `STATUS.md` regenerated (it had been stale since the 7:24 AM session). `shared/validate.py` fails if sheets_done > 12.
 
+## 2026-10-04 ~8:50 AM CT · D-056 no 55,000 SF cap · D-057 area tables · R-021 reconciliation · ARENA backup check
+
+Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message — the margin-recovery list was NOT done).
+- **D-056 DECIDED:** "55,000 SF = early rough estimate, not a limit." No footprint or total cap. **D-031 → SUPERSEDED (retired)**; D-055's "cap is footprint only" clause struck. Margin language removed from `params/phase2.yaml` (header v15, `building.total_sf_meaning`, `footprint_cap_status`, new `size_basis` + `size_next_revision` replacing `footprint_margin_next_revision`, `total_gsf_cap`, source), `phase2_program.yaml` (`target_status` RETIRED), `phase2_site.yaml` (`cap_status`, `footprint_check.basis`), STATUS, D-053 notes, R-018 line 106. Keys read by generators stay (marked RETIRED) so frozen / issued sheets regenerate byte-identical; frozen-sheet descriptions in `sheets:` keep their history wording.
+- **D-057 DECIDED:** every area table reports L1 footprint, L2 area, TOTAL GSF and change vs the last revision; size is controlled by budget and parcel.
+- **R-021 (new):** true size (decided, next revision) **L1 53,026.7 / L2 28,878.7 / TOTAL 81,905.3 SF** (+1,523.7 / +515.7 / +2,039.3 vs Rev D drawn 51,503 / 28,363 / 79,866). Program basis 54,588.9 vs drawn 53,026.7: +3,980.8 arena-volume gross-up, −773.5 L2 deck, −1,972 lobby void, +326.9 stairs (grossed vs inward), 0 east shift = 1,562.2. TOTAL GSF program 81,521.9 vs drawn 81,905.3. Saved to `ARENA\_KEYSTONE\R-021-area-reconciliation.md` first, then the repo.
+- **ARENA backup check (read-only):** no backup found (details in STATUS / report). Box copies exist for every ARENA-only file.
+- `shared/validate.py`: comments say `building.total_sf` is a history key, not a cap.
+- Frozen checks: all frozen PDFs byte-identical, DXFs entity-identical (known P1-G-001 Rev A internal byte drift only); P2-A-201 D, A-301 B, A-302 A, C-101 A unchanged.
+- v1.3.1 ERRATA block drafted for Shane's review — **not saved anywhere** (per order).
+

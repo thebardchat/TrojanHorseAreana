@@ -313,6 +313,7 @@ mixed_seating:
   gross_up_basis: "x 1.25 (factors.gross_up.base) on both levels, as in Rev D"
   target_margin_sf: 2000
   target_basis: "Shane: footprint margin target >= 2,000 SF under 55,000"
+  target_status: "RETIRED (D-056, 2026-10-04 8:36 AM CT): no 55,000 SF cap, no margin target. Kept only because frozen P2-G-003 Rev E / F read it"
   comparison: "ALL FIXED column = P2-G-003 Rev D base case, for reference"
   status: DECIDED (mix) / CITED (seat factors) / ASSUMED (50/50 split)
   confidence: MEDIUM

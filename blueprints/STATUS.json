@@ -2,13 +2,13 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-04T08:20:00-05:00",
+  "updated_at": "2026-10-04T08:52:00-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
   "phase2_percent": 55,
-  "current_ticket": "C-0",
-  "current_ticket_title": "Reviewer order C-0: read-only ARENA inventory (ASSETS §0); ARENA is master (prompt v1.3). C-1..C-12 not started; waiting for Shane's GO",
+  "current_ticket": "C-0 follow-up",
+  "current_ticket_title": "No 55,000 SF cap (D-056), area-table rule (D-057), R-021 area reconciliation, v1.3.1 errata draft (not saved), ARENA backup check. Waiting for Shane's GO",
   "sheets_done": [
     "P1-G-001 Rev D (principal, approved)",
     "P1-A-101 Rev A (approved)",
@@ -26,9 +26,9 @@
   "last_commit": "772fee5",
   "branch": "grok/keystone",
   "open_decisions": 17,
-  "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002 still OPEN). P2: owner (D-007), AHJ (D-008, pre-app), site (D-006); trademark search (D-042); brick donor pricing (D-044); event floor uses (D-054)",
-  "what_changed": "Prompt v1.3: ARENA is master. D-055 DECIDED (today's decisions win over v1.3 text). C-0 done: ARENA inventory (1 folder, 27 files, flat root) in ASSETS §0; SUPERSEDED marks; ARENA vs repo map. C-1 evidence: ARENA P2-A-101.pdf = early Rev D 'STORAGE (SW)' vs frozen 'FLEX / STORAGE'.",
-  "what_to_verify": "ARENA\\P2-A-101.pdf is the pre-freeze Rev D (sha 6abfa622) — repo/set have the frozen one (6916d611). P1-P-001 not in ARENA. ARENA has no params/DECISIONS/research. Not fixed (ARENA wins; C-0 is read-only).",
-  "next_action": "STOP: wait for Shane's GO + option number. Then C-1 (A-101 Rev D conflict) and the rest of C-2..C-12 in order. Phase 1 first when Dr. Headen data arrives.",
-  "question_for_shane": "Where should new sheets go in ARENA? Proposed: ARENA root (where every sheet PDF lives now) as new files '<sheet>_Rev<X>.pdf' (e.g. P2-A-101_RevE.pdf), never touching the un-lettered files; KEYSTONE records/notes in _KEYSTONE. GO?"
+  "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012); trademark (D-042); brick pricing (D-044); event floor uses (D-054). ARENA has NO backup found",
+  "what_changed": "D-056: no 55,000 SF cap (early estimate, not a limit); D-031 retired; margin language removed (frozen sheets untouched). D-057: area tables report L1 / L2 / TOTAL GSF + change. R-021: size 53,027 L1 / 28,879 L2 / 81,905 GSF; program-vs-drawn gap 1,562 explained.",
+  "what_to_verify": "East shift L2 +504 SF ASSUMED (arena opening widens 6 ft). Errata draft says 76 in mid landings (Shane wrote 70; 21.33 ft needs 76). ARENA backup: Desktop not on OneDrive, OneDrive off, no File History, ARENA not in Google Drive; Windows Backup unverified (admin).",
+  "next_action": "STOP: wait for Shane's GO + option number (errata block review; backup choice). Then C-1 (P2-A-101 Rev D conflict) and C-2..C-12 in order.",
+  "question_for_shane": "ARENA has no backup I could find. Want me to propose a read-only-safe backup (e.g. Google Drive for desktop backing up Desktop\\ARENA, or you copy ARENA into My Drive)? You'd turn it on; I won't change PC settings."
 }

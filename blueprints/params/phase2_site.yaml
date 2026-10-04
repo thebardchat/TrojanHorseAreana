@@ -81,6 +81,7 @@ fire_access:
 
 footprint_check:
   cap_sf: 55000
+  cap_status: "RETIRED (D-056, 2026-10-04 8:36 AM CT): no 55,000 SF cap; key kept only so P2-C-101 Rev A (issued) regenerates; the next revision drops the margin column and reports L1 / L2 / TOTAL GSF (D-057)"
   frozen_drawn_sf: 51503
   east_shift_sf: 1512
   tower_widen_sf_76: 11.667
@@ -88,5 +89,5 @@ footprint_check:
   stair_growth_outward_bound_sf_76: 260.09
   program_basis_f_sf: 52738.4
   program_basis_f_76_sf: 53076.9
-  basis: "drawn basis: 51,503 + 6 x 252 = 53,015; + NE tower widening (21.333 - 19) x 5 = 11.67 (76 in) -> 53,026.7, margin 1,973.3; if all 4 stairs grew outward instead (bound): 53,015 + 4 x (270.22 - 205.2) = 53,275.1, margin 1,724.9. Program basis (P2-G-003 Rev F method, the 2,262 margin Shane approved): F 52,738.4 -> 53,076.9 with four 76 in stairs (p2_testfit recompute) + 1,512 = 54,588.9, margin 411.1"
-  source: "P2-A-101 Rev D (frozen); P2-G-003 Rev F; D-031 (cap); D-051; D-052; D-053; KEYSTONE arithmetic 2026-10-04 7:44 AM CT"
+  basis: "drawn basis: 51,503 + 6 x 252 = 53,015; + NE tower widening (21.333 - 19) x 5 = 11.67 (76 in) -> 53,026.7 L1 footprint (all 4 stairs outward instead: 53,275.1). Program-basis estimate (P2-G-003 Rev F method): 52,738.4 -> 53,076.9 with four 76 in stairs + 1,512 = 54,588.9. L2 / TOTAL GSF and the line-by-line gap: R-021"
+  source: "P2-A-101 Rev D (frozen); P2-G-003 Rev F; D-031 (cap); D-051; D-052; D-053; KEYSTONE arithmetic 2026-10-04 7:44 AM CT; D-056 (cap retired); R-021"

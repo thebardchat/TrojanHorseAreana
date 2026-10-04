@@ -30,9 +30,12 @@
 #     switchback mid landing 70 in (D-051); egress 76 in stairs PROPOSED (D-052); sight-line fix PROPOSED (D-053).
 #     P2-A-201 Rev C + P2-A-301 Rev A frozen; P2-A-201 Rev D, P2-A-301 Rev B, P2-A-302 Rev A (sight lines).
 # v14, 2026-10-04 7:49 AM CT: D-053 DECIDED (upper risers 19 in, east seats 6 ft further out, +~1,512 SF) and D-052 DECIDED
-#     (4 stairs x 76 in clear + intermediate handrails); both apply at the next A-101/A-102/A-301 revision. Footprint margin
-#     1,973.3 SF (drawn) / 411.1 SF (program basis) under the 55,000 cap. R-006 / R-007 done; D-054 (event floor uses) OPEN.
+#     (4 stairs x 76 in clear + intermediate handrails); both apply at the next A-101/A-102/A-301 revision. Footprint
+#     53,026.7 SF drawn basis (margin wording retired by D-056). R-006 / R-007 done; D-054 (event floor uses) OPEN.
 #     New site sheet P2-C-101 Rev A (campus diagram).
+# v15, 2026-10-04 8:36 AM CT: NO 55,000 SF cap (D-056): 55,000 SF was an early rough estimate, not a limit; D-031 retired;
+#     margin language removed (frozen sheets keep it as history). Every area table reports L1 footprint, L2 area, TOTAL GSF
+#     and change vs the last revision (D-057). Size is controlled by budget and parcel. building.size_next_revision (R-021).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -86,22 +89,25 @@ brand:
 
 building:
   total_sf: 55000
-  total_sf_meaning: "the 55,000 SF is the building FOOTPRINT cap (D-031), not a cap on total floor area"
+  total_sf_meaning: "RETIRED (D-056, Shane 2026-10-04 8:36 AM CT): 55,000 SF was an early rough estimate, NOT a limit — no footprint cap, no total cap. Value kept only because frozen sheets (P2-G-003 A-F, P2-A-101/102 A-D) and P2-C-101 Rev A read it; future revisions must not use it as a cap"
   footprint_cap_sf: 55000
-  footprint_margin_next_revision:
-    drawn_basis: "Rev D drawn 51,503 SF (204 x 252 + tower) + east shift 6 x 252 = 1,512 (D-053) + NE tower widened for the 76 in ST-2 = 11.67 -> 53,026.7 SF; margin 1,973.3 SF (D-052 stairs grow inward)"
-    bound: "if all 4 stairs grew outward instead: 53,275.1 SF; margin 1,724.9 SF"
-    program_basis: "P2-G-003 Rev F method: 54,588.9 SF with 76 in stairs + east shift; margin 411.1 SF"
-    detail: "params/phase2_site.yaml footprint_check; P2-C-101 Rev A"
-    source: "D-031, D-052, D-053; KEYSTONE calc 2026-10-04 7:49 AM CT"
+  footprint_cap_status: "RETIRED (D-056): not a cap; history key read by frozen / issued generators only"
+  size_basis: "size is controlled by budget (D-012) and parcel (D-006), not by an area cap (D-057)"
+  size_next_revision:
+    rev_d_drawn: {l1_footprint_sf: 51503, l2_area_sf: 28363, total_gsf: 79866, basis: "P2-A-101/102 Rev D: 204 x 252 + 19 x 5 tower = 51,503; L2 = 51,503 - arena open 126 x 168 (21,168) - lobby open 58 x 34 (1,972) = 28,363", source: "phase2_plan_rev_d.yaml; P2-A-102 Rev D area check"}
+    decided: {l1_footprint_sf: 53026.7, l2_area_sf: 28878.7, total_gsf: 81905.3, basis: "Rev D + east shift 6 x 252 = 1,512 L1 / +504 L2 (arena opening widens 6 x 168 = 1,008, ASSUMED) (D-053) + NE tower widened 2.333 x 5 = 11.67 on both levels (D-052; other stair growth is inward)", source: "D-052, D-053; R-021"}
+    change_vs_rev_d: {l1_footprint_sf: 1523.7, l2_area_sf: 515.7, total_gsf: 2039.3, source: "R-021 arithmetic"}
+    program_estimate: "P2-G-003 Rev F method with 76 in stairs + east shift: footprint 54,588.9, L2 28,432.1, GSF 81,521.9 (planning-factor estimate, not the size)"
+    detail: "research/R-021-area-reconciliation.md"
+    source: "D-052, D-053, D-056, D-057; KEYSTONE arithmetic 2026-10-04 8:36 AM CT (R-021)"
   levels: 2
   levels_basis: "LOCKED 2 levels (D-030 DECIDED, Shane 11:39 PM CT); D-031 allowed up to 2"
   stories: 2 (D-030, D-031)
-  total_gsf_cap: "none — total GSF across two levels is no longer capped at 55,000 (D-031)"
+  total_gsf_cap: "none (D-056: no cap of any kind)"
   structure: TBD
   clear_span: TBD
   north: up (same as the floor plan)
-  source: "concept sheet; reference plan legend agrees (digits partly garbled); footprint cap → D-031 DECIDED (Shane, firsthand, 2026-10-03 11:09 PM CT); levels 2 → D-030 DECIDED (Shane, firsthand, 11:39 PM CT)"
+  source: "concept sheet; reference plan legend agrees (digits partly garbled); footprint cap → D-031 (2026-10-03 11:09 PM CT), RETIRED by D-056 (Shane, Grok chat, 2026-10-04 8:36 AM CT); levels 2 → D-030 DECIDED (Shane, firsthand, 11:39 PM CT)"
 
 spaces:
   arena:

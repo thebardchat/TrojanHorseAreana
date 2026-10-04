@@ -103,7 +103,7 @@ Shane, 6:45 AM CT: "stairs 70 in clear". Recheck with the same factors (IBC 2021
 - 1005.5: losing one stair leaves 3 x 70 = 210 in ≥ 50% of 275.6 in = 137.8 in ✓.
 - "Clear" is read as the clear width used for capacity; handrails may project up to 4.5 in into the required width on each side (1014.8), so the architect should confirm whether 70 in is measured between walls or between handrails.
 - Loop width is unchanged by this (64 in balanced / 79.2 in unbalanced vs 84 in, R-018.3).
-- Plan effect (next A-101/A-102 revision, not done — the set is frozen): same switch-back stair (26 risers of 6.92 in, 2 flights of 13, 12 treads x 11 in = 132 in run, 48 in landings, R-015 / phase2_program.yaml): plan 2 x 70 = 140 in (11.67 ft) wide x 19 ft, ≈ 221.7 SF per stair per level vs 205.2 SF drawn (19 x 10.8 ft) → about +16.5 SF per stair per level, ≈ +66 SF footprint and ≈ +132 SF GSF for 4 stairs before gross-up (KEYSTONE arithmetic; margin 2,262 SF stays ample).
+- Plan effect (next A-101/A-102 revision, not done — the set is frozen): same switch-back stair (26 risers of 6.92 in, 2 flights of 13, 12 treads x 11 in = 132 in run, 48 in landings, R-015 / phase2_program.yaml): plan 2 x 70 = 140 in (11.67 ft) wide x 19 ft, ≈ 221.7 SF per stair per level vs 205.2 SF drawn (19 x 10.8 ft) → about +16.5 SF per stair per level, ≈ +66 SF footprint and ≈ +132 SF GSF for 4 stairs before gross-up (KEYSTONE arithmetic). [2026-10-04 8:36 AM CT: margin wording removed — there is no 55,000 SF cap, D-056.]
 
 CONFIDENCE: HIGH for the arithmetic / MEDIUM for the inputs (same as R-018.7). NEEDS ARCHITECT CONFIRMATION: YES.
 

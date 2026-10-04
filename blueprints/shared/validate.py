@@ -9,7 +9,7 @@ Checks (v2, 2026-10-03: phase2.yaml seed added):
   2. Every mapping that holds values carries a non-empty `source` (both files)
   3. No superseded Feb 2026 concept numbers in any params file
   4. No Phase 2 program numbers in phase1.yaml; no Phase 1 values in phase2.yaml
-  5. phase2.yaml locked values unchanged (55,000 SF footprint, 16,400 SF event floor per D-030 with the
+  5. phase2.yaml locked values unchanged (55,000 SF history key — NOT a cap since D-056 —, 16,400 SF event floor per D-030 with the
      22,000 SF tag kept as history, 2,200 bowl seats, 2 levels, S&C + cross-training on Level 2,
      seating MIX per D-009: telescopic lower tier, fixed upper tier; S&C 5,224 / cross-training 3,500
      and the Level 2 training loop per D-035, old tags kept as sf_tagged_superseded)
@@ -18,7 +18,7 @@ Checks (v2, 2026-10-03: phase2.yaml seed added):
      6b. Principal-facing PDFs (*principal*.pdf, e.g. P1-G-001 Rev B/C/D, and *Package*.pdf print bundles) contain no 'D-0'/'R-0' codes and no 'spelling'
   7. STATUS.json (if present) matches schema_version 2 and its open_decisions
      equals the OPEN count in DECISIONS.md
-SKIPPED for now: Phase 2 area reconciliation (55,000 vs room sum). Most support
+SKIPPED for now: Phase 2 area reconciliation in code (done by hand in R-021; no cap since D-056). Most support
 room SFs are TBD. Not yet built: room overlap, mat fit, occupant-load factor
 checks. Those come with drawings (P2-T-002).
 """
@@ -68,7 +68,7 @@ PHASE1_ONLY = [
 ]
 # Locked Phase 2 values (prompt §3; Shane 2026-10-03). Change only with "CHANGE APPROVED".
 PHASE2_LOCKED = [
-    (("building", "total_sf"), 55000),
+    (("building", "total_sf"), 55000),                       # history key only: NOT a cap (D-056); frozen sheets read it
     (("spaces", "arena", "event_floor_sf"), 16400),          # D-030 DECIDED 2026-10-03 11:39 PM CT
     (("spaces", "arena", "sf_tagged_superseded"), 22000),    # history (frozen P2-G-003 Revs A-C read it)
     (("spaces", "arena", "mats"), 4),
@@ -189,7 +189,7 @@ def check_phase2_locked(data):
         fail("phase2.yaml spaces.girls_locker needs a draw_rule citing D-013 (draw equal)")
     if len(failures) == before:
         ok("phase2.yaml locked values intact; girls locker D-013 draw-equal rule present")
-    ok("phase2.yaml area reconciliation (55,000 SF vs room sum) SKIPPED: support room SFs are TBD")
+    ok("phase2.yaml area reconciliation in code SKIPPED (R-021 by hand; no area cap, D-056)")
 
 
 def pdf_text(pdf):
