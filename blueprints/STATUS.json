@@ -2,13 +2,13 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-04T10:47:27-05:00",
+  "updated_at": "2026-10-04T10:58:57-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
   "phase2_percent": 70,
-  "current_ticket": "D-061",
-  "current_ticket_title": "D-061 Option B: L2 17'-9\", 21 in upper risers, stairs 31 risers, lockers 3,600 SF (D-060); A-101/102 F, G-003 I, A-301 D, A-302 C, A-201 G, C-101 C; approvals frozen (D-062)",
+  "current_ticket": "P2-T-007",
+  "current_ticket_title": "P2-G-002 Rev A code analysis (editions 2021 ASSUMED / 2018 county, occupancy, loads by space, D-054 worst-case L1 exits, L2 stairs, fixtures); C-12 closed (D-063)",
   "sheets_done": [
     "P1-G-001 Rev E (principal, approved)",
     "P1-A-101 Rev A (approved)",
@@ -20,15 +20,16 @@
     "P2-A-201 Rev G (in review; Rev F approved)",
     "P2-A-301 Rev D (in review)",
     "P2-A-302 Rev C (in review)",
-    "P2-C-101 Rev C (in review)"
+    "P2-C-101 Rev C (in review)",
+    "P2-G-002 Rev A (in review)"
   ],
   "sheets_in_progress": [],
-  "last_commit": "82bdf1c",
+  "last_commit": "0597331",
   "branch": "grok/keystone",
   "open_decisions": 17,
   "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012); trademark (D-042); brick pricing (D-044); floor uses (D-054).",
-  "what_changed": "L2 17'-9\", 21 in risers, front row 9.0' = 7'-6\" clear, 0 seats lost, lockers 3,600. Drawn L1 53,080.6 / L2 28,932.6 / TOTAL 82,013.1 GSF (+36.7 vs Rev E, NE tower 24.08' x 6.67'). Min C unchanged (149/101 mm). 1030.6.2.2 PASS (36' vs 32.75').",
-  "what_to_verify": "7'-6\" clear has no margin: 1'-6\" tier structure ASSUMED (structural engineer). C-7 intermediate handrails: architect to confirm. E standing C MARGINAL. Ring roof 32.75' ASSUMED. ARENA file naming <sheet>_Rev<X>.pdf ASSUMED.",
-  "next_action": "Reviewer C-12 (v1.3 order), then the next BACKLOG item.",
-  "question_for_shane": "Front-row clear is exactly 7'-6\" only if the upper-tier structure is ≤ 1'-6\" deep (ASSUMED). Keep 1'-6\" as the basis until a structural engineer sizes it?"
+  "what_changed": "G-002 Rev A: L1 1,803-4,758 (floor 329-3,284), L2 1,277/1,462, building worst 6,220. L1 doors (ASSUMED 11 pairs = 704 in) SHORT at worst: need 933.0 in; main exit E1 466.5 in vs 64. L2 stairs pass (+11.6 in). C-12 rule + validate check 8.",
+  "what_to_verify": "Zero margin at 7'-6\": upper-tier structure 1'-6\" ASSUMED (structural engineer). Door widths ASSUMED 64 in/pair (not drawn). Floor use (D-054). Code edition 2021 vs 2018 (AHJ). Event-floor area 16,416 (R-007) vs 16,400 locked. ARENA naming ASSUMED.",
+  "next_action": "Next BACKLOG item: P2-T-008 A-111 life safety plan (exits, capacities, travel) from G-002 Rev A loads.",
+  "question_for_shane": "L1 exits at the standing worst case: Option 1 (E1 main-exit bank of 8 door pairs, keeps the single controlled entry) or Option 2 (main exits distributed around the perimeter, 4 more pairs)?"
 }
