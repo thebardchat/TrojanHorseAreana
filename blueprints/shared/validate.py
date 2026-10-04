@@ -12,7 +12,7 @@ Checks (v2, 2026-10-03: phase2.yaml seed added):
   5. phase2.yaml locked values unchanged (55,000 SF total, 22,000 SF arena,
      2,200 seats total) and the girls locker carries the D-013 draw-equal rule
   6. Every PDF in phase*/out/pdf contains the PRELIMINARY stamp text (passes if no PDFs)
-     6b. Principal-version PDFs (*principal*.pdf) contain no 'D-0'/'R-0' codes and no 'spelling'
+     6b. Principal-version PDFs (*principal*.pdf, e.g. P1-G-001 Rev B and Rev C) contain no 'D-0'/'R-0' codes and no 'spelling'
   7. STATUS.json (if present) matches schema_version 2 and its open_decisions
      equals the OPEN count in DECISIONS.md
 SKIPPED for now: Phase 2 area reconciliation (55,000 vs room sum). Most support

@@ -46,6 +46,40 @@ existing:
     wall_devices: TBD   # outlets, switches, thermostats on walls to be padded
     existing_pads: TBD
     source: "Shane measure (pending, D-001; checklist phase1/MEASUREMENT_CHECKLIST.md)"
+    estimate_aerial:    # ROUGH aerial estimate of the EXTERIOR ROOF footprint. NOT a tape measurement. NEVER draw as existing conditions.
+      footprint_ns_ft_approx: 55       # north-south, roof outline incl. walls/eaves
+      footprint_ew_ft_approx: 47       # east-west, roof outline incl. walls/eaves
+      diagonal_ft_approx: 72.7
+      uncertainty: "about ±2 ft from pixel picking, plus roof overhang/eaves and aerial image error (interior room will be smaller)"
+      basis: exterior roof footprint seen from above (Google Maps aerial), not interior wall-to-wall
+      method: "measure path = west side + south side + east side + north side + diagonal = 276.85 ft (84.38 m); side pixel lengths 413/350/413/354 px, diagonal 545 px (path drawn ~1.4 deg off north); scale 2074.5 px / 276.85 ft = 7.49 px/ft; 5 ft minor ticks measure 7.46 px/ft"
+      tick_check: "50 ft tick predicted 49.9 ft down west side (matches label); 150 ft tick predicted 7 ft below NE corner on east side (matches); 250 ft label sits ~63% along the diagonal (matches)"
+      user_cross_check: "rough 56 x 46 ft (aspect 0.82 taken from the diagonal) agrees within ±1 ft; side lengths give aspect 0.85, so ~55 x 47 ft"
+      length: TBD        # tape measurement pending (D-001)
+      width: TBD         # tape measurement pending (D-001)
+      confidence: LOW
+      draw_rule: never draw as existing conditions; not on any principal sheet
+      source: "KEYSTONE estimate from Shane aerial sketch 2026-10-03 (Google Maps measure, total path 276.85 ft)"
+  layout_notes:        # QUALITATIVE only, from Shane's hand markup on the aerial. No dimensions. Not drawn as existing conditions.
+    wrestling_room: large west block of the building
+    emergency_exits: on the wrestling room's west side, south side, and one near its NE corner
+    support_wing: east of the wrestling room
+    support_wing_rooms:
+      - two showers (marked "broken showers")
+      - private toilet
+      - urinal
+      - two toilets
+      - washer/dryer
+      - office
+      - two storage rooms
+    open_hallway: two "open hallway" segments run east-west through the support wing (the walk-through route)
+    water_fixture_symbols: yellow stars marked as water fountain / sink near the urinal and hallway
+    map_label: "Hazel Green Wrestling"
+    doors_exits_symbol: triangles mark doors/exits
+    east_neighbor: "\"flag football side\" field to the east"
+    sketch_file: "wrestle-room-measure.png (ARENA folder; see blueprints/ASSETS.md; not committed)"
+    confidence: "LOW-MEDIUM: room names and order from Shane's markup; positions approximate"
+    source: "Shane aerial sketch 2026-10-03 (hand markup on Google Maps aerial)"
   walkthrough_room:
     length: TBD
     width: TBD
@@ -60,12 +94,15 @@ existing:
     existing_fixtures: TBD
     water_lines: TBD
     drain_lines: TBD
-    condition: plumbing already failing in the existing building
-    source: "concept sheet (condition); Shane photos pending for the rest (D-002)"
+    condition: "no running water to the area; all fixtures (showers, toilets, sinks) out of service, not just leaking; cause unknown"
+    condition_before_2026_10_03: plumbing already failing in the existing building
+    source: "Shane, firsthand 2026-10-03 (condition); concept sheet (earlier condition wording); Shane photos + plumber diagnosis pending for the rest (D-002)"
 
 work_items:
   - id: W1
     name: Wall padding
+    priority: 3
+    priority_note: can run in parallel; does not depend on water
     description: proper training wall pads on the wrestling room walls; finish work, not new construction
     walls: TBD
     why: "Wrestlers can get hurt when they are thrown or fall into bare, unpadded walls during practice. Proper wall pads lower that risk."
@@ -75,24 +112,29 @@ work_items:
     supplied_by: TBD    # school purchase, donated, or fundraised
     supplied_by_options: school purchase, donation, or fundraiser
     purchase_note: "Wall pads must have an NFPA 286 assembly test report — not a foam-only rating. Ask the vendor before purchase."
-    source: "concept sheet; pad_height → D-003 DECIDED (Shane, chat 2026-10-03; matches R-001 guidance); walls/supplier → D-021 (OPEN); why → Shane 2026-10-03; purchase_note verbatim → D-020 (Shane, chat 2026-10-03); fire rule in standards.wall_pads (R-001); product choice still TBD"
+    source: "concept sheet; priority → D-024 (Shane, firsthand 2026-10-03); pad_height → D-003 DECIDED (Shane, chat 2026-10-03; matches R-001 guidance); walls/supplier → D-021 (OPEN); why → Shane 2026-10-03; purchase_note verbatim → D-020 (Shane, chat 2026-10-03); fire rule in standards.wall_pads (R-001); product choice still TBD"
   - id: W2
-    name: Plumbing repair
+    name: Restore water / plumbing repair
+    priority: 1
+    status: "No running water to the area. All fixtures out of service. Cause unknown."
+    status_detail: showers, toilets, and sinks are all non-functional, not just leaking
     location: TBD
-    scope: repair failing plumbing in the existing building
-    why: Failing plumbing is getting worse the longer it waits.
+    cause: TBD          # plumber to diagnose: shutoff, supply line, or other
+    scope: restore running water to the area and repair the plumbing so the fixtures work again
+    why: "Athletes have no working restroom or handwashing during practice; hygiene matters in a contact sport."
     design_by: BY LICENSED PLUMBER / ENGINEER OF RECORD
     keystone_output: scope narrative + fixture list only (no plumbing design)
-    source: "concept sheet (scope); Shane (prompt §2: design_by, keystone_output); why → Shane 2026-10-03; location → D-002"
+    source: "Shane, firsthand 2026-10-03 (status, status_detail, why, rename, priority → D-024); concept sheet (original scope); Shane (prompt §2: design_by, keystone_output); location/cause → D-002"
   - id: W3
     name: Restroom split
+    priority: 2
     result: 1 male + 1 female athlete restroom
     ada_compliance: full 2010 ADA Standards, BOTH rooms
     reason: the route to the training room is an open walk-through room
     restroom_type: single-user, one per sex
     accessibility_minimums: see standards.ada_single_user_restroom (R-003)
     location: TBD
-    source: "concept sheet (result, reason); restroom_type + ada_compliance → D-019 (Shane, chat 2026-10-03); location → D-001, D-002; accessibility minimums in standards.ada_single_user_restroom (R-003)"
+    source: "concept sheet (result, reason); priority → D-024 (Shane, firsthand 2026-10-03); restroom_type + ada_compliance → D-019 (Shane, chat 2026-10-03); location → D-001, D-002; accessibility minimums in standards.ada_single_user_restroom (R-003)"
 
 not_in_phase1:
   items:
@@ -283,11 +325,16 @@ sheets:
         table_footnote: "Planning numbers only. Final restroom layout comes on sheet P1-A-102 after the rooms are measured."
         show_why: false
         show_requester: false
+        w2_as_issued:     # W2 wording as printed on this revision (W2 was updated 2026-10-03; keeps the frozen sheet reproducible)
+          name: Plumbing repair
+          lead: Repair plumbing already failing in the existing building.
+          why: Failing plumbing is getting worse the longer it waits.
+          source: "Rev A as issued 2026-10-03 (concept sheet condition wording)"
         source: "frozen copy of Rev A content (P1-T-004, 2026-10-03); Shane 2026-10-03: keep Rev A as internal copy, unchanged"
       B:                  # PRINCIPAL version. No D-###/R-### codes, no name-spelling lines (validate checks the PDF).
         audience_label: principal
         file: P1-G-001_RevB_principal
-        frozen: false
+        frozen: true      # approved by Shane 2026-10-03 (D-023). Do not edit; Rev C carries the changes.
         show_codes: false
         waiting_heading: "WHAT WE'RE ASKING THE SCHOOL FOR"
         waiting_on:
@@ -300,4 +347,36 @@ sheets:
         table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
         show_why: true
         show_requester: true
-        source: "Shane 2026-10-03 (Rev B principal version: asks, approver wording, requester line, no codes)"
+        w2_as_issued:     # W2 wording as printed on this revision (W2 was updated 2026-10-03; keeps the frozen sheet reproducible)
+          name: Plumbing repair
+          lead: Repair plumbing already failing in the existing building.
+          why: Failing plumbing is getting worse the longer it waits.
+          source: "Rev B as issued 2026-10-03 (commit 7ceb50c; concept sheet condition + Shane why)"
+        source: "Shane 2026-10-03 (Rev B principal version: asks, approver wording, requester line, no codes); frozen after D-023"
+      C:                  # PRINCIPAL version, current. Rev B + W2 no-water update + priority order (D-024). No codes. No aerial estimate.
+        audience_label: principal
+        file: P1-G-001_RevC_principal
+        frozen: false
+        show_codes: false
+        row1_heading: "WHAT THIS PROJECT DOES — 3 WORK ITEMS, IN PRIORITY ORDER"
+        panel_order: [W2, W3, W1]
+        show_priority: true
+        priority_labels:
+          1: PRIORITY 1
+          2: PRIORITY 2
+          3: PRIORITY 3 — CAN RUN IN PARALLEL
+          source: "D-024 (Shane, firsthand 2026-10-03: W2 → W3 → W1, W1 can run in parallel)"
+        show_w2_status: true
+        waiting_heading: "WHAT WE'RE ASKING THE SCHOOL FOR"
+        waiting_on:
+          - Permission to measure and photograph the wrestling room and walk-through room
+          - A district facilities contact
+          - How approval works for this kind of work
+          - A plumber visit to diagnose why there is no water (shutoff, supply line, or other)
+        approvals_heading: WHO APPROVES
+        approvals_note_from: approvals.note_plain
+        table_heading: KEY 2010 ADA NUMBERS FOR EACH RESTROOM
+        table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
+        show_why: true
+        show_requester: true
+        source: "Rev B (D-023) + Shane, firsthand 2026-10-03: W2 no-water status, new W2 why, ask #4, priority W2 → W3 → W1 (D-024)"

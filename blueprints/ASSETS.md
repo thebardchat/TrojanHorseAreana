@@ -5,7 +5,7 @@ Rule: Shane's files are read-only. **None of Shane's originals are committed to 
 
 ## 1. Shane's ARENA folder: `C:\Users\Hubby\Desktop\ARENA\` (pulsar00100)
 
-Per Shane, the folder first held **exactly 4 files**. On 2026-10-03 Shane added 2 images, and a byte-identical copy of the reference plan was saved there as `Phase2-floor-plan-flat.png`. **The folder now holds 7 files.** KEYSTONE read the box copies in `/workspace/arena_src/` and got nothing from Shane's PC. Sizes/times for the 3 new files: box copies, plus Shane's info.
+Per Shane, the folder first held **exactly 4 files**. On 2026-10-03 Shane added 2 images, and a byte-identical copy of the reference plan was saved there as `Phase2-floor-plan-flat.png`. **The folder then held 7 files.** Later on 2026-10-03 Shane added `wrestle-room-measure.png` (Phase 1 site sketch). **The folder now holds 8 files.** KEYSTONE read the box copies in `/workspace/arena_src/` and got nothing from Shane's PC. Sizes/times for the new files: box copies, plus Shane's info.
 
 | File | Type | Size | Modified (CT) | What it is / shows | Phase |
 |---|---|---|---|---|---|
@@ -16,6 +16,7 @@ Per Shane, the folder first held **exactly 4 files**. On 2026-10-03 Shane added 
 | `Phase2-floor-plan-flat.png` | PNG, 1024×687 | 744,067 B | 2026-10-03, time not given (copy saved on Shane's PC) | Byte-identical copy of `arenav1-floor-plan.png` (sha256 `d030dcb4…bd54`). **Phase 2 REFERENCE PLAN (primary), designated by Shane 2026-10-03.** See §1b | **Phase 2 (primary reference)** |
 | `arenav1-floor-plan.png` | PNG, 1024×687 | 744,067 B | 2026-10-03, time not given (added by Shane) | Flat color-coded "HAZEL GREEN REGIONAL ATHLETIC COMPLEX - Master Floor Plan." sha256 `d030dcb46a65d98e47b2c0041a20554dc38465aa0028c8130b196723f880bd54`. **Phase 2 REFERENCE PLAN (primary), designated by Shane 2026-10-03** (D-017). See §1b | **Phase 2 (primary reference)** |
 | `Phase2-floor-plan.jpeg` | Image, 1024×687. **The file is WebP-encoded despite the .jpeg name** | 105,532 B | 2026-10-03, time not given (added by Shane) | Photo-style render of a lit 3D tabletop model of the same plan in a lobby. sha256 `528414ead71092ce357e592dc0028bdb06672a901a6de23ce2094a853aba1b20`. **Presentation render only, NOT a source.** Its text is wrong: boys 3,900, girls 3,500, seating labels swapped (north 2,200 / south 3,200), and a "Conversion" legend (Wrestling 15,000 / Jiujitsu 36,000 / Basketball 25,000 / Volleyball 15,000 SF) that conflicts with the 22,000 SF floor | Phase 2 (presentation only) |
+| `wrestle-room-measure.png` | PNG, 1108×816 (RGBA) | 127,301 B | 2026-10-03 ~9:46 PM (box copy; Shane's time not given) | Google Maps aerial of the wrestling room building with the 'Measure distance' tool (total path 276.85 ft / 84.38 m) and Shane's hand markup of rooms, exits, and fixtures. sha256 `4cd9756ae606f7e8c688053619528abc0220d6045f12230eddc17ba071df5808`. Original `C:\Users\Hubby\Desktop\ARENA\wrestle-room-measure.png`. **Not committed.** See §1c | **Phase 1 (rough estimate + layout notes only)** |
 
 ### 1a. What the diorama shows (`north_alabama_3d_diorama.html`)
 
@@ -60,6 +61,40 @@ Shane's rule (D-017): **USE** zones, adjacencies, the 5 SF tags, and the room li
 - The legend calls spectator arrows "Dashed Gold," but they're drawn red. The legend calls the arena "Nelly Green/Gold," but the arena is drawn red. Ignored per D-017.
 - A gray athlete-flow arrow runs east–west from the locker corridor into the concourse, where the dashed spectator arrows also run. Whether the athlete/spectator split holds (§3 design rule 1) needs checking at A-101. No change made.
 - Dimension strings and scale bar are inconsistent (e.g., overall "27.30'"). Ignored per D-017.
+
+### 1c. Phase 1 aerial sketch: what it shows (`wrestle-room-measure.png`, Shane 2026-10-03)
+
+**What it is:** a Google Maps aerial with the measure tool, plus Shane's hand markup. **It is a rough aerial estimate, NOT a tape measurement.** It is never drawn as existing conditions and does not close D-001.
+
+**Measure path (KEYSTONE check):** starts at "0" at the NW corner of the wrestling room roof, runs down the west side, across the south, up the east side, back across the north, then diagonally NW → SE. Total **276.85 ft (84.38 m)**. Side pixel lengths are about 413 / 350 / 413 / 354 px, and the diagonal is about 545 px. That gives 7.49 px/ft, and the 5 ft minor ticks independently measure 7.46 px/ft. **Exterior roof footprint ≈ 55 ft N-S × 47 ft E-W (diagonal ≈ 72.7 ft), confidence LOW.** The interior room will be smaller (walls, eaves). Tick check: the 50 ft tick lands about 49.9 ft down the west side, the 150 ft tick about 7 ft below the NE corner, and the 250 ft label about 63% along the diagonal. All three match the labels. Recorded in phase1.yaml `existing.wrestling_room.estimate_aerial`. Length and width stay TBD.
+
+**Layout per Shane's markup (qualitative, phase1.yaml `existing.layout_notes`):**
+- The **wrestling room** is the large west block.
+- **Emergency exits** are marked on its west side, its south side, and one near its NE corner.
+- **Support wing** to the east:
+  - two "broken showers"
+  - a "private toilet"
+  - a urinal
+  - two toilets
+  - a washer/dryer
+  - an office
+  - two storage rooms
+- Two **"open hallway"** segments run east–west through the wing. This is the walk-through route.
+- **Yellow stars** (water fountain / sink) sit near the urinal and hallway.
+- The map label reads "Hazel Green Wrestling."
+- Doors and exits are drawn as triangles.
+- A **"flag football side"** field lies to the east.
+
+**Odd or unclear items (no change made):**
+- The vertex circles sit a few px off the path's corners. It looks like a screenshot rendering offset. KEYSTONE measured the path lines and ticks, not the circles.
+- The path is drawn about 1.4° off north. So the aspect ratio taken from the diagonal (0.82) differs from the side lengths (0.85).
+- The NE emergency-exit triangle is drawn just outside the roof outline.
+- The "Hazel Green Wrestling" map label overlaps the support wing.
+- The yellow-star legend floats north of the wing.
+- There is a whited-out blank area between the private toilet and the storage rooms.
+- One storage room has a green scribbled oval in it.
+- The office/wing reaches east toward the red-outlined "flag football side" area.
+- A separate gray building edge shows at the far west.
 
 ## 2. Assets referenced but NOT in the ARENA folder
 

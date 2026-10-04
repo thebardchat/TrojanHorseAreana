@@ -132,3 +132,28 @@
 
 ## 2026-10-03 20:49 CT
 - D-023 DECIDED: Rev B approved as-is, contact info stays, no history rewrite. D-022 OPEN: 1A/1B split, no restructure until Shane decides.
+
+## 2026-10-03 ~10:00 PM CT · W2 no-water update + P1-G-001 Rev C
+- **Shane, firsthand 2026-10-03:**
+  - There is no running water to the area. All fixtures (showers, toilets, sinks) are out of service, not just leaking. Cause unknown.
+  - phase1.yaml W2 is renamed "Restore water / plumbing repair". New fields: `status` (exact text), `status_detail`, `cause: TBD`, and a new `scope` and `why`. It is still BY LICENSED PLUMBER / ENGINEER OF RECORD, narrative only.
+  - `existing.plumbing.condition` is updated; the old wording is kept as `condition_before_2026_10_03`.
+- **D-024 DECIDED:** priority is W2 → W3 → W1, and W1 (pads) can run in parallel. Each work item now has a `priority` field.
+- **Shane's aerial sketch** (`wrestle-room-measure.png`, not committed) → `existing.wrestling_room.estimate_aerial`:
+  - KEYSTONE estimate of the exterior roof footprint: ≈55 ft N-S × 47 ft E-W.
+  - Basis: path 276.85 ft, 7.49 px/ft, cross-checked against the 5 ft ticks and the 50/150/250 ft labels.
+  - Confidence LOW. Length and width stay TBD. Never drawn.
+- **`existing.layout_notes`:** qualitative room layout from the markup. ASSETS.md §1c and its table now show the folder at 8 files.
+- DECISIONS: D-001 notes partial info (estimate + layout; tape + photos still needed). D-002 notes the no-water finding. Open count stays 17.
+- **P1-G-001 Rev C (principal) added:** `phase1/out/pdf/P1-G-001_RevC_principal.pdf` + `.dxf`. It is Rev B plus these changes:
+  - Panels are ordered W2, W3, W1, with "PRIORITY 1 / 2 / 3 — CAN RUN IN PARALLEL" labels. W1 also says "Does not depend on water."
+  - The W2 panel shows the no-water status box, the new scope line and Why, and the licensed-plumber callout.
+  - The asks list adds #4, a plumber visit to diagnose the missing water.
+  - Row-1 text is slightly smaller (9.6 pt body, 8.4 pt ADA table) so the priority lines fit. Layout changed, content did not.
+  - No codes. No aerial estimate.
+- **Rev B frozen** (`frozen: true`) and its committed PDF is untouched. Regenerating it to /tmp gives a byte-identical PDF (sha256 6c05e8df…).
+  - Rev A regenerates to the same PDF as before the change, with identical text.
+  - Frozen revisions read their W2 wording from a `w2_as_issued` snapshot.
+- Generator: `--rev A|B|C` (default C). It refuses to overwrite frozen A/B files without `--force`.
+  - validate 6b already checks every `*principal*.pdf` (B and C); only the docstring was updated.
+- D-022 is still OPEN. No 1A/1B restructure.

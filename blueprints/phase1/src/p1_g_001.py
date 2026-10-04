@@ -1,16 +1,21 @@
 """P1-G-001 — Phase 1 one-page scope sheet (11x17 landscape), vector PDF + DXF.
 
-Two revisions, both from phase1.yaml `sheets.P1-G-001.revisions`:
-  A = INTERNAL copy, FROZEN as issued 2026-10-03 (codes shown). Its committed
-      PDF/DXF are kept as-is; regenerate only to check (use --out-dir).
-  B = PRINCIPAL version (plain words, no D-/R- codes, requester line, asks list).
+Revisions, all from phase1.yaml `sheets.P1-G-001.revisions`:
+  A = INTERNAL copy, FROZEN as issued 2026-10-03 (codes shown).
+  B = PRINCIPAL version, FROZEN as approved 2026-10-03 (plain words, no D-/R-
+      codes, requester line, asks list).
+  C = PRINCIPAL version, current: Rev B + W2 no-water status, priority order
+      (panels W2, W3, W1 with PRIORITY labels), 4th ask (plumber visit).
+Frozen revisions keep their committed PDF/DXF as issued; regenerate them only
+to check (use --out-dir). A frozen revision's W2 wording comes from its
+`w2_as_issued` snapshot so the regenerated sheet matches the issued one.
 
 Every value comes from blueprints/params/phase1.yaml (plus the Phase 2 building
 total from phase2.yaml, used ONLY in the "NOT INCLUDED" list). Unknowns print TBD.
 Layout constants below are sheet geometry in inches, not project dimensions.
 
 Run from the repo root:
-  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev B [--png PATH]
+  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev C [--png PATH]
   /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_001.py --rev A --out-dir /tmp/check
 """
 from __future__ import annotations
@@ -31,6 +36,13 @@ M = 0.5                                            # border margin
 GAP = 0.12
 BODY = 10.5                                        # body text size (pt)
 HEAD = 13.5                                        # box heading size (pt)
+# Row-1 panel width fractions. Default (Revs A/B): fixed order W1, W2, W3.
+ROW1_FRACS = (0.27, 0.215, 0.515)
+ROW1_FRACS_BY_ITEM = {"W2": 0.255, "W3": 0.475, "W1": 0.27}   # Rev C (panel_order)
+ROW2_FRACS_PRIORITY = (0.17, 0.335, 0.275)         # Rev C row 2: not included / who approves / asks (photos = rest)
+ROW2_TRIM_PRIORITY = 0.0                           # Rev C: row 2 height given to row 1 (none needed)
+ROW1_BODY_PRIORITY = 9.6                           # Rev C row-1 body size (pt)
+ROW1_TABLE_PT = 8.4                                # Rev C ADA table size (pt)
 
 
 def load():
@@ -112,7 +124,7 @@ def callout(sh: Sheet, x, y, w, s, size=BODY + 0.5, lw=1.8):
     return y - h - 0.1
 
 
-def build(p1: dict, p2: dict, rev: str = "B") -> Sheet:
+def build(p1: dict, p2: dict, rev: str = "C") -> Sheet:
     meta, site = p1["meta"], p1["site"]
     wi = {w["id"]: w for w in p1["work_items"]}
     w1, w2, w3 = wi["W1"], wi["W2"], wi["W3"]
@@ -149,104 +161,142 @@ def build(p1: dict, p2: dict, rev: str = "B") -> Sheet:
     sh.text(x1, top - 0.54, f"Rooms: {site['rooms_in_scope']}", size=BODY, align="right")
     sh.text(x1, top - 0.76, f"For review by: {sp['audience']}", size=BODY, align="right")
     sh.line(x0, top - 0.88 - hx, x1, top - 0.88 - hx, lw=1.2)
-    sh.text(x0, top - 1.035 - hx, "WHAT THIS PROJECT DOES — 3 WORK ITEMS", size=12, bold=True)
+    sh.text(x0, top - 1.035 - hx, rv.get("row1_heading", "WHAT THIS PROJECT DOES — 3 WORK ITEMS"), size=12, bold=True)
 
     # ---- row 1: the three work items ------------------------------------
     r1_top = top - 1.12 - hx
-    r2_h = 2.3 - hx
+    r2_h = 2.3 - hx - (ROW2_TRIM_PRIORITY if rv.get("show_priority") else 0.0)
     r2_y = body_bottom + GAP
     r1_y = r2_y + r2_h + GAP
     r1_h = r1_top - r1_y
     avail = x1 - x0 - 2 * GAP
-    ws = [avail * f for f in (0.27, 0.215, 0.515)]
-    xs = [x0, x0 + ws[0] + GAP, x0 + ws[0] + ws[1] + 2 * GAP]
+    order = rv.get("panel_order", ["W1", "W2", "W3"])
+    fracs = [ROW1_FRACS_BY_ITEM[k] for k in order] if "panel_order" in rv else list(ROW1_FRACS)
+    ws_o = [avail * f for f in fracs]
+    xs_o = [x0, x0 + ws_o[0] + GAP, x0 + ws_o[0] + ws_o[1] + 2 * GAP]
+    slot = {k: (xs_o[i], ws_o[i]) for i, k in enumerate(order)}
+    w2_issued = rv.get("w2_as_issued")             # frozen revisions: W2 wording as printed
+    pri = bool(rv.get("show_priority"))
+    B1 = ROW1_BODY_PRIORITY if pri else BODY      # row-1 body text size (Rev C a bit smaller to fit the PRIORITY lines)
 
-    # W1
-    x, y, w = box(sh, xs[0], r1_y, ws[0], r1_h, f"{w1['id']} — {w1['name'].upper()}")
-    y = sh.para(x, y, w, sentence(w1["description"]), size=BODY)
-    if rv["show_why"]:
-        y = labeled(sh, x, y, w, "Why", w1["why"])
-    y = labeled(sh, x, y, w, "Walls to pad", tbd(w1["walls"]))
-    y = labeled(sh, x, y, w, "Pad height", rv.get("pad_height_label") or tbd(w1["pad_height"]))
-    y = labeled(sh, x, y, w, "Pad thickness", tbd(w1["pad_thickness"]))
-    y = labeled(sh, x, y, w, "Who buys or donates", f"{tbd(w1['supplied_by'])} ({w1['supplied_by_options']})")
-    y = labeled(sh, x, y, w, "Door hardware", sentence(pads["doors_and_hardware"]))
-    y -= 0.08
-    sh.text(x, y - pitch(BODY), "FIRE SAFETY — BEFORE BUYING PADS", size=BODY, bold=True)
-    y = callout(sh, x, y - pitch(BODY) - 0.08, w, w1["purchase_note"])
-    basis = f"Basis: {pads['sheet_basis']}." if codes else f"Code basis: {pads['sheet_basis_plain']}."
-    y = sh.para(x, y, w, basis, size=8.5)
-    fits("W1", y, r1_y)
+    def priority_tag(x, y, w, item):
+        """Rev C: bold PRIORITY line at the top of a work-item panel. Returns new y."""
+        if not rv.get("show_priority"):
+            return y
+        y = sh.para(x, y, w, rv["priority_labels"][item["priority"]], size=B1 + 1, bold=True)
+        return y - 0.04
 
-    # W2
-    x, y, w = box(sh, xs[1], r1_y, ws[1], r1_h, f"{w2['id']} — {w2['name'].upper()}")
-    y = sh.para(x, y, w, sentence(f"repair {plumb['condition']}"), size=BODY)
-    if rv["show_why"]:
-        y = labeled(sh, x, y, w, "Why", w2["why"])
-    y = labeled(sh, x, y, w, "Where", tbd(w2["location"]))
-    y = labeled(sh, x, y, w, "Problem spots", tbd(plumb["leak_or_damage_spots"]))
-    y = labeled(sh, x, y, w, "Existing fixtures", tbd(plumb["existing_fixtures"]))
-    y = labeled(sh, x, y, w, "Water / drain lines", f"{tbd(plumb['water_lines'])} / {tbd(plumb['drain_lines'])}")
-    y -= 0.08
-    sh.text(x, y - pitch(BODY), "WHO DESIGNS IT", size=BODY, bold=True)
-    y = callout(sh, x, y - pitch(BODY) - 0.08, w, w2["design_by"], size=BODY + 1.5)
-    y = sh.para(x, y, w, f"This package gives: {w2['keystone_output']}.", size=BODY)
-    y = sh.para(x, y, w, f"Plumbing code: {gov['plumbing_code']} (Alabama).", size=8.5)
-    fits("W2", y, r1_y)
+    panels = {}
 
-    # W3
-    x, y, w = box(sh, xs[2], r1_y, ws[2], r1_h, f"{w3['id']} — {w3['name'].upper()}")
-    y = labeled(sh, x, y, w, "Why", sentence(w3["reason"]))
-    y = labeled(sh, x, y, w, "Result", f"{w3['result']} ({w3['restroom_type']}).")
-    y = labeled(sh, x, y, w, "Accessibility", f"{w3['ada_compliance']}.")
-    y = labeled(sh, x, y, w, "Where / room sizes", f"{tbd(w3['location'])} — waiting on measurements.")
-    # key-number table
-    y -= 0.06
-    sh.text(x, y - pitch(BODY), rv["table_heading"], size=BODY, bold=True)
-    y -= pitch(BODY) + 0.08
-    rows = [
-        ("Turning space", f"{ada['turning_space_diameter_in']} in circle (or T-shape)", cites["turning_space_diameter_in"]),
-        ("Clear space at toilet", f"{ada['wc_clearance_from_side_wall_in']} in wide × {ada['wc_clearance_from_rear_wall_in']} in deep, min", cites["wc_clearance"]),
-        ("Toilet centerline to side wall", rng([ada['wc_centerline_from_side_wall_min_in'], ada['wc_centerline_from_side_wall_max_in']]), cites["wc_centerline"]),
-        ("Toilet seat height", rng([ada['wc_seat_height_min_in'], ada['wc_seat_height_max_in']]), cites["wc_seat_height"]),
-        ("Side grab bar", f"{ada['grab_bar_side_length_min_in']} in long min; starts ≤ {ada['grab_bar_side_max_from_rear_wall_in']} in from rear wall", cites["grab_bar_side"]),
-        ("Rear grab bar", f"{ada['grab_bar_rear_length_min_in']} in long min", cites["grab_bar_rear"]),
-        ("Grab bar height (top)", rng([ada['grab_bar_height_min_in'], ada['grab_bar_height_max_in']]), cites["grab_bar_height"]),
-        ("Sink clear floor space", f"{ada['lav_clear_floor_space_in'][0]} × {ada['lav_clear_floor_space_in'][1]} in, forward", cites["lav_clear_floor_space_in"]),
-        ("Sink rim height", f"{ada['lav_rim_height_max_in']} in max", cites["lav_rim_height_max_in"]),
-        ("Mirror bottom edge", f"{ada['mirror_bottom_over_lav_max_in']} in max above floor", cites["mirror_bottom_over_lav_max_in"]),
-        ("Door clear width", f"{ada['door_clear_width_min_in']} in min", cites["door_clear_width_min_in"]),
-        ("Door handle height", rng(ada["door_hardware_height_in"]), cites["door_hardware_height_in"]),
-        ("Door swing", f"not over toilet/sink clear space unless a {ada['lav_clear_floor_space_in'][0]} × {ada['lav_clear_floor_space_in'][1]} in space is beyond the swing", cites["door_swing_rule"]),
-        ("Room sign", f"tactile, {rng(ada['tactile_sign_baseline_height_in'])} high, latch side", cites["tactile_sign_baseline_height_in"]),
-    ]
-    ts = 9.2
-    fits("W3 text", y, r1_y)
-    c0, c2 = w * 0.36, w * 0.14
-    c1 = w - c0 - c2
-    rh = pitch(ts) + 0.02
-    # header row
-    sh.line(x, y, x + w, y, lw=0.9)
-    sh.text(x + 0.05, y - rh + 0.06, "Item", size=ts, bold=True)
-    sh.text(x + c0 + 0.05, y - rh + 0.06, "Requirement", size=ts, bold=True)
-    sh.text(x + c0 + c1 + 0.05, y - rh + 0.06, "2010 ADA §", size=ts, bold=True)
-    yy = y - rh
-    sh.line(x, yy, x + w, yy, lw=0.9)
-    for item, req, cite in rows:
-        lines = wrap(req, c1 - 0.1, ts)
-        hh = rh + (len(lines) - 1) * pitch(ts)
-        sh.text(x + 0.05, yy - rh + 0.06, item, size=ts)
-        for i, ln in enumerate(lines):
-            sh.text(x + c0 + 0.05, yy - rh + 0.06 - i * pitch(ts), ln, size=ts)
-        sh.text(x + c0 + c1 + 0.05, yy - rh + 0.06, cite, size=ts)
-        yy -= hh
-        sh.line(x, yy, x + w, yy, lw=0.4)
-    for cx in (x, x + c0, x + c0 + c1, x + w):
-        sh.line(cx, y, cx, yy, lw=0.6)
-    fits("W3 table", sh.para(x, yy - 0.02, w, rv["table_footnote"], size=8.5), r1_y)
+    def panel_w1():
+        x, y, w = box(sh, slot["W1"][0], r1_y, slot["W1"][1], r1_h, f"{w1['id']} — {w1['name'].upper()}")
+        y = priority_tag(x, y, w, w1)
+        if rv.get("show_priority"):
+            y = sh.para(x, y, w, sentence(w1["priority_note"].split("; ", 1)[1]), size=B1)
+        panel_w1_rest(x, y, w)
+
+    panels["W1"] = panel_w1
+
+    def panel_w1_rest(x, y, w):
+        y = sh.para(x, y, w, sentence(w1["description"]), size=B1)
+        if rv["show_why"]:
+            y = labeled(sh, x, y, w, "Why", w1["why"], size=B1)
+        y = labeled(sh, x, y, w, "Walls to pad", tbd(w1["walls"]), size=B1)
+        y = labeled(sh, x, y, w, "Pad height", rv.get("pad_height_label") or tbd(w1["pad_height"]), size=B1)
+        y = labeled(sh, x, y, w, "Pad thickness", tbd(w1["pad_thickness"]), size=B1)
+        y = labeled(sh, x, y, w, "Who buys or donates", f"{tbd(w1['supplied_by'])} ({w1['supplied_by_options']})", size=B1)
+        y = labeled(sh, x, y, w, "Door hardware", sentence(pads["doors_and_hardware"]), size=B1)
+        y -= 0.08
+        sh.text(x, y - pitch(B1), "FIRE SAFETY — BEFORE BUYING PADS", size=B1, bold=True)
+        y = callout(sh, x, y - pitch(B1) - 0.08, w, w1["purchase_note"], size=B1 + 0.5)
+        basis = f"Basis: {pads['sheet_basis']}." if codes else f"Code basis: {pads['sheet_basis_plain']}."
+        y = sh.para(x, y, w, basis, size=8.5)
+        fits("W1", y, r1_y)
+
+    def panel_w2():
+        name = w2_issued["name"] if w2_issued else w2["name"]
+        x, y, w = box(sh, slot["W2"][0], r1_y, slot["W2"][1], r1_h, f"{w2['id']} — {name.upper()}")
+        y = priority_tag(x, y, w, w2)
+        if rv.get("show_w2_status"):
+            y = callout(sh, x, y, w, w2["status"], size=B1 + 0.5)
+        y = sh.para(x, y, w, w2_issued["lead"] if w2_issued else sentence(w2["scope"]), size=B1)
+        if rv["show_why"]:
+            y = labeled(sh, x, y, w, "Why", w2_issued["why"] if w2_issued else w2["why"], size=B1)
+        y = labeled(sh, x, y, w, "Where", tbd(w2["location"]), size=B1)
+        y = labeled(sh, x, y, w, "Problem spots", tbd(plumb["leak_or_damage_spots"]), size=B1)
+        y = labeled(sh, x, y, w, "Existing fixtures", tbd(plumb["existing_fixtures"]), size=B1)
+        y = labeled(sh, x, y, w, "Water / drain lines", f"{tbd(plumb['water_lines'])} / {tbd(plumb['drain_lines'])}", size=B1)
+        y -= 0.08
+        sh.text(x, y - pitch(B1), "WHO DESIGNS IT", size=B1, bold=True)
+        y = callout(sh, x, y - pitch(B1) - 0.08, w, w2["design_by"], size=B1 + 1.5)
+        y = sh.para(x, y, w, f"This package gives: {w2['keystone_output']}.", size=B1)
+        y = sh.para(x, y, w, f"Plumbing code: {gov['plumbing_code']} (Alabama).", size=8.5)
+        fits("W2", y, r1_y)
+
+    panels["W2"] = panel_w2
+
+    def panel_w3():
+        x, y, w = box(sh, slot["W3"][0], r1_y, slot["W3"][1], r1_h, f"{w3['id']} — {w3['name'].upper()}")
+        y = priority_tag(x, y, w, w3)
+        y = labeled(sh, x, y, w, "Why", sentence(w3["reason"]), size=B1)
+        y = labeled(sh, x, y, w, "Result", f"{w3['result']} ({w3['restroom_type']}).", size=B1)
+        y = labeled(sh, x, y, w, "Accessibility", f"{w3['ada_compliance']}.", size=B1)
+        y = labeled(sh, x, y, w, "Where / room sizes", f"{tbd(w3['location'])} — waiting on measurements.", size=B1)
+        # key-number table
+        y -= 0.06
+        sh.text(x, y - pitch(B1), rv["table_heading"], size=B1, bold=True)
+        y -= pitch(B1) + 0.08
+        rows = [
+            ("Turning space", f"{ada['turning_space_diameter_in']} in circle (or T-shape)", cites["turning_space_diameter_in"]),
+            ("Clear space at toilet", f"{ada['wc_clearance_from_side_wall_in']} in wide × {ada['wc_clearance_from_rear_wall_in']} in deep, min", cites["wc_clearance"]),
+            ("Toilet centerline to side wall", rng([ada['wc_centerline_from_side_wall_min_in'], ada['wc_centerline_from_side_wall_max_in']]), cites["wc_centerline"]),
+            ("Toilet seat height", rng([ada['wc_seat_height_min_in'], ada['wc_seat_height_max_in']]), cites["wc_seat_height"]),
+            ("Side grab bar", f"{ada['grab_bar_side_length_min_in']} in long min; starts ≤ {ada['grab_bar_side_max_from_rear_wall_in']} in from rear wall", cites["grab_bar_side"]),
+            ("Rear grab bar", f"{ada['grab_bar_rear_length_min_in']} in long min", cites["grab_bar_rear"]),
+            ("Grab bar height (top)", rng([ada['grab_bar_height_min_in'], ada['grab_bar_height_max_in']]), cites["grab_bar_height"]),
+            ("Sink clear floor space", f"{ada['lav_clear_floor_space_in'][0]} × {ada['lav_clear_floor_space_in'][1]} in, forward", cites["lav_clear_floor_space_in"]),
+            ("Sink rim height", f"{ada['lav_rim_height_max_in']} in max", cites["lav_rim_height_max_in"]),
+            ("Mirror bottom edge", f"{ada['mirror_bottom_over_lav_max_in']} in max above floor", cites["mirror_bottom_over_lav_max_in"]),
+            ("Door clear width", f"{ada['door_clear_width_min_in']} in min", cites["door_clear_width_min_in"]),
+            ("Door handle height", rng(ada["door_hardware_height_in"]), cites["door_hardware_height_in"]),
+            ("Door swing", f"not over toilet/sink clear space unless a {ada['lav_clear_floor_space_in'][0]} × {ada['lav_clear_floor_space_in'][1]} in space is beyond the swing", cites["door_swing_rule"]),
+            ("Room sign", f"tactile, {rng(ada['tactile_sign_baseline_height_in'])} high, latch side", cites["tactile_sign_baseline_height_in"]),
+        ]
+        ts = ROW1_TABLE_PT if pri else 9.2
+        fits("W3 text", y, r1_y)
+        c0, c2 = w * 0.36, w * 0.14
+        c1 = w - c0 - c2
+        rh = pitch(ts) + 0.02
+        # header row
+        sh.line(x, y, x + w, y, lw=0.9)
+        sh.text(x + 0.05, y - rh + 0.06, "Item", size=ts, bold=True)
+        sh.text(x + c0 + 0.05, y - rh + 0.06, "Requirement", size=ts, bold=True)
+        sh.text(x + c0 + c1 + 0.05, y - rh + 0.06, "2010 ADA §", size=ts, bold=True)
+        yy = y - rh
+        sh.line(x, yy, x + w, yy, lw=0.9)
+        for item, req, cite in rows:
+            lines = wrap(req, c1 - 0.1, ts)
+            hh = rh + (len(lines) - 1) * pitch(ts)
+            sh.text(x + 0.05, yy - rh + 0.06, item, size=ts)
+            for i, ln in enumerate(lines):
+                sh.text(x + c0 + 0.05, yy - rh + 0.06 - i * pitch(ts), ln, size=ts)
+            sh.text(x + c0 + c1 + 0.05, yy - rh + 0.06, cite, size=ts)
+            yy -= hh
+            sh.line(x, yy, x + w, yy, lw=0.4)
+        for cx in (x, x + c0, x + c0 + c1, x + w):
+            sh.line(cx, y, cx, yy, lw=0.6)
+        fits("W3 table", sh.para(x, yy - 0.02, w, rv["table_footnote"], size=8.5), r1_y)
+
+    panels["W3"] = panel_w3
+    for k in order:
+        panels[k]()
 
     # ---- row 2: not included / who approves / waiting on / photos --------
-    ws2 = [avail * f for f in ((0.19, 0.25, 0.33) if codes else (0.17, 0.335, 0.275))]
+    if rv.get("show_priority"):
+        fr2 = ROW2_FRACS_PRIORITY                   # Rev C: narrower photos column, 4 asks
+    else:
+        fr2 = (0.19, 0.25, 0.33) if codes else (0.17, 0.335, 0.275)
+    ws2 = [avail * f for f in fr2]
     ws2.append(avail + 2 * GAP - sum(ws2) - 3 * GAP + GAP)   # photos column
     xs2 = [x0]
     for wv in ws2[:-1]:
@@ -300,7 +350,8 @@ def build(p1: dict, p2: dict, rev: str = "B") -> Sheet:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", default="B", help="A (internal, frozen) or B (principal); default B")
+    ap.add_argument("--rev", default="C", choices=["A", "B", "C"],
+                    help="A (internal, frozen), B (principal, frozen) or C (principal, current); default C")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase1/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")

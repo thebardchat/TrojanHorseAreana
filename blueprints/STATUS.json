@@ -2,24 +2,25 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-03T20:49:11-05:00",
+  "updated_at": "2026-10-03T21:57:14-05:00",
   "health": "YELLOW",
   "active_phase": "P1",
-  "phase1_percent": 30,
+  "phase1_percent": 32,
   "phase2_percent": 2,
   "current_ticket": "P1-T-010",
   "current_ticket_title": "Bundle prep (blocked: P1-T-005..008 need room measurements)",
   "sheets_done": [
     "P1-G-001 Rev A (internal)",
-    "P1-G-001 Rev B (principal)"
+    "P1-G-001 Rev B (principal)",
+    "P1-G-001 Rev C (principal)"
   ],
   "sheets_in_progress": [],
   "last_commit": "2823340",
   "branch": "grok/keystone",
   "open_decisions": 17,
   "blocked_on": "Room measurements and photos from Shane",
-  "what_changed": "P1-G-001 Rev B approved by Shane as-is for the principal (D-023). D-022 logged OPEN: possible split into Phase 1A (wall pads) and 1B (plumbing + restrooms).",
-  "what_to_verify": "Whether wall pads alone count as maintenance (ask district facilities) - feeds D-022.",
+  "what_changed": "Shane: no running water to the area, all fixtures out, cause unknown. W2 now 'Restore water / plumbing repair'; priority W2>W3>W1 (D-024). P1-G-001 Rev C adds this + plumber-visit ask. Rough aerial roof estimate ~55x47 ft logged (LOW, not drawn).",
+  "what_to_verify": "Rev C wording: W2 no-water status + Why, PRIORITY 1/2/3 labels (W1 'can run in parallel'), ask #4 plumber visit. Rev B unchanged.",
   "next_action": "Waiting on room measurements + photos for P1-T-005..008 (P1-A-101, A-102, A-201, P-001); then P1-T-010 bundle + PR. Approval path needs district confirmation.",
-  "question_for_shane": "Can you tape-measure the wrestling room and walk-through room and snap photos this week? (Rev B asks the school for permission to do this.)"
+  "question_for_shane": "Can you tape-measure the wrestling room and snap photos of its interior and the support wing (showers, toilets, office, storage, hallway)? The aerial estimate can't be drawn."
 }
