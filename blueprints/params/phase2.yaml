@@ -589,9 +589,14 @@ sheets:
         source: "Shane 2026-10-04 6:45 AM CT (Rev B approved with changes: badge 11 ft dia, wordmark to match, nothing overflows; Champion Walk 28 x 30 ft + brick tiers; underside crimson + gold trim); frozen 7:24 AM CT when Rev D was ordered"
       D:
         file: P2-A-201_RevD
-        frozen: false
+        frozen: true
         inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_d.yaml"
-        source: "Shane 2026-10-04 7:24 AM CT (portal must not exceed 50 ft, arena roof 42; lower the arch crown 40 -> ~34 ft, springline proportional, ASSUMED; 11 ft badge + wordmark inside 50 ft, D-050)"
+        source: "Shane 2026-10-04 7:24 AM CT (portal must not exceed 50 ft, arena roof 42; lower the arch crown 40 -> ~34 ft, springline proportional, ASSUMED; 11 ft badge + wordmark inside 50 ft, D-050); frozen 9:47 AM CT when Rev E was ordered"
+      E:
+        file: P2-A-201_RevE
+        frozen: false
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_e.yaml + params/phase2_plan_rev_e.yaml"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-201 Rev E 210 ft width, ST-2 tower 6.67 ft projection); portal / brand as Rev D"
     source: "Shane 2026-10-04 5:27 AM CT"
   P2-A-301:
     title: BUILDING SECTIONS
@@ -605,9 +610,14 @@ sheets:
         source: "Shane 2026-10-04 6:45 AM CT (P2-A-301 Rev A building sections: N-S and E-W through the bowl / event floor and the L2 loop; locked / assumed heights; telescopic lower / fixed upper; 70 in stairs; sight lines TBD); frozen 7:24 AM CT when Rev B was ordered"
       B:
         file: P2-A-301_RevB
-        frozen: false
+        frozen: true
         inputs: "params/phase2_sect.yaml (incl. rev_b) + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
-        source: "Shane 2026-10-04 7:24 AM CT (switchback intermediate landing >= stair width 70 in, IBC 2021 1011.6, D-051; fix detail 4 + per-stair footprint; note the under-tier use, D-049)"
+        source: "Shane 2026-10-04 7:24 AM CT (switchback intermediate landing >= stair width 70 in, IBC 2021 1011.6, D-051; fix detail 4 + per-stair footprint; note the under-tier use, D-049); frozen 9:47 AM CT when Rev C was ordered"
+      C:
+        file: P2-A-301_RevC
+        frozen: false
+        inputs: "params/phase2_sect.yaml (incl. rev_b + rev_c) + params/phase2_elev.yaml + params/phase2_plan_rev_e.yaml"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-301 Rev C east 16 ft clear, 19 in upper risers, 76 in stairs / landings, low-headroom band under the tier front per D-049 / D-060 as drawn on A-101 Rev E; show the exit-path conflict, D-061 OPEN, R-022)"
     source: "Shane 2026-10-04 6:45 AM CT"
   P2-A-302:
     title: SIGHT-LINE STUDY
@@ -616,9 +626,14 @@ sheets:
     revisions:
       A:
         file: P2-A-302_RevA
-        frozen: false
+        frozen: true
         inputs: "params/phase2_sightlines.yaml + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
-        source: "Shane 2026-10-04 7:24 AM CT (sight-line study before more seating detail: standing + seated, both tiers, focal point = near edge of the nearest mat, C-value method; stack fit under the upper-tier front); R-020"
+        source: "Shane 2026-10-04 7:24 AM CT (sight-line study before more seating detail: standing + seated, both tiers, focal point = near edge of the nearest mat, C-value method; stack fit under the upper-tier front); R-020; frozen 9:47 AM CT when Rev B was ordered"
+      B:
+        file: P2-A-302_RevB
+        frozen: false
+        inputs: "params/phase2_sightlines.yaml (incl. rev_b) + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_e.yaml"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-302 Rev B only if the riser / east-clear change alters its 'as drawn' basis. It does: Rev A as drawn = 14 in / 10 ft east; Rev E draws 19 in / 16 ft = Rev A's proposed case)"
     source: "Shane 2026-10-04 7:24 AM CT"
   P2-C-101:
     title: SITE PLAN — CAMPUS DIAGRAM
@@ -627,9 +642,14 @@ sheets:
     revisions:
       A:
         file: P2-C-101_RevA
-        frozen: false
+        frozen: true
         inputs: "params/phase2_site.yaml + params/phase2_plan_rev_d.yaml"
-        source: "Shane 2026-10-04 7:44 AM CT (site plan revision: freestanding portal + 28x30 Champion Walk, south bus drop loop offset E/W, service at north door S1, stair growth; frozen revs stay byte-identical). First site sheet (KEYSTONE prompt §9 C-101, SITE TBD diagram)"
+        source: "Shane 2026-10-04 7:44 AM CT (site plan revision: freestanding portal + 28x30 Champion Walk, south bus drop loop offset E/W, service at north door S1, stair growth; frozen revs stay byte-identical). First site sheet (KEYSTONE prompt §9 C-101, SITE TBD diagram); frozen 9:47 AM CT when Rev B was ordered"
+      B:
+        file: P2-C-101_RevB
+        frozen: false
+        inputs: "params/phase2_site.yaml (incl. rev_b) + params/phase2_plan_rev_e.yaml + params/phase2_program.yaml (rev_g)"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: C-101 Rev B tower size, new outline, D-057 area table, no cap language)"
     source: "Shane 2026-10-04 7:44 AM CT"
 
 sets:

@@ -10,9 +10,13 @@ graphic only (not designed). Sight lines NOT checked (TBD). DXF is in paper inch
 Rev A FROZEN 7:24 AM CT (regenerate with --rev A --out-dir; byte-identical).
 Rev B (Shane 7:24 AM CT): switchback intermediate landing 70 in = stair width (IBC 2021 1011.6, D-051) in detail 4 with the
 per-stair plan footprint; under-tier use (D-049: storage / mech under the low front edge, lockers only at full height) on
-A-A, B-B and detail 3; sight-line pointer to P2-A-302 and egress pointer to D-052 (R-018.9). Rev B data: sect yaml rev_b.
+A-A, B-B and detail 3; sight-line pointer to P2-A-302 and egress pointer to D-052 (R-018.9). Rev B data: sect yaml rev_b. Rev B FROZEN 9:47 AM CT.
+Rev C (Shane 9:47 AM CT): coordinated with P2-A-101/102 Rev E (phase2_plan_rev_e.yaml): 210 ft width / east 16 ft clear,
+19 in upper risers (front row 7.08 ft, D-053), stepped tier soffit (1.5 ft structure ASSUMED) = 6 ft low band under rows
+1-2 per D-049 / D-060 as drawn on A-101 Rev E, 76 in stairs and intermediate landings (D-052, D-051), and the exit-path
+conflict under the low band shown red (D-061 OPEN, research/R-022). Rev C data: sect yaml rev_c (overlays rev_b keys).
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_301.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_301.py [--rev A|B|C] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -32,11 +36,13 @@ L_CUT, L_FILL, L_TAG, L_DAT, L_HID, L_GRD = ("A-SECT-CUTL", "A-SECT-FILL", "A-SE
                                              "A-SECT-GUAR")
 # graphic colours only (materials TBD)
 C = dict(cut="#3C3C3C", room="#F0ECE4", lobby="#F5E7C6", floor="#D9B77E", air="#E8F0F8", lower="#D88A8A",
-         upper="#A7B3C3", loop="#C8693A", struct="#CFCFCF", stair="#BEBEBE", red="#CC0000")
+         upper="#A7B3C3", loop="#C8693A", struct="#CFCFCF", stair="#BEBEBE", red="#CC0000", conf="#F2B8B8",
+         stor="#DCD6CA")
 SLAB = 1.0            # graphic slab / roof / wall thickness (ft) — NOT designed
 
 
-REV = "A"          # set by main(); Rev B branches only (Rev A output stays byte-identical)
+REV = "A"          # set by main(); Rev B / C branches only (Rev A and B output stay byte-identical)
+STR = 1.5          # Rev C: upper-tier deck structure under each tread (ft, ASSUMED; sect yaml rev_c.structure_depth_ft)
 
 
 def load():
@@ -44,6 +50,15 @@ def load():
     ev = yaml.safe_load((BP / "params" / "phase2_elev.yaml").read_text(encoding="utf-8"))
     plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_d.yaml").read_text(encoding="utf-8"))
     sc = yaml.safe_load((BP / "params" / "phase2_sect.yaml").read_text(encoding="utf-8"))
+    if REV == "C":                                     # Rev C: Plan Rev E geometry + rev_c overlays (rev_b keys reused)
+        global STR
+        rc = sc["rev_c"]
+        plan = yaml.safe_load((BP / "params" / rc["plan_file"]).read_text(encoding="utf-8"))
+        ev["arena_volume"]["rect"] = rc["arena_volume_rect"]
+        sc["seating"]["upper"].update(rc["seating_upper"])
+        sc["stair"].update(rc["stair"])
+        sc["rev_b"].update(rc["rev_b_override"])
+        STR = rc["structure_depth_ft"]
     return p2, ev, plan, sc
 
 
@@ -187,7 +202,10 @@ def upper_tier(m, sc, l2, front, back):
         ua, ub = front + sgn * j * d, front + sgn * (j + 1) * d
         z = zf + j * r
         pts += [(ua, z), (ub, z)]
-    pts += [(back, l2), (back, l2 - SLAB), (front, zf - SLAB)]
+    if REV == "C":                                       # stepped soffit, tread - STR (low band = rows with < 7'-6")
+        pts += [(back, l2), (back, l2 - SLAB)] + soffit(sc, l2, front, back)[::-1]
+    else:
+        pts += [(back, l2), (back, l2 - SLAB), (front, zf - SLAB)]
     m.poly(pts, C["upper"], 0.6, L_CUT)
     for j in range(n):
         ua = front + sgn * (j + 0.55) * d
@@ -197,6 +215,26 @@ def upper_tier(m, sc, l2, front, back):
     g = sc["guards"]["tier_front_in"] / 12
     m.line(front, zf, front, zf + g, lw=1.0, layer=L_GRD)
     return zf
+
+
+def soffit(sc, l2, front, back):
+    """Rev C: underside of the stepped upper tier (tread - STR), points from the front to the back."""
+    up = sc["seating"]["upper"]
+    n, d, r = up["rows"], up["row_depth_in"] / 12, up["row_rise_in"] / 12
+    sgn = 1 if back > front else -1
+    zf = l2 - n * r
+    pts = []
+    for j in range(n):
+        pts += [(front + sgn * j * d, zf + j * r - STR), (front + sgn * (j + 1) * d, zf + j * r - STR)]
+    return pts
+
+
+def band_poly(sc, l2, front, back, fill, lw=0.0, m=None):
+    """Rev C: L1 zone under the low band (rows 1-2 = low_band_ft from the tier front), stepped soffit on top."""
+    nb = round(sc["rev_c"]["low_band_ft"] / (sc["seating"]["upper"]["row_depth_in"] / 12))
+    sgn = 1 if back > front else -1
+    pts = [(front, 0)] + soffit(sc, l2, front, back)[:2 * nb] + [(front + sgn * sc["rev_c"]["low_band_ft"], 0)]
+    m.poly(pts, fill, lw, L_CUT if lw else L_FILL)
 
 
 def guard(m, sc, u, z):
@@ -256,8 +294,13 @@ def section_A(ev, plan, sc):
     m.box(av[1], 0, av[3], us, C["air"])
     m.box(lob[1], 0, ob[3], ring - SLAB, C["lobby"])
     zf = l2 - sc["seating"]["upper"]["rows"] * sc["seating"]["upper"]["row_rise_in"] / 12
-    m.poly([(ob[3], 0), (uS[3], 0), (uS[3], zf - SLAB), (uS[1], l2 - SLAB), (ob[3], l2 - SLAB)], C["lobby"])
-    m.poly([(evl["rect"][1], 0), (by1, 0), (by1, l2 - SLAB), (uN[3], l2 - SLAB), (uN[1], zf - SLAB)], C["room"])
+    if REV == "C":
+        m.poly([(ob[3], 0), (uS[3], 0)] + soffit(sc, l2, uS[3], uS[1]) + [(uS[1], l2 - SLAB), (ob[3], l2 - SLAB)], C["lobby"])
+        m.poly([(uN[1], 0), (by1, 0), (by1, l2 - SLAB), (uN[3], l2 - SLAB)] + soffit(sc, l2, uN[1], uN[3])[::-1], C["room"])
+        band_poly(sc, l2, uN[1], uN[3], C["stor"], m=m)
+    else:
+        m.poly([(ob[3], 0), (uS[3], 0), (uS[3], zf - SLAB), (uS[1], l2 - SLAB), (ob[3], l2 - SLAB)], C["lobby"])
+        m.poly([(evl["rect"][1], 0), (by1, 0), (by1, l2 - SLAB), (uN[3], l2 - SLAB), (uN[1], zf - SLAB)], C["room"])
     m.box(lp_o[3], l2, by1, ring - SLAB, C["room"])       # stretch strip (L2), under the ring roof
     # event floor
     m.box(ef[1], -0.6, ef[3], 0, C["floor"], 0.4, L_CUT)
@@ -272,8 +315,9 @@ def section_A(ev, plan, sc):
     upper_tier(m, sc, l2, uN[1], uN[3])
     # walls behind the lower tiers (to the upper-tier soffit)
     zf = l2 - sc["seating"]["upper"]["rows"] * sc["seating"]["upper"]["row_rise_in"] / 12
-    wall(m, lS[1], 0, zf - SLAB, side=-1)
-    wall(m, lN[3], 0, zf - SLAB, side=1)
+    zw = zf - (STR if REV == "C" else SLAB)
+    wall(m, lS[1], 0, zw, side=-1)
+    wall(m, lN[3], 0, zw, side=1)
     # Level 2 slabs: loop S (over the lobby), loop N + stretch
     slab(m, lp_o[1], lp_i[1], l2)
     loop_strip(m, lp_o[1], lp_i[1], l2)
@@ -288,7 +332,11 @@ def section_A(ev, plan, sc):
     wall(m, av[3], ring - SLAB, top, side=1)
     wall(m, by0, 0, ring, side=-1)
     wall(m, by1, 0, ring, side=1)
-    wall(m, evl["rect"][1], 0, zf - SLAB, side=1)
+    if REV == "C":                                      # locker front wall behind the low band (row 3 soffit)
+        z3 = max(z for u, z in soffit(sc, l2, uN[1], uN[3]) if abs(u - evl["rect"][1]) < 1e-6)
+        wall(m, evl["rect"][1], 0, z3, side=1)
+    else:
+        wall(m, evl["rect"][1], 0, zf - SLAB, side=1)
     m.box(by0 - 8, -1.2, by1 + 8, 0, None, 0)
     m.line(by0 - 8, 0, by0, 0, lw=1.2)
     m.line(by1, 0, by1 + 8, 0, lw=1.2)
@@ -311,6 +359,14 @@ def section_A(ev, plan, sc):
     if REV == "A":
         m.text((evl["rect"][1] + by1) / 2, 5.0, "EVENT LOCKER 1", size=4.4, align="center", bold=True)
         m.text((evl["rect"][1] + by1) / 2, 2.6, "(L1, under the tier)", size=3.9, align="center")
+    elif REV == "C":
+        # D-049 / D-060 as drawn on P2-A-101 Rev E: 6 ft low band = under-tier storage; locker 1 behind it
+        m.text((uN[1] + evl["rect"][1]) / 2, 2.4, "STOR.", size=3.3, align="center", bold=True)
+        m.text((evl["rect"][1] + by1) / 2, 5.0, "LKR 1", size=4.0, align="center", bold=True)
+        m.text((evl["rect"][1] + by1) / 2, 2.8, "(D-060 OPEN)", size=3.6, align="center")
+        band_poly(sc, l2, uS[3], uS[1], C["conf"], lw=0.6, m=m)
+        m.text(uS[3] - 7.0, 4.2, "EXIT PATH < 7'-6\"", size=3.9, align="right", bold=True, color=C["red"])
+        m.text(uS[3] - 7.0, 2.2, "D-061 OPEN (R-022)", size=3.7, align="right", color=C["red"])
     else:
         # D-049: storage / mech under the low front edge; lockers only under the flat L2 slab (full headroom, ASSUMED)
         m.dashed(uN[3], 0, uN[3], l2 - SLAB, lw=0.4)
@@ -350,12 +406,20 @@ def section_B(ev, plan, sc):
     m.box(av[0], 0, av[2], us, C["air"])
     m.box(bl[0], 0, ac[2], l2 - SLAB, C["room"])
     m.box(scr[0], l2, scr[2], ring - SLAB, C["room"])
-    m.poly([(e4[0], 0), (e4[2], 0), (e4[2], l2 - SLAB), (uE[2], l2 - SLAB), (uE[0], zf - SLAB)], C["room"])
+    if REV == "C":
+        m.poly([(uE[0], 0), (bx1, 0), (bx1, l2 - SLAB), (uE[2], l2 - SLAB)] + soffit(sc, l2, uE[0], uE[2])[::-1], C["room"])
+        band_poly(sc, l2, uE[0], uE[2], C["stor"], m=m)
+    else:
+        m.poly([(e4[0], 0), (e4[2], 0), (e4[2], l2 - SLAB), (uE[2], l2 - SLAB), (uE[0], zf - SLAB)], C["room"])
     m.box(ef[0], -0.6, ef[2], 0, C["floor"], 0.4, L_CUT)
-    m.text((ef[0] + ef[2]) / 2, 2.2, "EVENT FLOOR (no west tier, Rev D)", size=4.6, align="center", bold=True)
+    m.text((ef[0] + ef[2]) / 2, 2.2, "EVENT FLOOR (no west tier, Rev E)" if REV == "C" else "EVENT FLOOR (no west tier, Rev D)",
+           size=4.6, align="center", bold=True)
     lower_tier(m, sc, lE[0], lE[2])
     upper_tier(m, sc, l2, uE[0], uE[2])
-    wall(m, lE[2], 0, zf - SLAB, side=1)
+    wall(m, lE[2], 0, zf - (STR if REV == "C" else SLAB), side=1)
+    if REV == "C":
+        z3 = max(z for u, z in soffit(sc, l2, uE[0], uE[2]) if abs(u - e4[0]) < 1e-6)
+        wall(m, e4[0], 0, z3, side=-1)
     slab(m, bx0, lp_i[0], l2)
     loop_strip(m, lp_o[0], lp_i[0], l2)
     slab(m, lp_i[2], bx1, l2)
@@ -382,6 +446,10 @@ def section_B(ev, plan, sc):
     m.text(uE[0] - 1.5, 11.8, "FIXED UPPER >", size=4.4, align="right")
     if REV == "A":
         m.text((e4[0] + e4[2]) / 2, 5.0, "EVENT LKR 4", size=4.2, align="center", bold=True)
+    elif REV == "C":
+        m.text((uE[0] + e4[0]) / 2, 2.4, "STOR.", size=3.3, align="center", bold=True)
+        m.text((e4[0] + e4[2]) / 2, 5.0, "LKR 4", size=3.8, align="center", bold=True)
+        m.text((e4[0] + e4[2]) / 2, 2.8, "(D-060)", size=3.4, align="center")
     else:
         m.dashed(uE[2], 0, uE[2], l2 - SLAB, lw=0.4)
         m.text((uE[0] + uE[2]) / 2, 5.0, "STOR. /", size=3.8, align="center", bold=True)
@@ -460,7 +528,7 @@ def bowl_detail_annot(sh, P, ev, plan, sc):
     # upper tier
     T(197, 25.5, "FIXED UPPER TIER (ASSUMED rake)", 5.2, bold=True)
     T(197, 24.1, f"{up['rows']} rows × {up['row_depth_in']}\" = {up['band_ft']}' band (plan)", 4.8)
-    T(197, 22.7, f"{up['row_rise_in']}\"/row = 2 aisle risers × {up['aisle_riser_in']}\", {up['aisle_tread_in']}\" treads", 4.8)
+    T(197, 22.7, f"{up['row_rise_in']}\"/row = {up['aisle_risers_per_row']} aisle risers × {up['aisle_riser_in']}\", {up['aisle_tread_in']}\" treads", 4.8)
     T(197, 21.3, "(IBC 1030.14.2: 4–8\" risers, ≥ 11\" treads)", 4.8)
     T(197, 19.9, f"steps DOWN from the loop; front row {zf:.2f}'", 4.8)
     leader(212.0, 19.5, uN[1] + 5, zf + 2.6)
@@ -479,6 +547,19 @@ def bowl_detail_annot(sh, P, ev, plan, sc):
         # sight lines
         T(197, 32.4, "SIGHT LINES: NOT CHECKED — TBD", 5.2, bold=True, color=C["red"])
         T(197, 31.0, "(C-value, eye height, focal point not set)", 4.6, color=C["red"])
+    elif REV == "C":
+        cl = sc["rev_c"]["clear_under_rows_ft"]
+        T(uN[3] + 0.6, 12.6, f"LOW BAND {sc['rev_c']['low_band_ft']:g}' (rows 1–2):", 4.3, bold=True, color=C["red"])
+        T(uN[3] + 0.6, 11.5, f"clear {cl[0]:.1f}' / {cl[1]:.1f}' < 7'-6\"", 4.1, color=C["red"])
+        T(uN[3] + 0.6, 10.4, "(1003.2): storage only (D-049)", 4.1, color=C["red"])
+        T(uN[3] + 0.6, 9.3, f"rows 3–5 ≥ {cl[2]:.2f}'", 4.1, color=C["red"])
+        T(uN[1] + 0.4, -2.3, "STOR. 6'", 4.0, bold=True)
+        T(uN[1] + 6.6, 1.6, "EVENT LOCKER 1 (D-060 OPEN)", 4.2, bold=True)
+        T(uN[1] + 6.6, 0.5, f"from y {uN[1] + sc['rev_c']['low_band_ft']:g}, as drawn on A-101 Rev E", 3.8)
+        T(197, 32.4, "SIGHT LINES: P2-A-302 Rev B — 19\"/row as drawn", 5.2, bold=True)
+        T(197, 31.0, "seated C min 149 mm N/S, 101 mm E (≥ 90 target)", 4.6)
+        T(uN[1] + 6.6, 6.6, "EXIT (N) x 123.85–131.85 runs", 4.1, bold=True, color=C["red"])
+        T(uN[1] + 6.6, 5.5, "under the band: D-061 OPEN (R-022)", 4.1, color=C["red"])
     else:
         T(uN[1] + 1.9, 6.0, "UNDER-TIER (D-049): STORAGE / MECH", 4.4, bold=True, color=C["red"])
         T(uN[1] + 1.9, 4.8, f"front {zf:.2f}' less structure; exits under it", 4.2, color=C["red"])
@@ -581,6 +662,10 @@ def key_plan(sh, x0, y0, plan, sc):
     for b in plan["tiers"]["upper"]["bands"]:
         r_ = b["rect"]
         sh.poly([P(r_[0], r_[1]), P(r_[2], r_[1]), P(r_[2], r_[3]), P(r_[0], r_[3])], fill=C["upper"], layer=L_FILL, lw=0)
+    if REV == "C":                                      # exit paths under the low band (D-061 OPEN, R-022)
+        for cf in sc["rev_c"]["conflicts"]:
+            r_ = cf["rect"]
+            sh.poly([P(r_[0], r_[1]), P(r_[2], r_[1]), P(r_[2], r_[3]), P(r_[0], r_[3])], fill=C["red"], layer=L_FILL, lw=0)
     ca, cb = sc["cuts"]["A"]["plane"]["at"], sc["cuts"]["B"]["plane"]["at"]
     a, b = P(ca, by0 - 14), P(ca, by1 + 14)
     sh.dashed(a[0], a[1], b[0], b[1], layer=L_CUT, lw=0.7, dash=0.08, gap=0.04)
@@ -650,6 +735,36 @@ def notes_b():
     return n1, n2
 
 
+def notes_c():
+    """Rev C notes (P2-A-101/102 Rev E basis)."""
+    n1 = [
+        ("HEIGHTS USED (ft above L1 FF 0'-0\")", None),
+        ("L2 FF 15' and ring roof 30' — ASSUMED (R-015). Arena structure underside 36', roof 42' — ASSUMED; ≥ 25' clear CITED (R-019).", "•"),
+        ("Slabs, walls, roof graphic only. Upper-tier deck structure 1.5' under each tread — ASSUMED (sets the low band).", "•"),
+        ("SEATING (P2-A-101 Rev E)", None),
+        ("Lower: telescopic, 6 rows × 24\", 11⅝\" rise (Hussey MAXAM option, CITED; choice ASSUMED); east front 16' from the nearest mat (D-053); building 210' wide.", "•"),
+        ("Upper: fixed, 15' band, 5 rows × 36\", 19\"/row (D-053 DECIDED) = 3 aisle risers × 6.33\", 12\" treads (1030.14.2); steps DOWN from the loop (D-049) to a 7.08' front row.", "•"),
+        ("UNDER THE UPPER TIER (D-049; D-060 OPEN, drawn as on A-101 Rev E): stepped soffit gives 5.6' / 7.2' clear under rows 1–2 = 6' LOW BAND < 7'-6\" (1003.2): under-tier storage / stack only. Rows 3–5: 8.75'–11.9'. Event lockers start behind the band (2,723 SF vs 3,600).", "•"),
+        ("SIGHT LINES: P2-A-302 Rev B (as drawn): seated C min 149 mm N/S, 101 mm E; standing 127 / 72 mm.", "•"),
+        ("EXIT-PATH CONFLICT — D-061 OPEN (R-022)", None),
+        ("Paths under the low band have < 7'-6\": Exit N 8', Exit E 8', SE concourse 38' (23' S + 15' E), lobby / portal / athlete-route edge 71' (x 56–127). Red on A-A and the key plan. NOT redesigned.", "•"),
+    ]
+    n2 = [
+        ("D-061 OPTIONS (R-022)", None),
+        ("A — omit upper rows 1–2 over the paths: −125 seats (8 + 8 + 38 + 71); upper 1,155 → 1,030 = 70 short of 1,100. Rail off the non-path strips instead: −56 (N 8, E 8, portal 12, athlete route 28) → 1,099, 1 short.", "•"),
+        ("B — raise L2 / loop / upper tier to 17'-9\" with 21\" risers (front row 9.0', ≥ 7'-6\" clear): 0 seats lost; lockers back to 3,600 SF; stairs 31 R, +34.8 SF each per level (≈ +279 SF); ring roof 32.75'; C unchanged.", "•"),
+        ("GUARDS", None),
+        ("Loop open edges G-W (x = 56) and G-S (y = 34): 42\" (IBC 2021 1015.2 / 1015.3). Upper-tier front fascia ≥ 26\" (1030.17.3), 36\" at aisle feet (1030.17.4).", "•"),
+        ("STAIRS (ST-1..ST-4)", None),
+        ("76\" clear (D-052 DECIDED). 26 R @ 6.92\", 2 flights of 13, 11\" treads (1011.5.2); 76\" intermediate landing = width (1011.6, D-051); 48\" floor landings. Per stair 12.67' × 21.33' = 270.2 SF per level, as drawn on A-101/102 Rev E.", "•"),
+        ("ROOF HEIGHT (1030.6.2.2, if smoke-protected)", None),
+        ("Roof ≥ 15' above the highest aisle (loop 15') → ≥ 30'; 36' drawn.", "•"),
+        ("CUTS", None),
+        ("A-A: x = 100, looking west. B-B: y = 150, looking north. Geometry from P2-A-101/102 Rev E. Colors graphic only; 'A' = ASSUMED.", "•"),
+    ]
+    return n1, n2
+
+
 def notes(sh, x, y_top, width, items, floor, size=6.6):
     y = y_top
     for s_, b in items:
@@ -667,12 +782,14 @@ def legend(sh, x, y):
     items = [("cut", "CUT: slab / wall / roof (graphic)"), ("air", "ARENA VOLUME"), ("floor", "EVENT FLOOR"),
              ("lower", "TELESCOPIC LOWER TIER"), ("upper", "FIXED UPPER TIER"), ("loop", "LOOP (L2)"),
              ("lobby", "LOBBY"), ("room", "ROOMS / SUPPORT"), ("struct", "LONG-SPAN STRUCTURE ZONE")]
+    if REV == "C":
+        items = items + [("conf", "EXIT PATH < 7'-6\" (D-061)")]
     for i, (k, lab) in enumerate(items):
         cx = x + (i % 3) * 2.15
         cy = y - (i // 3) * 0.17
         sh.poly([(cx, cy), (cx + 0.22, cy), (cx + 0.22, cy + 0.11), (cx, cy + 0.11)], fill=C[k], layer=L_FILL, lw=0.3)
         sh.text(cx + 0.28, cy + 0.015, lab, size=5.0)
-    return y - 3 * 0.17
+    return y - ((len(items) + 2) // 3) * 0.17
 
 
 def build(p2, ev, plan, sc):
@@ -699,7 +816,7 @@ def build(p2, ev, plan, sc):
     title(sh, xA + 0.2, yA - 0.36, "1", sc["cuts"]["A"]["name"] + " — looking west", "1/32\" = 1'-0\"  ·  x = 100 (see key plan)", 4.6)
     # ---- 2: Section B-B
     mB, LB = section_B(ev, plan, sc)
-    xB, yB = 9.80, 8.30
+    xB, yB = (9.60, 8.30) if REV == "C" else (9.80, 8.30)
     PB = render(sh, mB, xB, yB, s32, (-4, -5, LB + 4, top + 2.5))
     datums(sh, PB, ev, xB - 0.04, size=4.4, u_line=-4, short=True)
     title(sh, xB + 0.2, yB - 0.36, "2", sc["cuts"]["B"]["name"] + " — looking north", "1/32\" = 1'-0\"  ·  y = 150 (see key plan)", 4.4)
@@ -718,16 +835,22 @@ def build(p2, ev, plan, sc):
         raise SystemExit(f"LAYOUT OVERFLOW: bowl detail top/right {a_:.2f}, {b_:.2f}")
     title(sh, xD, yD - 0.55, "3", "NORTH BOWL EDGE (ENLARGED PART OF A-A)", "3/32\" = 1'-0\"  ·  y 196–252 at x = 100", 4.9)
     # ---- 4: typical stair
-    xs, ys = (7.40, 5.25) if REV == "A" else (7.20, 5.25)
+    xs, ys = (7.40, 5.25) if REV == "A" else ((7.17, 5.25) if REV == "C" else (7.20, 5.25))
     right_s = stair_detail(sh, xs, ys, sc, ev)
-    if right_s > 9.95:
+    if right_s > (10.0 if REV == "C" else 9.95):
         raise SystemExit(f"LAYOUT OVERFLOW: stair detail right {right_s:.2f}")
     if REV == "A":
         title(sh, xs - 0.1, ys - 0.33, "4", "TYPICAL EXIT STAIR — 70\" CLEAR", "1/8\" = 1'-0\"  ·  D-038 CLOSED", 2.3)
     else:
         if xs - 0.25 < a_ + 0.02:
             raise SystemExit(f"LAYOUT OVERFLOW: stair detail left {xs - 0.25:.2f} vs bowl detail right {a_:.2f}")
-        title(sh, xs - 0.1, ys - 0.33, "4", "TYPICAL EXIT STAIR — 70\" CLEAR", "1/8\" = 1'-0\" · 70\" mid landing (D-051) · 11.67' × 20.83' plan", 2.6)
+        if REV == "C":
+            rb = sc["rev_b"]
+            title(sh, xs - 0.1, ys - 0.33, "4", f"TYPICAL EXIT STAIR — {sc['stair']['clear_width_in']}\" CLEAR",
+                  f"1/8\" = 1'-0\" · {rb['intermediate_landing_in']}\" mid landing (D-051/052) · "
+                  f"{rb['plan_width_in'] / 12:.2f}' × {rb['plan_length_in'] / 12:.2f}' plan", 2.7)
+        else:
+            title(sh, xs - 0.1, ys - 0.33, "4", "TYPICAL EXIT STAIR — 70\" CLEAR", "1/8\" = 1'-0\" · 70\" mid landing (D-051) · 11.67' × 20.83' plan", 2.6)
     # ---- 5: key plan
     xk, yk = 7.75, 2.55
     tr = key_plan(sh, xk, yk, plan, sc)
@@ -738,7 +861,7 @@ def build(p2, ev, plan, sc):
     xn = 10.15
     y = legend(sh, xn, 7.30)
     y -= 0.08
-    n1, n2 = (NOTES1, NOTES2) if REV == "A" else notes_b()
+    n1, n2 = (NOTES1, NOTES2) if REV == "A" else (notes_c() if REV == "C" else notes_b())
     yb1 = notes(sh, xn, y, 3.05, n1, body_bottom + 0.06)
     yb2 = notes(sh, xn + 3.2, y, 3.0, n2, body_bottom + 0.06)
     print(f"notes bottoms {yb1:.2f} / {yb2:.2f}; body_bottom {body_bottom:.2f}")
@@ -747,7 +870,7 @@ def build(p2, ev, plan, sc):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B"], default="B")
+    ap.add_argument("--rev", choices=["A", "B", "C"], default="C")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")

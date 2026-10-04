@@ -9,12 +9,14 @@ Rev C: 11 ft badge, portal raised to 56 ft (ASSUMED), Champion Walk 28 x 30 ft +
 Rev D: portal capped at 50 ft (D-050): arch crown 34 ft, springline 22.1 ft (26 x 34/40, ASSUMED), semi-elliptical arch
 (rise 11.9 ft); 11 ft badge 34.4-45.4 ft; wordmark baseline 46.1 ft, caps top 48.35 ft, under the 48.8-50 ft cornice.
 Inputs phase2_elev.yaml + phase2_elev_rev_d.yaml (overlay).
+Rev E: coordinated with P2-A-101/102 Rev E: 210 ft width, arena volume flush with the new east wall, NE stair tower
+21.33 x 6.67 ft, doors from Rev E (phase2_elev_rev_e.yaml `plan_file`). Portal / brand unchanged from Rev D.
 
 South elevation (primary, 1/16 in = 1 ft) with the south portal; north, east and west (1/32 in = 1 ft).
 Heights and finishes: params/phase2_elev.yaml. Building outline, arena volume and doors: params/phase2_plan_rev_d.yaml
 (P2-A-101/102 Rev D, frozen in Phase 2 Schematic Set Rev A). DXF is in paper inches; fills are solid HATCH entities.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C|D] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C|D|E] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -40,8 +42,12 @@ def load(rev="A"):
     ev = yaml.safe_load((BP / "params" / "phase2_elev.yaml").read_text(encoding="utf-8"))
     plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_d.yaml").read_text(encoding="utf-8"))
     evb = None
-    if rev in ("B", "C", "D"):
+    if rev in ("B", "C", "D", "E"):
         evb = yaml.safe_load((BP / "params" / f"phase2_elev_rev_{rev.lower()}.yaml").read_text(encoding="utf-8"))
+        if evb.get("plan_file"):                   # Rev E: P2-A-101/102 Rev E geometry (210 ft, 6.67 ft NE tower)
+            plan = yaml.safe_load((BP / "params" / evb["plan_file"]).read_text(encoding="utf-8"))
+        if evb.get("arena_volume_override"):
+            ev["arena_volume"]["rect"] = evb["arena_volume_override"]["rect"]
         po = evb.get("portal_override")
         if po:                                     # Rev C: taller portal / attic; Rev D: lower arch, 50 ft cap (ASSUMED)
             for k, v in po.items():
@@ -330,7 +336,7 @@ def key_plan(sh, ev, evb, plan):
     for u in (bx0, bx1):
         a, b = P(u, 0), P(u, -2.4); sh.line(a[0], a[1], b[0], b[1], layer=L_OUT, lw=1.2)
     x_, y_ = P(bx0 + 3, -1.4)
-    sh.text(x_, y_, "BUILDING — SOUTH WALL (P2-A-101 Rev D)", size=4.4, layer=L_TAG)
+    sh.text(x_, y_, evb.get("text_rev_e", {}).get("key_wall", "BUILDING — SOUTH WALL (P2-A-101 Rev D)"), size=4.4, layer=L_TAG)
     x_, y_ = P(cx, -1.4)
     sh.text(x_, y_, "E1", size=4.6, bold=True, align="center", layer=L_TAG)
     # freestanding portal: two piers + arch over (dashed)
@@ -364,7 +370,7 @@ def key_plan(sh, ev, evb, plan):
         sh.text(x_, y_, cw["bus_label"], size=4.5, align="right", layer=L_TAG)
     ty = kp.get("title_y", 9.60)
     sh.text(0.62, ty, kp["title"], size=5.4, bold=True, layer=L_TAG)
-    sh.text(0.62, ty - 0.115, "north up · site plan on the next A-101 revision", size=4.5, layer=L_TAG)
+    sh.text(0.62, ty - 0.115, evb.get("text_rev_e", {}).get("key_sub", "north up · site plan on the next A-101 revision"), size=4.5, layer=L_TAG)
     if 0.62 + text_width_in(kp["title"], 5.4, True) > P(cx - ow / 2, 0)[0] - 0.05:
         raise SystemExit("LAYOUT OVERFLOW: key plan title runs into the portal piers")
 
@@ -490,7 +496,8 @@ def build(p2, ev, plan, evb=None):
     elN = Elev(sh, xN, yN, s32)
     draw_face(sh, elN, F["N"], ev, fin)
     datums(sh, elN, ev, F["N"]["length"], side="left", size=4.6, which=("ring_roof", "arena_roof_top", "l2_ff"), short=True)
-    elN.text(0 + 9.5, 31.6, "NE STAIR TOWER (+5')", size=4.4, align="center", layer=L_TAG)
+    te = (evb or {}).get("text_rev_e", {})
+    elN.text(0 + te.get("tower_u", 9.5), 31.6, te.get("tower_label", "NE STAIR TOWER (+5')"), size=4.4, align="center", layer=L_TAG)
     x_, y_ = elN.P(0, -8.5)
     sh.text(x_, y_, "NORTH ELEVATION — 1/32\" = 1'-0\"  (E ← → W)", size=7.2, bold=True, layer=L_TAG)
 
@@ -538,7 +545,8 @@ def build(p2, ev, plan, evb=None):
               f"Ø {evb['mark']['diameter']:g}' ASSUMED, replaces the keystone; wordmark + side panel ASSUMED sizes. No school logo. "
               "Trademark search before signage / apparel: OPEN (D-042)." if evb else
               "BRAND: placeholders only — no school logo (Phase 2 is Shane's build, D-028). HGHS badge? OPEN (D-040)."),
-             "DOORS: symbols (6' x 8' ASSUMED) from P2-A-101 Rev D; X# EXIT ONLY (D-033); S1 size TBD (D-034).",
+             ((evb or {}).get("text_rev_e", {}).get("doors_note") or
+              "DOORS: symbols (6' x 8' ASSUMED) from P2-A-101 Rev D; X# EXIT ONLY (D-033); S1 size TBD (D-034)."),
              "NOT SHOWN: ETFE roof / solar (aspirations), rooftop units, grading, lighting."]
     no = evb.get("notes_override") if evb else None
     if no:
@@ -557,7 +565,7 @@ def build(p2, ev, plan, evb=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B", "C", "D"], default="D")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E"], default="E")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")

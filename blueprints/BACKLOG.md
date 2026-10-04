@@ -80,3 +80,4 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - 2026-10-04 9:10 AM CT: **D-058** (no GO waits). Errata saved. **C-1..C-4 DONE** in P2-A-101 / A-102 Rev E + P2-G-003 Rev G (in review). Follow-ups: **P2-A-201 Rev E** (210 ft width, 6.67 ft NE tower), **P2-A-301 Rev C** (east 16 ft, 19 in risers, 76 in stairs), **P2-C-101 Rev B** (tower 21.33 x 6.67 ft; Rev A understated it by ≈ 36 SF), D-060 (under-tier reading). Next: C-5..C-12 in order.
 - 2026-10-04 9:35 AM CT: **D-059** ARENA backup live (shanebrain:/tank); bullfrog retired.
 
+- 2026-10-04 9:47 AM CT: set coordinated with Plan Rev E. **P2-A-201 Rev E, P2-A-301 Rev C, P2-A-302 Rev B, P2-C-101 Rev B DONE** (in review). **R-022 + D-061 OPEN** (exit paths under the low band). Next once D-061 is decided: P2-A-101/102 Rev F (+ A-201 / A-301 if Option B raises L2).

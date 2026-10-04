@@ -165,3 +165,9 @@ Source for D-001…D-012: KEYSTONE_ARCHITECT_PROMPT.md v1.1 Section 5. D-013…D
 |---|---|---|---|
 | D-059 | How is the ARENA master folder backed up? | DECIDED | **DECIDED 2026-10-04 — "Shane, Grok chat" (9:35 AM CT): ARENA backup is LIVE.** `C:\Users\Hubby\Desktop\ARENA` → `shanebrain:/tank/backups/ARENA` nightly at 11:00 PM CT (pulsar Task Scheduler, scp; test run Last Result 0) + ZFS snapshot 11:30 PM CT, 30-day retention. First snapshot `tank/backups@first` verified by Shane. Clears the 8:45 AM CT "no backup found" flag (ASSETS). **bullfrog is RETIRED; tank now lives on the shanebrain Pi.** KEYSTONE did not set up or test the job (Shane's report). |
 
+
+## Logged 2026-10-04 9:47 AM CT
+
+| ID | Question | Status | Notes / feeds |
+|---|---|---|---|
+| D-061 | Exit paths under the upper tier's 6 ft low band (clear 5.6' / 7.2' < 7'-6", IBC 2021 1003.2): Option A (omit rows 1-2 over the paths) or Option B (raise L2 / upper tier)? | OPEN | Opened by KEYSTONE 2026-10-04 (Shane 9:47 AM CT: do not redesign silently; two options with numbers). Paths under rows 1-2 on P2-A-101 Rev E: Exit N 8 ft, Exit E 8 ft, SE concourse 38 ft (23 S + 15 E), lobby / portal / athlete-route edge 71 ft (x 56-127) = 125 ft. **A:** omit rows 1-2 over them = −125 upper seats (1,155 → 1,030, 70 short of 1,100); A-min with rails on the non-path strips = −56 (Exit N 8, Exit E 8, portal 12, athlete route 28) → 1,099 (1 short). **B:** L2 FF 15'-0" → 17'-9" with 21 in upper risers (front row 9.0', 7'-6" clear): 0 seats lost, lockers back to 3,600 SF (D-060 moot), stairs 31 risers +34.8 SF each per level (≈ +279 SF, +0.13 SF/seat), ring roof 32.75', sight lines unchanged (C min 149 / 101 seated). Shown red on P2-A-301 Rev C; details research/R-022. Feeds P2-A-101/102/201/301 next revisions. |

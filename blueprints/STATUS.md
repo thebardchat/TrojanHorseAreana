@@ -1,6 +1,6 @@
-# KEYSTONE — 2026-10-04 9:45 AM CT
-HEALTH: YELLOW · P1 50% · P2 60% · Ticket C-1..C-4
-WHAT CHANGED: D-058: no GO waits; errata E-1..E-11 saved (new file). A-101/102 Rev E + G-003 Rev G: 210 x 252 + 21.33 x 6.67 tower; drawn L1 53,062 / L2 28,914 / GSF 81,976 (+1,559 / +551 / +2,110 vs Rev D). D-059: ARENA backup live (shanebrain:/tank); bullfrog retired.
-WHAT TO VERIFY: ASSUMED: ARENA naming <sheet>_Rev<X>.pdf (confirm). ST-2 tower must project 6.67 ft (not 5). D-049 low band (rows 1-2) cuts event lockers by 877 SF; exits N / E + lobby edge pass under it. S&C 5,159 vs 5,224.
-NEXT ACTION: Standard next step (D-058): C-5..C-12 in order, then P2-A-201 Rev E (210 ft width, tower), P2-A-301 Rev C (east 16 ft, 19 in risers, 76 in stairs), P2-C-101 Rev B.
-QUESTION FOR SHANE: D-060: lockers under the upper tier only where clear height is >= 7'-6" (rows 3-5, as drawn on Rev E), or only behind the tier back line? And OK to name new ARENA files <sheet>_Rev<X>.pdf?
+# KEYSTONE — 2026-10-04 10:00 AM CT
+HEALTH: YELLOW · P1 50% · P2 65% · Ticket SET-E
+WHAT CHANGED: A-201 Rev E (210 ft, 6.67 ft NE tower), A-301 Rev C (19 in risers, 76 in stairs, 6 ft low band, exit conflict red), A-302 Rev B (re-cased: as drawn = 19 in / 16 ft), C-101 Rev B (D-057 table, no cap). R-022 + D-061 OPEN. Sizes unchanged.
+WHAT TO VERIFY: ASSUMED: ARENA naming <sheet>_Rev<X>.pdf; 1.5 ft tier structure (sets the 5.6' / 7.2' low band). Exit N, Exit E, SE concourse, lobby / portal / athlete-route edge run under it (125 ft). C-101 Rev A had the tower at 5 ft (now 6.67).
+NEXT ACTION: Standard next step (D-058): C-5..C-12 in order; after D-061 is decided, P2-A-101/102 Rev F (+ A-201 / A-301 if Option B raises L2).
+QUESTION FOR SHANE: D-061: exits under the low band. A = omit upper rows 1-2 over them (-125 seats, or -56 with rails = 1 short of 1,100), or B = raise L2 to 17'-9" with 21 in risers (0 seats, about +279 SF stairs, ring roof 32.75')?

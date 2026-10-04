@@ -477,3 +477,11 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - **D-059 DECIDED (Shane 9:35 AM CT):** ARENA backup live (nightly scp to shanebrain:/tank/backups/ARENA + ZFS snapshots, 30 days); no-backup flag cleared; bullfrog retired (no references found anywhere).
 - Frozen revs unchanged (see report); Rev D / F generators untouched.
 
+
+## 2026-10-04 ~10:00 AM CT · Set coordinated with Plan Rev E · R-022 · D-061 open
+- **P2-A-201 Rev E** (`p2_a_201.py --rev E`, default; new overlay `params/phase2_elev_rev_e.yaml` with `plan_file` = Plan Rev E): building 210 ft wide, arena volume flush with the new east wall ([49,34,210,246]), NE stair tower +6.67 ft, doors from A-101 Rev E, heights note with 19 in risers / D-061. Portal + brand as Rev D. Rev D FROZEN.
+- **P2-A-301 Rev C** (`p2_a_301.py --rev C`, default; `phase2_sect.yaml` `rev_c`): Plan Rev E cuts, 19 in upper risers (3 × 6.33 in aisle risers, 12 in treads), stepped tier soffit (1.5 ft structure ASSUMED) → 6 ft low band (5.6' / 7.2' clear) as storage per D-049, lockers behind it (D-060 OPEN, as drawn on A-101 Rev E), 76 in stair + 76 in mid landing (12.67' × 21.33'), exit-path conflict red on A-A + key plan (D-061). Rev B FROZEN.
+- **P2-A-302 Rev B** (`p2_a_302.py --rev B`, default; `phase2_sightlines.yaml` `rev_b`): the 'as drawn' basis changed (Rev A as drawn 14 in / east 10 ft; Rev E draws 19 in / 16 ft = Rev A proposed). Re-cased: AS DRAWN (Rev E) vs REV D BASIS (superseded); C-values unchanged (seated min 149 N/S, 101 E). Closed recessed stack does not fit at the 7.08' front. Rev A FROZEN.
+- **P2-C-101 Rev B** (`p2_c_101.py --rev B`, default; `phase2_site.yaml` `rev_b`): outline 210 × 252 + NE tower 21.33 × 6.67 (Rev A understated it at 5 ft, −35.6 SF), stairs and doors from Plan Rev E, Rev D outline dashed; the cap table is replaced by the D-057 table (L1 53,062.2 / L2 28,914.2 / TOTAL 81,976.4; +1,559.2 / +551.2 / +2,110.4 vs Rev D; program G-003 G 54,240.9 / 28,012.1 / 82,253.0). No cap / margin language. Rev A FROZEN.
+- **R-022** (new): exit paths under the low band. Option A cuts rows 1-2 (−125 seats, or −56 with rails); Option B raises L2 to 17'-9" with 21 in risers (0 seats, +279 SF stairs, ring roof 32.75'). **D-061 OPEN** (open count 18 → 19).
+- Sizes unchanged from Plan Rev E (drawn 53,062.2 / 28,914.2 / 81,976.4).

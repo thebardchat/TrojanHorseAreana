@@ -91,3 +91,24 @@ footprint_check:
   program_basis_f_76_sf: 53076.9
   basis: "drawn basis: 51,503 + 6 x 252 = 53,015; + NE tower widening (21.333 - 19) x 5 = 11.67 (76 in) -> 53,026.7 L1 footprint (all 4 stairs outward instead: 53,275.1). Program-basis estimate (P2-G-003 Rev F method): 52,738.4 -> 53,076.9 with four 76 in stairs + 1,512 = 54,588.9. L2 / TOTAL GSF and the line-by-line gap: R-021"
   source: "P2-A-101 Rev D (frozen); P2-G-003 Rev F; D-031 (cap); D-051; D-052; D-053; KEYSTONE arithmetic 2026-10-04 7:44 AM CT; D-056 (cap retired); R-021"
+
+# Rev B (Shane 2026-10-04 9:47 AM CT): coordinated with P2-A-101/102 Rev E. Rev A frozen (byte-identical; it still reads the keys above).
+rev_b:
+  revision: B
+  plan_file: phase2_plan_rev_e.yaml
+  building:
+    rect: [0, 0, 210, 252]
+    tower: [188.667, 252, 210, 258.667]
+    prior_rect: [0, 0, 204, 252]
+    prior_tower: [185, 252, 204, 257]
+    basis: "outline = P2-A-101 Rev E as drawn: 210 x 252 ft (east seats 16 ft from the mats, D-053) + NE stair tower 21.33 x 6.67 ft (76 in ST-2 north of the loop's north leg, D-052 / D-051). Rev A showed the tower 5 ft deep (understated by 1.67 ft = 35.6 SF). Dashed: superseded Rev D outline 204 x 252 + 19 x 5 tower"
+    source: "phase2_plan_rev_e.yaml building + projection; phase2_plan_rev_d.yaml (prior outline)"
+  stairs_doors: "stairs (ST-1..ST-4, 12.67 x 21.33 ft) and perimeter doors read straight from phase2_plan_rev_e.yaml vertical.stairs / level_1.doors (no shift arithmetic)"
+  stairs_doors_source: "phase2_plan_rev_e.yaml"
+  area_table:
+    rev_d_drawn: {L1: 51503, L2: 28363, G: 79866, source: "P2-A-101/102 Rev D (frozen) via p2_testfit.drawn_size; P2-G-003 Rev G D-057 table"}
+    c101_rev_a_l1: 53026.7
+    c101_rev_a_basis: "P2-C-101 Rev A footprint row '+ NE tower widened for 76 in ST-2' (tower 5 ft deep); Rev E draws 6.67 ft -> 53,062.2"
+    rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs the last revision; no cap, no margin (D-056). Drawn = phase2_plan_rev_e.yaml (p2_testfit.drawn_size); program = P2-G-003 Rev G (p2_testfit.summary_g: footprint F, L2 gross, total = F + L2)"
+    source: "D-056, D-057 (Shane 2026-10-04 8:36 AM CT); P2-G-003 Rev G; R-021"
+  source: "Shane 2026-10-04 9:47 AM CT (C-101 Rev B: tower size, new outline, D-057 area table, no cap language)"

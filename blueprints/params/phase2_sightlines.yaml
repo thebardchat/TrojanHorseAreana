@@ -73,3 +73,35 @@ scales:
   section_ft_per_in: 10.6667
   stack_ft_per_in: 5.3333
   source: "KEYSTONE sheet layout (3/32 in and 3/16 in = 1 ft)"
+
+# Rev B (Shane 2026-10-04 9:47 AM CT): the 'as drawn' basis changed. P2-A-101 Rev E / P2-A-301 Rev C draw 19 in upper risers and a
+# 16 ft east focal distance (D-053 DECIDED) = Rev A's PROPOSED case; Rev A's AS DRAWN (14 in / 10 ft) is now the superseded Rev D basis.
+# Rev A frozen (byte-identical; it still reads `cases` above).
+rev_b:
+  revision: B
+  plan_file: phase2_plan_rev_e.yaml
+  case_order: [drawn_e, rev_d]
+  cases:
+    drawn_e:
+      label: "AS DRAWN (P2-A-101 Rev E / A-301 Rev C)"
+      short: drawn
+      lower_rise_in: 11.625
+      upper_rise_in: 19
+      east_clear_ft: 16
+      basis: "D-053 DECIDED as drawn on P2-A-101 Rev E: telescopic 6 x 24 in at 11-5/8 in; fixed 5 x 36 in at 19 in (3 aisle risers of 6-1/3 in, 12 in treads), front row 7.08 ft, stepping down from the loop (D-049); east tier front 16 ft from the nearest mat (building 210 ft)"
+      source: "Shane 2026-10-04 7:44 AM CT (D-053); phase2_plan_rev_e.yaml; phase2_sect.yaml rev_c"
+    rev_d:
+      label: "REV D BASIS (superseded)"
+      short: "Rev D"
+      lower_rise_in: 11.625
+      upper_rise_in: 14
+      east_clear_ft: 10
+      basis: "P2-A-302 Rev A 'as drawn' = P2-A-301 Rev A / B on the frozen Plan Rev D (14 in upper risers, 10 ft east focal); shown for comparison only"
+      source: "phase2_sightlines.yaml cases.as_drawn (Rev A); phase2_plan_rev_d.yaml"
+  figures:
+    - {case: drawn_e, side: NS, title: "1  AS DRAWN (REV E) — NORTH / SOUTH SIDE (seated eyes)", sub: "focal 25' (10' clear + 15' table zone) · telescopic 11⅝\" · upper 19\"/row, front 7.08'", source: "phase2_plan_rev_e.yaml; D-053"}
+    - {case: drawn_e, side: E, title: "2  AS DRAWN (REV E) — EAST SIDE (seated eyes)", sub: "focal 16' (D-053) · upper 19\"/row · worst side", source: "phase2_plan_rev_e.yaml; D-053"}
+    - {case: rev_d, side: E, title: "3  REV D BASIS (SUPERSEDED) — EAST SIDE (seated eyes)", sub: "focal 10' · upper 14\"/row, front 9.17' · P2-A-302 Rev A 'as drawn'", source: "P2-A-302 Rev A"}
+  stack_sub: "3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn · dashed = Rev D 9.17' front"
+  basis_change: "Rev A AS DRAWN (14 in / 10 ft east) is no longer drawn; Plan Rev E draws 19 in / 16 ft (D-053) = Rev A PROPOSED, so the 'as drawn' basis changed and the sheet is re-cased (values unchanged)"
+  source: "Shane 2026-10-04 9:47 AM CT (A-302 Rev B only if the riser / east-clear change alters its 'as drawn' basis — it does); phase2_plan_rev_e.yaml"

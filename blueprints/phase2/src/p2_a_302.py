@@ -5,9 +5,12 @@ stepping DOWN from the Level 2 loop, D-049) toward the near edge of the nearest 
 PROPOSED (upper riser 19 in + east tier 6 ft further from the mats, D-053 OPEN). Also checks the telescopic closed stack
 under the upper-tier front (Hussey recess dimensions vs. headroom).
 Method / values: params/phase2_sightlines.yaml (Green Guide C-value formula; eye heights and targets cited or ASSUMED).
-Geometry: params/phase2_sect.yaml, params/phase2_plan_rev_d.yaml, params/phase2_elev.yaml.
+Geometry: params/phase2_sect.yaml, params/phase2_plan_rev_d.yaml, params/phase2_elev.yaml. Rev A FROZEN 9:47 AM CT.
+Rev B (Shane 9:47 AM CT): the 'as drawn' basis changed — P2-A-101 Rev E / P2-A-301 Rev C draw 19 in upper risers and a
+16 ft east focal (D-053) = Rev A's PROPOSED case. Re-cased: AS DRAWN (Rev E) vs REV D BASIS (superseded, Rev A's as
+drawn); C-values unchanged. Plan: phase2_plan_rev_e.yaml. Data: phase2_sightlines.yaml rev_b. Low band / exits -> D-061.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_302.py [--png PATH] [--out-dir DIR] [--force] [--md]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_302.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force] [--md]
 """
 from __future__ import annotations
 
@@ -28,11 +31,24 @@ L_CUT, L_FILL, L_TAG, L_SL = "A-SITE-CUTL", "A-SITE-FILL", "A-SITE-IDEN", "A-SIT
 C = dict(cut="#3C3C3C", floor="#D9B77E", mat="#C9A227", lower="#D88A8A", upper="#A7B3C3", loop="#C8693A", room="#F0ECE4",
          air="#E8F0F8", ok="#2B2B2B", mid="#D9822B", bad="#CC0000", stack="#B9B9B9")
 SLAB = 1.0            # graphic only
+REV = "A"             # set by main(); Rev B branches only (Rev A output stays byte-identical)
+CASES = ("as_drawn", "proposed")
+HDR = {"as_drawn": "AS DRAWN (P2-A-301)", "proposed": "PROPOSED (D-053)"}
+SHORT = {"as_drawn": "drawn", "proposed": "proposed"}
 
 
 def load():
     rd = lambda n: yaml.safe_load((BP / "params" / n).read_text(encoding="utf-8"))
-    return rd("phase2.yaml"), rd("phase2_elev.yaml"), rd("phase2_plan_rev_d.yaml"), rd("phase2_sect.yaml"), rd("phase2_sightlines.yaml")
+    out = [rd("phase2.yaml"), rd("phase2_elev.yaml"), rd("phase2_plan_rev_d.yaml"), rd("phase2_sect.yaml"), rd("phase2_sightlines.yaml")]
+    if REV == "B":                                     # Rev B: Plan Rev E; cases re-labelled (rev_b)
+        global CASES, HDR, SHORT
+        rb = out[4]["rev_b"]
+        out[2] = rd(rb["plan_file"])
+        out[4]["cases"].update(rb["cases"])
+        CASES = tuple(rb["case_order"])
+        HDR = {k: rb["cases"][k]["label"] for k in CASES}
+        SHORT = {k: rb["cases"][k]["short"] for k in CASES}
+    return tuple(out)
 
 
 def focal_distances(plan, mat_ft):
@@ -84,13 +100,13 @@ def all_cases(sl, sc, plan, ev, p2):
     l2 = ev["heights"]["l2_ff"]["value"]
     fd = focal_distances(plan, p2["spaces"]["arena"]["mat_ft"])
     out = {}
-    for cname in ("as_drawn", "proposed"):
+    for cname in CASES:
         cs = sl["cases"][cname]
         for side, d0 in (("NS", fd["N"]), ("E", cs["east_clear_ft"])):
             for st in (False, True):
                 out[(cname, side, st)] = calc(sl, sc, l2, d0, cs["lower_rise_in"], cs["upper_rise_in"], st)
     assert fd["N"] == fd["S"], fd
-    assert sl["cases"]["as_drawn"]["east_clear_ft"] == fd["E"], fd
+    assert sl["cases"][CASES[0]]["east_clear_ft"] == fd["E"], fd
     return out, fd
 
 
@@ -198,7 +214,8 @@ def fig_stack(sh, x0, y0, fpi, sl, sc, res_drawn, res_prop, which):
         sh.text(*P(-5.8, 2.0), f"recess min {dr * 12:.0f}\" deep x", size=4.2)
         sh.text(*P(-5.8, 1.2), f"{hr * 12:.3g}\" high (Hussey)", size=4.2)
         rp = (zp - hr) * 12
-        sh.text(*P(-5.8, zp - 0.6), f"proposed {zp:.2f}' front: {rp:.1f}\" left", size=4.2, color=C["bad"])
+        sh.text(*P(-5.8, zp - 0.6), f"{'Rev D' if REV == 'B' else 'proposed'} {zp:.2f}' front: {rp:.1f}\" left", size=4.2,
+                color=None if REV == "B" else C["bad"])
         return room, rp, hr, dr
     # open: rear rows stay in the recess
     pts = [P(dr - (n - 1) * T, 0)]
@@ -221,9 +238,8 @@ def fig_stack(sh, x0, y0, fpi, sl, sc, res_drawn, res_prop, which):
 
 
 def table(sh, x, y, res, sl, colw, rowh=0.148):
-    cols = [("as_drawn", "NS", False), ("as_drawn", "NS", True), ("as_drawn", "E", False), ("as_drawn", "E", True),
-            ("proposed", "NS", False), ("proposed", "NS", True), ("proposed", "E", False), ("proposed", "E", True)]
-    hdr1 = [("AS DRAWN (P2-A-301)", 0, 4), ("PROPOSED (D-053)", 4, 8)]
+    cols = [(c, sd, st) for c in CASES for sd in ("NS", "E") for st in (False, True)]
+    hdr1 = [(HDR[CASES[0]], 0, 4), (HDR[CASES[1]], 4, 8)]
     x0 = x + colw[0]
     w = colw[1]
     for t_, a, b in hdr1:
@@ -269,9 +285,8 @@ def summary(res, sl):
 
 
 def md_tables(res, sl):
-    cols = [("as_drawn", "NS", False), ("as_drawn", "NS", True), ("as_drawn", "E", False), ("as_drawn", "E", True),
-            ("proposed", "NS", False), ("proposed", "NS", True), ("proposed", "E", False), ("proposed", "E", True)]
-    hd = ["Row"] + [f"{'drawn' if c == 'as_drawn' else 'proposed'} {'N/S' if s == 'NS' else 'E'} {res[(c, s, t)]['d0']:g} ft {'standing' if t else 'seated'}" for c, s, t in cols]
+    cols = [(c, sd, st) for c in CASES for sd in ("NS", "E") for st in (False, True)]
+    hd = ["Row"] + [f"{SHORT[c]} {'N/S' if s == 'NS' else 'E'} {res[(c, s, t)]['d0']:g} ft {'standing' if t else 'seated'}" for c, s, t in cols]
     lines = ["| " + " | ".join(hd) + " |", "|" + "---|" * len(hd)]
     for nm in [r["name"] for r in res[cols[0]]["rows"]][1:]:
         vals = []
@@ -302,6 +317,20 @@ NOTES = [
 ]
 
 
+NOTES_B = NOTES[:2] + [
+    ("Focal distances from P2-A-101 Rev E: N and S tier fronts 25' from the nearest mat (10' clear + 15' table zone); E tier front 16' (D-053; building 210'). No west tier. Section-only study (2D); corners and wheelchair positions TBD.", "•"),
+    ("RESULTS — AS DRAWN (REV E, D-053 DECIDED)", None),
+    ("Upper 19\" per 36\" row (3 aisle risers of 6⅓\", 12\" treads; IBC 1030.14.2), front row 7.08' (back stays at the loop, D-049). Every seated row PASSES: N/S ≥ 149 mm, E ≥ 101. Standing: N/S ≥ 127; E ≥ 72 (L4–L6, U4–U5 MARGINAL, none FAIL).", "•"),
+    ("Lower tier stays at the Hussey 11⅝\" rise. U1 clears the 26\" fascia (326 mm N/S, 263 E seated).", "•"),
+    ("REV D BASIS (SUPERSEDED, P2-A-302 Rev A 'as drawn')", None),
+    ("14\"/row upper + 10' east focal: upper FAILS on every side (N/S seated 40–49, E negative); E lower L4–L6 FAIL. Kept for comparison only; fixed by D-053 on Plan Rev E.", "•"),
+    ("TELESCOPIC STACK UNDER THE UPPER-TIER FRONT (D-049)", None),
+    ("Closed stack, recessed (Hussey min 4'-0\" deep x 6'-5⅜\" high) under the 7.08' front leaves 7.6\" for structure + finish — DOES NOT FIT. Open: rows 5–6 would sit under the overhang (< 7'-6\", 1003.2). Keep the stack in front of the upper-tier face (as P2-A-301 Rev C).", "•"),
+    ("LOW BAND + EXIT PATHS (D-061 OPEN, R-022)", None),
+    ("1.5' tier structure (ASSUMED) leaves 5.6' / 7.2' under rows 1–2 (6' low band). Exit N, Exit E, SE concourse and the lobby / portal / athlete-route edge run under it. Option A: omit rows 1–2 there (−125 seats; −56 with rails). Option B: L2 17'-9\" + 21\" risers (front 9.0'): C unchanged (149 / 101 seated).", "•"),
+]
+
+
 def build(p2, ev, plan, sc, sl, res, fd):
     meta2, sm = p2["meta"], sl["meta"]
     sh = Sheet(W, H)
@@ -311,19 +340,24 @@ def build(p2, ev, plan, sc, sl, res, fd):
         "title": "SIGHT-LINE STUDY\nSCHEMATIC · COLOR",
         "scale": "AS NOTED",
         "date": meta2["sheet_date"],
-        "revision": sm["revision"],
+        "revision": sl["rev_b"]["revision"] if REV == "B" else sm["revision"],
         "drawn_by": meta2["drawn_by"],
         "sheet_no": SHEET_NO,
         "stamp": meta2["stamp"],
     }, margin=M, tb_h=0.95, stamp_h=0.40)
     fpi = sl["scales"]["section_ft_per_in"]
     sec_s = "3/32\" = 1'-0\""
-    r1 = fig_section(sh, 0.95, 8.35, fpi, res[("as_drawn", "NS", False)], sl, sc,
-                     "1  AS DRAWN — NORTH / SOUTH SIDE (seated eyes)", f"{sec_s} · focal 25' (10' clear + 15' table zone) · telescopic 11⅝\" · upper 14\"/row")
-    r2 = fig_section(sh, 0.95, 5.55, fpi, res[("as_drawn", "E", False)], sl, sc,
-                     "2  AS DRAWN — EAST SIDE (seated eyes)", f"{sec_s} · focal 10' (10' clear) · worst side")
-    r3 = fig_section(sh, 0.95, 2.75, fpi, res[("proposed", "E", False)], sl, sc,
-                     "3  PROPOSED — EAST SIDE (seated eyes)", f"{sec_s} · focal 16' (+6') · upper 19\"/row, front 7.08' (D-053)")
+    if REV == "B":
+        figs = sl["rev_b"]["figures"]
+        r1, r2, r3 = (fig_section(sh, 0.95, y_, fpi, res[(f_["case"], f_["side"], False)], sl, sc, f_["title"], f"{sec_s} · {f_['sub']}")
+                      for f_, y_ in zip(figs, (8.35, 5.55, 2.75)))
+    else:
+        r1 = fig_section(sh, 0.95, 8.35, fpi, res[("as_drawn", "NS", False)], sl, sc,
+                         "1  AS DRAWN — NORTH / SOUTH SIDE (seated eyes)", f"{sec_s} · focal 25' (10' clear + 15' table zone) · telescopic 11⅝\" · upper 14\"/row")
+        r2 = fig_section(sh, 0.95, 5.55, fpi, res[("as_drawn", "E", False)], sl, sc,
+                         "2  AS DRAWN — EAST SIDE (seated eyes)", f"{sec_s} · focal 10' (10' clear) · worst side")
+        r3 = fig_section(sh, 0.95, 2.75, fpi, res[("proposed", "E", False)], sl, sc,
+                         "3  PROPOSED — EAST SIDE (seated eyes)", f"{sec_s} · focal 16' (+6') · upper 19\"/row, front 7.08' (D-053)")
     for r_, lim in ((r1, 10.45), (r2, 7.6), (r3, 4.8)):
         if r_[1] > lim or r_[0] > 10.25:
             raise SystemExit(f"LAYOUT OVERFLOW: section figure at {r_[0]:.2f}, {r_[1]:.2f}")
@@ -338,15 +372,19 @@ def build(p2, ev, plan, sc, sl, res, fd):
     sh.text(kx, ky - 0.80, "over the row in front. Values: table.", size=4.6)
     # stack figures
     sfpi = sl["scales"]["stack_ft_per_in"]
-    room, rp, hr, dr = fig_stack(sh, 7.75, 5.05, sfpi, sl, sc, res[("as_drawn", "NS", False)], res[("proposed", "NS", False)], "closed")
-    need, soff = fig_stack(sh, 7.75, 2.3, sfpi, sl, sc, res[("as_drawn", "NS", False)], res[("proposed", "NS", False)], "open")
+    room, rp, hr, dr = fig_stack(sh, 7.75, 5.05, sfpi, sl, sc, res[(CASES[0], "NS", False)], res[(CASES[1], "NS", False)], "closed")
+    need, soff = fig_stack(sh, 7.75, 2.3, sfpi, sl, sc, res[(CASES[0], "NS", False)], res[(CASES[1], "NS", False)], "open")
     t4 = "4  TELESCOPIC STACK UNDER THE UPPER-TIER FRONT"
     sh.text(7.75, 7.62, t4, size=6.4, bold=True)
     sh.line(7.75, 7.58, 7.75 + text_width_in(t4, 6.4, True), 7.58, lw=0.7)
-    sh.text(7.75, 7.46, "3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn · dashed = proposed 7.08' front", size=4.5)
-    sh.text(7.75, 4.86, f"(a) CLOSED — fits only if structure ≤ {room:.1f}\" (as drawn)", size=5.2, bold=True)
+    ssub = sl["rev_b"]["stack_sub"] if REV == "B" else "3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn · dashed = proposed 7.08' front"
+    sh.text(7.75, 7.46, ssub, size=4.5)
+    if REV == "B":
+        sh.text(7.75, 4.86, f"(a) CLOSED — only {room:.1f}\" left for structure: DOES NOT FIT", size=5.2, bold=True, color=C["bad"])
+    else:
+        sh.text(7.75, 4.86, f"(a) CLOSED — fits only if structure ≤ {room:.1f}\" (as drawn)", size=5.2, bold=True)
     sh.text(7.75, 2.11, "(b) OPEN — rows 5-6 under the overhang: CONFLICT", size=5.2, bold=True, color=C["bad"])
-    if 7.75 + text_width_in("3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn · dashed = proposed 7.08' front", 4.5) > 10.4:
+    if 7.75 + text_width_in(ssub, 4.5) > 10.4:
         raise SystemExit("LAYOUT OVERFLOW: fig 4 subtitle")
     # table + notes
     xt = 10.55
@@ -355,7 +393,7 @@ def build(p2, ev, plan, sc, sl, res, fd):
     if xt + colw[0] + 8 * colw[1] > W - M - 0.04:
         raise SystemExit("LAYOUT OVERFLOW: table too wide")
     y -= 0.05
-    for t_, b in NOTES:
+    for t_, b in (NOTES_B if REV == "B" else NOTES):
         if b is None:
             y = sh.para(xt, y - 0.03, W - M - 0.1 - xt, t_, size=5.9, bold=True)
         else:
@@ -368,12 +406,14 @@ def build(p2, ev, plan, sc, sl, res, fd):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A"], default="A")
+    ap.add_argument("--rev", choices=["A", "B"], default="B")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--md", action="store_true", help="print the C-value tables as markdown and exit")
     a = ap.parse_args()
+    global REV
+    REV = a.rev
     p2, ev, plan, sc, sl = load()
     res, fd = all_cases(sl, sc, plan, ev, p2)
     if a.md:

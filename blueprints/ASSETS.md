@@ -351,3 +351,10 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **Previews (box only):** `/workspace/keystone_previews/P2-G-003.png/.pdf`, `P2-A-101.png/.pdf`, `P2-A-102.png/.pdf` (Rev G / Rev E).
 - **C-4 check:** ARENA `P2-A-201.pdf` = repo P2-A-201 Rev D byte-identical (sha256 `945745df…`); its heights note already says "the highest aisle is the loop at 15'", same as P2-A-301 Rev A / B → no A-201 Rev E needed for C-4.
 
+
+## 2026-10-04 additions (9:47 AM CT session, set coordinated with Plan Rev E)
+- **New data:** `params/phase2_elev_rev_e.yaml` (A-201 Rev E overlay, `plan_file` = Plan Rev E, arena volume override); `phase2_sect.yaml` `rev_c`; `phase2_sightlines.yaml` `rev_b`; `phase2_site.yaml` `rev_b`; `phase2.yaml` sheet entries A-201 E, A-301 C, A-302 B, C-101 B (A-201 D, A-301 B, A-302 A, C-101 A now frozen).
+- **New sheets (repo):** `phase2/out/{pdf,dxf}/P2-A-201_RevE` (PDF sha256 `f3b53df3a21215f5…`), `P2-A-301_RevC` (`c83f405a22782a19…`), `P2-A-302_RevB` (`1acc663014bdd774…`), `P2-C-101_RevB` (`ec0b8e1803cf66f9…`).
+- **New research:** `research/R-022-exit-paths-under-low-band.md` (arithmetic from Plan Rev E + p2_testfit / p2_a_302; IBC 2021 1003.2, 1011, 1030). Copy at `ARENA\_KEYSTONE\R-022-exit-paths-under-low-band.md`.
+- **New files in the ARENA root (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED):** `P2-A-201_RevE.pdf`, `P2-A-301_RevC.pdf`, `P2-A-302_RevB.pdf`, `P2-C-101_RevB.pdf`. Plain-named files untouched.
+- **Previews (box only):** `/workspace/keystone_previews/P2-A-201.png/.pdf` (Rev E), `P2-A-301.png/.pdf` (Rev C), `P2-A-302.png/.pdf` (Rev B), `P2-C-101.png/.pdf` (Rev B).
