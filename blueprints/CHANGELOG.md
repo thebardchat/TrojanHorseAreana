@@ -129,3 +129,6 @@
   - Row-2 widths changed for Rev B, and long box headings now shrink to fit.
 - **Rev A unchanged.** Regenerating to /tmp still gives identical text. It stays frozen as the internal copy, so its "Who approves" was not edited, even though the R-files are in.
 - D-004 notes updated; still OPEN. DECISIONS open count: 16.
+
+## 2026-10-03 20:49 CT
+- D-023 DECIDED: Rev B approved as-is, contact info stays, no history rewrite. D-022 OPEN: 1A/1B split, no restructure until Shane decides.
