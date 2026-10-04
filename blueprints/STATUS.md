@@ -1,6 +1,6 @@
-# KEYSTONE — 2026-10-04 10:58 AM CT
-HEALTH: YELLOW · P1 50% · P2 70% · Ticket P2-T-007
-WHAT CHANGED: G-002 Rev A: L1 1,803-4,758 (floor 329-3,284), L2 1,277/1,462, building worst 6,220. L1 doors (ASSUMED 11 pairs = 704 in) SHORT at worst: need 933.0 in; main exit E1 466.5 in vs 64. L2 stairs pass (+11.6 in). C-12 rule + validate check 8.
-WHAT TO VERIFY: Zero margin at 7'-6": upper-tier structure 1'-6" ASSUMED (structural engineer). Door widths ASSUMED 64 in/pair (not drawn). Floor use (D-054). Code edition 2021 vs 2018 (AHJ). Event-floor area 16,416 (R-007) vs 16,400 locked. ARENA naming ASSUMED.
-NEXT ACTION: Next BACKLOG item: P2-T-008 A-111 life safety plan (exits, capacities, travel) from G-002 Rev A loads.
-QUESTION FOR SHANE: L1 exits at the standing worst case: Option 1 (E1 main-exit bank of 8 door pairs, keeps the single controlled entry) or Option 2 (main exits distributed around the perimeter, 4 more pairs)?
+# KEYSTONE — 2026-10-04 11:23 AM CT
+HEALTH: YELLOW · P1 50% · P2 74% · Ticket P2-T-008
+WHAT CHANGED: Option 1 DECIDED: E1 8-pair bank 512 in. A-111 Rev A: L1 worst 6,220 all PASS (1,152 vs 933 in; E1 512 vs 466.5); L2 stairs +11.6 in; travel max 133 / 128 ft vs 250 (UNVERIFIED); separation PASS (min 111.1 ft). New OPEN: D-064 restrooms, D-065 checkpoint.
+WHAT TO VERIFY: Zero margin at 7'-6": upper-tier structure 1'-6" ASSUMED (structural engineer). Door widths ASSUMED 64 in/pair. Travel paths are diagram measurements. E1 exit discharge >= 466.5 in vs 28 ft walk (site). First aid location ASSUMED. ARENA naming ASSUMED.
+NEXT ACTION: Next BACKLOG item: P2-T-010 A-401 enlarged plans (4 event locker rooms + L1 restroom core), Rev A.
+QUESTION FOR SHANE: D-065 security checkpoint: Option 1 (screen in a side bay of the lobby, 38.9 ft clear to the E1 bank) or Option 2 (screen outdoors on the entry plaza)?
