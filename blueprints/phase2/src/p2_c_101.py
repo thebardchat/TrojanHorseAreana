@@ -9,6 +9,8 @@ Rev A FROZEN 9:47 AM CT.
 Rev B (Shane 9:47 AM CT): coordinated with P2-A-101/102 Rev E — outline 210 x 252 + NE stair tower 21.33 x 6.67 ft, stairs
 and doors read from phase2_plan_rev_e.yaml, superseded Rev D outline dashed; the cap table is replaced by the D-057 size
 table (L1 / L2 / TOTAL GSF, change vs Rev D, program G-003 Rev G; no cap, no margin — D-056). Data: site yaml rev_b.
+Rev C (Shane 10:27 AM CT, D-061 Option B): P2-A-101 Rev F — NE stair tower 24.08 x 6.67 ft (ST-2 2.75 ft longer, 31 risers),
+stairs 12.67 x 24.08, D-057 table vs Rev E with program G-003 Rev I (p2_testfit.summary_h). Data: site yaml rev_c. Rev B FROZEN.
 Usage (from the repo root):
   /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_c_101.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force]
 """
@@ -36,8 +38,8 @@ REV = "A"          # set by main(); Rev B branches only (Rev A output stays byte
 def load():
     rd = lambda n: yaml.safe_load((BP / "params" / n).read_text(encoding="utf-8"))
     p2, si, plan = rd("phase2.yaml"), rd("phase2_site.yaml"), rd("phase2_plan_rev_d.yaml")
-    if REV == "B":                                     # Rev B: P2-A-101/102 Rev E outline, stairs and doors
-        rb = si["rev_b"]
+    if REV in ("B", "C"):                              # Rev B: P2-A-101/102 Rev E; Rev C: Rev F (D-061)
+        rb = si["rev_b" if REV == "B" else "rev_c"]
         plan = rd(rb["plan_file"])
         si["meta"]["revision"] = rb["revision"]
         bb = rb["building"]
@@ -135,7 +137,7 @@ def draw_site(v, si, plan, full=True):
     v.drect(b["frozen_rect"], L_HID, 0.5)
     v.drect(b["frozen_tower"], L_HID, 0.5)
     # stairs
-    if REV == "B":
+    if REV in ("B", "C"):
         for it in plan["vertical"]["stairs"]:
             v.rect(it["rect"], C["stair"], L_STR, 0.4)
     else:
@@ -154,11 +156,11 @@ def draw_site(v, si, plan, full=True):
     nb = b["rect"]
     pdoors = {d["id"]: d for d in plan["level_1"]["doors"]["items"]}
     for did, kind in (("E1", "main"), ("S1", "service")):
-        dd = pdoors[did] if REV == "B" else si["doors"][did]
+        dd = pdoors[did] if REV in ("B", "C") else si["doors"][did]
         x, y = door_xy(dd["wall"], dd["at"], nb)
         tri = [(x - 4, y), (x + 4, y), (x, y - 6)] if dd["wall"] == "S" else [(x - 4, y), (x + 4, y), (x, y + 6)]
         v.poly(tri, C["red"], L_SITE, 0)
-    ex = ({d["id"]: [d["wall"], d["at"]] for d in plan["level_1"]["doors"]["items"] if d["kind"] == "exit"} if REV == "B"
+    ex = ({d["id"]: [d["wall"], d["at"]] for d in plan["level_1"]["doors"]["items"] if d["kind"] == "exit"} if REV in ("B", "C")
           else si["doors"]["exits_frozen"])
     for k, val in ex.items():
         if k == "source":
@@ -203,8 +205,10 @@ def draw_inset(iv, si, ins):
 
 
 def legend(sh, x, y):
-    items = [(C["bldg"], "Building, P2-A-101 Rev E (210' + NE tower)" if REV == "B" else "Building, next revision (D-053 east shift)"),
-             (None, "Superseded Rev D outline (dashed)" if REV == "B" else "Frozen Rev D outline (dashed)"),
+    items = [(C["bldg"], "Building, P2-A-101 Rev F (210' + NE tower)" if REV == "C" else
+              "Building, P2-A-101 Rev E (210' + NE tower)" if REV == "B" else "Building, next revision (D-053 east shift)"),
+             (None, "Superseded Rev E tower (dashed)" if REV == "C" else
+              "Superseded Rev D outline (dashed)" if REV == "B" else "Frozen Rev D outline (dashed)"),
              (C["stair"], "Exit stairs 76\" clear (D-052)"), (C["floor"], "Event floor"),
              (C["brick"], "Champion Walk (brick)"), (C["stone"], "Portal piers (limestone)"),
              (C["drive"], "Service drive / apron (diagram)"), (C["bus"], "Bus drop loop (diagram)"),
@@ -243,7 +247,13 @@ def build(p2, si, plan):
     v.text(105, 150, "TROJAN HORSE ARENA", 7.0, align="center", bold=True)
     v.text(105, 138, "(Phase 2 building, 2 levels)", 5.2, align="center")
     v.text(116, 105, "EVENT FLOOR", 5.0, align="center", bold=True)
-    if REV == "B":
+    if REV == "C":
+        tw = b["tower"]
+        v.text(116, 96, "east clear 16' (D-053, drawn)", 4.6, align="center")
+        v.text(105, 26, f"{b['rect'][2]:g}' x {b['rect'][3]:g}' + NE stair tower (P2-A-101 Rev F)", 4.8, align="center")
+        v.text(105, 16, "dashed = superseded Rev E tower 21.33' x 6.67'", 4.4, align="center")
+        v.text(tw[2] + 4, tw[3] + 2, f"NE TOWER {tw[2] - tw[0]:.2f}' x {tw[3] - tw[1]:.2f}'", 4.2, bold=True)
+    elif REV == "B":
         tw = b["tower"]
         v.text(116, 96, "east clear 16' (D-053, drawn)", 4.6, align="center")
         v.text(105, 26, f"{b['rect'][2]:g}' x {b['rect'][3]:g}' + NE stair tower (P2-A-101 Rev E)", 4.8, align="center")
@@ -365,6 +375,64 @@ def notes_b(sh, p2, si, body_bottom, x, y, width):
     return y, dict(L1=dr["L1"], L2=dr["L2"], G=dr["G"], prog=pg)
 
 
+def notes_c(sh, p2, si, body_bottom, x, y, width):
+    """Rev C: D-057 size table vs Rev E (program G-003 Rev I) + notes coordinated with P2-A-101/102 Rev F (D-061)."""
+    import p2_testfit as tf
+    _, _, _, h = tf.summary_h()
+    dr, dd = h["drawn"], h["drawn_d"]
+    X_ = h["loop"]
+    pg = dict(L1=X_["F"], L2=X_["L2"], G=X_["F"] + X_["L2"])
+
+    def n(v):
+        return f"{v:,.1f}"
+
+    def sgn(v):
+        return ("+" if v > 0.05 else "−" if v < -0.05 else "±") + n(abs(v))
+    sh.text(x, y, "SIZE — D-057 (no cap, no margin; D-056)", size=6.8, bold=True)
+    cols = [("", 0, "l"), ("DRAWN Rev F", 2.30, "r"), ("REV E drawn", 3.20, "r"), ("CHANGE", 4.05, "r"), ("PROGRAM I", 5.05, "r"),
+            ("DRAWN − PROG.", width, "r")]
+    y -= 0.16
+    for lab, dx, al in cols:
+        sh.text(x + dx, y, lab, size=5.4, bold=True, align="left" if al == "l" else "right")
+    y -= 0.04
+    sh.line(x, y, x + width, y, lw=0.5)
+    for lab, k in (("L1 FOOTPRINT", "L1"), ("L2 AREA", "L2"), ("TOTAL GSF", "G")):
+        y -= 0.15
+        vals = [lab, n(dr[k]), n(dd[k]), sgn(dr[k] - dd[k]), n(pg[k]), sgn(dr[k] - pg[k])]
+        for (l_, dx, al), c in zip(cols, vals):
+            sh.text(x + dx, y, c, size=5.4, bold=k == "G" or l_ in ("", "DRAWN Rev F"), align="left" if al == "l" else "right")
+    sh.line(x, y - 0.05, x + width, y - 0.05, lw=0.5)
+    y -= 0.08
+    tw, tp = si["building"]["tower"], si["building"]["frozen_tower"]
+    y = sh.para(x, y, width - 0.45, f"Drawn = P2-A-101/102 Rev F (L2 = L1 minus open-to-below). Program = P2-G-003 Rev I: footprint = the larger of "
+                f"L1 gross and arena volume + L2, plus L2 gross (L1 + L2 gross = {n(X_['G'])}). The change is the NE tower growing "
+                f"{tp[0] - tw[0]:.2f}' west for the longer ST-2 (L2 17'-9\"). Size is set by budget and parcel (D-012, D-006).",
+                size=5.6)
+    items = [
+        ("STATUS", None),
+        ("SITE TBD (D-006): this is a layout diagram, not a site plan for permit. Parcel, property lines, setbacks, grading, parking count, utilities and stormwater are TBD. AHJ (R-006): Madison County Inspection Department if the parcel is unincorporated (Hazel Green is); the county states no zoning limits on construction; county codes 2018 IBC / IFC / NFPA 101; State Fire Marshal 2021 IFC.", "•"),
+        ("ENTRY (DECIDED)", None),
+        ("Freestanding limestone portal over the walk (D-043), 50' max (D-050), 44' wide x 6' deep (ASSUMED), 30' south of the E1 doors (D-046). Champion Walk 28' x 30' = 840 SF brick, ≈ 3,700 4x8 donor bricks; vendor cost ≈ $70.9k if all 4x8 (Shane's sheet, D-044 input; install + base not included). Dashed: later extension to parking.", "•"),
+        ("BUS + SERVICE (D-034 DECIDED defaults)", None),
+        ("South bus drop loop offset EAST so it does not block the portal view (west is equally allowed; the SW FLEX / team assembly room would favor west). Drop curb links to the walk's south end. Service / deliveries at the north door S1 by a west-side drive (alignment TBD). Loop, drive and apron are diagrams: lane widths, bus turning template and apron size TBD (civil).", "•"),
+        ("BUILDING (AS DRAWN ON P2-A-101 / A-102 REV F)", None),
+        (f"210' x 252' (unchanged): east seats 16' from the mats (D-053); exits X6–X9 on the east wall. NE stair tower {tw[2] - tw[0]:.2f}' x {tw[3] - tw[1]:.2f}' = "
+         f"{(tw[2] - tw[0]) * (tw[3] - tw[1]):.1f} SF (Rev E {tp[2] - tp[0]:.2f}' x {tp[3] - tp[1]:.2f}', dashed). Stairs ST-1..ST-4 76\" clear, "
+         "12.67' x 24.08', 31 risers (D-052, D-051).", "•"),
+        ("L2 at 17'-9\" with 21\" upper risers (D-061 DECIDED, Option B): upper-tier front row 7'-6\" clear over the exit paths below; no seats lost. Event lockers 3,600 SF behind the tier (D-060).", "•"),
+        ("FIRE ACCESS / WATER (TBD)", None),
+        ("Fire apparatus access roads, hydrants and fire flow per IFC Appendices B, C, D (State Fire Marshal, 2021 IFC; D107 recommended) and the county's 2018 IFC. Exit discharge from X1-X10 to a public way (IBC 1028) TBD with the parcel.", "•"),
+    ]
+    for t_, b_ in items:
+        if b_ is None:
+            y = sh.para(x, y - 0.04, width, t_, size=6.2, bold=True)
+        else:
+            y = sh.para(x, y, width, t_, size=5.9, indent=0.1, bullet=b_)
+    if y < body_bottom + 0.05:
+        raise SystemExit(f"LAYOUT OVERFLOW: notes {body_bottom + 0.05 - y:.2f} in into the stamp band")
+    return y, dict(L1=dr["L1"], L2=dr["L2"], G=dr["G"], prev=dd, prog=pg)
+
+
 def notes(sh, p2, si, body_bottom, x, y, width):
     fc = si["footprint_check"]
     cap = fc["cap_sf"]
@@ -420,7 +488,7 @@ def notes(sh, p2, si, body_bottom, x, y, width):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B"], default="B")
+    ap.add_argument("--rev", choices=["A", "B", "C"], default="C")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")
@@ -437,7 +505,7 @@ def main():
         if rv.get("frozen") and (pdf.exists() or dxf.exists()) and not a.force:
             sys.exit("Revision is FROZEN; use --out-dir to regenerate for checking.")
     sh, body_bottom, v, iv, ins = build(p2, si, plan)
-    y, mg = (notes_b if REV == "B" else notes)(sh, p2, si, body_bottom, 10.35, 10.2, 6.05)
+    y, mg = (notes_c if REV == "C" else notes_b if REV == "B" else notes)(sh, p2, si, body_bottom, 10.35, 10.2, 6.05)
     print(f"notes margin {y - body_bottom - 0.05:.2f} in; margins {mg}")
     pdf.parent.mkdir(parents=True, exist_ok=True)
     dxf.parent.mkdir(parents=True, exist_ok=True)

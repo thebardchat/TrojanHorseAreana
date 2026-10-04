@@ -36,6 +36,8 @@
 # v15, 2026-10-04 8:36 AM CT: NO 55,000 SF cap (D-056): 55,000 SF was an early rough estimate, not a limit; D-031 retired;
 #     margin language removed (frozen sheets keep it as history). Every area table reports L1 footprint, L2 area, TOTAL GSF
 #     and change vs the last revision (D-057). Size is controlled by budget and parcel. building.size_next_revision (R-021).
+# v16, 2026-10-04 10:27 AM CT: D-061 DECIDED Option B (L2 FF 17'-9", 21 in upper risers, front row 9.0 ft = 7'-6" clear, no
+#     seats lost); D-060 settled (event lockers 3,600 SF); A-201 Rev F, G-003 Rev H, P1-G-001 Rev E, R-023 APPROVED + frozen (D-062).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -284,13 +286,15 @@ approach:
     source: "Shane 2026-10-04 7:49 AM CT (D-052 DECIDED); R-018.9"
   under_tier_use:
     rule: "upper tier steps DOWN from the L2 loop toward the court (as drawn); under its low front edge: telescopic stack, storage, mechanical; lockers only where headroom is full (DECIDED, D-049)"
-    full_headroom: "Rev E (ASSUMED, D-060 OPEN): clear height >= 7 ft 6 in (IBC 2021 1003.2) = under upper-tier rows 3-5; rows 1-2 (front 6 ft) are the low band (storage / mech / stack). Earlier reading: under the flat L2 slab behind the tier back line"
+    full_headroom_rev_f: "D-061 DECIDED Option B / D-060 settled (Shane 10:27 AM CT): L2 FF 17'-9\", 21 in risers, front row 9.0 ft = 7'-6\" clear under row 1, so no low band; event lockers run to the tier lines (3,600 SF, P2-A-101 Rev F)"
+    full_headroom: "HISTORY (superseded by full_headroom_rev_f): Rev E (ASSUMED, D-060 OPEN): clear height >= 7 ft 6 in (IBC 2021 1003.2) = under upper-tier rows 3-5; rows 1-2 (front 6 ft) are the low band (storage / mech / stack). Earlier reading: under the flat L2 slab behind the tier back line"
     next_revision: "done on P2-A-101 Rev E: event lockers 1-4 start behind the 6 ft low band (2,723 SF vs 3,600); exit passages N / E, SE concourse and the lobby / portal edge under rows 1-2 still need >= 7 ft 6 in (omit or raise rows 1-2 there); telescopic stack stays at the tier face (P2-A-302)"
-    source: "Shane 2026-10-04 7:24 AM CT (D-049); R-020; P2-A-301 Rev B"
+    source: "Shane 2026-10-04 7:24 AM CT (D-049); R-020; P2-A-301 Rev B; Shane 2026-10-04 10:27 AM CT (D-061 Option B, D-060 settled)"
   sight_lines:
     study: "P2-A-302 Rev A / R-020: upper tier (14 in risers) fails every side; east side (10 ft focal) fails; PROPOSED upper 19 in risers + east tier 6 ft further out (D-053 OPEN)"
     decision: "APPROVED: upper-tier risers 19 in (front row 7.08 ft) AND east seats 6 ft further from the mats (+~1,512 SF); applies at the next A-101/A-102/A-301 revision (DECIDED, D-053)"
-    source: "Shane 2026-10-04 7:24 AM CT; R-020; Shane 2026-10-04 7:44 AM CT (D-053 DECIDED)"
+    rev_f: "D-061 Option B: upper risers 19 -> 21 in with L2 FF 17'-9\" (front row 9.0 ft); C rechecked on P2-A-302 Rev C (min seated N/S 149, E 101 mm unchanged)"
+    source: "Shane 2026-10-04 7:24 AM CT; R-020; Shane 2026-10-04 7:44 AM CT (D-053 DECIDED); Shane 2026-10-04 10:27 AM CT (D-061)"
   source: "Shane 2026-10-04 6:22 AM CT; D-043"
 
 support_rooms:
@@ -502,10 +506,17 @@ sheets:
         source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4; Rev F stays frozen); frozen 10:03 AM CT when Rev H was ordered (reviewer C-11)"
       H:
         file: P2-G-003_RevH
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 10:27 AM CT (D-062: 'APPROVED: ... G-003 Rev H ... freeze those revs')"
         inputs: "params/phase2_program.yaml (rev_g, meta_rev_h) + params/phase2_plan_rev_e.yaml"
         note: "Rev G numbers unchanged; fixture table WC+LAV column (restroom-SF basis, 66) + SUM incl. 4 drinking fountains (70) (reviewer C-11)"
-        source: "Shane 2026-10-04 10:03 AM CT (reviewer C-11: label the fixture SUM column 'incl. 4 drinking fountains'; new rev)"
+        source: "Shane 2026-10-04 10:03 AM CT (reviewer C-11: label the fixture SUM column 'incl. 4 drinking fountains'; new rev); approved and frozen 10:27 AM CT when Rev I was ordered"
+      I:
+        file: P2-G-003_RevI
+        frozen: false
+        inputs: "params/phase2_program.yaml (rev_g, rev_i, meta_rev_i) + params/phase2_plan_rev_f.yaml"
+        note: "Rev H method + floor-to-floor 17'-9\" (D-061): stairs 31 risers, 305.1 SF per stair per level; event lockers 3,600 drawn (D-060); D-057 size vs Plan Rev E"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B; D-060 settled; G-003 Rev I if program / area tables change: they do, stair SF)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
   P2-A-101:
     title: OVERALL FLOOR PLAN — LEVEL 1
@@ -536,9 +547,14 @@ sheets:
         source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
       E:
         file: P2-A-101_RevE
-        frozen: false
+        frozen: true
         inputs: params/phase2_plan_rev_e.yaml
-        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4: 76 in stairs + 76 in landings D-052 / D-051, east tier +6 ft D-053, 19 in upper risers noted, FLEX / STORAGE kept D-039 = C-1, portal + Champion Walk + S1 / bus notes, upper tier steps down D-049, D-057 area table, drawn vs program C-3); Rev D stays frozen"
+        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4: 76 in stairs + 76 in landings D-052 / D-051, east tier +6 ft D-053, 19 in upper risers noted, FLEX / STORAGE kept D-039 = C-1, portal + Champion Walk + S1 / bus notes, upper tier steps down D-049, D-057 area table, drawn vs program C-3); Rev D stays frozen; frozen 10:27 AM CT when Rev F was ordered"
+      F:
+        file: P2-A-101_RevF
+        frozen: false
+        inputs: params/phase2_plan_rev_f.yaml
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B: L2 17'-9\", 21 in upper risers, front row 7'-6\" clear over all exit paths, no low band; stairs 31 risers / longer stair footprint; D-060 settled: event lockers 3,600 SF); Rev E frozen"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2
@@ -569,9 +585,14 @@ sheets:
         source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
       E:
         file: P2-A-102_RevE
-        frozen: false
+        frozen: true
         inputs: params/phase2_plan_rev_e.yaml
-        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4: 76 in stairs + 76 in landings D-052 / D-051, east tier +6 ft D-053, 19 in upper risers noted, FLEX / STORAGE kept D-039 = C-1, portal + Champion Walk + S1 / bus notes, upper tier steps down D-049, D-057 area table, drawn vs program C-3); Rev D stays frozen"
+        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4: 76 in stairs + 76 in landings D-052 / D-051, east tier +6 ft D-053, 19 in upper risers noted, FLEX / STORAGE kept D-039 = C-1, portal + Champion Walk + S1 / bus notes, upper tier steps down D-049, D-057 area table, drawn vs program C-3); Rev D stays frozen; frozen 10:27 AM CT when Rev F was ordered"
+      F:
+        file: P2-A-102_RevF
+        frozen: false
+        inputs: params/phase2_plan_rev_f.yaml
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B: L2 17'-9\", 21 in upper risers, front row 7'-6\" clear over all exit paths, no low band; stairs 31 risers / longer stair footprint; D-060 settled: event lockers 3,600 SF); Rev E frozen"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-201:
     title: EXTERIOR ELEVATIONS
@@ -605,9 +626,15 @@ sheets:
         source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-201 Rev E 210 ft width, ST-2 tower 6.67 ft projection); portal / brand as Rev D; frozen 10:03 AM CT when Rev F was ordered (reviewer C-5 / C-8)"
       F:
         file: P2-A-201_RevF
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 10:27 AM CT (D-062: 'APPROVED: A-201 Rev F ... freeze those revs')"
         inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_f.yaml + params/phase2_plan_rev_e.yaml"
-        source: "Shane 2026-10-04 10:03 AM CT (reviewer C-5: 25' clear = REFERENCE, not CITED; C-8: portal STRUCTURAL ENGINEER REQUIRED, ETFE roof only as an open question; A-201 Rev F). Geometry as Rev E (D-061 not touched)"
+        source: "Shane 2026-10-04 10:03 AM CT (reviewer C-5: 25' clear = REFERENCE, not CITED; C-8: portal STRUCTURAL ENGINEER REQUIRED, ETFE roof only as an open question; A-201 Rev F). Geometry as Rev E (D-061 not touched); approved and frozen 10:27 AM CT when Rev G was ordered"
+      G:
+        file: P2-A-201_RevG
+        frozen: false
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_f.yaml + params/phase2_elev_rev_g.yaml + params/phase2_plan_rev_f.yaml"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: A-201 Rev G L2 line 17'-9\", ring roof 32.75'); Rev F approved and frozen"
     source: "Shane 2026-10-04 5:27 AM CT"
   P2-A-301:
     title: BUILDING SECTIONS
@@ -626,9 +653,14 @@ sheets:
         source: "Shane 2026-10-04 7:24 AM CT (switchback intermediate landing >= stair width 70 in, IBC 2021 1011.6, D-051; fix detail 4 + per-stair footprint; note the under-tier use, D-049); frozen 9:47 AM CT when Rev C was ordered"
       C:
         file: P2-A-301_RevC
-        frozen: false
+        frozen: true
         inputs: "params/phase2_sect.yaml (incl. rev_b + rev_c) + params/phase2_elev.yaml + params/phase2_plan_rev_e.yaml"
-        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-301 Rev C east 16 ft clear, 19 in upper risers, 76 in stairs / landings, low-headroom band under the tier front per D-049 / D-060 as drawn on A-101 Rev E; show the exit-path conflict, D-061 OPEN, R-022)"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-301 Rev C east 16 ft clear, 19 in upper risers, 76 in stairs / landings, low-headroom band under the tier front per D-049 / D-060 as drawn on A-101 Rev E; show the exit-path conflict, D-061 OPEN, R-022); frozen 10:27 AM CT when Rev D was ordered"
+      D:
+        file: P2-A-301_RevD
+        frozen: false
+        inputs: "params/phase2_sect.yaml (incl. rev_b + rev_c + rev_d) + params/phase2_elev.yaml + params/phase2_plan_rev_f.yaml"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: A-301 Rev D L2 17'-9\", ring roof 32.75', 21 in risers, front row 9.0 ft / 7'-6\" clear; C-5 REFERENCE label for the 25' clear; C-7 intermediate handrails on the 76 in stairs, architect to confirm)"
     source: "Shane 2026-10-04 6:45 AM CT"
   P2-A-302:
     title: SIGHT-LINE STUDY
@@ -642,9 +674,14 @@ sheets:
         source: "Shane 2026-10-04 7:24 AM CT (sight-line study before more seating detail: standing + seated, both tiers, focal point = near edge of the nearest mat, C-value method; stack fit under the upper-tier front); R-020; frozen 9:47 AM CT when Rev B was ordered"
       B:
         file: P2-A-302_RevB
-        frozen: false
+        frozen: true
         inputs: "params/phase2_sightlines.yaml (incl. rev_b) + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_e.yaml"
-        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-302 Rev B only if the riser / east-clear change alters its 'as drawn' basis. It does: Rev A as drawn = 14 in / 10 ft east; Rev E draws 19 in / 16 ft = Rev A's proposed case)"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-302 Rev B only if the riser / east-clear change alters its 'as drawn' basis. It does: Rev A as drawn = 14 in / 10 ft east; Rev E draws 19 in / 16 ft = Rev A's proposed case); frozen 10:27 AM CT when Rev C was ordered"
+      C:
+        file: P2-A-302_RevC
+        frozen: false
+        inputs: "params/phase2_sightlines.yaml (incl. rev_b + rev_c) + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_f.yaml"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: A-302 Rev C sight-line recheck with 21 in risers and L2 17'-9\"; report C-values)"
     source: "Shane 2026-10-04 7:24 AM CT"
   P2-C-101:
     title: SITE PLAN — CAMPUS DIAGRAM
@@ -658,9 +695,14 @@ sheets:
         source: "Shane 2026-10-04 7:44 AM CT (site plan revision: freestanding portal + 28x30 Champion Walk, south bus drop loop offset E/W, service at north door S1, stair growth; frozen revs stay byte-identical). First site sheet (KEYSTONE prompt §9 C-101, SITE TBD diagram); frozen 9:47 AM CT when Rev B was ordered"
       B:
         file: P2-C-101_RevB
-        frozen: false
+        frozen: true
         inputs: "params/phase2_site.yaml (incl. rev_b) + params/phase2_plan_rev_e.yaml + params/phase2_program.yaml (rev_g)"
-        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: C-101 Rev B tower size, new outline, D-057 area table, no cap language)"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: C-101 Rev B tower size, new outline, D-057 area table, no cap language); frozen 10:27 AM CT when Rev C was ordered"
+      C:
+        file: P2-C-101_RevC
+        frozen: false
+        inputs: "params/phase2_site.yaml (incl. rev_b + rev_c) + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_g, rev_i)"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: C-101 Rev C because the NE stair tower grows 21.33 -> 24.08 ft and the D-057 table changes)"
     source: "Shane 2026-10-04 7:44 AM CT"
 
 sets:

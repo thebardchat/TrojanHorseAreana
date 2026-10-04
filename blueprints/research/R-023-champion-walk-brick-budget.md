@@ -1,6 +1,6 @@
 # R-023 — Champion Walk engraved-brick budget: vendor cost by scenario (Phase 2)
 
-Written 2026-10-04 by KEYSTONE (Shane 10:17 AM CT: "Champion Walk brick budget R-file (v1.3 backlog)"). This note is arithmetic on Shane's vendor price sheet. **It is not a final cost estimate (prompt v1.3 §2).** It covers what the vendors charge for the engraved bricks only. Donor pricing stays OPEN (D-044).
+Written 2026-10-04 by KEYSTONE (Shane 10:17 AM CT: "Champion Walk brick budget R-file (v1.3 backlog)"). **APPROVED by Shane 2026-10-04 10:27 AM CT (D-062).** This note is arithmetic on Shane's vendor price sheet. **It is not a final cost estimate (prompt v1.3 §2).** It covers what the vendors charge for the engraved bricks only. Donor pricing stays OPEN (D-044).
 
 ## Sources
 

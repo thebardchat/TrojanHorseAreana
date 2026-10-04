@@ -1684,8 +1684,11 @@ def build_d(sheet_no, p2, prog, plan, X_, seats, lg):
     return sh
 
 
-def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
-    """Rev E (Shane 2026-10-04 9:10 AM CT, reviewer C-1..C-4): 76 in stairs (D-052), east tier +6 ft (D-053), under-tier rule (D-049), D-057 areas."""
+def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
+    """Rev E (Shane 2026-10-04 9:10 AM CT, reviewer C-1..C-4): 76 in stairs (D-052), east tier +6 ft (D-053), under-tier rule (D-049), D-057 areas.
+    Rev F (Shane 10:27 AM CT): D-061 Option B (L2 FF 17'-9", 21 in risers, front row 9.0 ft = 7'-6" clear, no low band), 31-riser
+    stairs, event lockers 3,600 SF (D-060 settled). rev="F" branches only; Rev E output stays byte-identical."""
+    rf = rev == "F"
     lvl = LEVEL_OF[sheet_no]
     meta2 = p2["meta"]
     pm = plan["meta"]
@@ -1698,7 +1701,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
         "title": f"OVERALL FLOOR PLAN\nLEVEL {lvl} · BLOCK PLAN",
         "scale": "1/32\" = 1'-0\"",
         "date": meta2["sheet_date"],
-        "revision": "E",
+        "revision": rev,
         "drawn_by": meta2["drawn_by"],
         "sheet_no": sheet_no,
         "stamp": meta2["stamp"],
@@ -1804,7 +1807,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
         # upper tier above (D-049): outline dashed; low-headroom band under rows 1-2
         lbf = up["low_band_ft"]
         lows = {"N": [56, 224, 188, 224 + lbf], "E": [188, 56, 188 + lbf, 239], "S": [56, 56 - lbf, 188, 56]}
-        for k_, lr in lows.items():
+        for k_, lr in ({} if rf else lows).items():
             pl.drect(lr, L_TAG, lw=0.5, dash=0.03, gap=0.03)
         for z in lv["zones"]:
             if z.get("under_tier"):
@@ -1818,7 +1821,10 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
                         ya = r_[1] + (r_[3] - r_[1]) * u_
                         pl.line(r_[0], ya - 3, r_[2], ya, L_HID, lw=0.2)
         x_, y_ = pl.P(116, 197.5)
-        sh.text(x_, y_, "UPPER TIER ABOVE steps DOWN to the court · fine dash = LOW BAND under its rows 1-2, < 7'-6\": storage / mech only (D-049)", size=4.4, align="center", layer=L_TAG)
+        if rf:
+            sh.text(x_, y_, f"UPPER TIER ABOVE steps DOWN to the court · front row {up['front_row_ft']:.1f}' = 7'-6\" clear under row 1: no low band (D-061)", size=4.4, align="center", layer=L_TAG)
+        else:
+            sh.text(x_, y_, "UPPER TIER ABOVE steps DOWN to the court · fine dash = LOW BAND under its rows 1-2, < 7'-6\": storage / mech only (D-049)", size=4.4, align="center", layer=L_TAG)
         lower_drawn = sum(area(b["rect"]) for b in lo["bands"])
         sched.append(("—", "Event floor + east zone (D-053)", area(floor), X_["sf"]["arena"], f"{floor[2] - floor[0]:g}' x {floor[3] - floor[1]:g}'; east tier 16 ft from mats"))
         sched.append(("—", f"Lower tier, telescopic ({n(tot['lower'])} seats)", lower_drawn, X_["sf"]["seating_lower"],
@@ -1976,7 +1982,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
                 size=5.6, align="center", layer=L_LOOP)
         sched.append(("—", "Running / training loop", lg["area"], X_["loop"], f"{lp['lanes']} x {lp['lane_width_in']} in; {n(lg['centerline'])} ft CL; {lg['laps_per_mile']:.2f} laps/mi"))
 
-    if lvl == 1:
+    if lvl == 1 and not rf:
         ut = [z for z in lv["zones"] if z.get("under_tier")]
         sched.append(("—", "Under-tier storage (hatched)", sum(area(z["rect"]) for z in ut), None, "low band in front of event lockers 1-4 (D-049)"))
     # rooms (stairs / elevator inside a room are subtracted from its drawn SF)
@@ -2001,10 +2007,14 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
             note = f"{wc + lav} fixtures (WC {wc}, LAV {lav}" + (f"; urinals ≤ {ur} of the WCs)" if ur is not None else ")")
         if r["id"] == "sc":
             note = f"ST-1 (76 in) inside: {'+' if a_ >= ps else '−'}{n(abs(a_ - ps))} vs program (C-3)"
+            if rf:
+                note = f"ST-1 (31 risers) inside: {'+' if a_ >= ps else '−'}{n(abs(a_ - ps))} vs program"
         if r["id"] == "xt":
             note = "trimmed 7 ft for the loop (D-035)"
         if r["id"].startswith("evl_"):
             note = f"behind the low band (D-049): {'+' if a_ >= ps else '−'}{n(abs(a_ - ps))}"
+            if rf:
+                note = f"to the tier line, full 3,600 (D-060): {'+' if a_ >= ps else '−'}{n(abs(a_ - ps))}"
         if r["id"] == "storage_sw":
             note = "FLEX, unprogrammed, label kept (D-039, C-1)"
         full = [f"{r['tag']}  {r['name']}", f"{n(a_)} SF"] + extra
@@ -2088,7 +2098,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
     y = top - 0.05
     sh.rect(rx, y - 0.42, rw, 0.42, lw=1.6)
     sh.text(rx + rw / 2, y - 0.29, pm["label"], size=14, bold=True, align="center")
-    sh.text(rx, y - 0.68, f"LEVEL {lvl} — OVERALL FLOOR PLAN (REV E)", size=12, bold=True)
+    sh.text(rx, y - 0.68, f"LEVEL {lvl} — OVERALL FLOOR PLAN (REV {rev})", size=12, bold=True)
     sh.text(rx, y - 0.88, "scale 1/32\" = 1'-0\" on 17 x 11 in · north approximate, road assumed south, site TBD", size=7.8)
     y -= 1.18
     sh.text(rx, y, "LEGEND", size=9.5, bold=True)
@@ -2099,6 +2109,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
                ("dash", "Portal / vomitory through the telescopic tier (V1, V2)"),
                ("exit", "X# = EXIT ONLY — alarmed, no exterior entry hardware (symbol; width not drawn)"),
                ("svc", "S1 = SERVICE / LOADING door (staff-controlled, not a people entrance; D-034)"),
+               ("note", f"Upper tier above: front row {up['front_row_ft']:.1f}' = 7'-6\" clear, no low band (D-061)") if rf else
                ("dash", "Fine dash = low band under upper-tier rows 1-2 (D-049); hatch = under-tier storage"),
                ("ck", "Security checkpoint zone (size TBD) · CD-1 controlled door (staff / teams)")]
     else:
@@ -2135,7 +2146,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
             sh.line(lx + 0.24, y - 0.03, lx + 0.36, y + 0.11, lw=0.4)
         sh.text(lx + 0.55, y, t_, size=7.2)
     y -= 0.30
-    sh.text(rx, y, f"ROOM SCHEDULE — LEVEL {lvl} (DRAWN vs PROGRAM side by side, P2-G-003 Rev G; C-3)", size=9.5, bold=True)
+    sh.text(rx, y, f"ROOM SCHEDULE — LEVEL {lvl} (DRAWN vs PROGRAM side by side, P2-G-003 Rev {'I' if rf else 'G'}; C-3)", size=9.5, bold=True)
     hdr = [("TAG", 0, "l"), ("ROOM", 0.36, "l"), ("DRAWN SF", 2.65, "r"), ("PROGRAM", 3.35, "r"), ("NOTE", 3.5, "l")]
     rp = 0.126 if lvl == 1 else 0.138
     y -= rp
@@ -2156,6 +2167,8 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
     sh.text(rx, y - 0.16, "AREA CHECK — D-057 (no SF cap, D-056)", size=9.0, bold=True)
     y -= 0.18
     at = [("", 0, "l"), ("DRAWN REV E", 1.75, "r"), ("REV D", 2.45, "r"), ("CHANGE", 3.10, "r"), ("PROGRAM G-003 G", 4.20, "r"), ("DRAWN − PROG.", rw, "r")]
+    if rf:
+        at = [("", 0, "l"), ("DRAWN REV F", 1.75, "r"), ("REV E", 2.45, "r"), ("CHANGE", 3.10, "r"), ("PROGRAM G-003 I", 4.20, "r"), ("DRAWN − PROG.", rw, "r")]
     y -= rp
     for lab, dx, al in at:
         sh.text(rx + dx, y + 0.02, lab, size=6.4, bold=True, align="left" if al == "l" else "right", layer=TB)
@@ -2167,7 +2180,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
                             ("TOTAL GSF", DR["G"], DD["G"], X_["F"] + X_["L2"])):
         y -= rp
         for (l_, dx, al), c in zip(at, [lab, n(d_), n(dd), sgn(d_ - dd), n(pg), sgn(d_ - pg)]):
-            sh.text(rx + dx, y, c, size=7.0, bold=l_ in ("", "DRAWN REV E"), align="left" if al == "l" else "right", layer=TB)
+            sh.text(rx + dx, y, c, size=7.0, bold=l_ in ("", "DRAWN REV E", "DRAWN REV F"), align="left" if al == "l" else "right", layer=TB)
     sh.line(rx, y - 0.05, rx + rw, y - 0.05, layer=TB, lw=0.4)
     y -= 0.06
     team = next(z for z in plan["level_1"]["zones"] if z["id"] == "team_asm")
@@ -2179,6 +2192,16 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
     else:
         txt = (f"L2 = footprint minus open-to-below (arena 132 x 168, lobby 58 x 34). S&C {n(X_['sf']['strength_conditioning'])} program vs "
                f"{n(49 * 110.8 - 12.667 * 21.333)} drawn: the 76 in ST-1 takes {n(12.667 * 21.333 - 10.8 * 19)} SF more than Rev D (C-3).")
+    if rf:
+        st1 = next(st_["rect"] for st_ in vert["stairs"] if st_["id"] == "ST-1")
+        if lvl == 1:
+            txt = (f"Floor 120 x 144, east tier 16 ft from the mats. Program = footprint / L2 gross (R-021). Seats N {bys['N']['total']} / "
+                   f"S {bys['S']['total']} / E {bys['E']['total']} (Rev E {' / '.join(str(r_['lower'] + r_['upper']) for r_ in rows_f)}). Mech {n(mech_drawn)} vs "
+                   f"{n(X_['M'])}. Event lockers {n(sum(area(r_['rect']) for r_ in lv['rooms'] if r_['id'].startswith('evl_')))} SF (D-060). "
+                   f"FLEX kept: team assembly ≈ {n(area(team['rect']))}, FLEX / STORAGE {n(area(sw['rect']))} SF.")
+        else:
+            txt = (f"L2 = footprint minus open-to-below (arena 132 x 168, lobby 58 x 34). S&C {n(X_['sf']['strength_conditioning'])} program vs "
+                   f"{n(49 * 110.8 - area(st1))} drawn: the 31-riser ST-1 takes {n(area(st1) - 12.667 * 21.333)} SF more than Rev E.")
     y = sh.para(rx, y, rw, txt, size=6.9)
     sh.text(rx, y - 0.14, "ACCESS CONTROL + EGRESS (D-033 DECIDED; layout ASSUMED)" if lvl == 1 else
             "LEVEL 2 LOOP (D-035 DECIDED; geometry ASSUMED) + EGRESS", size=9.0, bold=True)
@@ -2200,6 +2223,10 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
             "Stairs 76 in (D-052) with 76 in intermediate landings (D-051) = 12.67 x 21.33 ft, same spot both levels. ST-2 sits in a 21.33 x "
             "6.67 ft NE stair tower (Rev D 19 x 5): 6.67 ft is what keeps it clear of the loop's north leg. Egress: 4 stairs discharge at L1 "
             "through EXIT ONLY doors X4, X6, X9, X10 (D-033)."]
+    if rf:
+        acc2[-1] = ("Stairs 76 in, 31 risers of 6.87 in for the 17'-9\" floor-to-floor (D-061), 76 in intermediate landings = 12.67 x 24.08 ft, "
+                    "same spot both levels. The NE stair tower grows 2.75 ft west to 24.08 x 6.67 ft (Rev E 21.33 x 6.67), still clear of the "
+                    "loop's north leg. Egress: 4 stairs discharge at L1 through EXIT ONLY doors X4, X6, X9, X10 (D-033).")
     for t_ in (acc1 if lvl == 1 else acc2):
         y = sh.para(rx, y + 0.02, rw, t_, size=6.4 if lvl == 1 else 6.6, indent=0.12, bullet="·")
     if lvl == 2:
@@ -2211,11 +2238,22 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f):
     notes2 = [f"Upper tier 15 ft deep: {up['rows']} rows x {up['row_depth_in']} in, {up['riser_in']} in risers (D-053; section P2-A-301 / A-302), stepping "
               "DOWN from the loop to the court (D-049). N / S bands now 132 ft (east shift); seat split by side changes, totals stay 1,100 + 1,100.",
               "6 ft stretch strip on the N side. Exit separation, travel distance, structure NOT checked. Floor-to-floor 15 ft ASSUMED."]
+    src_ = ("Sources: phase2.yaml (D-009, D-030, D-033, D-034, D-035, D-049, D-051-D-053, D-056, D-057); Shane 2026-10-04 9:10 AM CT; "
+            "P2-G-003 Rev G; R-008, R-009, R-014, R-015, R-020, R-021; IBC 2021 Ch. 10 (UpCodes, Alabama); UFC 4-740-02N (retrieved 2026-10-04). "
+            "Geometry: params/phase2_plan_rev_e.yaml.")
+    if rf:
+        notes1 = [f"D-061 (Option B): Level 2 at 17'-9\", {up['riser_in']} in upper risers, front row {up['front_row_ft']:.1f} ft: 7'-6\" clear under row 1 "
+                  "(≈ 1'-6\" structure ASSUMED; IBC 1003.2 minimum, no margin), more behind it. EXIT (N), EXIT (E), SE concourse and the lobby / "
+                  "portal / athlete-route edge are clear; no low band, no seats lost. Travel distance NOT checked."]
+        notes2 = [f"Upper tier 15 ft deep: {up['rows']} rows x {up['row_depth_in']} in, {up['riser_in']} in risers (D-061; section P2-A-301 / A-302), stepping "
+                  "DOWN from the loop (L2 FF 17'-9\") to the court (D-049). Seat split by side unchanged, totals 1,100 + 1,100.",
+                  "6 ft stretch strip on the N side. Exit separation, travel distance, structure NOT checked. Floor-to-floor 17'-9\" (D-061 DECIDED)."]
+        src_ = ("Sources: phase2.yaml (D-009, D-030, D-033-D-035, D-049, D-051-D-053, D-056, D-057, D-060, D-061); Shane 2026-10-04 9:10 + 10:27 AM CT; "
+                "P2-G-003 Rev I; R-008, R-009, R-014, R-015, R-020-R-022; IBC 2021 Ch. 10 (UpCodes, Alabama); UFC 4-740-02N (retrieved 2026-10-04). "
+                "Geometry: params/phase2_plan_rev_f.yaml.")
     for t_ in (notes1 if lvl == 1 else notes2):
         y = sh.para(rx, y + 0.02, rw, t_, size=6.4 if lvl == 1 else 6.6, indent=0.12, bullet="·")
-    y = sh.para(rx, y - 0.02, rw, "Sources: phase2.yaml (D-009, D-030, D-033, D-034, D-035, D-049, D-051-D-053, D-056, D-057); Shane 2026-10-04 9:10 AM CT; "
-                "P2-G-003 Rev G; R-008, R-009, R-014, R-015, R-020, R-021; IBC 2021 Ch. 10 (UpCodes, Alabama); UFC 4-740-02N (retrieved 2026-10-04). "
-                "Geometry: params/phase2_plan_rev_e.yaml.", size=6.3)
+    y = sh.para(rx, y - 0.02, rw, src_, size=6.3)
     fl = body_bottom + 0.08
     if y < fl:
         raise SystemExit(f"LAYOUT OVERFLOW: right panel runs {fl - y:.2f} in into the stamp band")
@@ -2228,8 +2266,8 @@ def main():
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")
-    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E"], default="E",
-                    help="A = first block plan (frozen); B = Shane 4:30 AM CT changes (frozen); C = single controlled entry, D-033 (frozen); D = Level 2 loop, D-035 (frozen); E = reviewer C-1..C-4: 76 in stairs, east +6 ft, D-049, D-057 (default)")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F"], default="F",
+                    help="A = first block plan (frozen); B = Shane 4:30 AM CT changes (frozen); C = single controlled entry, D-033 (frozen); D = Level 2 loop, D-035 (frozen); E = reviewer C-1..C-4: 76 in stairs, east +6 ft, D-049, D-057 (frozen); F = D-061 Option B (L2 17'-9\", 21 in risers, 31-riser stairs), D-060 lockers 3,600 (default)")
     a = ap.parse_args()
     if a.rev == "A":
         p2, prog, plan, F_, T_ = load_all()
@@ -2237,6 +2275,10 @@ def main():
     elif a.rev == "B":
         p2, prog, ob, out = tf.summary_e()
         sh, rv_letter = build_b(a.sheet, p2, prog, out["plan"], out["mix"], (out["rows"], out["tot"])), "B"
+    elif a.rev == "F":
+        p2, prog, ob, out = tf.summary_h()
+        sh, rv_letter = build_e(a.sheet, p2, prog, out["plan"], out["loop"], (out["rows"], out["tot"]), out["geom"],
+                                out["drawn"], out["drawn_d"], out["rev_f"]["rows"], rev="F"), "F"
     elif a.rev == "E":
         p2, prog, ob, out = tf.summary_g()
         sh, rv_letter = build_e(a.sheet, p2, prog, out["plan"], out["loop"], (out["rows"], out["tot"]), out["geom"],

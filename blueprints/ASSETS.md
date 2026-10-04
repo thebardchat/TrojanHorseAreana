@@ -369,3 +369,17 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 ## 2026-10-04 additions (10:17 AM CT session, R-023 brick budget)
 - **New research:** `research/R-023-champion-walk-brick-budget.md`, also at `ARENA\_KEYSTONE\R-023-champion-walk-brick-budget.md` (saved there first). Inputs: Shane's vendor price sheet (ARENA #28 `Champion_Walk_Brick_Pricing - Vendor Prices.pdf`, sha256 `13fcc39c…`, not committed) and HomeGuide brick walkway cost page (https://homeguide.com/costs/brick-walkway-cost, retrieved 2026-10-04, REFERENCE LOW).
 
+
+## 2026-10-04 additions (10:27 AM CT session, D-061 Option B + approvals)
+- **New data:** `params/phase2_plan_rev_f.yaml` (Plan Rev F: stairs 12.67 x 24.08, NE tower 24.08 x 6.67, event lockers to the tier lines = 3,600 SF, upper tier 21 in / front row 9.0 / L2 17.75). `params/phase2_elev_rev_g.yaml` (A-201 Rev G overlay: heights_override, datum_labels, tower label, raised labels). Other params: `phase2_program.yaml` `meta_rev_i` + `rev_i`; `phase2_sect.yaml` `rev_d`; `phase2_sightlines.yaml` `rev_c`; `phase2_site.yaml` `rev_c`; `phase2.yaml` v16 (new revs; A-101 E, A-102 E, G-003 H, A-201 F, A-301 C, A-302 B, C-101 B frozen); `phase1.yaml` P1-G-001 E frozen (approved, D-062).
+- **New sheets (repo, `phase2/out/{pdf,dxf}/`), with PDF sha256:**
+  - `P2-A-101_RevF` (`565cc88e54287c95…`)
+  - `P2-A-102_RevF` (`76cd29c440d9dac4…`)
+  - `P2-G-003_RevI` (`5a36b05105aac5c2…`)
+  - `P2-A-301_RevD` (`3464113d2c139d87…`)
+  - `P2-A-302_RevC` (`80f2bd987c16df98…`)
+  - `P2-A-201_RevG` (`c2373b643082ff58…`)
+  - `P2-C-101_RevC` (`30cb2e154291d86b…`)
+- **Research updated:** `research/R-022-exit-paths-under-low-band.md` §5 Decided; `research/R-023-champion-walk-brick-budget.md` APPROVED. Copies are in `ARENA\_KEYSTONE`.
+- **New files in the ARENA root** (CopyFromBox, checked absent first; naming `<sheet>_Rev<X>.pdf` ASSUMED): `P2-A-101_RevF.pdf`, `P2-A-102_RevF.pdf`, `P2-G-003_RevI.pdf`, `P2-A-301_RevD.pdf`, `P2-A-302_RevC.pdf`, `P2-A-201_RevG.pdf`, `P2-C-101_RevC.pdf`. Plain-named files untouched.
+- **Previews (box only):** `/workspace/keystone_previews/` P2-A-101, P2-A-102 (Rev F), P2-G-003 (Rev I), P2-A-301 (Rev D), P2-A-302 (Rev C), P2-A-201 (Rev G), P2-C-101 (Rev C), each `.png` + `.pdf`.

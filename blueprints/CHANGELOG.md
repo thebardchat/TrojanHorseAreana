@@ -504,3 +504,28 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - Installation, base / sub-base, border and engraving beyond the vendor price are NOT included and NOT estimated. The only published figure is HomeGuide's residential $8–$16/SF labor (REFERENCE, LOW, not added). Not a final cost estimate (v1.3 §2).
 - No sheet changed. Open decisions unchanged: 19.
 
+
+## 2026-10-04 ~10:45 AM CT · D-061 Option B (L2 17'-9", 21 in risers) + D-060 settled + approvals
+- **Decisions:** D-061 DECIDED, Option B (Shane 10:27 AM CT). D-060 SETTLED: event lockers 3,600 SF behind the tier. D-062 logs the approvals of P2-A-201 Rev F, P2-G-003 Rev H, P1-G-001 Rev E and R-023; those revs are FROZEN and byte-identical. Open decisions: 19 → 17.
+- **Params first:** new `params/phase2_plan_rev_f.yaml` and `params/phase2_elev_rev_g.yaml`. `phase2_program.yaml` gets `meta_rev_i` and `rev_i` (floor-to-floor 213 in, lockers 3,600). `phase2_sect.yaml` gets `rev_d`, `phase2_sightlines.yaml` gets `rev_c`, and `phase2_site.yaml` gets `rev_c`. `phase2.yaml` is v16: new sheet entries plus frozen / approved flags. `phase1.yaml` sets P1-G-001 E to frozen.
+- **P2-A-101 / A-102 Rev F** (`p2_a_plan.py --rev F`):
+  - Stairs: ST-1..ST-4 are 12.67 × 24.08 ft (31 risers at 6.87 in, 16 + 15), grown inward. ST-2 grows west, so the NE tower is 24.08 × 6.67 ft.
+  - Rooms: mech N, S&C and stretch trimmed.
+  - Low band and under-tier zones removed. Event lockers run to the tier lines (3,600 SF), and the exit paths under the tier front are clear at 7'-6".
+  - D-057 table vs Rev E: L1 53,080.6 (+18.3), L2 28,932.6 (+18.3), TOTAL 82,013.1 GSF (+36.7). Seats unchanged at 2,200.
+- **P2-G-003 Rev I:** program on Plan Rev F with floor-to-floor 17'-9". Stair 305.1 SF per stair per level (was 270.2). L1 + L2 gross 81,119.1 (+371.6 vs Rev G/H); footprint 54,415.1; L2 gross 28,186.3.
+- **P2-A-301 Rev D:**
+  - Heights and tiers: L2 FF 17'-9", ring roof 32.75', upper risers 21 in, front row 9.0 ft with 7'-6" clear (1.5 ft structure ASSUMED).
+  - C-5: the 25' clear is labelled REFERENCE (R-019).
+  - C-7: the stair detail shows the 16 / 15 flights and an intermediate handrail, labelled "architect to confirm" (IBC 2021 1014.9).
+  - Notes cover 1030.6.2.2 and the 17'-9" elevator travel.
+- **P2-A-302 Rev C:** sight lines with 21 in risers at L2 17.75.
+  - Lower tier governs and is unchanged: N/S seated 149 / standing 127, E seated 101 / standing 72 mm.
+  - Upper tier: N/S 179 / 156, E 105 / 76 mm.
+  - No FAIL; E standing MARGINAL (L4–L6, U3–U5).
+  - Stack: closed fits with 30.6 in for structure. Open still conflicts, so it stays at the tier face.
+- **P2-A-201 Rev G:** L2 line at 17'-9" and ring roof at 32'-9" (datums), with the parapet and arena-behind labels raised. NE tower and doors follow Plan Rev F.
+- **P2-C-101 Rev C:** NE tower 24.08 × 6.67 (Rev E tower dashed), stairs from Plan Rev F, D-057 table vs Rev E with program G-003 Rev I.
+- **IBC 2021 1030.6.2.2 (if smoke-protected):** highest aisle = loop at 17.75 ft, so the roof must be ≥ 32.75 ft. The arena's U/S structure is drawn at 36 ft: PASS, 3.25 ft margin. The ring roof at 32.75 covers the perimeter rooms, not the seating.
+- **Research:** R-022 §5 "Decided" added with the as-drawn numbers. R-023 marked APPROVED.
+- **Frozen check:** the newly frozen revs were re-rendered and compared: A-101 E, A-102 E, G-003 H, A-201 F, A-301 C, A-302 B, C-101 B and P1-G-001 E. Results are in the commit message / report.

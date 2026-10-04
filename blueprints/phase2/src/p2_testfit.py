@@ -605,6 +605,29 @@ def summary_g():
     return p2, prog, ob, out_g
 
 
+
+# ============================ REV I (Shane 2026-10-04 10:27 AM CT): D-061 Option B, Plan Rev F ============================
+def compute_rev_i(p2, prog, loop_sf):
+    """Rev G method with floor-to-floor 17'-9" (D-061): stairs 31 risers -> 305.1 SF per stair per level."""
+    import copy
+    pr = copy.deepcopy(prog)
+    pr["vertical_circulation"]["floor_to_floor_in"] = prog["rev_i"]["floor_to_floor_in"]
+    d = compute_rev_g(p2, pr, loop_sf)
+    d["scenario"] = "rev_i"
+    return d
+
+
+def summary_h():
+    """P2-G-003 Rev I / P2-A-101/102 Rev F: program on Plan Rev F, previous = Rev G/H (summary_g), drawn vs Plan Rev E."""
+    p2, prog, ob, out_g = summary_g()
+    plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_f.yaml").read_text(encoding="utf-8"))
+    lg = loop_geometry(plan)
+    lp = compute_rev_i(p2, prog, lg["area"])
+    rows, tot = seats_by_side(plan, prog, lp)
+    out_h = dict(loop=lp, mix=out_g["mix"], geom=lg, rows=rows, tot=tot, plan=plan, rev_f=out_g,
+                 drawn=drawn_size(plan), drawn_d=drawn_size(out_g["plan"]))
+    return p2, prog, ob, out_h
+
 if __name__ == "__main__":
     import sys as _s
     if "--rev-e" in _s.argv:

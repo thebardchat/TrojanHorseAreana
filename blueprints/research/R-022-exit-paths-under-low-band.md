@@ -70,3 +70,15 @@ The tier's back stays at the loop = L2 FF (D-049), so clearing row 1 means raisi
 | Other | guards at each cut | rails + storage strips | ring roof 32.75', taller walls, longer stairs |
 
 KEYSTONE does not pick an option. Shane decides **D-061**.
+
+## 5. Decided (2026-10-04 10:27 AM CT)
+
+Shane chose **Option B** (D-061 DECIDED): "raise Level 2 to 17'-9" with 21 in upper risers. No seats lost; upper-tier front row ≥ 7'-6" clear over ALL exit paths." D-060 is settled in the same message: event lockers go back to the full 3,600 SF behind the tier.
+
+How it was drawn (P2-A-101/102 Rev F, P2-A-301 Rev D, P2-A-302 Rev C, P2-A-201 Rev G, P2-C-101 Rev C, P2-G-003 Rev I):
+
+- **Stairs grow inward.** Each stair is 12.67 × 24.08 ft (31 risers at 6.87 in, 16 + 15). ST-2 grows **west** along the north wall, not north. The NE tower becomes 24.08 × 6.67 ft (was 21.33 × 6.67), not the ~9.4 ft deep tower estimated in §3. The rest of the growth comes out of interior rooms (mech N, S&C, stretch).
+- **Drawn size (D-057):** L1 53,080.6 / L2 28,932.6 / TOTAL 82,013.1 GSF, which is **+36.7 vs Rev E** (only the tower's +18.3 SF on each level). §3's ≈ +279 SF was the program-side growth. The program (G-003 Rev I) grows +371.6 (L1 + L2 gross 81,119.1) because vertical circulation goes from 1,144.9 to 1,284.2 SF per level.
+- **Clearance:** front row 9.0 ft. Clear = 7'-6" exactly with 1.5 ft structure ASSUMED: **no margin, structural engineer to confirm.**
+- **Sight lines (A-302 Rev C):** the lower tier still governs, at N/S 149 / 127 and E 101 / 72 mm. Upper tier N/S 179 / 156, E 105 / 76 mm. No FAIL. East standing stays MARGINAL.
+- **1030.6.2.2 (if smoke-protected):** highest aisle = loop 17.75 ft, so the roof must be ≥ 32.75 ft. The arena's U/S structure is drawn at 36 ft, so it PASSES with a 3.25 ft margin.

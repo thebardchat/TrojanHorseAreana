@@ -13,13 +13,15 @@ Rev E: coordinated with P2-A-101/102 Rev E: 210 ft width, arena volume flush wit
 21.33 x 6.67 ft, doors from Rev E (phase2_elev_rev_e.yaml `plan_file`). Portal / brand unchanged from Rev D.
 Rev F (reviewer C-5 / C-8, no geometry change): 25' arena clear labelled REFERENCE (not CITED); portal marked
 STRUCTURAL ENGINEER REQUIRED (callout + note); ETFE roof / solar moved from NOT SHOWN to an OPEN QUESTION note
-(phase2_elev_rev_f.yaml `se_callout`, `notes_override.not_shown` / `open_question`).
+(phase2_elev_rev_f.yaml `se_callout`, `notes_override.not_shown` / `open_question`). Rev F approved + FROZEN 10:27 AM CT.
+Rev G (Shane 10:27 AM CT, D-061 Option B): L2 FF line 17'-9", ring roof 32.75' (ring walls 2.75' taller), NE stair tower
+24.08 x 6.67 ft and doors from P2-A-101 Rev F (phase2_elev_rev_g.yaml `heights_override`, `datum_labels`, `plan_file`).
 
 South elevation (primary, 1/16 in = 1 ft) with the south portal; north, east and west (1/32 in = 1 ft).
 Heights and finishes: params/phase2_elev.yaml. Building outline, arena volume and doors: params/phase2_plan_rev_d.yaml
 (P2-A-101/102 Rev D, frozen in Phase 2 Schematic Set Rev A). DXF is in paper inches; fills are solid HATCH entities.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C|D|E|F] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C|D|E|F|G] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -45,7 +47,7 @@ def load(rev="A"):
     ev = yaml.safe_load((BP / "params" / "phase2_elev.yaml").read_text(encoding="utf-8"))
     plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_d.yaml").read_text(encoding="utf-8"))
     evb = None
-    if rev in ("B", "C", "D", "E", "F"):
+    if rev in ("B", "C", "D", "E", "F", "G"):
         evb = yaml.safe_load((BP / "params" / f"phase2_elev_rev_{rev.lower()}.yaml").read_text(encoding="utf-8"))
         if evb.get("plan_file"):                   # Rev E: P2-A-101/102 Rev E geometry (210 ft, 6.67 ft NE tower)
             plan = yaml.safe_load((BP / "params" / evb["plan_file"]).read_text(encoding="utf-8"))
@@ -56,6 +58,10 @@ def load(rev="A"):
             for k, v in po.items():
                 if k not in ("basis", "status", "source"):
                     ev["portal"][k] = v
+        for k, v in (evb.get("heights_override") or {}).items():   # Rev G: D-061 heights (L2 17.75, ring roof 32.75)
+            ev["heights"][k].update(v)
+        if evb.get("datum_labels"):
+            ev["datum_labels"] = evb["datum_labels"]
     return p2, ev, plan, evb
 
 
@@ -272,6 +278,9 @@ def datums(sh, el, ev, length, side="left", size=5.4, which=None, short=False):
             ("arena_roof_top", "T.O. ARENA ROOF 42'-0\" (ASSUMED)")]
     if short:
         rows = [(k, f"{hz[k]['value']}'-0\"") for k, _ in rows]
+    dl = ev.get("datum_labels")
+    if dl:                                         # Rev G: datum text for 17'-9" / 32'-9"
+        rows = [(k, dl["short" if short else "long"][k]) for k, _ in rows]
     if which:
         rows = [r for r in rows if r[0] in which]
     for k, lab in rows:
@@ -452,10 +461,10 @@ def build(p2, ev, plan, evb=None):
     datums(sh, elS, ev, F["S"]["length"], side="left", size=5.6)
     # tags
     elS.text(178, 8.0, "WALL MATERIAL TBD", size=6.0, align="center", layer=L_TAG)
-    elS.text(30, 31.3, "PARAPET TBD", size=5.0, align="center", layer=L_TAG)
+    elS.text(30, (evb or {}).get("layout", {}).get("parapet_ring_z", 31.3), "PARAPET TBD", size=5.0, align="center", layer=L_TAG)
     elS.text(60, 43.3, "PARAPET TBD", size=5.0, align="center", layer=L_TAG)
     elS.text(25, 22.5, "WALL MATERIAL TBD", size=6.0, align="center", layer=L_TAG)
-    elS.text((ar[0] + 91) / 2, 32.2, f"ARENA VOLUME BEHIND (set back {F['S']['set_back'][1]:g}')", size=5.4, align="center", layer=L_TAG)
+    elS.text((ar[0] + 91) / 2, (evb or {}).get("layout", {}).get("arena_behind_z", 32.2), f"ARENA VOLUME BEHIND (set back {F['S']['set_back'][1]:g}')", size=5.4, align="center", layer=L_TAG)
     cx = pt["center_x"]
     ttl = ((("GRAND ENTRANCE PORTAL (FREESTANDING)", pt["overall_height"] + 3.6, 7.0),
             (evb.get("title2") or f"stands ≈ {evb['portal_freestanding']['gap_to_building']:g}' south of the entrance (gap ASSUMED) · see key plan", pt["overall_height"] + 1.3, 5.2))
@@ -506,7 +515,7 @@ def build(p2, ev, plan, evb=None):
     draw_face(sh, elN, F["N"], ev, fin)
     datums(sh, elN, ev, F["N"]["length"], side="left", size=4.6, which=("ring_roof", "arena_roof_top", "l2_ff"), short=True)
     te = (evb or {}).get("text_rev_e", {})
-    elN.text(0 + te.get("tower_u", 9.5), 31.6, te.get("tower_label", "NE STAIR TOWER (+5')"), size=4.4, align="center", layer=L_TAG)
+    elN.text(0 + te.get("tower_u", 9.5), te.get("tower_z", 31.6), te.get("tower_label", "NE STAIR TOWER (+5')"), size=4.4, align="center", layer=L_TAG)
     x_, y_ = elN.P(0, -8.5)
     sh.text(x_, y_, "NORTH ELEVATION — 1/32\" = 1'-0\"  (E ← → W)", size=7.2, bold=True, layer=L_TAG)
 
@@ -578,7 +587,7 @@ def build(p2, ev, plan, evb=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F"], default="F")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D", "E", "F", "G"], default="G")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")

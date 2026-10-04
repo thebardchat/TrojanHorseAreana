@@ -1,0 +1,198 @@
+# phase2_plan_rev_f.yaml: P2-T-004 SCHEMATIC BLOCK PLAN geometry, REV F (Phase 2). Read by phase2/src/p2_a_plan.py --rev F
+# and by P2-G-003 Rev I (loop area, seat counts). Rev E geometry stays in phase2_plan_rev_e.yaml (FROZEN with P2-A-101/102 Rev E).
+# Rev F = D-061 DECIDED, Option B (Shane 2026-10-04 10:27 AM CT): Level 2 FF 15 ft -> 17'-9" with 21 in upper risers, front row
+# 9.0 ft = 7'-6" clear under row 1 (no low band, no seats lost); stairs 31 risers (2 flights 16 + 15, 15 treads x 11 in) =
+# 12.67 x 24.08 ft; D-060 SETTLED: event lockers back to the full 3,600 SF, running to the tier lines.
+# Rev E header (kept for history):
+# Rev E = reviewer set C-1..C-4 (Shane 2026-10-04 9:10 AM CT): 76 in stairs with 76 in intermediate landings (D-052, D-051),
+# east tier front 6 ft further from the mats = event floor + everything east of x = 170 moves 6 ft east (D-053),
+# 19 in upper risers (D-053, section only), FLEX / STORAGE label kept (D-039, C-1), upper tier steps down to the court (D-049):
+# event lockers 1-4 start behind the low-headroom band under upper-tier rows 1-2; area tables per D-057 (no cap, no margin, D-056).
+# Units: feet. Origin = SW corner of the building; x runs east, y runs north. Rectangles are [x0, y0, x1, y1].
+# Status: every coordinate is ASSUMED (KEYSTONE layout choice, LOW confidence) unless a field says otherwise.
+meta:
+  ticket: P2-T-004
+  revision: F
+  sheets: [P2-A-101, P2-A-102]
+  label: "SCHEMATIC — BLOCK PLAN"
+  scale_ft_per_in: 32
+  scale_text: "1/32 in = 1 ft-0 in"
+  north: "plan north = up, APPROXIMATE; road assumed south (portal faces it); site and true north TBD"
+  status: ASSUMED
+  confidence: LOW
+  source: "Shane 2026-10-04 4:30 AM CT (Rev B) + 4:43 AM CT (Rev C, D-033) + 4:55 AM CT (Rev D: Level 2 loop, D-035) + 9:10 AM CT (Rev E: reviewer C-1..C-4; D-049, D-052, D-053) + 10:27 AM CT (Rev F: D-061 Option B, D-060 settled); KEYSTONE layout"
+
+building:
+  rect: [0, 0, 210, 252]
+  basis: "Rev D box (204 x 252 ft, lockers + athlete corridor west, arena volume with a 12 ft telescopic lower tier, 15 ft upper tier, 56 ft south lobby band) widened 6 ft east for the 16 ft east clear zone (D-053): 210 x 252 = 52,920 SF + NE stair tower"
+  status: ASSUMED
+  confidence: LOW
+  source: "KEYSTONE layout; Rev D 204 x 252 + 6 ft east (D-053 east clear 16 ft); no SF cap (D-056); size reported per D-057"
+  projection: {id: st2_tower, rect: [185.917, 252, 210, 258.667], note: "Rev F: 24.08 x 6.67 ft stair-tower projection at the NE corner; the 31-riser stair (24.08 x 12.67 ft, D-061) grows 2.75 ft WEST along the north wall, so the tower keeps its 6.67 ft depth and grows 21.33 -> 24.08 ft long (160.6 SF footprint, +18.3 SF vs Rev E)", source: "KEYSTONE layout (ASSUMED); D-061 (L2 FF 17'-9\", 31 risers); D-052 (76 in stairs); D-051 (landing = width)"}
+
+event_floor:
+  rect: [56, 68, 176, 212]
+  table_zone_ft: 15
+  clear_ft: 10
+  east_clear_ft: 16
+  basis: "Rev D 114 x 144 ft floor + 6 ft on the east side = 120 x 144 ft; mats, court and the entry axis x = 113 stay; the east tier front is 16 ft from the nearest mat (D-053); N / S stay 25 ft (10 clear + 15 table zone)"
+  status: CITED clearances / ASSUMED table zone
+  confidence: MEDIUM
+  source: "R-005 (NFHS Wrestling 2-1-5, 2-3); D-014; D-030; D-053 (east +6 ft, Shane 7:44 AM CT); R-020"
+
+entry_axis_x: {value: 113, basis: "arena N-S axis = mats / court center line (the Rev D floor center); entry, lobby, portal and lobby void stay centered on it; the Rev E floor grows 6 ft east only (D-053)", source: "Shane 2026-10-04 4:30 AM CT (entry south-center on the arena's N-S axis)"}
+
+mats:
+  - {id: M1, origin: [66, 145], source: "KEYSTONE layout from R-005 clearances"}
+  - {id: M2, origin: [118, 145], source: "KEYSTONE layout from R-005 clearances"}
+  - {id: M3, origin: [66, 93], source: "KEYSTONE layout from R-005 clearances"}
+  - {id: M4, origin: [118, 93], source: "KEYSTONE layout from R-005 clearances"}
+
+court:
+  rect: [88, 98, 138, 182]
+  runout_ft: 10
+  basis: "84 x 50 ft NFHS court centered on the floor, 10 ft preferred runout; overlay only"
+  status: CITED
+  confidence: HIGH
+  source: "R-012 (NFHS Basketball 1-1, 1-2-1)"
+
+arena_volume:
+  rect: [56, 56, 188, 224]
+  basis: "event floor + 12 ft telescopic lower tier on N, S, E; double height, nothing built above. No west tier (Shane OK 4:30 AM CT); the west floor edge opens to the athlete corridor"
+  status: ASSUMED
+  confidence: LOW
+  source: "KEYSTONE layout; phase2_program.yaml stacking; Shane 2026-10-04 4:30 AM CT"
+
+tiers:
+  lower:
+    type: telescopic
+    rows: 6
+    row_depth_ft: 2
+    depth_ft: 12
+    basis: "6 rows x 24 in row spacing (R-008 Hussey MAXAM option) = 12 ft extended; seats per row-foot = 24 in row ÷ 3.38 SF/seat (R-008 geometry incl. 48 in aisles); 6 rows ASSUMED (5 rows cannot hold 1,100 once the portal and vomitories are cut out)"
+    bands:
+      - {side: N, rect: [56, 212, 188, 224], source: "KEYSTONE layout"}
+      - {side: S, rect: [56, 56, 188, 68], source: "KEYSTONE layout"}
+      - {side: E, rect: [176, 68, 188, 212], source: "KEYSTONE layout"}
+    openings:
+      - {id: PORTAL, side: S, rect: [107, 56, 119, 68], note: "main portal: lobby straight to the floor on the entry axis", source: "KEYSTONE layout (ASSUMED 12 ft)"}
+      - {id: V1, side: N, rect: [123.85, 212, 131.85, 224], note: "event lockers 1-2 and EXIT PASSAGE (N) to the floor", source: "KEYSTONE layout (vomitory, 8 ft ASSUMED; moved 3.85 ft east in Rev C to line up with the N exit passage)"}
+      - {id: V2, side: E, rect: [176, 175.09, 188, 183.09], note: "event lockers 3-4 and EXIT PASSAGE (E) to the floor", source: "KEYSTONE layout (vomitory, 8 ft ASSUMED; moved 3.91 ft south in Rev C to line up with the E exit passage)"}
+    status: CITED row depth / ASSUMED rows and layout
+    confidence: LOW
+    source: "R-008; D-009 (telescopic lower tier); KEYSTONE geometry"
+  upper:
+    type: fixed
+    depth_ft: 15
+    riser_in: 21
+    rows: 5
+    row_depth_in: 36
+    front_row_ft: 9.0
+    l2_ff_ft: 17.75
+    steps_down: "the tier steps DOWN from the L2 loop (back, FF 17'-9\") toward the court; front row tread 17.75 - 5 x 21 in = 9.0 ft (D-049, D-061)"
+    low_band_ft: 0
+    clear_basis: "row 1 tread 9.0 ft less about 1.5 ft of deck structure (ASSUMED) = 7 ft 6 in clear = IBC 2021 1003.2 minimum (no margin); rows 2-5 clear 9.25 / 11.0 / 12.75 / 14.5 ft. No low band: exit paths EXIT (N), EXIT (E), SE concourse and the lobby / portal / athlete-route edge are clear (D-061)"
+    clear_source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: front row >= 7'-6\" clear over all exit paths); research/R-022-exit-paths-under-low-band.md; IBC 2021 1003.2"
+    basis: "fixed tier on the Level 2 deck over the L1 ring; capacity = band area ÷ 6.0 SF/seat (R-008, Loudoun 2014); 15 ft depth ASSUMED"
+    bands:
+      - {side: N, rect: [56, 224, 188, 239], source: "KEYSTONE layout"}
+      - {side: S, rect: [56, 41, 188, 56], source: "KEYSTONE layout (over the lobby: 'lobby under the south tier')"}
+      - {side: E, rect: [188, 41, 203, 239], source: "KEYSTONE layout (includes the NE and SE corners)"}
+    status: CITED SF/seat / ASSUMED depth and layout
+    confidence: LOW
+    source: "R-008; D-009 (fixed upper tier); D-049 (steps down); D-053; D-061 (21 in risers, L2 FF 17 ft 9 in); phase2_sightlines.yaml rev_c; KEYSTONE geometry"
+  allocation: "each tier holds 1,100 (phase2_program.yaml locked_program 50/50); seats split by side in proportion to each band's capacity (largest remainder); spare capacity is left for wheelchair spaces, companions and aisles"
+  source: "KEYSTONE arithmetic; phase2.yaml spaces.seating (2,200 bowl, MIX)"
+
+vertical:
+  stairs:
+    - {id: ST-1, name: "STAIR 1 (NW)", rect: [36.333, 227.917, 49, 252], source: "D-061 (31 risers) + D-052 (76 in) + D-051 (76 in intermediate landing): 12.67 x 24.08 ft; KEYSTONE location (Rev E rect grown 2.75 ft south)"}
+    - {id: ST-2, name: "STAIR 2 (NE)", rect: [185.917, 246, 210, 258.667], source: "D-061, D-052, D-051: 24.08 x 12.67 ft (turned E-W); KEYSTONE location (Rev E rect grown 2.75 ft west; north of the loop's north leg; 6.67 ft NE stair tower)"}
+    - {id: ST-3, name: "STAIR 3 (SE)", rect: [185.917, 0, 210, 12.667], source: "D-061, D-052, D-051: 24.08 x 12.67 ft (turned E-W, east concourse); KEYSTONE location (Rev E rect grown 2.75 ft west)"}
+    - {id: ST-4, name: "STAIR 4 (SW)", rect: [0, 0, 12.667, 24.083], source: "D-061, D-052, D-051: 12.67 x 24.08 ft; KEYSTONE location (SW corner, Rev E rect grown 2.75 ft north; discharges straight outside, EXIT ONLY)"}
+  elevator: {id: EL-1, name: ELEVATOR, rect: [56, 26, 64, 34], source: "R-015 (1 elevator, 8 x 8 ft hoistway ASSUMED); KEYSTONE location (west of the lobby; Rev D: 1 ft south, opens onto the loop at L2)"}
+  basis: "same rectangles on both levels (aligned); one stair per corner zone for separation (separation distance NOT checked). Rev A positions moved because the box shrank and the entry moved"
+  size_basis: "L2 FF 17'-9\" = 213 in -> 31 risers of 6.87 in (IBC 2021 1011.5.2 <= 7 in), 2 flights of 16 + 15, longest flight 15 treads x 11 in = 165 in; each stair 76 in wide (D-052) x 2 flights + 48 in floor landing + 165 in run + 76 in intermediate landing (D-051) = 152 x 289 in = 305.1 SF per level (Rev E 270.2, +34.8)"
+  source: "R-015; P2-G-003 Rev I; D-051; D-052; D-061 (Shane 2026-10-04 10:27 AM CT)"
+
+# Rooms. prog = key in compute_mix()['sf'] or 'mechanical' (share = drawn share of all mech rooms when 'auto').
+level_1:
+  rooms:
+    - {tag: "1", id: boys_locker, name: BOYS LOCKER, rect: [0, 140, 41.75, 224], prog: boys_locker, share: 1, source: "reference plan (lockers west, boys north of girls); DR1; Shane keep"}
+    - {tag: "2", id: girls_locker, name: GIRLS LOCKER, rect: [0, 56, 41.75, 140], prog: girls_locker, share: 1, note: "drawn equal to boys (D-013)", source: "reference plan; D-013"}
+    - {tag: "3", id: mech_nw, name: MECH / ELEC (NW), rect: [0, 224, 36.333, 252], prog: mechanical, share: auto, source: "Shane 4:30 AM CT (mech to the NW / NE corner or north wall); R-014 (5% of gross)"}
+    - {tag: "4", id: rr_m1, name: MEN, rect: [64, 0, 84, 35], prog: public_restroom_lower, fixtures: men1, source: "Shane 4:30 AM CT (restrooms flank the lobby); R-009 (T2902.1, L1 load)"}
+    - {tag: "5", id: rr_w1, name: WOMEN, rect: [142, 0, 165, 50], prog: public_restroom_lower, fixtures: women1, source: "Shane 4:30 AM CT (restrooms flank the lobby); R-009"}
+    - {tag: "6", id: first_aid, name: FIRST AID, rect: [84, 0, 96, 10], prog: first_aid, share: 1, source: "R-014; at the entry for EMS from the road (ASSUMED)"}
+    - {tag: "7", id: vestibule, name: VESTIBULE, rect: [103, 0, 123, 10], prog: foyer, share: 0.25, note: "200 of the foyer parts; lobby 400 + desk 200 sit in the lobby", source: "R-014 (Loudoun vestibule 200); Shane 4:30 AM CT (portal on the axis, faces the road)"}
+    - {tag: "8", id: concession, name: CONCESSION, rect: [127, 37.67, 142, 56], prog: concession_stand, share: 1, source: "R-014 (proxy); D-011 scope OPEN; in the lobby under the south upper tier"}
+    - {tag: "9", id: equip_storage, name: EQUIP. STORAGE, rect: [56, 224, 81, 252], prog: equipment_storage, share: 1, source: "R-014; top of the athlete corridor so mats roll to the floor (ASSUMED)"}
+    - {tag: "10", id: equip_room, name: EQUIP. ROOM, rect: [81, 224, 91.71, 252], prog: equipment_room, share: 1, source: "R-014; KEYSTONE location"}
+    - {tag: "11", id: evl_1, name: EVENT LOCKER 1, rect: [91.71, 224, 123.85, 252], note: "runs to the tier line: full headroom (D-060 settled, D-061)", prog: event_lockers, share: 0.25, source: "DR3; Shane keep (event lockers N + E)"}
+    - {tag: "12", id: evl_2, name: EVENT LOCKER 2, rect: [131.85, 224, 163.99, 252], note: "runs to the tier line: full headroom (D-060 settled, D-061)", prog: event_lockers, share: 0.25, source: "DR3; Shane keep"}
+    - {tag: "13", id: evl_3, name: EVENT LOCKER 3, rect: [188, 183.09, 210, 224], note: "runs to the tier line: full headroom (D-060 settled, D-061)", prog: event_lockers, share: 0.25, source: "DR3; Shane keep"}
+    - {tag: "14", id: evl_4, name: EVENT LOCKER 4, rect: [188, 134.18, 210, 175.09], note: "runs to the tier line: full headroom (D-060 settled, D-061)", prog: event_lockers, share: 0.25, source: "DR3; Shane keep"}
+    - {tag: "15", id: mech_n, name: MECH (N), rect: [163.99, 224, 185.917, 252], prog: mechanical, share: auto, source: "Shane 4:30 AM CT (north wall); R-014; Rev F: east edge moved 2.75 ft west to the longer ST-2 (D-061)"}
+    - {tag: "16", id: mech_e, name: MECH (E), rect: [188, 56, 210, 134.18], prog: mechanical, share: auto, source: "Shane 4:30 AM CT (reconsider SE mech): east ring behind the bowl, off the public side; R-014"}
+    - {tag: "22", id: mech_ne, name: MECH (NE), rect: [185.917, 224, 210, 246], prog: mechanical, share: auto, note: "NE pocket, up to ST-2 (Rev F: west edge with ST-2, D-061)", source: "Shane 4:30 AM CT (NE corner OK for mech); KEYSTONE layout"}
+    - {tag: "23", id: storage_sw, name: FLEX / STORAGE, rect: [12.667, 0, 64, 19], prog: null, note: "FLEX, unprogrammed, kept as-is (D-039)", source: "Shane 4:43 AM CT (reuse the freed SW area, e.g. storage); Shane 5:27 AM CT (keep as-is, labeled flex; D-039); KEYSTONE layout"}
+  zones:
+    - {id: lobby, name: "LOBBY / HALL OF CHAMPIONS", rect: [84, 0, 142, 56], label_rect: [90, 24, 127, 38], note: "double height south of the balcony; south upper tier above its north 15 ft", source: "Shane 4:30 AM CT (lobby centered south, under the south tier); DR5"}
+    - {id: athlete, name: "ATHLETE CORRIDOR", rect: [41.75, 56, 56, 224], vertical: true, source: "DR1; Shane keep"}
+    - {id: team_asm, name: "FLEX / TEAM ASSEMBLY", sub: "(unprogrammed, kept as-is)|teams arrive via E1 + CD-1", rect: [0, 19, 56, 56], label_rect: [6, 24, 52, 52], source: "Shane 4:43 AM CT (reuse the freed SW area, e.g. team assembly / bus drop holding off the lobby side); Shane 5:27 AM CT (keep as-is, labeled flex; D-039); KEYSTONE layout"}
+    - {id: ath_route, name: "ATHLETE ROUTE", rect: [56, 48, 84, 56], source: "Shane 4:43 AM CT (route lobby → athlete corridor / lockers separable from public flow); 8 ft ASSUMED"}
+    - {id: conc_w, name: "CONCOURSE (W)", rect: [56, 34, 84, 48], label_rect: [56, 41.5, 84, 48], source: "Rev E lower concourse; KEYSTONE layout (north 8 ft given to the athlete route in Rev C)"}
+    - {id: exit_n, name: "EXIT (N)", rect: [123.85, 224, 131.85, 252], vertical: true, source: "KEYSTONE layout (exit passage from V1 to the north wall; IBC 1006.3.3, 1030.3); 8 ft ASSUMED = vomitory width"}
+    - {id: exit_e, name: "EXIT (E)", rect: [188, 175.09, 210, 183.09], source: "KEYSTONE layout (exit passage from V2 to the east wall; IBC 1006.3.3, 1030.3); 8 ft ASSUMED = vomitory width"}
+    - {id: conc_e, name: "CONCOURSE (E)", rect: [165, 0, 210, 56], label_rect: [165, 14, 210, 41], source: "Rev E lower concourse; KEYSTONE layout"}
+  checkpoint: {id: security, name: "SECURITY CHECKPOINT — size TBD", rect: [97, 10, 129, 21], note: "dashed zone marks the location only; lanes, equipment and size TBD; egress through the main exit must stay unobstructed (IBC 1003.6, 1010.5)", status: ASSUMED, source: "Shane 4:43 AM CT (grand entrance = checkpoint, D-033); IBC 2021 1003.6, 1010.5"}
+  controlled_door: {id: CD-1, at: [84, 52], wall: V, label: "CONTROLLED DOOR (staff / teams)", note: "off the lobby to the athlete route; card / staff controlled (ASSUMED); free egress from the athlete side (IBC 1010.2)", source: "Shane 4:43 AM CT (e.g. controlled door off the lobby to the west athlete corridor)"}
+  doors:
+    note: "perimeter door SYMBOLS only: locations ASSUMED, widths not drawn (capacity per R-015 / IBC 1005.3.2, 1030.2, 1030.3 → architect)"
+    items:
+      - {id: E1, kind: main, wall: S, at: 113, label: "MAIN ENTRY / MAIN EXIT", source: "Shane 4:30 AM CT (entry on the axis) + 4:43 AM CT (single controlled entry, D-033); IBC 1030.2"}
+      - {id: X1, kind: exit, wall: W, at: 38, serves: "team assembly / athlete corridor (south)", source: "KEYSTONE layout; Rev B team entry wall, now EXIT ONLY (Shane 4:43 AM CT)"}
+      - {id: X2, kind: exit, wall: W, at: 98, serves: "girls locker (second exit, IBC Table 1006.2.1: locker room 3,503 SF ÷ 50 gross > 49)", source: "IBC 2021 Table 1004.5, Table 1006.2.1; KEYSTONE layout"}
+      - {id: X3, kind: exit, wall: W, at: 182, serves: "boys locker (second exit, IBC Table 1006.2.1)", source: "IBC 2021 Table 1004.5, Table 1006.2.1; KEYSTONE layout"}
+      - {id: X4, kind: exit, wall: N, at: 42.667, serves: "ST-1 discharge (NW)", source: "R-015; IBC 2021 1010.2.7 exception 1, 1028.2"}
+      - {id: X5, kind: exit, wall: N, at: 127.85, serves: "EXIT (N) passage: north tier via V1, event lockers 1-2", source: "KEYSTONE layout; IBC 1006.3.3, 1030.3"}
+      - {id: X6, kind: exit, wall: E, at: 252.333, serves: "ST-2 discharge (NE)", source: "R-015; IBC 1010.2.7 exception 1, 1028.2"}
+      - {id: X7, kind: exit, wall: E, at: 179.09, serves: "EXIT (E) passage: east tier via V2, event lockers 3-4", source: "KEYSTONE layout; IBC 1006.3.3, 1030.3"}
+      - {id: X8, kind: exit, wall: E, at: 34, serves: "east concourse", source: "KEYSTONE layout; IBC 1030.3"}
+      - {id: X9, kind: exit, wall: S, at: 197.958, serves: "ST-3 discharge (SE)", source: "R-015; IBC 1010.2.7 exception 1, 1028.2"}
+      - {id: X10, kind: exit, wall: S, at: 6.333, serves: "ST-4 discharge (SW)", source: "R-015; IBC 1010.2.7 exception 1, 1028.2"}
+      - {id: S1, kind: service, wall: N, at: 68.5, label: "SERVICE / LOADING — staff-controlled, not a people entrance; D-034 DECIDED", serves: "equipment storage (mats, equipment)", source: "Shane 4:43 AM CT (keep a service door near equipment storage); size not set (D-034)"}
+    exit_label: "EXIT ONLY — alarmed, no exterior entry hardware"
+    source: "Shane 4:43 AM CT (required exits stay, EXIT ONLY); IBC 2021 1010.2, 1010.2.7, 1010.2.9, 1010.2.13 (UpCodes, Alabama, retrieved 2026-10-04); R-015"
+  source: "KEYSTONE layout (ASSUMED, LOW) from Shane's Rev A review + 4:43 AM CT single-entry rule + P2-G-003 Rev E"
+
+level_2:
+  rooms:
+    - {tag: "17", id: sc, name: "STRENGTH & CONDITIONING", rect: [0, 141.2, 49, 252], prog: strength_conditioning, share: 1, source: "phase2.yaml (Level 2 over the lockers, D-030); trimmed 7 ft on the arena side for the loop (D-035): 49 x 110.8 less ST-1 = 5,224 SF"}
+    - {tag: "18", id: xt, name: CROSS-TRAINING MAT, rect: [0, 69.77, 49, 141.2], prog: cross_training, share: 1, source: "phase2.yaml (Level 2 over the lockers, D-030); trimmed 7 ft on the arena side for the loop (D-035): 49 x 71.43 = 3,500 SF"}
+    - {tag: "19", id: rr_m2, name: MEN, rect: [64, 5.5, 84, 33], prog: public_restroom_upper, fixtures: men2, source: "R-009 (T2902.1, L2 seats); stacked over the L1 men's room"}
+    - {tag: "20", id: rr_w2, name: WOMEN, rect: [142, 0, 169.27, 33], prog: public_restroom_upper, fixtures: women2, source: "R-009; stacked over the L1 women's room"}
+    - {tag: "21", id: admin, name: ADMIN, rect: [20, 0, 45, 18.8], prog: admin_office, share: 1, source: "R-014; Level 2 (P2-G-003 stacking), over the SW storage / team assembly"}
+  zones:
+    - {id: l2corr, name: "L2 CORRIDOR", rect: [0, 18.8, 49, 69.77], label_rect: [8, 40, 45, 66], source: "KEYSTONE layout (links S&C, cross-training, ST-4, admin and the loop's SW corner / elevator)"}
+    - {id: conc_e2, name: "UPPER CONCOURSE (E)", rect: [169.27, 0, 210, 34], label_rect: [169.27, 14, 210, 33], source: "KEYSTONE layout"}
+    - {id: stretch_n, name: "STRETCH / WARM-UP (N)", rect: [49, 246, 185.917, 252], source: "KEYSTONE layout (ASSUMED; Rev F east end at the longer ST-2, D-061): 6 ft strip left between the loop's north leg and the north wall (was the rear walkway); off-loop stretching"}
+  loop:
+    id: loop
+    name: "RUNNING / TRAINING LOOP"
+    outer: [49, 34, 210, 246]
+    inner: [56, 41, 203, 239]
+    width_ft: 7
+    lanes: 2
+    lane_width_in: 42
+    corners: squared
+    basis: "outer edge = 7 ft out from the upper-tier backs (N, E, S) and from the arena edge x = 56 (W); inner edge = the tier backs / arena edge. Replaces the Rev C rear walkway (N), walkway (E) and balcony (S); new W leg cut from S&C + cross-training"
+    event_day: "event days: upper concourse (spectators cross at the upper-tier entries along N, E, S); non-event days: training loop"
+    guards: [{id: G-W, line: [56, 56, 56, 224], note: "open edge over the arena / athlete corridor", source: "IBC 2021 1015.2, 1015.3; KEYSTONE layout"}, {id: G-S, line: [84, 34, 142, 34], note: "open edge over the lobby (double height)", source: "IBC 2021 1015.2, 1015.3; KEYSTONE layout"}]
+    guard_rule: "42 in guards where the walking surface is > 30 in above the floor below within 36 in of the open side (IBC 2021 1015.2, 1015.3); openings < 4 in sphere (1015.4)"
+    status: "DECIDED loop (D-035) / ASSUMED geometry, 2 lanes"
+    source: "Shane, firsthand, 2026-10-04 4:55 AM CT (D-035); lane 42 in: UFC 4-740-02N 4.1.7, Athletic Business; IBC 2021 1015"
+  open_below:
+    - {id: ob_lobby, name: "OPEN TO LOBBY BELOW", rect: [84, 0, 142, 34], source: "Shane 4:30 AM CT (lobby double-height open-to-below centered south)"}
+    - {id: ob_arena, name: "OPEN TO ARENA BELOW", rect: [56, 56, 188, 224], source: "arena volume (nothing built above)"}
+  source: "KEYSTONE layout (ASSUMED, LOW) from P2-G-003 Rev E stacking; Rev E east shift (D-053) and 76 in stairs (D-052); Rev F 31-riser stairs (D-061)"

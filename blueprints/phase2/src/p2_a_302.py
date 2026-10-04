@@ -8,9 +8,11 @@ Method / values: params/phase2_sightlines.yaml (Green Guide C-value formula; eye
 Geometry: params/phase2_sect.yaml, params/phase2_plan_rev_d.yaml, params/phase2_elev.yaml. Rev A FROZEN 9:47 AM CT.
 Rev B (Shane 9:47 AM CT): the 'as drawn' basis changed — P2-A-101 Rev E / P2-A-301 Rev C draw 19 in upper risers and a
 16 ft east focal (D-053) = Rev A's PROPOSED case. Re-cased: AS DRAWN (Rev E) vs REV D BASIS (superseded, Rev A's as
-drawn); C-values unchanged. Plan: phase2_plan_rev_e.yaml. Data: phase2_sightlines.yaml rev_b. Low band / exits -> D-061.
+drawn); C-values unchanged. Plan: phase2_plan_rev_e.yaml. Data: phase2_sightlines.yaml rev_b. Low band / exits -> D-061. Rev B FROZEN 10:27 AM CT.
+Rev C (Shane 10:27 AM CT): D-061 DECIDED Option B — recheck with L2 FF 17'-9" and 21 in upper risers (front row 9.0 ft) as drawn
+on P2-A-101 Rev F / A-301 Rev D; Rev E basis kept for comparison. Each case may carry its own l2_ft. Data: phase2_sightlines.yaml rev_c.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_302.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force] [--md]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_302.py [--rev A|B|C] [--png PATH] [--out-dir DIR] [--force] [--md]
 """
 from __future__ import annotations
 
@@ -40,9 +42,9 @@ SHORT = {"as_drawn": "drawn", "proposed": "proposed"}
 def load():
     rd = lambda n: yaml.safe_load((BP / "params" / n).read_text(encoding="utf-8"))
     out = [rd("phase2.yaml"), rd("phase2_elev.yaml"), rd("phase2_plan_rev_d.yaml"), rd("phase2_sect.yaml"), rd("phase2_sightlines.yaml")]
-    if REV == "B":                                     # Rev B: Plan Rev E; cases re-labelled (rev_b)
+    if REV in ("B", "C"):                              # Rev B: Plan Rev E; cases re-labelled (rev_b); Rev C: Plan Rev F (rev_c)
         global CASES, HDR, SHORT
-        rb = out[4]["rev_b"]
+        rb = out[4]["rev_b" if REV == "B" else "rev_c"]
         out[2] = rd(rb["plan_file"])
         out[4]["cases"].update(rb["cases"])
         CASES = tuple(rb["case_order"])
@@ -104,7 +106,7 @@ def all_cases(sl, sc, plan, ev, p2):
         cs = sl["cases"][cname]
         for side, d0 in (("NS", fd["N"]), ("E", cs["east_clear_ft"])):
             for st in (False, True):
-                out[(cname, side, st)] = calc(sl, sc, l2, d0, cs["lower_rise_in"], cs["upper_rise_in"], st)
+                out[(cname, side, st)] = calc(sl, sc, cs.get("l2_ft", l2), d0, cs["lower_rise_in"], cs["upper_rise_in"], st)
     assert fd["N"] == fd["S"], fd
     assert sl["cases"][CASES[0]]["east_clear_ft"] == fd["E"], fd
     return out, fd
@@ -214,8 +216,8 @@ def fig_stack(sh, x0, y0, fpi, sl, sc, res_drawn, res_prop, which):
         sh.text(*P(-5.8, 2.0), f"recess min {dr * 12:.0f}\" deep x", size=4.2)
         sh.text(*P(-5.8, 1.2), f"{hr * 12:.3g}\" high (Hussey)", size=4.2)
         rp = (zp - hr) * 12
-        sh.text(*P(-5.8, zp - 0.6), f"{'Rev D' if REV == 'B' else 'proposed'} {zp:.2f}' front: {rp:.1f}\" left", size=4.2,
-                color=None if REV == "B" else C["bad"])
+        sh.text(*P(-5.8, zp - 0.6), f"{'Rev D' if REV == 'B' else 'Rev E' if REV == 'C' else 'proposed'} {zp:.2f}' front: {rp:.1f}\" left", size=4.2,
+                color=None if REV in ("B", "C") else C["bad"])
         return room, rp, hr, dr
     # open: rear rows stay in the recess
     pts = [P(dr - (n - 1) * T, 0)]
@@ -331,6 +333,20 @@ NOTES_B = NOTES[:2] + [
 ]
 
 
+NOTES_C = NOTES[:2] + [
+    ("Focal distances from P2-A-101 Rev F: N and S tier fronts 25' from the nearest mat (10' clear + 15' table zone); E tier front 16' (D-053). No west tier. Section-only study (2D); corners and wheelchair positions TBD.", "•"),
+    ("RESULTS — AS DRAWN (REV F, D-061 DECIDED)", None),
+    ("L2 FF 17'-9\", upper 21\" per 36\" row (3 aisle risers of 7\", 12\" treads; IBC 1030.14.2), front row 9.0'. Every seated row PASSES: N/S ≥ 149 mm, E ≥ 101 (lower tier governs, same as Rev E). Upper tier seated N/S ≥ 179, E ≥ 105.", "•"),
+    ("Standing: N/S ≥ 127; E ≥ 72 (L4–L6 and U3–U5 MARGINAL, none FAIL). U1 clears the 26\" fascia (289 mm N/S, 215 E seated).", "•"),
+    ("REV E BASIS (SUPERSEDED, P2-A-302 Rev B 'as drawn')", None),
+    ("L2 15', 19\"/row, front 7.08': same lower-tier minimums; upper seated N/S ≥ 175, E ≥ 109; standing E ≥ 81. Kept for comparison only.", "•"),
+    ("TELESCOPIC STACK UNDER THE UPPER-TIER FRONT (D-049)", None),
+    ("Closed stack, recessed (Hussey min 4'-0\" deep x 6'-5⅜\" high) under the 9.0' front leaves 30.6\" for structure + finish (1.5' = 18\" ASSUMED) — FITS closed. Open: rows 5–6 still sit under the overhang (< 7'-6\", 1003.2): keep the stack in front of the upper-tier face (as P2-A-301 Rev D).", "•"),
+    ("EXIT PATHS (D-061 DECIDED, Option B)", None),
+    ("1.5' tier structure (ASSUMED) leaves 7'-6\" under row 1 (1003.2 minimum, no margin) and 9.25'+ under rows 2–5: no low band; Exit N, Exit E, SE concourse and the lobby / portal / athlete-route edge are clear. 0 seats lost.", "•"),
+]
+
+
 def build(p2, ev, plan, sc, sl, res, fd):
     meta2, sm = p2["meta"], sl["meta"]
     sh = Sheet(W, H)
@@ -340,17 +356,17 @@ def build(p2, ev, plan, sc, sl, res, fd):
         "title": "SIGHT-LINE STUDY\nSCHEMATIC · COLOR",
         "scale": "AS NOTED",
         "date": meta2["sheet_date"],
-        "revision": sl["rev_b"]["revision"] if REV == "B" else sm["revision"],
+        "revision": sl["rev_b"]["revision"] if REV == "B" else sl["rev_c"]["revision"] if REV == "C" else sm["revision"],
         "drawn_by": meta2["drawn_by"],
         "sheet_no": SHEET_NO,
         "stamp": meta2["stamp"],
     }, margin=M, tb_h=0.95, stamp_h=0.40)
     fpi = sl["scales"]["section_ft_per_in"]
     sec_s = "3/32\" = 1'-0\""
-    if REV == "B":
-        figs = sl["rev_b"]["figures"]
+    if REV in ("B", "C"):
+        figs = sl["rev_b" if REV == "B" else "rev_c"]["figures"]
         r1, r2, r3 = (fig_section(sh, 0.95, y_, fpi, res[(f_["case"], f_["side"], False)], sl, sc, f_["title"], f"{sec_s} · {f_['sub']}")
-                      for f_, y_ in zip(figs, (8.35, 5.55, 2.75)))
+                      for f_, y_ in zip(figs, (8.35, 5.55, 2.75) if REV == "B" else (8.25, 5.40, 2.75)))
     else:
         r1 = fig_section(sh, 0.95, 8.35, fpi, res[("as_drawn", "NS", False)], sl, sc,
                          "1  AS DRAWN — NORTH / SOUTH SIDE (seated eyes)", f"{sec_s} · focal 25' (10' clear + 15' table zone) · telescopic 11⅝\" · upper 14\"/row")
@@ -377,7 +393,7 @@ def build(p2, ev, plan, sc, sl, res, fd):
     t4 = "4  TELESCOPIC STACK UNDER THE UPPER-TIER FRONT"
     sh.text(7.75, 7.62, t4, size=6.4, bold=True)
     sh.line(7.75, 7.58, 7.75 + text_width_in(t4, 6.4, True), 7.58, lw=0.7)
-    ssub = sl["rev_b"]["stack_sub"] if REV == "B" else "3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn · dashed = proposed 7.08' front"
+    ssub = sl["rev_b"]["stack_sub"] if REV == "B" else sl["rev_c"]["stack_sub"] if REV == "C" else "3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn · dashed = proposed 7.08' front"
     sh.text(7.75, 7.46, ssub, size=4.5)
     if REV == "B":
         sh.text(7.75, 4.86, f"(a) CLOSED — only {room:.1f}\" left for structure: DOES NOT FIT", size=5.2, bold=True, color=C["bad"])
@@ -393,7 +409,7 @@ def build(p2, ev, plan, sc, sl, res, fd):
     if xt + colw[0] + 8 * colw[1] > W - M - 0.04:
         raise SystemExit("LAYOUT OVERFLOW: table too wide")
     y -= 0.05
-    for t_, b in (NOTES_B if REV == "B" else NOTES):
+    for t_, b in (NOTES_B if REV == "B" else NOTES_C if REV == "C" else NOTES):
         if b is None:
             y = sh.para(xt, y - 0.03, W - M - 0.1 - xt, t_, size=5.9, bold=True)
         else:
@@ -406,7 +422,7 @@ def build(p2, ev, plan, sc, sl, res, fd):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B"], default="B")
+    ap.add_argument("--rev", choices=["A", "B", "C"], default="C")
     ap.add_argument("--png")
     ap.add_argument("--out-dir")
     ap.add_argument("--force", action="store_true")

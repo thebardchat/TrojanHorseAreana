@@ -112,3 +112,19 @@ rev_b:
     rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs the last revision; no cap, no margin (D-056). Drawn = phase2_plan_rev_e.yaml (p2_testfit.drawn_size); program = P2-G-003 Rev G (p2_testfit.summary_g: footprint F, L2 gross, total = F + L2)"
     source: "D-056, D-057 (Shane 2026-10-04 8:36 AM CT); P2-G-003 Rev G; R-021"
   source: "Shane 2026-10-04 9:47 AM CT (C-101 Rev B: tower size, new outline, D-057 area table, no cap language)"
+rev_c:
+  revision: C
+  plan_file: phase2_plan_rev_f.yaml
+  building:
+    rect: [0, 0, 210, 252]
+    tower: [185.917, 252, 210, 258.667]
+    prior_rect: [0, 0, 210, 252]
+    prior_tower: [188.667, 252, 210, 258.667]
+    basis: "outline = P2-A-101 Rev F as drawn: 210 x 252 ft (unchanged) + NE stair tower 24.08 x 6.67 ft (ST-2 lengthened 2.75 ft for 31 risers at L2 17'-9\", D-061 Option B). Dashed: superseded Rev E tower 21.33 x 6.67"
+    source: "phase2_plan_rev_f.yaml building + projection; phase2_plan_rev_e.yaml (prior tower)"
+  stairs_doors: "stairs (ST-1..ST-4, 12.67 x 24.08 ft) and perimeter doors read straight from phase2_plan_rev_f.yaml vertical.stairs / level_1.doors"
+  stairs_doors_source: "phase2_plan_rev_f.yaml"
+  area_table:
+    rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs Rev E (p2_testfit.summary_h drawn / drawn_d); program = P2-G-003 Rev I (footprint F, L2 gross, total = F + L2); no cap, no margin (D-056)"
+    source: "D-057; D-061 (Shane 2026-10-04 10:27 AM CT); P2-G-003 Rev I"
+  source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: C-101 Rev C if footprint / tower changes; the NE tower grows 2.75 ft west)"

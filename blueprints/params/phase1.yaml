@@ -579,7 +579,8 @@ sheets:
       E:                  # PRINCIPAL version, current. Rev D + code edition "2021 ASSUMED, verify with AHJ" (reviewer C-6). Phase 1 content only. No codes.
         audience_label: principal
         file: P1-G-001_RevE_principal
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 10:27 AM CT ('APPROVED: ... P1-G-001 Rev E ... freeze those revs'); frozen 10:27 AM CT"
         code_edition_suffix: " — 2021 ASSUMED, verify with AHJ"
         code_edition_note: "Edition still open: county lists 2018 codes; State Fire Marshal uses 2021."
         code_edition_source: "reviewer C-6 (Shane 2026-10-04 10:03 AM CT: add '2021 ASSUMED, verify with AHJ'); R-006 (Madison County enforces 2018 IBC / IFC / NFPA 101; State Fire Marshal 2021 IFC; DCM 2021 IBC for K-12) — edition conflict OPEN, D-008. Codes kept off the principal sheet"

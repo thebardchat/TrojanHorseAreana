@@ -150,3 +150,55 @@ rev_c:
     - {id: lobby_edge, name: "LOBBY / PORTAL / ATHLETE ROUTE EDGE", rect: [56, 50, 127, 56], length_ft: 71, source: "zones.ath_route (x 56-84) + lobby (x 84-127 incl. the PORTAL x 107-119) x upper band S rows 1-2"}
   conflicts_rule: "means-of-egress ceiling >= 7 ft 6 in (IBC 2021 1003.2); paths under the 6 ft low band fall short. NOT redesigned: D-061 OPEN, options in research/R-022-exit-paths-under-low-band.md"
   source: "Shane 2026-10-04 9:47 AM CT (A-301 Rev C: east 16 ft clear, 19 in upper risers, 76 in stairs / landings, low band per D-049 / D-060 as drawn on A-101 Rev E; show the exit-path conflict, do not redesign silently); phase2_plan_rev_e.yaml"
+
+# Rev D (Shane 2026-10-04 10:27 AM CT): D-061 DECIDED Option B, coordinated with P2-A-101/102 Rev F. Revs A-C frozen (byte-identical).
+rev_d:
+  revision: D
+  plan_file: phase2_plan_rev_f.yaml
+  heights_override:
+    l2_ff: {value: 17.75, status: DECIDED, source: "D-061 DECIDED Option B (Shane 2026-10-04 10:27 AM CT): Level 2 FF 17'-9\""}
+    ring_roof: {value: 32.75, status: ASSUMED, basis: "L2 FF 17.75 + 15 ft (same L2 floor-to-roof rule as Rev C, ASSUMED)", source: "Shane 2026-10-04 10:27 AM CT (ring roof 32.75'); research/R-022"}
+  seating_upper:
+    row_rise_in: 21
+    aisle_risers_per_row: 3
+    aisle_riser_in: 7
+    aisle_tread_in: 12
+    front_deck_ft: 9.0
+    rake: "steps DOWN from the loop toward the arena (front row 5 x 21 in = 105 in below L2 FF 17'-9\" = 9.0 ft)"
+    basis: "D-061 DECIDED Option B: 21 in upper risers = 3 aisle risers of 7 in per 36 in row with 12 in treads, inside IBC 2021 1030.14.2 (4-8 in risers, >= 11 in treads) — split ASSUMED"
+    source: "Shane 2026-10-04 10:27 AM CT (D-061); phase2_plan_rev_f.yaml tiers.upper; IBC 2021 1030.14.2 (UpCodes, retrieved 2026-10-04)"
+  structure_depth_ft: 1.5
+  structure_source: "phase2_plan_rev_f.yaml tiers.upper.clear_basis (about 1.5 ft of deck structure, ASSUMED, unchanged from Rev C)"
+  low_band_ft: 0
+  clear_under_rows_ft: [7.5, 9.25, 11.0, 12.75, 14.5]
+  clear_basis: "row j tread 9.0 + (j - 1) x 1.75 ft, less 1.5 ft structure: row 1 = 7 ft 6 in = IBC 2021 1003.2 minimum (no margin); no low band, every exit path clear"
+  clear_source: "Shane 2026-10-04 10:27 AM CT (D-061: front row >= 7'-6\" clear over ALL exit paths); IBC 2021 1003.2"
+  stair:
+    clear_width_in: 76
+    clear_status: "DECIDED (D-052)"
+    risers: 31
+    riser_in: 6.87
+    flights: 2
+    risers_per_flight: [16, 15]
+    treads_per_flight: 15
+    run_per_flight_in: 165
+    rise_ft: 17.75
+    intermediate_handrail: "one intermediate handrail on the centerline of each 76 in stair (2 x 38 in), so all required width is within 30 in of a handrail (IBC 2021 1014.9); D-052 'with intermediate handrails'; architect to confirm (reviewer C-7)"
+    source: "D-061 (17'-9\" = 213 in / 31 = 6.87 in, IBC 2021 1011.5.2 <= 7 in; flights 16 + 15 each <= 12 ft rise, 1011.8); D-052; reviewer C-7 (Shane 10:03 AM CT); IBC 2021 1014.9 (UpCodes, retrieved 2026-10-04)"
+  rev_b_override:
+    revision: D
+    intermediate_landing_in: 76
+    floor_landing_in: 48
+    plan_length_in: 289
+    plan_width_in: 152
+    footprint_sf_per_stair_per_level: 305.06
+    plan_basis: "48 in floor landing + 165 in run (15 x 11 in) + 76 in intermediate landing = 289 in (24.08 ft); 2 flights x 76 in = 152 in (12.67 ft) = P2-A-101/102 Rev F stair rects (ST-1 [36.333, 227.917, 49, 252])"
+    source: "D-061 (31 risers); D-051 (intermediate landing = stair width, IBC 2021 1011.6); D-052 (76 in); phase2_plan_rev_f.yaml vertical.stairs"
+  stair_scale_ft_per_in: 10.6667
+  stair_scale_basis: "detail 4 drawn at 3/32 in = 1 ft (Rev C: 1/8 in) so the 24.08 ft stair fits beside the bowl detail (layout only)"
+  clear_label: "REFERENCE"
+  clear_label_basis: "reviewer C-5: >= 25 ft clear over the floor is a REFERENCE value (NFHS court specs via Draper; LA RAP gym standard; R-019), not a code citation"
+  clear_label_source: "Shane 2026-10-04 10:03 AM CT (reviewer C-5) + 10:27 AM CT (C-5 REFERENCE label on A-301 Rev D); research/R-019-arena-clear-height.md"
+  sight_lines: "P2-A-302 Rev C (21 in risers, L2 17'-9\"): seated C min 149 mm N/S, 101 mm E; standing 127 / 72 mm (lower tier governs; upper tier seated min 179 N/S, 105 E)"
+  roof_check: "IBC 2021 1030.6.2.2 (only if smoke-protected): lowest roof deck >= 15 ft above the highest aisle; highest aisle = the loop at 17.75 ft -> >= 32.75 ft; arena U/S structure 36 ft drawn = 3.25 ft margin (roof deck itself is higher)"
+  source: "Shane 2026-10-04 10:27 AM CT (A-301 Rev D: L2 17'-9\", ring roof 32.75', 21 in risers, front row 9.0 ft / 7'-6\" clear; C-5 REFERENCE label for the 25' clear; C-7 intermediate handrails on the 76 in stairs, architect to confirm); phase2_plan_rev_f.yaml"

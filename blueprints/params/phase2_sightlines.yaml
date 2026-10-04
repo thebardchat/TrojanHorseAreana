@@ -105,3 +105,39 @@ rev_b:
   stack_sub: "3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn · dashed = Rev D 9.17' front"
   basis_change: "Rev A AS DRAWN (14 in / 10 ft east) is no longer drawn; Plan Rev E draws 19 in / 16 ft (D-053) = Rev A PROPOSED, so the 'as drawn' basis changed and the sheet is re-cased (values unchanged)"
   source: "Shane 2026-10-04 9:47 AM CT (A-302 Rev B only if the riser / east-clear change alters its 'as drawn' basis — it does); phase2_plan_rev_e.yaml"
+
+# Rev C (Shane 2026-10-04 10:27 AM CT): D-061 DECIDED Option B. The 'as drawn' basis changed again: P2-A-101/102 Rev F /
+# P2-A-301 Rev D draw L2 FF 17'-9" with 21 in upper risers (front row 9.0 ft). Rev E basis (15 ft / 19 in) kept for comparison.
+# Revs A and B frozen (byte-identical; they ignore l2_ft).
+rev_c:
+  revision: C
+  plan_file: phase2_plan_rev_f.yaml
+  case_order: [drawn_f, rev_e]
+  cases:
+    drawn_f:
+      label: "AS DRAWN (P2-A-101 Rev F / A-301 Rev D)"
+      short: drawn
+      lower_rise_in: 11.625
+      upper_rise_in: 21
+      l2_ft: 17.75
+      east_clear_ft: 16
+      basis: "D-061 DECIDED Option B as drawn on P2-A-101 Rev F: telescopic 6 x 24 in at 11-5/8 in; fixed 5 x 36 in at 21 in (3 aisle risers of 7 in, 12 in treads) from the loop at L2 FF 17'-9\" down to a 9.0 ft front row (D-049); east tier front 16 ft from the nearest mat (D-053)"
+      source: "Shane 2026-10-04 10:27 AM CT (D-061); phase2_plan_rev_f.yaml; phase2_sect.yaml rev_d"
+    rev_e:
+      label: "REV E BASIS (superseded)"
+      short: "Rev E"
+      lower_rise_in: 11.625
+      upper_rise_in: 19
+      l2_ft: 15
+      east_clear_ft: 16
+      basis: "P2-A-302 Rev B 'as drawn' = Plan Rev E (L2 FF 15 ft, 19 in upper risers, front row 7.08 ft, east 16 ft); shown for comparison only"
+      source: "phase2_sightlines.yaml rev_b.cases.drawn_e; phase2_plan_rev_e.yaml"
+  figures:
+    - {case: drawn_f, side: NS, title: "1  AS DRAWN (REV F) — NORTH / SOUTH SIDE (seated eyes)", sub: "focal 25' (10' clear + 15' table zone) · telescopic 11⅝\" · upper 21\"/row, L2 17'-9\", front 9.0'", source: "phase2_plan_rev_f.yaml; D-061"}
+    - {case: drawn_f, side: E, title: "2  AS DRAWN (REV F) — EAST SIDE (seated eyes)", sub: "focal 16' (D-053) · upper 21\"/row, L2 17'-9\" · worst side", source: "phase2_plan_rev_f.yaml; D-061"}
+    - {case: rev_e, side: E, title: "3  REV E BASIS (SUPERSEDED) — EAST SIDE (seated eyes)", sub: "focal 16' · L2 15' · upper 19\"/row, front 7.08' · P2-A-302 Rev B 'as drawn'", source: "P2-A-302 Rev B"}
+  stack_sub: "3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn 9.0' · dashed = Rev E 7.08'"
+  results: "C min (mm), as drawn Rev F: N/S seated 149 / standing 127; E seated 101 / standing 72 (lower tier governs, unchanged vs Rev E). Upper tier: N/S seated 179 (was 175), standing 156 (151); E seated 105 (109), standing 76 (81). No FAIL; E standing L4-L6 and U3-U5 MARGINAL (60-90)"
+  results_source: "KEYSTONE calculation (p2_a_302.py calc(), Rev C), 2026-10-04"
+  basis_change: "Rev B AS DRAWN (L2 15 ft / 19 in) is no longer drawn; Plan Rev F draws L2 17'-9\" / 21 in (D-061), so the sheet is re-cased and rechecked"
+  source: "Shane 2026-10-04 10:27 AM CT (A-302 Rev C sight-line recheck with 21 in risers; report C-values); phase2_plan_rev_f.yaml"
