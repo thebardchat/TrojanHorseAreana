@@ -260,6 +260,8 @@ def check_status():
         for s in vals:
             if isinstance(s, str) and len(s) >= 300:
                 fail(f"STATUS.json {k} string is {len(s)} chars (max 299)")
+    if len(d.get("sheets_done", [])) > 12:
+        fail(f"STATUS.json sheets_done has {len(d['sheets_done'])} entries (max 12, current revs only, prompt v1.3)")
     dec = ROOT / "DECISIONS.md"
     if dec.exists():
         n_open = len(re.findall(r"^\|\s*D-\d{3}\s*\|.*\|\s*OPEN\s*\|", dec.read_text(encoding="utf-8"), flags=re.M))

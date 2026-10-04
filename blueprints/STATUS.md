@@ -1,6 +1,6 @@
-# KEYSTONE — 2026-10-04
-HEALTH: YELLOW · P1 50% · P2 50% · Ticket P2-T-009
-WHAT CHANGED: Photo is Shane's own, off-repo (D-048 closed). Upper tier steps down, storage/mech under it (D-049). A-201 Rev D: portal 50 ft, crown 34, springline 22.1 (D-050). A-301 Rev B: 70 in mid landing, 243 SF/stair (D-051). A-302 sight lines. Egress: 4 x 76 in stairs proposed (D-052).
-WHAT TO VERIFY: Springline 22.1 ft + elliptical arch ASSUMED. Sight lines: upper 14 in risers fail (C 40-49 mm N/S, negative E); east 10 ft focal fails. Proposed 19 in risers + east +6 ft. Recessed stack conflicts; kept at the tier face.
-NEXT ACTION: Shane answers D-053 (sight-line fix) and D-052 (76 in stairs). Then R-006 / R-007 and the site plan + A-101/A-102 revision (stairs, portal + walk, lockers re-plan). Phase 1 first when Dr. Headen data arrives.
-QUESTION FOR SHANE: Sight lines: approve 19 in upper-tier risers (front row drops 9.17 to 7.08 ft) plus moving the east seats 6 ft further from the mats (+1,512 SF), or accept weaker east views?
+# KEYSTONE — 2026-10-04 8:20 AM CT
+HEALTH: YELLOW · P1 50% · P2 55% · Ticket C-0
+WHAT CHANGED: Prompt v1.3: ARENA is master. D-055 DECIDED (today's decisions win over v1.3 text). C-0 done: ARENA inventory (1 folder, 27 files, flat root) in ASSETS §0; SUPERSEDED marks; ARENA vs repo map. C-1 evidence: ARENA P2-A-101.pdf = early Rev D 'STORAGE (SW)' vs frozen 'FLEX / STORAGE'.
+WHAT TO VERIFY: ARENA\P2-A-101.pdf is the pre-freeze Rev D (sha 6abfa622) — repo/set have the frozen one (6916d611). P1-P-001 not in ARENA. ARENA has no params/DECISIONS/research. Not fixed (ARENA wins; C-0 is read-only).
+NEXT ACTION: STOP: wait for Shane's GO + option number. Then C-1 (A-101 Rev D conflict) and the rest of C-2..C-12 in order. Phase 1 first when Dr. Headen data arrives.
+QUESTION FOR SHANE: Where should new sheets go in ARENA? Proposed: ARENA root (where every sheet PDF lives now) as new files '<sheet>_Rev<X>.pdf' (e.g. P2-A-101_RevE.pdf), never touching the un-lettered files; KEYSTONE records/notes in _KEYSTONE. GO?

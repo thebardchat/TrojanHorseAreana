@@ -1,9 +1,103 @@
 # ASSETS — KEYSTONE inventory
 
-Inventory date: 2026-10-03 (P1-T-001). Updated 2026-10-03 ~5:50 PM CT (reference plan intake, P2-T-001 seed). Times are Central (CT).
-Rule: Shane's files are read-only. **None of Shane's originals are committed to this repo.**
+Inventory date: 2026-10-03 (P1-T-001). **Full ARENA re-inventory 2026-10-04 8:16 AM CT (C-0, prompt v1.3) — §0 is current; §1-§3 are the 2026-10-03 snapshot kept as history.** Times are Central (CT).
+Rule: Shane's files are read-only. ARENA is the master (v1.3). **None of Shane's originals are committed to this repo.**
 
-## 1. Shane's ARENA folder: `C:\Users\Hubby\Desktop\ARENA\` (pulsar00100)
+## 0. ARENA master inventory — C-0 (2026-10-04 8:16 AM CT, KEYSTONE prompt v1.3)
+
+**Rule (v1.3):** `C:\Users\Hubby\Desktop\ARENA\` on Shane's PC (Pulsar00100) is the **MASTER**. Repo `blueprints/` is a mirror whose layout follows ARENA. KEYSTONE never moves, renames, reorganizes, deletes or overwrites anything in ARENA. Only `ARENA\_KEYSTONE\` is ours. New revs are new files (sheet + rev letter) in the folder where like files live.
+**Method:** read-only `Get-ChildItem -Recurse -Force` + `Get-FileHash SHA256` on Pulsar00100, 2026-10-04 8:15 AM CT. Box copies (read-only pulls) of the intake, the arch photo and the two `_KEYSTONE` STATUS files went to `/workspace/arena_c0/`. Nothing was created or changed in ARENA outside `_KEYSTONE`.
+**Count:** 1 folder (`_KEYSTONE`), 27 files, 4,439,503 B total.
+
+### 0a. Folder tree as found (top two levels)
+
+```
+C:\Users\Hubby\Desktop\ARENA\
+├── _KEYSTONE\            (KEYSTONE's folder: STATUS.json, STATUS.md — now + ASSETS.md)
+└── 25 files at the root, no other subfolders:
+    sheets (flat, no rev letter in the name):  P1-G-001.pdf, P1-A-101.pdf, P2-G-003.pdf, P2-A-101.pdf, P2-A-102.pdf,
+                                               P2-A-201.pdf, P2-A-301.pdf, P2-A-302.pdf, P2-C-101.pdf
+    bundles:                                   Phase1_Package_for_Dr_Headen.pdf, Phase2_Schematic_Set_RevA.pdf
+    brand:                                     THA_logo_black.svg, THA_logo_red.svg, THA_logo_white.svg,
+                                               trojan_horse_logo_Gemini_Generated.jpg
+    references / images:                       arenav1-floor-plan.png, Phase2-floor-plan-flat.png, Phase2-floor-plan.jpeg,
+                                               wrestle-room-measure.png, THA_grand_entrance_stand_alone_structure_champions_walk.png
+    vendor data:                               Champion_Walk_Brick_Pricing - Vendor Prices.pdf
+    governing / tooling:                       KEYSTONE_ARCHITECT_PROMPT.md, KEYSTONE_INTAKE_2026-10-03.md, keystone_status.sh,
+                                               north_alabama_3d_diorama.html
+```
+
+### 0b. Inventory (every file; modified = Pulsar00100 local time, CT)
+
+| # | File (path under ARENA) | Type | Size (B) | Modified (CT) | What it shows (best guess from name / peek / hash match) | Phase | Status |
+|---|---|---|---|---|---|---|---|
+| 1 | `_KEYSTONE\` | folder | — | 2026-10-04 7:58 AM | KEYSTONE's own folder (status bridge) | shared | ours |
+| 2 | `_KEYSTONE\STATUS.json` | JSON | 3,496 | 2026-10-04 7:58 AM | KEYSTONE status; sha256 `e2d3dc90…7334` = repo `blueprints/STATUS.json` @ 1068709 | shared | current (replaced by this C-0 update) |
+| 3 | `_KEYSTONE\STATUS.md` | Markdown | 1,028 | 2026-10-04 7:58 AM | Human status; sha256 `495f92b1…1635` = repo `STATUS.md` — **stale text from the 7:24 AM session** (repo had not regenerated it) | shared | stale → replaced by this C-0 update |
+| 4 | `KEYSTONE_ARCHITECT_PROMPT.md` | Markdown | 26,643 | 2026-10-03 4:08 PM | KEYSTONE standing instructions, **prompt v1.1** (sha256 `6673735b…1081`). v1.3 (8:13 AM CT) is **not** in ARENA | shared (governing) | superseded by v1.3 (not on disk) |
+| 5 | `KEYSTONE_INTAKE_2026-10-03.md` | Markdown | 4,901 | 2026-10-03 4:08 PM | First-session intake (header says "MOVIE MAKER INTAKE", D-015) | shared | **SUPERSEDED where it conflicts (C-9)** — see 0c |
+| 6 | `keystone_status.sh` | Bash | 3,360 | 2026-10-03 4:08 PM | Pi-side status reader (SSH to Pulsar00100, GitHub raw fallback, stale after 26 h) | shared (tooling) | current |
+| 7 | `north_alabama_3d_diorama.html` | HTML + Three.js | 19,103 | 2026-10-03 4:02 PM | Interactive diorama; hover zones Arena 22,000 / Boys 3,500 / Girls 3,503 / S&C 6,000 / XT 4,000 SF. Same content as repo `hazel-green-complex-3d.html` (CRLF there) | P2 | **SUPERSEDED (C-9): zone data stale; file PROTECTED — do not edit** |
+| 8 | `arenav1-floor-plan.png` | PNG 1024×687 | 744,067 | 2026-10-03 5:47 PM | First-draft "Master Floor Plan" board: 55,000 SF, Arena 22,000 SF, green/gold ("Kelly Green") legend, garbled labels. sha256 `d030dcb4…bd54` | P2 | **SUPERSEDED (C-9)** — history; layout source is now the frozen set + decisions |
+| 9 | `Phase2-floor-plan-flat.png` | PNG 1024×687 | 744,067 | 2026-10-03 5:47 PM | **Byte-identical copy of #8** (same sha256). Was the D-017 "reference plan" | P2 | **SUPERSEDED (C-9)** (same image as #8) |
+| 10 | `Phase2-floor-plan.jpeg` | **WebP** despite .jpeg, 1024×687 | 105,532 | 2026-10-03 5:44 PM | Photo-style render of a 3D tabletop model of the same first-draft plan (wrong labels "CENTEB", girls 3,500). sha256 `528414ea…` | P2 | **SUPERSEDED** (derivative of #8; KEYSTONE call — confirm) |
+| 11 | `wrestle-room-measure.png` | PNG 1108×816 | 127,301 | 2026-10-03 9:40 PM | Google Maps aerial of the existing wrestling-room building with measure path 276.85 ft + Shane's markup. sha256 `4cd9756a…5808` (= box copy, §1c) | P1 | current (input) |
+| 12 | `P1-G-001.pdf` | PDF | 54,988 | 2026-10-03 10:26 PM | P1 cover / scope, **Rev D principal** (sha256 = repo `phase1/out/pdf/P1-G-001_RevD_principal.pdf`) | P1 | current |
+| 13 | `P1-A-101.pdf` | PDF | 44,766 | 2026-10-03 10:26 PM | P1 wrestling-room plan **Rev A** (= repo `P1-A-101_RevA.pdf`) | P1 | current |
+| 14 | `Phase1_Package_for_Dr_Headen.pdf` | PDF | 99,554 | 2026-10-03 10:34 PM | P1 principal package bundle (= repo `phase1/out/pdf/Phase1_Package_for_Dr_Headen.pdf`) | P1 | current |
+| 15 | `P2-G-003.pdf` | PDF | 58,134 | 2026-10-04 5:24 AM | Program test-fit **Rev F** (frozen; = repo `P2-G-003_RevF.pdf`) | P2 | current (frozen) |
+| 16 | `P2-A-101.pdf` | PDF | 62,033 | 2026-10-04 5:24 AM | Level 1 block plan **"Rev D" — EARLY render, NOT the frozen Rev D**: room 23 "STORAGE (SW)", note "Unprogrammed … storage (SW)" (sha256 `6abfa622…cff7` = repo commit 900c1da, 5:06 AM CT) | P2 | **CONFLICT — C-1** (see 0e) |
+| 17 | `P2-A-102.pdf` | PDF | 60,606 | 2026-10-04 5:24 AM | Level 2 block plan **Rev D** (frozen; = repo `P2-A-102_RevD.pdf`) | P2 | current (frozen) |
+| 18 | `Phase2_Schematic_Set_RevA.pdf` | PDF | 103,948 | 2026-10-04 5:48 AM | Frozen set: G-003 F + A-101 D (**FLEX / STORAGE, D-039**) + A-102 D (= repo) | P2 | current (frozen) |
+| 19 | `P2-A-201.pdf` | PDF | 100,246 | 2026-10-04 8:01 AM | Exterior elevations **Rev D** (portal 50 ft, crown 34 ft; = repo `P2-A-201_RevD.pdf`) | P2 | current |
+| 20 | `P2-A-301.pdf` | PDF | 65,715 | 2026-10-04 8:01 AM | Building sections **Rev B** (70 in mid landing; = repo `P2-A-301_RevB.pdf`) | P2 | current (76 in stairs apply next rev) |
+| 21 | `P2-A-302.pdf` | PDF | 59,246 | 2026-10-04 8:01 AM | Sight-line study **Rev A** (= repo `P2-A-302_RevA.pdf`) | P2 | current |
+| 22 | `P2-C-101.pdf` | PDF | 57,696 | 2026-10-04 7:59 AM | Site plan / campus diagram **Rev A** (= repo `P2-C-101_RevA.pdf`) | P2 | current |
+| 23 | `THA_logo_black.svg` | SVG | 24,732 | 2026-10-04 6:14 AM | Official mark, black (= repo `brand/`, sha256 `81d190a7…`) | brand | current |
+| 24 | `THA_logo_red.svg` | SVG | 24,732 | 2026-10-04 6:14 AM | Official mark, red #CC0000 (= repo `brand/`) | brand | current |
+| 25 | `THA_logo_white.svg` | SVG | 24,732 | 2026-10-04 6:14 AM | Official mark, white (= repo `brand/`) | brand | current |
+| 26 | `trojan_horse_logo_Gemini_Generated.jpg` | JPG 2256×1888 | 1,651,859 | 2026-10-04 6:11 AM | Shane's source image of the horse-head badge (black on checker); sha256 `452cbfde…` (not committed, by rule) | brand | current (source) |
+| 27 | `THA_grand_entrance_stand_alone_structure_champions_walk.png` | **WebP** despite .png, 1024×576 | 84,624 | 2026-10-04 6:25 AM | Freestanding limestone arch, crimson soffit, lit building beyond, paved promenade with low walls (Shane's own image, D-048). Same picture as the off-repo box ref `portal_freestanding_champion_walk_ref.png` (PNG, 847,527 B, sha256 `93ae1c77…`), different encoding | P2 / brand | current (reference; off-repo) |
+| 28 | `Champion_Walk_Brick_Pricing - Vendor Prices.pdf` | PDF, 1 p | 82,394 | 2026-10-04 7:11 AM | Champion Walk brick vendor prices (= the 7:24 AM chat attachment, sha256 `13fcc39c…`; D-044 input) | P2 | current (input; not committed) |
+
+### 0c. SUPERSEDED marks (C-9)
+
+- **First-draft Master Floor Plan image (22,000 SF, Kelly Green legend):** `arenav1-floor-plan.png` and its byte-identical copy `Phase2-floor-plan-flat.png`; also the tabletop render `Phase2-floor-plan.jpeg` (same plan; KEYSTONE call). Superseded by the locked program (D-030: 16,400 SF floor), the frozen Phase 2 Schematic Set Rev A and today's decisions. Red/black only.
+- **3D diorama zone data:** `north_alabama_3d_diorama.html` (and repo `hazel-green-complex-3d.html`): Arena 22,000 / S&C 6,000 / XT 4,000 SF and "permanent stadium seating" are stale (D-030, D-035, D-009 MIX). **Protected — not edited.**
+- **Feb 2026 concept:** **not found in ARENA.** It lives only in the repo root (`README.md`, `CLAUDE.md`, `build_3d_model.py`, `render_*.py/.png`, `.step/.stl`: 120 x 250 ft, ~30,000 SF, ~800 seats, $4–6M) — already SUPERSEDED (§3), protected.
+- **Intake (`KEYSTONE_INTAKE_2026-10-03.md`) — superseded where it conflicts:** "Total 55,000 SF" → footprint cap only, total GSF uncapped (D-031, D-055); "Championship arena 22,000 SF" → 16,400 SF floor (D-030); S&C 6,000 / XT 4,000 → 5,224 / 3,500 (D-035); "South portal … gold soffit; drive clear" → freestanding portal over the Champion Walk, crimson underside + gold trim, ≤ 50 ft (D-043, D-045, D-050); "Phase 2 master floor plan … path UNKNOWN" → found (#8, now superseded); "MOVIE MAKER INTAKE" header (D-015). The rest (vision, Phase 1 program, colors, constraints) stands.
+- Also superseded by v1.3: `KEYSTONE_ARCHITECT_PROMPT.md` (v1.1) where v1.3 differs; and per D-055, today's decisions win over v1.3 text.
+
+### 0d. Where things live — ARENA vs repo
+
+| Item | ARENA (master) | Repo mirror (`blueprints/`) |
+|---|---|---|
+| Sheets (PDF) | root, **current rev only, no rev letter** (`P2-A-201.pdf`) | `phase1/out/pdf/`, `phase2/out/pdf/`, every rev as `<sheet>_Rev<X>.pdf` |
+| Sheets (DXF) | **none** | `phase{1,2}/out/dxf/` |
+| Bundles | root (`Phase1_Package_for_Dr_Headen.pdf`, `Phase2_Schematic_Set_RevA.pdf`) | `phase{1,2}/out/pdf/` |
+| params (YAML) | **none** | `params/` (15 files) |
+| DECISIONS / CHANGELOG / BACKLOG / PARKING_LOT / ENVIRONMENT | **none** | `blueprints/` root |
+| research (R-files) | **none** | `research/` (18 files) |
+| generators / validator | **none** | `phase{1,2}/src/`, `shared/` |
+| brand | root (3 SVG + Gemini JPG) | `brand/` (3 SVG; JPG not committed) |
+| references / photos / vendor PDF | root | not committed (box copies only) |
+| ASSETS / STATUS | `_KEYSTONE\` | `blueprints/ASSETS.md`, `STATUS.json`, `STATUS.md` |
+| prompt / intake / status script / diorama | root | not in `blueprints/` (diorama copy at repo root) |
+
+### 0e. ARENA vs repo differences (ARENA wins — reported, NOT fixed)
+
+1. **C-1 — two different "P2-A-101 Rev D" files.** `C:\Users\Hubby\Desktop\ARENA\P2-A-101.pdf` (62,033 B, 2026-10-04 5:24 AM, sha256 `6abfa622ca59b004ecc066c11f9cf82d86c292bfd2409fe45ab2da6948bacff7`) labels room 23 **"STORAGE (SW)"** ("unprogrammed (ASSUMED); team side"). Repo `blueprints/phase2/out/pdf/P2-A-101_RevD.pdf` (frozen, commit 0ec1fb2 5:40 AM, sha256 `6916d6115899c09f7403b8472ffdb14eae4b06a25cf1132b05d3a95d64d915cf`) and page 2 of `Phase2_Schematic_Set_RevA.pdf` (in both places) label it **"FLEX / STORAGE — kept as-is (D-039)"**. The ARENA standalone file is the first Rev D render (commit 900c1da 5:06 AM); the box preview `/workspace/keystone_previews/P2-A-101.pdf/.png` is that same early render. Both carry "REV D".
+2. ARENA holds only the current rev of each sheet, with no rev letter in the file name; frozen older revs (P1-G-001 A-C, P2-G-003 A-E, P2-A-101/102 A-C, P2-A-201 A-C, P2-A-301 A) exist only in the repo.
+3. **`P1-P-001` Rev A (plumbing scope) is not in ARENA** (repo only).
+4. ARENA has no params, DECISIONS, research, CHANGELOG, BACKLOG, DXF or generators — repo-only content.
+5. `_KEYSTONE\STATUS.md` (and repo `STATUS.md`) were stale (7:24 AM text) while `STATUS.json` was current — regenerated in this update.
+6. Prompt in ARENA is v1.1; v1.3 is not on disk.
+7. Arch photo: ARENA has a WebP-encoded `.png` (84,624 B); the box ref is a PNG (847,527 B) of the same picture.
+8. Diorama: same content, line endings differ (ARENA LF 19,103 B; repo CRLF 19,531 B).
+9. Repo root holds the Feb 2026 concept files and the public `index.html`; none are in ARENA.
+
+
+## 1. Shane's ARENA folder: `C:\Users\Hubby\Desktop\ARENA\` (pulsar00100) — 2026-10-03 snapshot (history; see §0)
 
 Per Shane, the folder first held **exactly 4 files**. On 2026-10-03 Shane added 2 images, and a byte-identical copy of the reference plan was saved there as `Phase2-floor-plan-flat.png`. **The folder then held 7 files.** Later on 2026-10-03 Shane added `wrestle-room-measure.png` (Phase 1 site sketch). **The folder now holds 8 files.** KEYSTONE read the box copies in `/workspace/arena_src/` and got nothing from Shane's PC. Sizes/times for the new files: box copies, plus Shane's info.
 

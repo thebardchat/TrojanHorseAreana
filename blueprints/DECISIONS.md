@@ -138,3 +138,10 @@ Source for D-001…D-012: KEYSTONE_ARCHITECT_PROMPT.md v1.1 Section 5. D-013…D
 | ID | Question | Status | Notes / feeds |
 |---|---|---|---|
 | D-054 | Event floor uses beyond sports (concerts, graduations, expos with floor chairs or standing)? | OPEN | Opened by KEYSTONE 2026-10-04 (R-007.2). The floor (114 x 144 ft = 16,416 SF) is counted at 50 gross ("exercise rooms", ASSUMED) → 329 occupants. IBC 2021 Table 1004.5 if used otherwise: unconcentrated 15 net → 1,095; chairs only 7 net → 2,346; standing 5 net → 3,284. Changes Level 1 exits / main exit (1030.2) and fixtures, not the L2 stairs (D-052). Needs Shane (intended uses); the building official assigns the load. |
+
+## Logged 2026-10-04 8:14 AM CT
+
+| ID | Question | Status | Notes / feeds |
+|---|---|---|---|
+| D-055 | KEYSTONE prompt v1.3 (8:13 AM CT) text vs today's decisions — which wins? | DECIDED | **DECIDED 2026-10-04 — "Shane, Grok chat" (CHANGE APPROVED 8:14 AM CT): today's decisions win over v1.3 text:** 76 in stairs (D-052); 50 ft portal (D-050); upper tier steps down (D-049); D-048 closed; D-053 applied; the 55,000 SF cap applies to the footprint only, total GSF uncapped (D-031). Also under v1.3: ARENA (`C:\Users\Hubby\Desktop\ARENA`) is the master, repo `blueprints/` mirrors it; reviewer correction orders C-0..C-12 come first; stop after each report for Shane's GO + option number. |
+
