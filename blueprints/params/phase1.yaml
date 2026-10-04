@@ -57,8 +57,12 @@ existing:
       label: "ASSUMED STANDARD, VERIFY"
       swing_drawn: outward from the wrestling room (direction of egress); hinge side arbitrary — both ASSUMED, verify
       south_exit_note: "Shane's markup shows two triangles at the south exit; it may be a pair of doors — verify"
-      source: "Shane 2026-10-03 10:12 PM CT (assume standard 3'-0\" x 7'-0\" single HM doors, label ASSUMED STANDARD, VERIFY); swing/hinge drawing choice by KEYSTONE"
-    doors_approx:       # APPROX. locations read off Shane's aerial markup. NOT measured. Used only as tagged symbols on P1-A-101.
+      confirmation: "locations confirmed by Shane vs markup 2026-10-03; exit swings out confirmed; hallway door swing + south exit single/pair still to verify"
+      exit_swing: outward (CONFIRMED, Shane 2026-10-03 10:29 PM CT)
+      hallway_door_swing: outward as drawn — ASSUMED, verify
+      south_exit_leaves: single as drawn — ASSUMED, verify (may be a pair)
+      source: "Shane 2026-10-03 10:12 PM CT (assume standard 3'-0\" x 7'-0\" single HM doors, label ASSUMED STANDARD, VERIFY); swing/hinge drawing choice by KEYSTONE; confirmation → Shane 2026-10-03 10:29 PM CT (D-026: locations match markup, exits swing out; hallway swing + south single/pair left unfilled)"
+    doors_approx:       # APPROX. locations read off Shane's aerial markup. NOT measured (not dimensioned). Confirmed by Shane vs markup 2026-10-03 (D-026).
       exit_west:
         wall: west
         kind: emergency exit
@@ -371,7 +375,7 @@ sheets:
     revisions:
       A:
         file: P1-A-101_RevA
-        frozen: false
+        frozen: true      # APPROVED by Shane 2026-10-03 10:29 PM CT (D-026). Do not edit; next changes go to Rev B.
         content: room outline (tape inside dims, 8 in CMU walls ASSUMED, 3 ft doors ASSUMED at APPROX. locations, CLG 10 ft, north arrow, scale bar); no fixtures, no pads, no support wing dims
         source: "Shane 2026-10-03 10:06 PM CT (start P1-A-101: outline only, doors APPROX., support wing dashed + not measured); 10:12 PM CT (CMU 8 in ASSUMED, doors 3x7 ASSUMED STANDARD, CLG 10 ft); revised in place (not yet shown to Shane)"
     source: "prompt §9 (sheet list, title block); Shane 2026-10-03 10:06 PM CT (content); scale chosen by KEYSTONE to fit 11x17"
@@ -483,7 +487,7 @@ sheets:
       D:                  # PRINCIPAL version, current. Rev C + W2 fill-ins (where, problem spots, fixtures) + W1 pad estimate. No codes.
         audience_label: principal
         file: P1-G-001_RevD_principal
-        frozen: false
+        frozen: true      # APPROVED by Shane 2026-10-03 10:29 PM CT (D-025). Do not edit; next changes go to Rev E.
         show_codes: false
         row1_heading: "WHAT THIS PROJECT DOES — 3 WORK ITEMS, IN PRIORITY ORDER"
         panel_order: [W2, W3, W1]

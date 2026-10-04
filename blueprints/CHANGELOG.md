@@ -208,3 +208,11 @@
   - New tags: CLG 10'-0" and "WALLS: 8" CMU — ASSUMED".
   - Notes (9) and legend are updated.
 - Single-file copies for Shane: `/workspace/keystone_previews/P1-G-001.pdf` (Rev D) and `/workspace/keystone_previews/P1-A-101.pdf`.
+
+## 2026-10-03 ~10:40 PM CT · approvals + Phase 1 package + P2-T-003 (R-005)
+- Shane (10:29 PM CT): "P1-A-101 Rev A and P1-G-001 Rev D approved." **D-025** (Rev D approved, frozen) and **D-026** (A-101 Rev A approved, frozen; door locations match his markup; exits swing out) logged as DECIDED. Open count unchanged at 16.
+- `params/phase1.yaml`: P1-G-001 Rev D and P1-A-101 Rev A set `frozen: true`. Both generators refuse to overwrite without `--force` (checked). `door_assumed` gets the confirmation note: "locations confirmed by Shane vs markup 2026-10-03; exit swings out confirmed; hallway door swing + south exit single/pair still to verify." Hallway swing + south exit leaves stay ASSUMED, verify. **No sheet regenerated**; /tmp regen of Rev B/C/D and A-101 Rev A is byte-identical to the committed files.
+- New `phase1/out/pdf/Phase1_Package_for_Dr_Headen.pdf` (copy in `/workspace/keystone_previews/`): G-001 Rev D then A-101 Rev A via `pdfunite`. Checks: 2 pages, both 1224 × 792 pt (11x17 landscape), stamp on both pages, no D-0/R-0 codes, no "spelling".
+- `shared/validate.py` check 6b now also covers `*Package*.pdf` (principal-facing bundles).
+- **P2-T-003 started:** `research/R-005-nfhs-wrestling-mats.md`. NFHS Rule 2-1: 28-ft min circle + ~5-ft safety area (38 ft square by arithmetic), 1-in PVC foam equivalent to 4 in max, 10-ft surrounding space and benches/table 10 ft where facilities permit; no padding rule found; AHSAA uses NFHS rules, nothing extra found. Current rulebook paywalled → current wording UNVERIFIED. Arithmetic: 4 mats fit 22,000 SF by area in all cases checked; real fit needs room dims. D-014 stays OPEN; phase2.yaml untouched.
+- BACKLOG / ASSETS updated.

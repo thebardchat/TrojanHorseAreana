@@ -8,7 +8,7 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - [x] **P1-T-002** Send Shane the measurement + photo checklist (room L×W×H, doors, windows, outlets, existing fixtures, where water leaks show, wall material, walk-through room layout)
 - [x] **P1-T-003** R-001 wall pads + R-003 single-user restroom ADA minimums
 - [x] **P1-T-004** P1-G-001 one-page scope sheet (can ship before measurements — uses TBDs)
-- [ ] **P1-T-005** P1-A-101 existing conditions (needs measurements) — **IN PROGRESS** (Rev A: room outline only, 2026-10-03)
+- [ ] **P1-T-005** P1-A-101 existing conditions (needs measurements) — **IN PROGRESS** (Rev A approved + frozen 2026-10-03, D-026; rest blocked on support wing measurements)
 - [ ] **P1-T-006** P1-A-102 remodel plan (restroom split, pad extents)
 - [ ] **P1-T-007** P1-A-201 wall pad elevations
 - [ ] **P1-T-008** P1-P-001 plumbing scope narrative
@@ -18,7 +18,7 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 **Phase 2 (after P1-T-010)**
 - [ ] **P2-T-001** `phase2.yaml` v1 from Section 3 Phase 2 table — *v1 seeded 2026-10-03 at Shane's request; Phase 1 still first*
 - [ ] **P2-T-002** `validate.py` + `calcs.py` Phase 2 checks
-- [ ] **P2-T-003** R-005 NFHS mats → do 4 mats fit 22,000 SF?
+- [ ] **P2-T-003** R-005 NFHS mats → do 4 mats fit 22,000 SF? — **IN PROGRESS** (R-005 written 2026-10-03, awaiting Shane's review; research only, no drawing)
 - [ ] **P2-T-004** A-101 overall floor plan
 - [ ] **P2-T-005** A-102 mat + seating + conversion overlays
 - [ ] **P2-T-006** C-101 campus diagram (SITE TBD)
@@ -54,3 +54,6 @@ Source: KEYSTONE_ARCHITECT_PROMPT.md v1.1, Section 15 (verbatim). Checked = done
 - 2026-10-03 10:06 PM CT: Shane taped the wrestling room: **55'-0" × 45'-0" inside, long side N-S.** **P1-T-005 IN PROGRESS:** P1-A-101 Rev A (room outline only, 1/8" = 1'-0", doors APPROX., support wing dashed + not measured). The W2 TBDs (where, problem spots, fixtures) and the W1 pad estimate were filled in, giving P1-G-001 Rev D (principal); Rev C is frozen.
   - **Next for P1-A-101:** door positions/widths, wall thickness, ceiling, support wing dims, photos.
   - D-022 is still OPEN, so there is no 1A/1B restructure.
+- 2026-10-03 10:29 PM CT: Shane approved **P1-G-001 Rev D (D-025)** and **P1-A-101 Rev A (D-026)**. Both frozen (no overwrite without `--force`). Door locations confirmed vs his markup, exits swing out; hallway door swing + south exit single/pair stay "assumed, verify" (no sheet change).
+  - Print bundle `phase1/out/pdf/Phase1_Package_for_Dr_Headen.pdf` (G-001 Rev D + A-101 Rev A, 2 pages, 11x17 landscape, code-free). Not the P1-T-010 final bundle.
+  - **P2-T-003 IN PROGRESS:** `research/R-005-nfhs-wrestling-mats.md` (NFHS Rule 2 mat specs, AHSAA, arithmetic-only fit check). D-014 stays OPEN until Shane reviews. Taken because P1-T-005…008 wait on the support wing measurements.

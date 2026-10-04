@@ -32,7 +32,7 @@ Per Shane, the folder first held **exactly 4 files**. On 2026-10-03 Shane added 
 - **Same file as the repo's `hazel-green-complex-3d.html` (commit 8a2f4c6).** Content is identical once line endings are ignored. The repo copy uses CRLF (19,531 B); Shane's copy uses LF (19,103 B).
 - Findings (no changes made):
   - The arena blurb says "Permanent stadium seating" and "lowered event floor." Seating type is still OPEN (D-009), and a lowered floor isn't a locked fact.
-  - "4 regulation wrestling mats" is unverified (D-014 / R-005).
+  - "4 regulation wrestling mats" is unverified (D-014 / R-005). **Update 2026-10-03:** R-005 written; 4 mats fit 22,000 SF by area only (arithmetic, room dims TBD). D-014 still OPEN.
   - Zone glow colors include blue and pink. That's a viewer UI choice, not a brand color, but brand colors are red/black (prompt §3).
 
 ### 1b. Phase 2 reference plan: what it shows (`Phase2-floor-plan-flat.png` = `arenav1-floor-plan.png`)
@@ -150,3 +150,7 @@ These are not measured, and no dimensions are given.
 
 Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claude/trojans-sports-complex-3d-r07Pw` (not touched), plus `grok/keystone` (KEYSTONE's).
 **Superseded numbers (120×250, ~30,000 SF, ~800 seats, $4–6M) are history. They're blocked from `params/` by `shared/validate.py`.**
+
+## 2026-10-03 additions (10:29 PM CT session)
+- **R-005 source copies** (box scratch `/workspace/research_src/`, **not committed**): `utah_2014_15.pdf` / `utah.txt` (NFHS 2014-15 Wrestling Rules Book, full public copy), `ahsaa_wr_2026_27.pdf` / `ahsaa.txt` (AHSAA 2026-27 Wrestling), `nfhs_changes_2026_27.pdf` (NFHS 2026-27 rule changes via LHSAA). `nfhs_wr_2023_24.pdf` is an AccessDenied error page, not a rulebook. The current NFHS rulebook is paywalled and was not obtained.
+- **Print bundle** `blueprints/phase1/out/pdf/Phase1_Package_for_Dr_Headen.pdf` (also `/workspace/keystone_previews/`): `pdfunite` of the frozen `P1-G-001_RevD_principal.pdf` + `P1-A-101_RevA.pdf`, 2 pages, 1224 × 792 pt. Built from the committed files, not regenerated.
