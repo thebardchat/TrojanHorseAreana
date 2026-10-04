@@ -1,6 +1,6 @@
-# KEYSTONE — 2026-10-04 12:26 PM CT
-HEALTH: YELLOW · P1 50% · P2 82% · Ticket P2-T-011
-WHAT CHANGED: A-901 Rev A massing: aerials SW / SE / NW, cutaway at L2 FF 17'-9", portal + Champion Walk; model phase2/out/3d/P2-A-901_RevA_massing.obj. No checkpoint, no added restroom volume, walk at drawn 28 ft with D-066 note.
-WHAT TO VERIFY: Roof heights 32.75 / 42 ft ASSUMED (A-201 Rev G). Colour hex swatches ASSUMED. Door symbol 6 x 8 ft ASSUMED. Upper-tier structure 1'-6" ASSUMED (structural engineer). Door widths ASSUMED 64 in/pair. NFHS books 2014-15 / 2012-13. ARENA naming ASSUMED.
-NEXT ACTION: Next BACKLOG item: P2-T-012 G-001 cover sheet + Phase 2 SD bundle THA_Phase2_SD_RevA.pdf -> PR (Rev A).
-QUESTION FOR SHANE: D-065 security checkpoint: Option 1 (side bay of the lobby, 38.9 ft clear to the E1 bank) or Option 2 (outdoors on the entry plaza)? D-064 restrooms, D-066 discharge and D-054 floor uses also wait on you.
+# KEYSTONE — 2026-10-04 2:08 PM CT
+HEALTH: YELLOW · P1 50% · P2 85% · Ticket P2-T-012
+WHAT CHANGED: D-054/064/065/066 closed, D-067 storage annex 2,100 SF added, D-068 approvals frozen. New revs: A-101 H, A-111 B, G-002 B, G-003 J, A-401 B, A-103 B, C-101 D, A-901 B. GSF drawn 82,013 -> 84,113. New OPEN D-069. Open 17.
+WHAT TO VERIFY: Annex size basis (56 carts x 2.0 aisles) and 16 ft height ASSUMED; S1 move ASSUMED. Screening 3 lanes ASSUMED, 468 in clear. Test-fit stalls 36 x 60 in, +10% walls ASSUMED. A-201 north elevation lacks the annex. ARENA naming ASSUMED.
+NEXT ACTION: PAUSED per Shane 1:46 PM CT. Next standard step: Shane decides D-069; then A-201 north elevation rev (annex) and P2-T-012 G-001 cover + combined set + draft PR when Shane says go.
+QUESTION FOR SHANE: D-069 chairs-only restrooms (+48 fixtures, +535 to +2,400 SF): Option 1 grow inside (women into E concourse, men into SW flex, changes D-039), Option 2 one-storey bump-out pair, or Option 3 men inside + women bump-out?
