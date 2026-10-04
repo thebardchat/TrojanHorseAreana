@@ -2,7 +2,7 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-04T07:01:50-05:00",
+  "updated_at": "2026-10-04T07:01:56-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
@@ -38,7 +38,7 @@
     "P2-A-201 Rev C (exterior elevations, 11 ft badge, Champion Walk 28 x 30)",
     "P2-A-301 Rev A (building sections)"
   ],
-  "last_commit": "6d99435",
+  "last_commit": "ae5aa31",
   "branch": "grok/keystone",
   "open_decisions": 17,
   "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002 still OPEN). P2: owner (D-007), AHJ (D-008); trademark search (D-042); brick pricing (D-044); arch photo rights (D-048); site TBD (D-006)",
