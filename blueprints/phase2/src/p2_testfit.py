@@ -125,7 +125,134 @@ def summary():
     return p2, prog, ob, out
 
 
+
+# ============================ REV B: TWO LEVELS (D-031) ============================
+# Footprint F = max(L1, AV + L2). AV = arena volume (event floor + lower seats), double height, nothing above it.
+# L1 = g * (N1 + M), L2 = g * N2, M = mech * (L1 + L2)  =>  G = g * (N1 + N2) / (1 - g * mech).
+
+def exits_required(load: int) -> int:
+    """IBC 2021 Table 1006.3.3 (per story)."""
+    return 2 if load <= 500 else 3 if load <= 1000 else 4
+
+
+def stair_sf(vc, width_in: float) -> dict:
+    """Plan SF of one switch-back stair on one level (IBC 1011.5.2 risers/treads, 1011.6 landings, 1011.8 flight rise)."""
+    risers = math.ceil(vc["floor_to_floor_in"] / vc["riser_max_in"])
+    flights = max(2, math.ceil(vc["floor_to_floor_in"] / vc["flight_rise_max_in"]))
+    flights += flights % 2                      # switch-back returns to the same side
+    per_flight = math.ceil(risers / flights)
+    run = (per_flight - 1) * vc["tread_min_in"]
+    landing = min(width_in, 48)
+    sf = 2 * width_in * (run + 2 * landing) / 144.0 * (flights // 2)
+    return dict(risers=risers, flights=flights, per_flight=per_flight, riser_in=vc["floor_to_floor_in"] / risers,
+                run_in=run, landing_in=landing, width_in=width_in, sf=sf)
+
+
+def compute_two_level(p2, prog, scenario="base", arena_sf=None, seats=None, upper_share=None):
+    f, vc = prog["factors"], prog["vertical_circulation"]
+    g, mech = f["gross_up"][scenario], f["mechanical"]["share_of_gross"]
+    seats = p2["spaces"]["seating"]["total"] if seats is None else seats
+    arena = dig(p2, "spaces.arena.sf") if arena_sf is None else arena_sf
+    up = prog["seat_split"]["upper_share_assumed"] if upper_share is None else upper_share
+    su = int(round(seats * up))
+    sl = seats - su
+    sps = seat_sf(prog, scenario)
+    occ_floor = math.ceil(arena / f["occupant_load"]["event_floor_sf_per_occupant"])
+    fx1 = fixtures(sl + occ_floor)
+    fx2 = fixtures(su) if su else None
+    sfpf = f["restrooms"]["sf_per_fixture"]
+    conc = {r["id"]: r for r in prog["rooms"]}["concourse"]
+    room = {r["id"]: r for r in compute(p2, prog, scenario, arena_sf=arena, seats=seats)["rows"]}
+    # L2 occupant load -> exits, stair width
+    other = 0
+    for o in vc["l2_other_occupants"]:
+        other += math.ceil(room[o["id"]]["sf"] / o["sf_per_occupant"])
+    l2_load = su + other
+    nex = exits_required(l2_load)
+    width = max(vc["stair_min_width_in"], l2_load * vc["stair_capacity_in_per_occupant"] / nex)
+    st = stair_sf(vc, width)
+    elev = vc["elevator_count"] * vc["elevator_hoistway_sf_per_level"]
+    vc_sf = nex * st["sf"] + elev
+    sf = {
+        "arena": arena, "seating_lower": sl * sps, "seating_upper": su * sps,
+        "concourse_lower": sl * conc["peak_share"] * conc["sf_per_person"],
+        "concourse_upper": su * conc["peak_share"] * conc["sf_per_person"],
+        "public_restroom_lower": fx1["in_rooms"] * sfpf,
+        "public_restroom_upper": (fx2["in_rooms"] * sfpf) if fx2 else 0,
+        "vertical_circulation": vc_sf,
+    }
+    for rid, r in room.items():
+        if rid not in sf and r["method"] not in ("seating", "concourse", "restrooms", "tbd", "mechanical"):
+            sf[rid] = r["sf"]
+    l1_ids = [r["id"] for r in prog["stacking"]["level_1"] if r["id"] != "mechanical"]
+    l2_ids = [r["id"] for r in prog["stacking"]["level_2"]]
+    N1 = sum(sf[i] for i in l1_ids)
+    N2 = sum(sf[i] for i in l2_ids)
+    G = g * (N1 + N2) / (1 - g * mech)
+    M = mech * G
+    L1, L2 = g * (N1 + M), g * N2
+    AV = g * sum(sf[i] for i in prog["stacking"]["arena_volume"])
+    F = max(L1, AV + L2)
+    cap = p2["building"]["footprint_cap_sf"]
+    return dict(scenario=scenario, g=g, mech=mech, seats=seats, arena=arena, up=up, su=su, sl=sl, seat_sf=sps,
+                occ_floor=occ_floor, fx1=fx1, fx2=fx2, l2_load=l2_load, l2_other=other, exits=nex, stair=st,
+                elev_sf=elev, vc_sf=vc_sf, sf=sf, l1_ids=l1_ids, l2_ids=l2_ids, N1=N1, N2=N2, M=M,
+                L1=L1, L2=L2, AV=AV, ring=L1 - AV, F=F, G=G, cap=cap, over=F - cap, fits=F <= cap,
+                l2_fits_over_ring=L2 <= L1 - AV)
+
+
+def split_range(prog):
+    s = prog["seat_split"]
+    k0, k1, st = round(s["upper_share_min"] * 100), round(s["upper_share_max"] * 100), round(s["step"] * 100)
+    return [k / 100.0 for k in range(k0, k1 + 1, st)]
+
+
+def best_split(p2, prog, scenario, arena_sf=None, seats=None):
+    return min((compute_two_level(p2, prog, scenario, arena_sf, seats, u) for u in split_range(prog)), key=lambda d: (round(d["F"]), d["up"]))
+
+
+def max_seats_two_level(p2, prog, scenario, arena_sf=None, step=10):
+    best = None
+    for s_ in range(0, p2["spaces"]["seating"]["total"] + 1, step):
+        if best_split(p2, prog, scenario, arena_sf, s_)["fits"]:
+            best = s_
+    return best
+
+
+def max_floor_two_level(p2, prog, scenario, step=100):
+    """Largest event floor (SF, step 100) that fits the footprint cap with all seats (best split)."""
+    best = None
+    for a in range(0, dig(p2, "spaces.arena.sf") + 1, step):
+        if best_split(p2, prog, scenario, arena_sf=a)["fits"]:
+            best = a
+    return best
+
+
+def summary_b():
+    p2, prog = load()
+    ob = option_b_floor(prog)
+    out = {}
+    for sc in ("base", "lean"):
+        out[sc] = dict(A50=compute_two_level(p2, prog, sc), Abest=best_split(p2, prog, sc),
+                       B50=compute_two_level(p2, prog, sc, arena_sf=ob["sf"]), Bbest=best_split(p2, prog, sc, arena_sf=ob["sf"]),
+                       seats_max=max_seats_two_level(p2, prog, sc), floor_max=max_floor_two_level(p2, prog, sc),
+                       seats_max_B=max_seats_two_level(p2, prog, sc, arena_sf=ob["sf"]))
+    return p2, prog, ob, out
+
+
 if __name__ == "__main__":
+    import sys as _s
+    if "--rev-b" in _s.argv:
+        p2, prog, ob, out = summary_b()
+        for sc, d in out.items():
+            for k in ("A50", "Abest", "B50", "Bbest"):
+                x = d[k]
+                print(f"[{sc} {k}] up {x['up']:.2f} ({x['sl']}/{x['su']}) L1 {x['L1']:,.0f} L2 {x['L2']:,.0f} AV {x['AV']:,.0f} "
+                      f"ring {x['ring']:,.0f} F {x['F']:,.0f} G {x['G']:,.0f} over {x['over']:,.0f} exits {x['exits']} "
+                      f"w {x['stair']['width_in']:.0f} stair {x['stair']['sf']:.0f} vc {x['vc_sf']:.0f} l2load {x['l2_load']} "
+                      f"fx1 {x['fx1']['in_rooms']} fx2 {x['fx2']['in_rooms'] if x['fx2'] else 0}")
+            print(f"   max seats (22k floor) {d['seats_max']}; max floor (all seats) {d['floor_max']}; max seats (B floor) {d['seats_max_B']}")
+        raise SystemExit
     p2, prog, ob, out = summary()
     print("option B floor", ob)
     for sc, d in out.items():

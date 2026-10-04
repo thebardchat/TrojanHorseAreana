@@ -3,6 +3,7 @@
 # v2, 2026-10-03 10:45 PM CT: PHASE 2 ACTIVE in parallel with Phase 1 (D-027). Phase 2 is Shane's build, not a school
 # project (D-028): no school ownership, district approval, school bidding or school review is assumed here. Owner OPEN (D-007).
 # Program test-fit inputs live in params/phase2_program.yaml (P2-T-003b).
+# v3, 2026-10-03 11:09 PM CT: 55,000 SF is a FOOTPRINT cap; up to 2 levels; total GSF no longer capped at 55,000 (D-031).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -47,11 +48,15 @@ brand:
 
 building:
   total_sf: 55000
-  stories: TBD
+  total_sf_meaning: "the 55,000 SF is the building FOOTPRINT cap (D-031), not a cap on total floor area"
+  footprint_cap_sf: 55000
+  levels: up to 2
+  stories: up to 2 (D-031)
+  total_gsf_cap: "none — total GSF across two levels is no longer capped at 55,000 (D-031)"
   structure: TBD
   clear_span: TBD
   north: up (same as the floor plan)
-  source: "concept sheet; reference plan legend agrees (digits partly garbled)"
+  source: "concept sheet; reference plan legend agrees (digits partly garbled); footprint cap + levels → D-031 DECIDED (Shane, firsthand, 2026-10-03 11:09 PM CT)"
 
 spaces:
   arena:
@@ -275,8 +280,8 @@ open_items:
   budget: TBD
   seating_type: TBD
   concessions_scope: TBD
-  program_fit: "OPEN — program test-fit (P2-G-003) is over 55,000 SF; options A/B/C (D-030)"
-  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030; Shane 2026-10-03 10:45 PM CT"
+  program_fit: "OPEN — two-level test-fit P2-G-003 Rev B checks the ground footprint against the 55,000 SF footprint cap (D-031); direction OPEN (D-030)"
+  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030, D-031; Shane 2026-10-03 10:45 PM + 11:09 PM CT"
 
 sheets:
   P2-G-003:
@@ -286,6 +291,12 @@ sheets:
     revisions:
       A:
         file: P2-G-003_RevA
+        frozen: true
+        note: one-level arithmetic against 55,000 SF read as total floor area; superseded by Rev B after D-031
+        source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b); frozen 11:09 PM CT when Rev B was ordered"
+      B:
+        file: P2-G-003_RevB
         frozen: false
-        source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b)"
+        note: two-level arithmetic; ground footprint vs the 55,000 SF footprint cap (D-031)
+        source: "Shane 2026-10-03 11:09 PM CT (redo test-fit as Rev B, Rev A frozen)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"

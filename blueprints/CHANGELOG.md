@@ -228,3 +228,36 @@
 - Research: **R-008** seating area + IBC 2021 assembly aisles (note: 2021 IBC numbers assembly as §1030, 1029 in 2018), **R-009** occupant load + IBC Table 2902.1 fixtures (18 WC men, 33 WC women, 7 + 9 lavs, 3 DF, 1 service sink at load 2,640), **R-012** NFHS basketball court (partial), **R-014** planning factors (Loudoun 2014, Groton, MIL-HDBK-1027/4A).
 - **Code edition flag:** Madison County's page lists the **2018** IBC/IPC; Shane said 2021. Fixture ratios identical in both. AHJ OPEN (D-008).
 - README, BACKLOG (priority note; P2-T-003b first Phase 2 ticket; P2-T-003 done), ASSETS updated.
+
+## 2026-10-03 ~11:25 PM CT · D-031 footprint cap · P2-T-003b two-level test-fit (P2-G-003 Rev B)
+- Shane, firsthand (11:09 PM CT): 55,000 SF is a **FOOTPRINT cap that could allow two levels**, not a total floor area cap. Logged as **D-031 DECIDED**. Open count unchanged at 16.
+- `params/phase2.yaml` v3:
+  - `building.footprint_cap_sf: 55000`, `levels: up to 2`, `stories: up to 2 (D-031)`, `total_gsf_cap: none`. Locked `total_sf: 55000` is kept, with its meaning noted (it is the footprint cap).
+  - `open_items.program_fit` reworded.
+  - `sheets.P2-G-003`: Rev A `frozen: true`; Rev B added (`frozen: false`).
+- `params/phase2_program.yaml`: the Rev A sections are unchanged. New sections `meta_rev_b`, `stacking` (L1/L2 room lists with why + source), `seat_split` (50/50 ASSUMED; best of 30-70%) and `vertical_circulation` (IBC/ADA rules plus ASSUMED 15 ft floor-to-floor and 64 SF hoistway).
+- `phase2/src/p2_testfit.py`: new two-level functions `compute_two_level`, `best_split`, `exits_required`, `stair_sf`, `max_seats_two_level`, `max_floor_two_level`, `summary_b` (print with `--rev-b`). Footprint = max(L1 gross, arena volume gross + L2 gross).
+- `phase2/src/p2_g_003.py`: `--rev A|B` (default B). The frozen `build()` is untouched; new `build_b()`.
+- **Rev A frozen check:** regenerated to /tmp after all changes. PDF byte-identical (sha256 6d5bee82…3d92d). DXF entity-identical; only header timestamps and GUIDs differ (ezdxf).
+- **Rev B result (full program: 22,000 SF floor, 2,200 seats):**
+  - **Base:** ground footprint ≈ 62,700 at the 50/50 split, ≈ 62,300 at the best split (55% upper). Over 55,000 by ≈ 7,300. Total ≈ 88,900 GSF.
+  - **Lean:** ≈ 53,500 at 50/50 and ≈ 51,600 at 65% upper. **Fits.** Total ≈ 74,700 GSF.
+  - **Option B floor (14,364 SF):** base ≈ 52,200 footprint and ≈ 78,200 GSF (fits with all 2,200 seats); lean ≈ 42,600–44,000.
+  - **Smallest change for base:** use the option B floor. Alternatives: keep 22,000 SF and cut to ≈ 1,370 seats, or any floor of ≈ 16,400 SF or less with all seats.
+- **Stacking:**
+  - L1: event floor + lower tier (double-height arena volume, nothing above), boys/girls lockers, 4 event lockers, foyer, lower concourse, L1 restrooms (41 fixtures), concession, first aid, mat storage, equipment room, mechanical.
+  - L2: upper tier, S&C, cross-training (DR4 flips: the daily mat is the mezzanine), admin, upper concourse + hall of champions wall, L2 restrooms (29 fixtures).
+  - The upper tier and L2 rooms sit over the L1 ring around the bowl.
+- **Vertical circulation (base 50/50):**
+  - L2 load 1,304 → 4 exits (T1006.3.3), 0.2 in/occupant (1005.3.1 exception; sprinklers 903.2.1.4 + voice alarm 907.2.1.1) → 4 stairs × 65 in.
+  - About 206 SF per stair per level (26 risers of 6.92 in, 11 in treads, 2 flights, 48 in landings).
+  - Elevator 1 (IBC 1104.4; ADA car 80 × 54 in; 64 SF hoistway ASSUMED).
+  - About 890 net SF on each level.
+- New research **R-015** (two-level stacking + vertical circulation; IBC 2021 ch. 9/10/11 via UpCodes, 2010 ADA Standards, Reed and Orleans arena guides as precedent).
+- New sheet `phase2/out/pdf/P2-G-003_RevB.pdf` + `.dxf`: 1 page, 1224 × 792 pt, stamp present, reproducible.
+- Previews:
+  - `/workspace/keystone_previews/P2-G-003.png` = Rev B.
+  - `P2-G-003_RevA.png` = the old Rev A preview.
+  - `P2-G-003.pdf` = Rev B.
+- **D-030** reworded (still OPEN): pick option B floor / cut seats / lean inputs / mix.
+- BACKLOG, ASSETS and STATUS updated.
