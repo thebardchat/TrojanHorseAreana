@@ -2,13 +2,13 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-04T10:16:19-05:00",
+  "updated_at": "2026-10-04T10:18:52-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
   "phase2_percent": 65,
-  "current_ticket": "C-5..C-11",
-  "current_ticket_title": "Reviewer items not tied to D-061: P2-A-201 Rev F, P1-G-001 Rev E, P2-G-003 Rev H, status writer + preflight test; A-301 items deferred to its D-061 rev (Rev D)",
+  "current_ticket": "R-023",
+  "current_ticket_title": "Champion Walk brick budget: vendor cost by scenario (all 4x8, all 8x8, 80/20 mix) + $6 logo, break-even per brick; install / base / border not estimated; D-044 pricing OPEN",
   "sheets_done": [
     "P1-G-001 Rev E (principal, in review; Rev D approved)",
     "P1-A-101 Rev A (approved)",
@@ -23,12 +23,12 @@
     "P2-C-101 Rev B (in review)"
   ],
   "sheets_in_progress": [],
-  "last_commit": "38799d8",
+  "last_commit": "9bfc4c1",
   "branch": "grok/keystone",
   "open_decisions": 19,
   "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012); trademark (D-042); brick pricing (D-044); floor uses (D-054); lockers (D-060); exits under low band (D-061).",
-  "what_changed": "A-201 Rev F: 25' clear = REFERENCE, portal STRUCTURAL ENGINEER REQUIRED, ETFE only an open question. P1-G-001 Rev E: '2021 ASSUMED, verify with AHJ' (county 2018 vs State FM 2021 open). G-003 Rev H: SUM incl. 4 drinking fountains (70). Status writer added.",
-  "what_to_verify": "ASSUMED: ARENA naming <sheet>_Rev<X>.pdf. G-003 Rev G's SUM was WC + lav only (66), so Rev H adds the fountains to SUM (70) and keeps WC+LAV (66) as the restroom-SF basis. P1-G-001 Rev E drops the stale Phase 2 size.",
+  "what_changed": "R-023: 840 SF walk = 3,780 4x8 ($71,820–$73,710) or 1,890 8x8 ($51,975–$58,590) or 80/20 mix 3,402 ($68,796–$69,363), vendor cost incl. engraving + shipping; logo +$6 each. Break-even 4x8 $19.00–$19.50, 8x8 $27.50–$31.00.",
+  "what_to_verify": "Counts are an upper bound (nominal faces, no border / joints; Shane's ≈ 3,700). 80/20 split ASSUMED. Vendor prices = REFERENCE (not re-checked). Install, base, border TBD (only a residential $8–$16/SF labor figure cited, LOW).",
   "next_action": "After D-061: P2-A-101/102 Rev F + P2-A-301 Rev D (with C-5 REFERENCE relabel + C-7 intermediate handrails, in BACKLOG), + A-201 if Option B raises L2. Then C-12.",
   "question_for_shane": "D-061: exits under the low band. A = omit upper rows 1-2 over them (-125 seats, or -56 with rails = 1 short of 1,100), or B = raise L2 to 17'-9\" with 21 in risers (0 seats, about +279 SF stairs, ring roof 32.75')?"
 }
