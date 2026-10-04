@@ -79,12 +79,18 @@ class Sheet:
             self.line(x1 + ux * s, y1 + uy * s, x1 + ux * e, y1 + uy * e, layer=layer, lw=lw)
             s = e + gap
 
-    def text(self, x, y, s, size=10.5, bold=False, align="left", layer=TEXT, rot=0):
-        """One line of text; (x, y) is the baseline point at `align`. rot = degrees CCW."""
+    def text(self, x, y, s, size=10.5, bold=False, align="left", layer=TEXT, rot=0, color=None):
+        """One line of text; (x, y) is the baseline point at `align`. rot = degrees CCW. color = '#rrggbb' (PDF only)."""
         d = dict(x=x, y=y, s=s, size=size, bold=bold, align=align, layer=layer)
         if rot:
             d["rot"] = rot                       # only stored when used (older sheets unchanged)
+        if color:
+            d["color"] = color                   # only stored when used (older sheets unchanged)
         self.prims.append(("text", d))
+
+    def poly(self, pts, fill=None, layer=TEXT, lw=0.6, edge="black"):
+        """Closed polygon (inches). fill = '#rrggbb' or None; lw = 0 for no outline. DXF: solid HATCH (true color) + outline."""
+        self.prims.append(("poly", dict(pts=[(float(x), float(y)) for x, y in pts], fill=fill, layer=layer, lw=lw, edge=edge)))
 
     def para(self, x, y_top, width, s, size=10.5, bold=False, layer=TEXT, indent=0.0, bullet=None):
         """Wrapped paragraph starting below y_top. Returns the y below the last line."""
@@ -108,13 +114,14 @@ class Sheet:
         self.text(x + w / 2, y + h / 2 - size / 72 * 0.35, label, size=size, bold=True, align="center", layer=layer)
 
     # --- outputs ----------------------------------------------------------
-    def render_pdf(self, path, title="", png_path=None, dpi=150):
+    def figure(self):
+        """Draw the sheet on a new matplotlib figure and return it (used by render_pdf and by set bundles)."""
         import matplotlib
         matplotlib.use("Agg")
         matplotlib.rcParams["pdf.fonttype"] = 42      # embed TrueType: searchable text
         matplotlib.rcParams["font.family"] = FONT_REG
         import matplotlib.pyplot as plt
-        from matplotlib.patches import Rectangle
+        from matplotlib.patches import Polygon, Rectangle
 
         fig = plt.figure(figsize=(self.width, self.height))
         ax = fig.add_axes([0, 0, 1, 1])
@@ -131,10 +138,19 @@ class Sheet:
             elif kind == "line":
                 ax.plot([p["x1"], p["x2"]], [p["y1"], p["y2"]], color="black",
                         linewidth=p["lw"], solid_capstyle="butt")
+            elif kind == "poly":
+                ax.add_patch(Polygon(p["pts"], closed=True, facecolor=p["fill"] or "none",
+                                     edgecolor=p["edge"] if p["lw"] else "none", linewidth=p["lw"] or 0, zorder=1))
             elif kind == "text":
                 kw = {"rotation": p["rot"], "rotation_mode": "anchor"} if p.get("rot") else {}
                 ax.text(p["x"], p["y"], p["s"], fontsize=p["size"], ha=p["align"], va="baseline",
-                        fontweight="bold" if p["bold"] else "normal", color="black", zorder=3, **kw)
+                        fontweight="bold" if p["bold"] else "normal", color=p.get("color", "black"), zorder=3, **kw)
+        return fig
+
+    def render_pdf(self, path, title="", png_path=None, dpi=150):
+        import matplotlib.pyplot as plt
+
+        fig = self.figure()
         meta = {"Title": title, "Author": "KEYSTONE (AI) for Shane Brazelton", "Creator": "KEYSTONE titleblock.py", "CreationDate": None}
         fig.savefig(path, format="pdf", metadata=meta)
         if png_path:
@@ -167,6 +183,14 @@ class Sheet:
                                    dxfattribs={"layer": p["layer"]})
             elif kind == "line":
                 msp.add_line((p["x1"], p["y1"]), (p["x2"], p["y2"]), dxfattribs={"layer": p["layer"]})
+            elif kind == "poly":
+                if p["fill"]:
+                    h = msp.add_hatch(dxfattribs={"layer": p["layer"]})
+                    c = p["fill"].lstrip("#")
+                    h.rgb = (int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16))
+                    h.paths.add_polyline_path(p["pts"], is_closed=True)
+                if p["lw"]:
+                    msp.add_lwpolyline(p["pts"], close=True, dxfattribs={"layer": p["layer"]})
             elif kind == "text":
                 t = msp.add_text(p["s"], height=p["size"] / 72.0 * DXF_CAP,
                                  dxfattribs={"layer": p["layer"], "style": "KS-BOLD" if p["bold"] else "KS-REG"})

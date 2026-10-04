@@ -122,11 +122,11 @@ level_1:
     - {tag: "15", id: mech_n, name: MECH (N), rect: [163.99, 224, 185, 252], prog: mechanical, share: auto, source: "Shane 4:30 AM CT (north wall); R-014"}
     - {tag: "16", id: mech_e, name: MECH (E), rect: [182, 56, 204, 134.18], prog: mechanical, share: auto, source: "Shane 4:30 AM CT (reconsider SE mech): east ring behind the bowl, off the public side; R-014"}
     - {tag: "22", id: mech_ne, name: MECH (NE), rect: [185, 224, 204, 246.2], prog: mechanical, share: auto, note: "NE pocket; Rev D: grows north to ST-2", source: "Shane 4:30 AM CT (NE corner OK for mech); KEYSTONE layout"}
-    - {tag: "23", id: storage_sw, name: STORAGE (SW), rect: [10.8, 0, 64, 19], prog: null, note: "unprogrammed (ASSUMED); team side", source: "Shane 4:43 AM CT (reuse the freed SW area, e.g. storage); KEYSTONE layout"}
+    - {tag: "23", id: storage_sw, name: FLEX / STORAGE, rect: [10.8, 0, 64, 19], prog: null, note: "FLEX, unprogrammed, kept as-is (D-039)", source: "Shane 4:43 AM CT (reuse the freed SW area, e.g. storage); Shane 5:27 AM CT (keep as-is, labeled flex; D-039); KEYSTONE layout"}
   zones:
     - {id: lobby, name: "LOBBY / HALL OF CHAMPIONS", rect: [84, 0, 142, 56], label_rect: [90, 24, 127, 38], note: "double height south of the balcony; south upper tier above its north 15 ft", source: "Shane 4:30 AM CT (lobby centered south, under the south tier); DR5"}
     - {id: athlete, name: "ATHLETE CORRIDOR", rect: [41.75, 56, 56, 224], vertical: true, source: "DR1; Shane keep"}
-    - {id: team_asm, name: "TEAM ASSEMBLY / HOLDING", sub: "(ASSUMED, unprogrammed)|teams arrive via E1 + CD-1", rect: [0, 19, 56, 56], label_rect: [6, 24, 52, 52], source: "Shane 4:43 AM CT (reuse the freed SW area, e.g. team assembly / bus drop holding off the lobby side); KEYSTONE layout"}
+    - {id: team_asm, name: "FLEX / TEAM ASSEMBLY", sub: "(unprogrammed, kept as-is)|teams arrive via E1 + CD-1", rect: [0, 19, 56, 56], label_rect: [6, 24, 52, 52], source: "Shane 4:43 AM CT (reuse the freed SW area, e.g. team assembly / bus drop holding off the lobby side); Shane 5:27 AM CT (keep as-is, labeled flex; D-039); KEYSTONE layout"}
     - {id: ath_route, name: "ATHLETE ROUTE", rect: [56, 48, 84, 56], source: "Shane 4:43 AM CT (route lobby → athlete corridor / lockers separable from public flow); 8 ft ASSUMED"}
     - {id: conc_w, name: "CONCOURSE (W)", rect: [56, 34, 84, 48], source: "Rev E lower concourse; KEYSTONE layout (north 8 ft given to the athlete route in Rev C)"}
     - {id: exit_n, name: "EXIT (N)", rect: [123.85, 224, 131.85, 252], vertical: true, source: "KEYSTONE layout (exit passage from V1 to the north wall; IBC 1006.3.3, 1030.3); 8 ft ASSUMED = vomitory width"}

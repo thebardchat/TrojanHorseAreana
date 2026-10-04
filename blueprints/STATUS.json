@@ -6,9 +6,9 @@
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 45,
-  "phase2_percent": 36,
-  "current_ticket": "P2-T-004",
-  "current_ticket_title": "Phase 2 block plans P2-A-101/102 Rev D: continuous Level 2 running / training loop (D-035), S&C + cross-training trimmed; P2-G-003 Rev F",
+  "phase2_percent": 40,
+  "current_ticket": "P2-T-009",
+  "current_ticket_title": "P2-A-201 Exterior Elevations Rev A (south portal primary + N/E/W schematic); Phase 2 Schematic Set Rev A frozen (D-036)",
   "sheets_done": [
     "P1-G-001 Rev A (internal)",
     "P1-G-001 Rev B (principal)",
@@ -24,20 +24,22 @@
     "P2-A-102 Rev A (Level 2 block plan, frozen)",
     "P2-A-101 Rev B (Level 1 block plan, frozen)",
     "P2-A-102 Rev B (Level 2 block plan, frozen)",
-    "P2-G-003 Rev F (locked program + Level 2 loop)",
     "P2-A-101 Rev C (Level 1 block plan, frozen)",
-    "P2-A-102 Rev C (Level 2 block plan, frozen)"
+    "P2-A-102 Rev C (Level 2 block plan, frozen)",
+    "P2-G-003 Rev F (locked program + Level 2 loop, approved, frozen)",
+    "P2-A-101 Rev D (Level 1 block plan, FLEX labels, approved, frozen)",
+    "P2-A-102 Rev D (Level 2 block plan, approved, frozen)",
+    "Phase 2 Schematic Set Rev A (G-003 F + A-101 D + A-102 D, one 17 x 11 PDF, frozen)"
   ],
   "sheets_in_progress": [
-    "P2-A-101 Rev D (Level 1 block plan)",
-    "P2-A-102 Rev D (Level 2 block plan)"
+    "P2-A-201 Rev A (exterior elevations)"
   ],
   "last_commit": "900c1da",
   "branch": "grok/keystone",
-  "open_decisions": 15,
-  "blocked_on": "P1: Dr. Headen / support wing measurements + photos. P2: owner (D-007), AHJ (D-008); site TBD (D-006); seat labels (D-016); deliveries / buses (D-034)",
-  "what_changed": "D-035 DECIDED: continuous L2 running/training loop, 2 lanes x 42 in = 7 ft, 706 ft centerline, 7.48 laps/mile. S&C 5,224 + cross-training 3,500 SF (were 6,000/4,000). P2-A-101/102 Rev D: stairs/elevator moved, NE stair tower. P2-G-003 Rev F.",
-  "what_to_verify": "Rev F footprint 52,738, margin 2,262 (loop not grossed up, ASSUMED); 78,784 GSF; building 51,503 SF. 2 lanes is fewer than the 3 the guides prefer (R-017). 42 in guards at open edges (IBC 1015.2/1015.3).",
-  "next_action": "Shane reviews Rev D (loop, lane count, NE stair tower) and answers D-034 (deliveries / buses). Then P2-A-103 overlays and code analysis (R-006/R-007). Phase 1 first when Dr. Headen's data arrives.",
-  "question_for_shane": "The loop fits 2 lanes (7 ft). Guides prefer 3 lanes (10.5-12 ft). Is 2 lanes OK, or should we find 3.5 more feet by growing the building or losing some upper-tier seats?"
+  "open_decisions": 17,
+  "blocked_on": "P1: Dr. Headen / support wing measurements + photos. P2: owner (D-007), AHJ (D-008); egress confirm (D-038); brand (D-040); site TBD (D-006); deliveries / buses (D-034)",
+  "what_changed": "Shane approved Rev D plans + G-003 Rev F; frozen as Phase 2 Schematic Set Rev A (one PDF, tag p2-schematic-revA). West space labeled FLEX. R-018 egress: 7 ft loop meets code on our calc. P2-A-201 Rev A elevations started.",
+  "what_to_verify": "R-018: loop needs 64 in (balanced) / 79.2 in (worst) vs 84 in drawn; stairs 4 x 64 in, zero slack. A-201 heights ASSUMED (L2 15 ft, ring 30, arena 42; clear >= 25 ft cited). Portal sizes ASSUMED.",
+  "next_action": "Shane reviews P2-A-201 Rev A and answers D-040 (brand). Architect/AHJ confirm egress (D-038). Then A-301 sections and code analysis (R-006/R-007). Phase 1 first when Dr. Headen's data arrives.",
+  "question_for_shane": "Phase 2 is your build, not the school's. Should the south portal carry the Hazel Green Trojans (HGHS) badge, or your own complex name and logo? For now it says BRAND / SIGNAGE — TBD."
 }

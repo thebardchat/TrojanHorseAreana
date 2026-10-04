@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461318.211724537
+2461318.2308796295
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461318.211724537
+2461318.2308796295
   9
 $TDUUPDATE
  40
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{74D17E24-5E6D-45A8-A3FE-D74C463F9BE0}
+{9CBEBAF1-F915-4C2D-B87B-84C489ACF2F7}
   9
 $VERSIONGUID
   2
-{6BCC8A3B-A53F-4D70-A9F2-4FA883E1BF9A}
+{2FE24721-10F0-4503-B8E2-E3E944A894A1}
   9
 $EXTNAMES
 290
@@ -16593,7 +16593,7 @@ AcDbText
  40
 0.06999999999999999
   1
-23  STORAGE (SW)
+23  FLEX / STORAGE
   7
 KS-BOLD
  72
@@ -16799,7 +16799,7 @@ AcDbText
  40
 0.064
   1
-TEAM ASSEMBLY /
+FLEX /
   7
 KS-BOLD
  72
@@ -16833,7 +16833,7 @@ AcDbText
  40
 0.064
   1
-HOLDING
+TEAM ASSEMBLY
   7
 KS-REG
  72
@@ -16867,7 +16867,7 @@ AcDbText
  40
 0.064
   1
-(ASSUMED, unprogrammed)
+(unprogrammed, kept as-is)
   7
 KS-REG
  72
@@ -23177,7 +23177,7 @@ AcDbText
  40
 0.06999999999999999
   1
-Storage (SW)
+Flex / Storage
   7
 KS-REG
  11
@@ -23277,7 +23277,7 @@ AcDbText
  40
 0.064
   1
-unprogrammed (ASSUMED); team side
+FLEX, unprogrammed, kept as-is (D-039)
   7
 KS-REG
  11
@@ -23429,7 +23429,7 @@ AcDbText
  40
 0.069
   1
-the L2 loop. Mech drawn 3,800 vs 3,939. Unprogrammed: team assembly ≈ 2,072, storage (SW) 1,011 SF.
+the L2 loop. Mech drawn 3,800 vs 3,939. FLEX (kept as-is): team assembly ≈ 2,072, storage 1,011 SF.
   7
 KS-REG
  11
@@ -25051,7 +25051,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-04T10:04:53.139549+00:00
+1.4.4 @ 2026-10-04T10:32:28.291351+00:00
   0
 DICTIONARYVAR
   5
@@ -25063,7 +25063,7 @@ DictionaryVariables
 280
 0
   1
-1.4.4 @ 2026-10-04T10:04:53.154989+00:00
+1.4.4 @ 2026-10-04T10:32:28.308430+00:00
   0
 ENDSEC
   0

@@ -14,6 +14,9 @@
 #     (security checkpoint); perimeter doors EXIT ONLY; deliveries / buses OPEN (D-034). Block plan Rev C.
 # v8, 2026-10-04 4:55 AM CT: LEVEL 2 RUNNING / TRAINING LOOP DECIDED (D-035): S&C 6,000 → 5,224 SF and cross-training
 #     4,000 → 3,500 SF (Shane's approval to change these locked values); new spaces.training_loop. Block plan Rev D.
+# v9, 2026-10-04 5:27 AM CT: P2-A-101/102 Rev D + P2-G-003 Rev F APPROVED (D-036) and FROZEN as "Phase 2 Schematic Set
+#     Rev A" (sets.phase2_schematic_set_rev_a). Loop 2 lanes x 42 in DECIDED for now (D-037); concourse width vs egress
+#     OPEN (D-038, R-018). West unprogrammed space kept as-is, labeled FLEX (D-039). P2-A-201 elevations Rev A started.
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -154,7 +157,7 @@ spaces:
     laps_per_mile: 7.48
     event_day_use: "upper concourse on event days (spectators cross at the upper-tier entries); training loop on non-event days"
     guards: "42 in guards at open edges over the arena and the lobby (IBC 2021 1015.2, 1015.3)"
-    status: "DECIDED loop (D-035); lane count, width and layout ASSUMED"
+    status: "DECIDED loop (D-035); 2 lanes x 42 in = 7 ft DECIDED for now (D-037, Shane 5:27 AM CT); go to 3 lanes (10.5 ft) if egress requires (D-038 OPEN, R-018)"
     source: "Shane, firsthand, 2026-10-04 4:55 AM CT (D-035); UFC 4-740-02N; Athletic Business 'A Running Start' + 'Designing Tracks for Recreational Users'; NCAA indoor lane 36 in min; IBC 2021 1015 (UpCodes, retrieved 2026-10-04)"
   concourse:
     name: Concourse / hall of champions spine
@@ -380,7 +383,8 @@ sheets:
         source: "Shane 2026-10-04 4:30 AM CT (Rev E; Rev D frozen); frozen 4:55 AM CT when Rev F was ordered"
       F:
         file: P2-G-003_RevF
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 5:27 AM CT (D-036); frozen in Phase 2 Schematic Set Rev A"
         note: LOCKED PROGRAM with the Level 2 running / training loop (D-035); S&C 5,224, cross-training 3,500
         source: "Shane 2026-10-04 4:55 AM CT (Rev F; Rev E frozen; keep >= 2,000 SF footprint margin)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
@@ -407,7 +411,8 @@ sheets:
         source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed); frozen 4:55 AM CT when Rev D was ordered"
       D:
         file: P2-A-101_RevD
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 5:27 AM CT (D-036); frozen in Phase 2 Schematic Set Rev A after a label-only re-issue (FLEX labels, D-039)"
         inputs: params/phase2_plan_rev_d.yaml
         source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
     source: "Shane 2026-10-03 11:39 PM CT"
@@ -434,7 +439,29 @@ sheets:
         source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed); frozen 4:55 AM CT when Rev D was ordered"
       D:
         file: P2-A-102_RevD
-        frozen: false
+        frozen: true
+        approved: "Shane 2026-10-04 5:27 AM CT (D-036); frozen in Phase 2 Schematic Set Rev A"
         inputs: params/phase2_plan_rev_d.yaml
         source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
     source: "Shane 2026-10-03 11:39 PM CT"
+  P2-A-201:
+    title: EXTERIOR ELEVATIONS
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: params/phase2_elev.yaml
+    revisions:
+      A:
+        file: P2-A-201_RevA
+        frozen: false
+        inputs: params/phase2_elev.yaml
+        source: "Shane 2026-10-04 5:27 AM CT (start P2-A-201: south elevation primary with the portal, plus north, east, west; schematic)"
+    source: "Shane 2026-10-04 5:27 AM CT"
+
+sets:
+  phase2_schematic_set_rev_a:
+    name: "Phase 2 Schematic Set Rev A"
+    file: Phase2_Schematic_Set_RevA
+    frozen: true
+    size: "17 x 11 in (tabloid), landscape, 3 pages"
+    sheets: [{sheet: P2-G-003, revision: F, source: "D-036"}, {sheet: P2-A-101, revision: D, source: "D-036, D-039 (label-only FLEX re-issue)"}, {sheet: P2-A-102, revision: D, source: "D-036"}]
+    tag: p2-schematic-revA
+    source: "Shane 2026-10-04 5:27 AM CT ('P2-A-101/102 Rev D + P2-G-003 Rev F approved'; freeze as Phase 2 Schematic Set Rev A)"

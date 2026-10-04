@@ -197,3 +197,11 @@ Remote branches seen: `main`, `claude/add-article-vii-sponsorship-qtkOG`, `claud
 - **New Phase 2 data file** `params/phase2_plan_rev_d.yaml` (Rev D geometry: loop, NE stair tower, moved stairs / elevator, trimmed S&C + cross-training; ASSUMED). `phase2_plan_rev_c.yaml` stays as the frozen Rev C geometry.
 - **New research** `research/R-017-indoor-running-track-and-guards.md`.
 - **Previews (box only):** `/workspace/keystone_previews/P2-G-003.png` + `.pdf` (now Rev F), `P2-G-003_RevE.png` (Rev E kept); `P2-A-101.png` + `.pdf`, `P2-A-102.png` + `.pdf` (now Rev D), `P2-A-101_RevC.png`, `P2-A-102_RevC.png` (Rev C kept).
+
+## 2026-10-04 additions (5:27 AM CT session, Phase 2 Schematic Set Rev A freeze, R-018 egress, P2-A-201 Rev A)
+- **New set bundle** `phase2/out/pdf/Phase2_Schematic_Set_RevA.pdf` (3 pages, 17 x 11 in: P2-G-003 Rev F, P2-A-101 Rev D, P2-A-102 Rev D; FROZEN) from new `phase2/src/p2_set.py`.
+- **Re-issued (label-only)** `phase2/out/{pdf,dxf}/P2-A-101_RevD` with the FLEX labels (D-039); `params/phase2_plan_rev_d.yaml` labels updated.
+- **New Phase 2 sheet** `phase2/out/{pdf,dxf}/P2-A-201_RevA` (exterior elevations: south primary with the portal, north / east / west schematic), from new `phase2/src/p2_a_201.py`; new data file `params/phase2_elev.yaml` (heights, portal, finishes; every group sourced, ASSUMED where marked).
+- **New research** `research/R-018-level-2-egress-assembly.md`, `research/R-019-arena-clear-height.md`. IBC 2021 Ch. 10 text copy kept box-only (`/workspace/research_src/ibc2021_ch10_upcodes_full.txt`, not committed).
+- **Look references used (box only, not committed):** `/workspace/trojan-horse-arena/PROJECT-BRIEF.md`, `assets/arch_src.png` (portal proportions, colors); `assets/logo_hghs_rgba.png` reviewed but NOT used (D-040).
+- **Previews (box only):** `/workspace/keystone_previews/P2-A-201.png` + `.pdf`, `Phase2_Schematic_Set_RevA.pdf`; `P2-A-101.png` + `.pdf` (Rev D with FLEX labels).

@@ -11,7 +11,8 @@ Rev A (FROZEN, build()): params/phase2_plan.yaml. Rev B (FROZEN, build_b()): par
 entry south-center on the arena N-S axis, restrooms flank the lobby, mech off the west side (Shane 2026-10-04 4:30 AM CT).
 Rev C (FROZEN, build_c()): params/phase2_plan_rev_c.yaml, single controlled entry (D-033, Shane 4:43 AM CT): security
 checkpoint, controlled door to the athlete route, EXIT ONLY perimeter doors (IBC 2021 1010.2), service door (D-034 OPEN).
-Rev D (build_d()): params/phase2_plan_rev_d.yaml, continuous Level 2 running / training loop (D-035, Shane 4:55 AM CT);
+Rev D (FROZEN 2026-10-04, approved by Shane 5:27 AM CT, part of Phase 2 Schematic Set Rev A, built by p2_set.py; FLEX labels D-039
+are a label-only re-issue before the freeze) (build_d()): params/phase2_plan_rev_d.yaml, continuous Level 2 running / training loop (D-035, Shane 4:55 AM CT);
 S&C + cross-training trimmed 7 ft; ST-1, ST-2 (NE stair tower) and the elevator moved clear; program = P2-G-003 Rev F.
 """
 from __future__ import annotations
@@ -1633,8 +1634,8 @@ def build_d(sheet_no, p2, prog, plan, X_, seats, lg):
         txt = (f"Building {n(fp)} SF ({bx1 - bx0:g} x {by1 - by0:g} + NE stair tower): {n(cap - fp)} under the {n(cap)} cap. P2-G-003 Rev F "
                f"footprint {n(X_['F'])} (margin {n(cap - X_['F'])}), {n(X_['F'] - fp)} SF more than drawn. Seats {n(tot['total'])} (N {bys['N']['total']}, "
                f"S {bys['S']['total']}, E {bys['E']['total']}), unchanged. Rev D at L1: ST-1 3.55 ft west, ST-2 5 ft north (tower), elevator "
-               f"1 ft south, to clear the L2 loop. Mech drawn {n(mech_drawn)} vs {n(X_['M'])}. Unprogrammed: team assembly ≈ "
-               f"{n(area(team['rect']))}, storage (SW) {n(area(sw['rect']))} SF.")
+               f"1 ft south, to clear the L2 loop. Mech drawn {n(mech_drawn)} vs {n(X_['M'])}. FLEX (kept as-is): team assembly ≈ "
+               f"{n(area(team['rect']))}, storage {n(area(sw['rect']))} SF.")
     else:
         txt = (f"Drawn L2 floor {n(l2_drawn)} SF (building minus open-to-below) vs program L2 gross {n(X_['L2'])} (loop {n(X_['loop'])} "
                f"as drawn). Total drawn ≈ {n(fp + l2_drawn)} vs {n(X_['G'])} program GSF (P2-G-003 Rev F). S&C {n(X_['sf']['strength_conditioning'])} "

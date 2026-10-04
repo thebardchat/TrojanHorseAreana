@@ -1,0 +1,69 @@
+# phase2_elev.yaml: P2-A-201 EXTERIOR ELEVATIONS geometry and finishes, Rev A (Phase 2). Read by phase2/src/p2_a_201.py.
+# Plan geometry (building outline, arena volume, doors) is read from phase2_plan_rev_d.yaml (P2-A-101/102 Rev D, frozen in
+# Phase 2 Schematic Set Rev A). Units: feet. Heights are above L1 finished floor (0'-0"). Every value carries `source`.
+# Status: schematic. Heights ASSUMED unless a field cites a source. Phase 2 is Shane's build, not a school project (D-028).
+
+meta:
+  ticket: P2-T-009
+  sheet: P2-A-201
+  revision: A
+  title: "EXTERIOR ELEVATIONS"
+  subtitle: "SOUTH (PRIMARY) · NORTH · EAST · WEST — SCHEMATIC"
+  scales: {south_ft_per_in: 16, others_ft_per_in: 32, source: "KEYSTONE sheet layout: south 1/16 in = 1 ft-0 in, others 1/32 in = 1 ft-0 in (same as P2-A-101/102) on 17 x 11 in (tabloid)"}
+  status: ASSUMED
+  confidence: LOW
+  source: "Shane 2026-10-04 5:27 AM CT (start P2-A-201 Rev A: south elevation primary with the south portal; north, east, west schematic; heights from the 15 ft floor-to-floor assumption; cited arena clear height; parapet TBD)"
+
+heights:
+  l1_ff: {value: 0, status: DATUM, source: "datum"}
+  l2_ff: {value: 15, status: ASSUMED, source: "R-015 (15 ft floor-to-floor ASSUMED, P2-G-003 Rev B onward)"}
+  ring_roof: {value: 30, status: ASSUMED, basis: "L2 floor + 15 ft (L2 floor-to-roof = floor-to-floor, ASSUMED); top of roof structure over the perimeter rooms", source: "KEYSTONE (ASSUMED) from R-015"}
+  arena_clear_min: {value: 25, status: CITED, basis: "clear, unobstructed height over the court: 'at least 25 feet or higher' (NFHS basketball court specifications as reprinted by Draper); volleyball 23 ft; LA Recreation & Parks gym standard 25 ft clearance minimum. No NFHS height found for competition wrestling (NFHS: 9-10 ft for practice rooms)", source: "R-019; Draper 'High School Basketball and Volleyball Gymnasium Equipment Court Design & Rules'; LA RAP design standards checklist 2025-05-29; NFHS 'Emphasizing Student Safety When Remodeling Wrestling Facilities' (retrieved 2026-10-04)"}
+  arena_structure_underside: {value: 36, status: ASSUMED, basis: ">= 25 ft clear over the floor, and about 15 ft above an ASSUMED 21 ft upper-tier top aisle (IBC 2021 1030.6.2.2 roof height, only if smoke-protected seating is used; tier section not designed)", source: "KEYSTONE (ASSUMED); IBC 2021 1030.6.2.2 (UpCodes, retrieved 2026-10-04); R-018"}
+  arena_roof_top: {value: 42, status: ASSUMED, basis: "underside 36 ft + 6 ft long-span structure and roof (ASSUMED, not engineered)", source: "KEYSTONE (ASSUMED)"}
+  parapet: {value: TBD, source: "Shane 2026-10-04 5:27 AM CT (parapet TBD)"}
+
+arena_volume:
+  rect: [49, 34, 204, 246]
+  basis: "high roof over the upper tier, the loop and the arena (= Level 2 loop outer edge, P2-A-102 Rev D)"
+  source: "phase2_plan_rev_d.yaml level_2.loop.outer; KEYSTONE massing (ASSUMED)"
+
+portal:
+  center_x: 113
+  overall_width: 44
+  overall_height: 50
+  opening_width: 28
+  springline: 26
+  crown: 40
+  attic_band: [42, 50]
+  basis: "proportions from Shane's arch render (opening : overall width ≈ 1 : 1.56, overall height ≈ 1.8 x opening, crown ≈ 1.43 x opening); absolute size ASSUMED from a 28 ft opening; centered on the arena N-S axis (entry_axis_x = 113); projects south of the facade, depth TBD"
+  entry_glazing_height: 16
+  status: ASSUMED
+  source: "Shane's stone-arch entrance render (/workspace/trojan-horse-arena/assets/arch_src.png, look reference only); Shane (limestone arch, crimson inside the arch, gold soffit); phase2_plan_rev_d.yaml entry_axis_x; KEYSTONE (ASSUMED sizes)"
+
+doors:
+  symbol_width: 6
+  symbol_height: 8
+  basis: "door symbols only (widths not designed; D-033 exit-only doors and E1 from P2-A-101 Rev D; S1 service door size TBD, D-034)"
+  status: ASSUMED
+  source: "phase2_plan_rev_d.yaml level_1.doors; KEYSTONE (ASSUMED symbol size)"
+
+finishes:
+  - {id: limestone, name: "LIMESTONE (portal)", hex: "#D8CCB0", status: "Shane (material); hex ASSUMED (swatch only)", source: "Shane: limestone arch (PROJECT-BRIEF.md, Grand Portal)"}
+  - {id: crimson, name: "CRIMSON (inside the arch)", hex: "#9E1B32", status: "Shane (color); hex ASSUMED", source: "Shane: crimson inner arch"}
+  - {id: gold, name: "GOLD (arch soffit)", hex: "#C9A227", status: "Shane (color); hex ASSUMED", source: "Shane: gold soffit / gold detailing"}
+  - {id: brand_red, name: "BRAND RED", hex: "#CC0000", status: "Shane (red/black brand); hex from the repo 'School Colors', ASSUMED for this build", source: "Shane 5:27 AM CT (red/black brand); TrojanHorseAreana repo colors"}
+  - {id: brand_black, name: "BRAND BLACK", hex: "#1A1A1A", status: "as brand red", source: "Shane 5:27 AM CT (red/black brand); TrojanHorseAreana repo colors"}
+  - {id: wall, name: "WALL MATERIAL TBD", hex: "#E4E4E4", status: TBD, source: "not stated by Shane"}
+  - {id: arena, name: "ARENA VOLUME — WALL / ROOF TBD", hex: "#CDCDCD", status: TBD, source: "not stated by Shane"}
+  - {id: glazing, name: "ENTRY GLAZING (TBD)", hex: "#A9C6DD", status: TBD, source: "not stated by Shane; location ASSUMED in the arch opening"}
+
+signage:
+  text: "BRAND / SIGNAGE — TBD"
+  locations: [{id: portal_attic, note: "attic band of the portal", source: "KEYSTONE (ASSUMED)"}, {id: arena_south, note: "south face of the arena volume above the ring roof", source: "KEYSTONE (ASSUMED)"}]
+  rule: "placeholder only: no school logo on the building (Phase 2 is Shane's build, D-028); whether the HGHS badge belongs is OPEN (D-040)"
+  source: "Shane 2026-10-04 5:27 AM CT"
+
+not_shown:
+  items: "retractable ETFE roof and solar (aspirations, not engineered), rooftop equipment and screens, grading, landscape, lighting"
+  source: "PROJECT-BRIEF.md (sustainability goals are aspirations); KEYSTONE"

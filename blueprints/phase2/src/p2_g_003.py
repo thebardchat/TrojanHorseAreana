@@ -5,8 +5,8 @@ Rev B (FROZEN, build_b()): two levels; ground footprint vs the 55,000 SF FOOTPRI
 stacking, vertical circulation, schematic bowl section.
 Rev C (FROZEN, build_c()): suites to keep ~2,200 spectators (Shane 11:26 PM CT); suite level, hybrids. NOT a floor plan.
 Rev D (FROZEN, build_d()): LOCKED PROGRAM (D-030): 16,400 SF floor, 2,200 bowl seats, 2 levels, no suites; FIXED vs TELESCOPIC columns.
-Rev E (build_e()): LOCKED PROGRAM with MIX seating (D-009): telescopic lower, fixed upper; footprint margin; seats by side/tier.
-Rev F (build_f()): Rev E + the Level 2 running / training loop (D-035): S&C and cross-training trimmed, loop replaces the upper concourse.
+Rev E (FROZEN, build_e()): LOCKED PROGRAM with MIX seating (D-009): telescopic lower, fixed upper; footprint margin; seats by side/tier.
+Rev F (FROZEN 2026-10-04, approved by Shane 5:27 AM CT, part of Phase 2 Schematic Set Rev A, built by p2_set.py) (build_f()): Rev E + the Level 2 running / training loop (D-035): S&C and cross-training trimmed, loop replaces the upper concourse.
 All numbers come from params/phase2.yaml + params/phase2_program.yaml via p2_testfit.py.
 Layout constants below are sheet geometry only.
 
