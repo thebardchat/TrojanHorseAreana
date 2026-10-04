@@ -1,0 +1,92 @@
+# KEYSTONE — P2-A-301 BUILDING SECTIONS (Phase 2, P2-T-009). Schematic, color. Created 2026-10-04 (Shane 6:45 AM CT).
+# Heights come from params/phase2_elev.yaml (L2 15, ring roof 30, arena structure underside 36, arena roof 42 — ASSUMED;
+# arena clear >= 25 CITED, R-019). Plan geometry comes from params/phase2_plan_rev_d.yaml (P2-A-101/102 Rev D, frozen).
+# This file holds only the section cuts and the tier / stair section geometry. Every number is CITED or marked ASSUMED.
+meta:
+  sheet: P2-A-301
+  title: BUILDING SECTIONS
+  revision: A
+  status: SCHEMATIC
+  source: "Shane 2026-10-04 6:45 AM CT ('P2-A-301 Rev A building sections: at least one N-S and one E-W through the bowl / event floor and the Level 2 loop; locked / assumed heights; telescopic lower / fixed upper; 70 in stairs; sight lines TBD')"
+
+scales:
+  sections_ft_per_in: 32
+  bowl_detail_ft_per_in: 10.6667
+  stair_ft_per_in: 8
+  key_plan_ft_per_in: 128
+  source: "KEYSTONE sheet layout (1/32, 3/32, 1/8 in = 1 ft; key plan 1 in = 128 ft) to fit the 17 x 11 sheet"
+
+cuts:
+  A:
+    name: "SECTION A-A (NORTH-SOUTH)"
+    plane: {axis: x, at: 100, source: "KEYSTONE (cut location)"}
+    looking: west
+    left: S
+    right: N
+    basis: "x = 100 passes through the lobby, the south upper and lower tiers (west of the PORTAL opening x 107-119), the event floor, the north tiers (west of V1 x 123.85-131.85), event locker 1 under the north tier, the loop's S and N legs and the north stretch strip"
+    source: "KEYSTONE (cut location); phase2_plan_rev_d.yaml"
+  B:
+    name: "SECTION B-B (EAST-WEST)"
+    plane: {axis: y, at: 150, source: "KEYSTONE (cut location)"}
+    looking: north
+    left: W
+    right: E
+    basis: "y = 150 passes through the boys locker room and S&C above, the athlete corridor and the loop's W leg, the event floor, the east lower and upper tiers (the V2 vomitory at y 175.09-183.09 is not cut), event locker 4 under the east tier and the loop's E leg"
+    source: "KEYSTONE (cut location); phase2_plan_rev_d.yaml"
+
+seating:
+  lower:
+    type: telescopic (extended position drawn)
+    rows: 6
+    row_depth_in: 24
+    band_ft: 12
+    rise_in: 11.625
+    rise_status: "CITED option / ASSUMED choice (Hussey MAXAM offers 9-5/8, 11-5/8 and 16 in rises; 11-5/8 picked as the middle option)"
+    top_seat_height: "6'-3 1/8\" (6 rows at 11-5/8 in rise, Hussey 'MAXAM and MAXAM+ Overall Seat Height')"
+    top_seat_height_in: 75.125
+    closed_depth: "3'-6\" (6 rows, Hussey 'MAXAM Closed', wall attached)"
+    closed_depth_in: 42
+    open_depth_24in_rows: "11'-3\" (Hussey 6 rows at 24 in spacing); the plan band is 12 ft (6 x 24 in, R-008 / Rev D)"
+    deck_rule: "row k deck = (k - 1) x rise above the event floor (row 1 at the floor); derived from the Hussey overall-seat-height table, which steps 11-5/8 in per row"
+    source: "Hussey Seating MAXAM brochure, Dimensional Data (box copy research_src/hussey_maxam.pdf, retrieved 2026-10-03; R-008 S4); phase2_plan_rev_d.yaml tiers.lower"
+  upper:
+    type: fixed
+    band_ft: 15
+    rows: 5
+    row_depth_in: 36
+    row_rise_in: 14
+    aisle_risers_per_row: 2
+    aisle_riser_in: 7
+    aisle_tread_in: 18
+    back_at: "Level 2 FF 15 (the loop = the top cross aisle, D-035)"
+    front_deck_ft: 9.17
+    rake: "steps DOWN from the loop toward the arena (front row 5 x 14 in = 70 in below L2 FF)"
+    status: ASSUMED
+    basis: "15 ft band = plan (Rev D); 5 rows x 36 in, 14 in per row and the downward rake are KEYSTONE ASSUMPTIONS; aisle risers 7 in within IBC 2021 1030.14.2.2 (4-8 in) and 18 in treads >= 11 in (1030.14.2.1). Alternative not drawn: tier on the L2 deck rising to about 21 ft (the ASSUMED top aisle in the 36 ft underside basis, phase2_elev.yaml)"
+    source: "phase2_plan_rev_d.yaml tiers.upper (15 ft); KEYSTONE (ASSUMED); IBC 2021 1030.14.2 (UpCodes, retrieved 2026-10-04)"
+  sight_lines:
+    status: TBD
+    note: "sight lines (C-value, eye height, focal point) NOT checked; rows / rises above are placeholders until a sight-line study"
+    source: "Shane 2026-10-04 6:45 AM CT (sight lines noted as TBD)"
+
+guards:
+  loop_open_edge_in: 42
+  loop_rule: "42 in where the walking surface is > 30 in above the floor below (IBC 2021 1015.2, 1015.3); G-W at x = 56 and G-S at y = 34 (Rev D)"
+  tier_front_in: 26
+  tier_front_rule: "sightline-constrained fascia / railing >= 26 in (IBC 2021 1030.17.3); 36 in at the foot of aisles (1030.17.4); type TBD"
+  source: "IBC 2021 1015.2, 1015.3, 1030.17.3, 1030.17.4 (UpCodes, retrieved 2026-10-04); phase2_plan_rev_d.yaml vertical.loop.guards"
+
+stair:
+  clear_width_in: 70
+  clear_status: "DECIDED (D-038 CLOSED, Shane 6:45 AM CT)"
+  risers: 26
+  riser_in: 6.92
+  flights: 2
+  treads_per_flight: 12
+  tread_in: 11
+  run_per_flight_in: 132
+  landing_depth_in: 48
+  rise_ft: 15
+  rules: "risers 4-7 in, treads >= 11 in (IBC 2021 1011.5.2); landing depth = stair width or 48 in, whichever is less (1011.6); handrails both sides, projections <= 4-1/2 in (1014.8)"
+  basis: "same switch-back stair as R-015 / R-018.8 (26 risers of 6.92 in = 15 ft); stairs ST-1..ST-4 are not on cut A-A or B-B, so a typical stair section is shown"
+  source: "R-015; R-018.8; Shane 2026-10-04 6:45 AM CT (D-038); IBC 2021 1011.5.2, 1011.6, 1014.8 (UpCodes, retrieved 2026-10-04)"

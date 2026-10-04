@@ -22,6 +22,9 @@
 #     frozen; Rev B puts the mark on the portal.
 # v11, 2026-10-04 6:22 AM CT: GRAND ENTRANCE PORTAL FREESTANDING over the brick CHAMPION WALK (donor bricks) (D-043; approach);
 #     walk size + donor-brick program OPEN (D-044). P2-A-201 Rev B shows it; next A-101 revision adds it to the plan.
+# v12, 2026-10-04 6:45 AM CT: P2-A-201 Rev B approved + frozen; underside crimson + gold trim (D-045); Champion Walk 28 x 30 ft,
+#     brick tiers (D-046); badge 11 ft (D-047); stairs 70 in clear (D-038 closed); service S1 north + south bus loop (D-034);
+#     reference photo held off-repo (D-048 OPEN). P2-A-201 Rev C; P2-A-301 sections Rev A.
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -69,6 +72,8 @@ brand:
     supersedes: "logo Concepts 01 / 02 (kept as history, SUPERSEDED, not deleted)"
     school_badge: "not used on the building: the portal carries the Trojan Horse Arena mark, not the HGHS badge (D-040 closed by D-041)"
     trademark: "OPEN (D-042): trademark search before signage / apparel"
+    portal_badge_dia_ft: 11
+    portal_badge_basis: "Shane picked 11 ft from a 10-12 ft range (D-047); P2-A-201 Rev C"
     source: "Shane, firsthand, 2026-10-04 6:16 AM CT (D-041)"
 
 building:
@@ -203,15 +208,30 @@ approach:
   grand_entrance_portal:
     form: "FREESTANDING limestone arch, not attached to the building; just before the south entrance, on the way in, straddling Champion Walk"
     setback_from_building: "TBD (30 ft ASSUMED on P2-A-201 Rev B)"
-    reference: references/portal_freestanding_champion_walk_ref.png
+    reference: "Shane's reference photo held OFF-REPO pending rights confirmation (box copy /workspace/keystone_previews/refs/portal_freestanding_champion_walk_ref.png; removed from the repo 2026-10-04 6:45 AM CT, D-048)"
+    underside: "crimson underside + gold trim (DECIDED, D-045)"
+    height: "56 ft on P2-A-201 Rev C (ASSUMED; raised from 50 ft for the 11 ft badge)"
     source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043)"
   champion_walk:
     paving: "brick — engraved donor / sponsor bricks"
-    width: "TBD (28 ft = arch opening ASSUMED on P2-A-201 Rev B)"
-    length: TBD
-    donor_brick_program: "OPEN (D-044)"
-    source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043, D-044)"
+    width_ft: 28
+    length_ft: 30
+    length_basis: "portal to doors, 'for now' (DECIDED as current, D-046)"
+    area_sf: 840
+    brick_tiers: [{size: "4 x 8 in", use: "single name", source: "Shane 6:45 AM CT"}, {size: "8 x 8 in", use: "family / business", source: "Shane 6:45 AM CT"}]
+    capacity_note: "about 3,700 4x8 bricks: 840 SF / 0.222 SF (4 x 8 in nominal face) = 3,780 before a border course and joints; each 8x8 uses two 4x8 slots"
+    extension: "option to extend the walk to parking later"
+    pricing: "TBD (OPEN, D-044)"
+    source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043) + 6:45 AM CT (D-046)"
   site_plan: "portal + Champion Walk to be added at the next P2-A-101 revision (Rev D stays frozen in Phase 2 Schematic Set Rev A)"
+  site_access:
+    service: "service / deliveries at the north door S1 (DECIDED default, refine on the site plan, D-034)"
+    bus_drop: "bus drop loop on the south, offset east or west so it does not block the portal view (DECIDED default, D-034)"
+    source: "Shane 2026-10-04 6:45 AM CT (D-034)"
+  egress_next_revision:
+    stair_clear_width_in: 70
+    basis: "4 stairs at 70 in clear (DECIDED, D-038 closed): 280 in vs 255.8 in required at 0.2 in/occupant (1,279) and 275.6 in with the loop counted (R-018.8). Changes P2-A-101/102 at the next revision; the frozen set stays frozen"
+    source: "Shane 2026-10-04 6:45 AM CT (D-038); R-018"
   source: "Shane 2026-10-04 6:22 AM CT; D-043"
 
 support_rooms:
@@ -483,10 +503,26 @@ sheets:
         source: "Shane 2026-10-04 5:27 AM CT (start P2-A-201: south elevation primary with the portal, plus north, east, west; schematic); frozen 6:16 AM CT when Rev B was ordered"
       B:
         file: P2-A-201_RevB
-        frozen: false
+        frozen: true
         inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_b.yaml"
-        source: "Shane 2026-10-04 6:16 AM CT (official Trojan Horse Arena mark on the portal above the arch + TROJAN HORSE ARENA wordmark; side panel 'Hazel Green Regional Athletic Complex'; Rev A frozen); Shane 6:22 AM CT (portal freestanding over the brick Champion Walk, D-043)"
+        source: "Shane 2026-10-04 6:16 AM CT (official Trojan Horse Arena mark on the portal above the arch + TROJAN HORSE ARENA wordmark; side panel 'Hazel Green Regional Athletic Complex'; Rev A frozen); Shane 6:22 AM CT (portal freestanding over the brick Champion Walk, D-043); approved with changes and frozen 6:45 AM CT"
+      C:
+        file: P2-A-201_RevC
+        frozen: false
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_c.yaml"
+        source: "Shane 2026-10-04 6:45 AM CT (Rev B approved with changes: badge 11 ft dia, wordmark to match, nothing overflows; Champion Walk 28 x 30 ft + brick tiers; underside crimson + gold trim)"
     source: "Shane 2026-10-04 5:27 AM CT"
+  P2-A-301:
+    title: BUILDING SECTIONS
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_sect.yaml + params/phase2_elev.yaml (heights) + params/phase2_plan_rev_d.yaml (plan)"
+    revisions:
+      A:
+        file: P2-A-301_RevA
+        frozen: false
+        inputs: "params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
+        source: "Shane 2026-10-04 6:45 AM CT (P2-A-301 Rev A building sections: N-S and E-W through the bowl / event floor and the L2 loop; locked / assumed heights; telescopic lower / fixed upper; 70 in stairs; sight lines TBD)"
+    source: "Shane 2026-10-04 6:45 AM CT"
 
 sets:
   phase2_schematic_set_rev_a:

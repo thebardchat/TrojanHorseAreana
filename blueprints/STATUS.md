@@ -1,6 +1,6 @@
 # KEYSTONE — 2026-10-04
-HEALTH: YELLOW · P1 50% · P2 40% · Ticket P2-T-009
-WHAT CHANGED: Official mark logged (D-041), on the portal above the arch with TROJAN HORSE ARENA + side panel. Portal is freestanding over the brick Champion Walk (D-043). P2-A-201 Rev A frozen; Rev B drawn with key plan. Trademark search and walk details OPEN.
-WHAT TO VERIFY: Rev B sizes ASSUMED: mark 6 ft dia, wordmark 18 in caps, side panel 46 x 7.5 ft, portal 30 ft in front of the entrance, walk 28 ft wide. Soffit drawn crimson with a thin gold edge. Next A-101 revision adds portal + walk.
-NEXT ACTION: Shane reviews P2-A-201 Rev B and answers the soffit color and D-044 (walk size, donor bricks). Trademark search (D-042) before any signage. Then A-301 sections and the A-101 site revision. Phase 1 first when Dr. Headen data arrives.
-QUESTION FOR SHANE: Your photo shows the underside of the arch in crimson, but earlier you said gold soffit. Should the underside be crimson with gold trim (as drawn), or all gold?
+HEALTH: YELLOW · P1 50% · P2 45% · Ticket P2-T-009
+WHAT CHANGED: P2-A-201 Rev B frozen. Rev C: 11 ft badge (D-047), portal raised 50 to 56 ft ASSUMED, walk 28 x 30 ft + brick tiers (D-046). Stairs 70 in (D-038 closed); service S1 north, south bus loop (D-034). Arch photo off-repo (D-048). P2-A-301 Rev A sections drawn.
+WHAT TO VERIFY: Portal 56 ft high (ASSUMED) to fit the 11 ft badge; wordmark held at 27 in caps. A-301: upper tier steps down from the loop to a 9.17 ft front row (ASSUMED), L1 headroom under it TBD; Hussey 11-5/8 in rise; sight lines TBD.
+NEXT ACTION: Shane reviews P2-A-201 Rev C and P2-A-301 Rev A, answers the tier question and D-048 (photo). Then the A-101/A-102 revision: 70 in stairs, portal + Champion Walk, site access. Phase 1 first when Dr. Headen data arrives.
+QUESTION FOR SHANE: Upper seats: should they step down from the Level 2 loop toward the court (drawn; rooms below get about 9 ft headroom), or sit on the Level 2 floor and rise to about 21 ft (full height below)?

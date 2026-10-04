@@ -2,13 +2,16 @@
 
 Rev A (FROZEN 2026-10-04 6:16 AM CT): BRAND / SIGNAGE — TBD placeholders. Inputs phase2_elev.yaml (unchanged since Rev A).
 Rev B: official Trojan Horse Arena mark (brand/THA_logo_black.svg, D-041) on the portal above the arch + TROJAN HORSE ARENA
-wordmark, side panel, enlarged brand detail. Inputs phase2_elev.yaml + phase2_elev_rev_b.yaml (overlay).
+wordmark, side panel, enlarged brand detail; freestanding portal over Champion Walk, key plan. FROZEN 2026-10-04 6:45 AM CT.
+Inputs phase2_elev.yaml + phase2_elev_rev_b.yaml (overlay).
+Rev C: 11 ft badge, portal raised to 56 ft (ASSUMED), Champion Walk 28 x 30 ft + brick tiers, crimson underside + gold trim
+(D-045..D-047). Inputs phase2_elev.yaml + phase2_elev_rev_c.yaml (overlay).
 
 South elevation (primary, 1/16 in = 1 ft) with the south portal; north, east and west (1/32 in = 1 ft).
 Heights and finishes: params/phase2_elev.yaml. Building outline, arena volume and doors: params/phase2_plan_rev_d.yaml
 (P2-A-101/102 Rev D, frozen in Phase 2 Schematic Set Rev A). DXF is in paper inches; fills are solid HATCH entities.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -34,8 +37,12 @@ def load(rev="A"):
     ev = yaml.safe_load((BP / "params" / "phase2_elev.yaml").read_text(encoding="utf-8"))
     plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_d.yaml").read_text(encoding="utf-8"))
     evb = None
-    if rev == "B":
-        evb = yaml.safe_load((BP / "params" / "phase2_elev_rev_b.yaml").read_text(encoding="utf-8"))
+    if rev in ("B", "C"):
+        evb = yaml.safe_load((BP / "params" / f"phase2_elev_rev_{rev.lower()}.yaml").read_text(encoding="utf-8"))
+        po = evb.get("portal_override")
+        if po:                                     # Rev C: taller portal / attic (ASSUMED)
+            ev["portal"]["overall_height"] = po["overall_height"]
+            ev["portal"]["attic_band"] = po["attic_band"]
     return p2, ev, plan, evb
 
 
@@ -277,21 +284,28 @@ def key_plan(sh, ev, evb, plan):
     fpi = kp["ft_per_in"]
     cx = pt["center_x"]
     bx0, by0, bx1, by1 = plan["building"]["rect"]
-    xc, yw = 3.30, 10.26                                   # sheet x of the entry axis, sheet y of the south wall
+    xc, yw = 3.30, kp.get("y_wall", 10.26)                 # sheet x of the entry axis, sheet y of the south wall
 
     def P(u, d):                                           # u = ft east (plan x), d = ft south of the south wall
         return xc + (u - cx) / fpi, yw - d / fpi
-    d_end = (yw - 9.47) * fpi
+    d_end = (yw - kp.get("y_bottom", 9.47)) * fpi
     # walk (brick), from the wall south through the portal
     w0, w1 = cx - cw["width"] / 2, cx + cw["width"] / 2
-    sh.poly([P(w0, 0), P(w1, 0), P(w1, d_end), P(w0, d_end)], fill=cw["brick_hex"], layer=L_FILL, lw=0)
+    d_brick = d_end
+    if "extension" in cw:                              # Rev C: 28 x 30 walk (D-046) + paving under the portal; extension dashed
+        d_brick = pf["gap_to_building"] + pf["depth"]
+        for dd0, dd1 in ((d_brick, d_end),):
+            for uu in (w0, w1):
+                a, b = P(uu, dd0), P(uu, dd1)
+                sh.dashed(a[0], a[1], b[0], b[1], layer=L_HID, lw=0.4, dash=0.04, gap=0.03)
+    sh.poly([P(w0, 0), P(w1, 0), P(w1, d_brick), P(w0, d_brick)], fill=cw["brick_hex"], layer=L_FILL, lw=0)
     d = 3.0
-    while d < d_end:
+    while d < d_brick:
         a, b = P(w0, d), P(w1, d)
         sh.line(a[0], a[1], b[0], b[1], layer=L_FILL, lw=0.15)
         d += 3.0
-    a, b = P(w0, 0), P(w0, d_end); sh.line(a[0], a[1], b[0], b[1], layer=L_OUT, lw=0.5)
-    a, b = P(w1, 0), P(w1, d_end); sh.line(a[0], a[1], b[0], b[1], layer=L_OUT, lw=0.5)
+    a, b = P(w0, 0), P(w0, d_brick); sh.line(a[0], a[1], b[0], b[1], layer=L_OUT, lw=0.5)
+    a, b = P(w1, 0), P(w1, d_brick); sh.line(a[0], a[1], b[0], b[1], layer=L_OUT, lw=0.5)
     # break line at the south end
     zz = [P(w0 - 2, d_end), P(cx - 3, d_end), P(cx - 1.5, d_end - 2.5), P(cx + 1.5, d_end + 2.5), P(cx + 3, d_end), P(w1 + 2, d_end)]
     for q0, q1 in zip(zz, zz[1:]):
@@ -320,14 +334,22 @@ def key_plan(sh, ev, evb, plan):
     sh.text(x_, y_, f"GAP ≈ {g:g}' (ASSUMED)", size=4.6, align="right", layer=L_DAT)
     # walk labels (east side)
     xl, _ = P(cx + ow / 2 + 3, 0)
-    for k, (t_, b_) in enumerate(((f"{cw['name']} — BRICK", True), (cw["note"], False),
-                                  (f"width {cw['width']:g}' (= arch opening, ASSUMED) · length TBD", False),
-                                  ("continues south (way in) — low walls / planters TBD", False),
-                                  (f"FREESTANDING PORTAL (2 piers, depth {dp:g}' ASSUMED)", True))):
+    lab = ([(l["text"], l["bold"]) for l in cw["labels"]] if cw.get("labels") else
+           [(f"{cw['name']} — BRICK", True), (cw["note"], False),
+            (f"width {cw['width']:g}' (= arch opening, ASSUMED) · length TBD", False),
+            ("continues south (way in) — low walls / planters TBD", False),
+            (f"FREESTANDING PORTAL (2 piers, depth {dp:g}' ASSUMED)", True)])
+    for k, (t_, b_) in enumerate(lab):
         _, y_ = P(0, 9 + k * 6.2)
         sh.text(xl, y_, t_, size=4.8 if b_ else 4.5, bold=b_, layer=L_TAG)
-    sh.text(0.62, 9.60, kp["title"], size=5.4, bold=True, layer=L_TAG)
-    sh.text(0.62, 9.485, "north up · site plan on the next A-101 revision", size=4.5, layer=L_TAG)
+    if "extension" in cw:
+        x_, y_ = P(cx + cw["width"] / 2 + 2, (d_brick + d_end) / 2 + 2)
+        sh.text(x_, y_, cw["ext_label"], size=4.5, layer=L_TAG)
+        x_, y_ = P(cx - ow / 2 - 2, (d_brick + d_end) / 2 + 2)
+        sh.text(x_, y_, cw["bus_label"], size=4.5, align="right", layer=L_TAG)
+    ty = kp.get("title_y", 9.60)
+    sh.text(0.62, ty, kp["title"], size=5.4, bold=True, layer=L_TAG)
+    sh.text(0.62, ty - 0.115, "north up · site plan on the next A-101 revision", size=4.5, layer=L_TAG)
     if 0.62 + text_width_in(kp["title"], 5.4, True) > P(cx - ow / 2, 0)[0] - 0.05:
         raise SystemExit("LAYOUT OVERFLOW: key plan title runs into the portal piers")
 
@@ -341,7 +363,7 @@ def brand_detail(sh, ev, evb, fin):
     z0, z1 = dt["z_range"]
     u0, u1 = cx - ow / 2, cx + ow / 2
     x_left = 11.62
-    el = Elev(sh, x_left - u0 / fpi, 9.43 - z0 / fpi, fpi)
+    el = Elev(sh, x_left - u0 / fpi, dt.get("y_bottom", 9.43) - z0 / fpi, fpi)
     lime = fin["limestone"]["hex"]
     oh = pt["overall_height"]
     el.box(u0, z0, u1, oh, fill=lime, layer=L_FILL, lw=0)
@@ -391,7 +413,7 @@ def build(p2, ev, plan, evb=None):
     pt = ev["portal"]
 
     # ---------- SOUTH (primary) ----------
-    xS, yS = 2.95, 6.70
+    xS, yS = 2.95, (evb.get("layout", {}).get("south_y0", 6.70) if evb else 6.70)
     elS = Elev(sh, xS, yS, s16)
     draw_face(sh, elS, F["S"], ev, fin, primary=True)
     # arena volume south-face signage zone (placeholder)
@@ -412,7 +434,7 @@ def build(p2, ev, plan, evb=None):
     elS.text((ar[0] + 91) / 2, 32.2, f"ARENA VOLUME BEHIND (set back {F['S']['set_back'][1]:g}')", size=5.4, align="center", layer=L_TAG)
     cx = pt["center_x"]
     ttl = ((("GRAND ENTRANCE PORTAL (FREESTANDING)", pt["overall_height"] + 3.6, 7.0),
-            (f"stands ≈ {evb['portal_freestanding']['gap_to_building']:g}' south of the entrance (gap ASSUMED) · see key plan", pt["overall_height"] + 1.3, 5.2))
+            (evb.get("title2") or f"stands ≈ {evb['portal_freestanding']['gap_to_building']:g}' south of the entrance (gap ASSUMED) · see key plan", pt["overall_height"] + 1.3, 5.2))
            if evb else (("SOUTH PORTAL — LIMESTONE ARCH", pt["overall_height"] + 3.6, 7.0),))
     for t_, zz, sz in ttl:
         elS.text(cx, zz, t_, size=sz, bold=True, align="center", layer=L_TAG)
@@ -427,9 +449,12 @@ def build(p2, ev, plan, evb=None):
             sh.text(x_, y_, t_, size=5.4, layer=L_TAG)
     else:
         rr = pt["opening_width"] / 2
-        for zz, tu, tz, t_ in ((pt["crown"] - 3, cx + 9.0, 36.2, "CRIMSON soffit, inside the arch (Shane; ref. photo)"),
-                               (pt["springline"] - 4, cx + rr - 1.8, 22.6, "GOLD edge (Shane: 'gold soffit'; split TBD)"),
-                               (pt["entry_glazing_height"] - 6, cx + 6, 10.6, "E1 ENTRY GLAZING TBD (building face, behind)")):
+        co = [c["text"] for c in evb["callouts"]] if evb.get("callouts") else [
+            "CRIMSON soffit, inside the arch (Shane; ref. photo)", "GOLD edge (Shane: 'gold soffit'; split TBD)",
+            "E1 ENTRY GLAZING TBD (building face, behind)"]
+        for zz, tu, tz, t_ in ((pt["crown"] - 3, cx + 9.0, 36.2, co[0]),
+                               (pt["springline"] - 4, cx + rr - 1.8, 22.6, co[1]),
+                               (pt["entry_glazing_height"] - 6, cx + 6, 10.6, co[2])):
             x_, y_ = elS.P(cx + pt["overall_width"] / 2 + 3, zz)
             x2_, y2_ = elS.P(tu, tz)
             sh.line(x2_, y2_, x_ - 0.04, y_ + 0.03, layer=L_TAG, lw=0.35)
@@ -499,6 +524,10 @@ def build(p2, ev, plan, evb=None):
               "BRAND: placeholders only — no school logo (Phase 2 is Shane's build, D-028). HGHS badge? OPEN (D-040)."),
              "DOORS: symbols (6' x 8' ASSUMED) from P2-A-101 Rev D; X# EXIT ONLY (D-033); S1 size TBD (D-034).",
              "NOT SHOWN: ETFE roof / solar (aspirations), rooftop units, grading, lighting."]
+    no = evb.get("notes_override") if evb else None
+    if no:
+        notes = [n for n in notes if not n.startswith(("PORTAL:", "BRAND:"))]
+        notes[1:1] = [no["portal"], no["brand"], no["walk"]]
     for t_ in notes:
         y = sh.para(nx, y + 0.02, nw, t_, size=5.6, indent=0.1, bullet="·")
     fl = body_bottom + 0.06
@@ -510,7 +539,7 @@ def build(p2, ev, plan, evb=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B"], default="B")
+    ap.add_argument("--rev", choices=["A", "B", "C"], default="C")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")
