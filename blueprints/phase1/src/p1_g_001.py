@@ -10,7 +10,7 @@ Revisions, all from phase1.yaml `sheets.P1-G-001.revisions`:
       filled in, W1 pad estimate line (Shane's estimate).
 Frozen revisions keep their committed PDF/DXF as issued; regenerate them only
 to check (use --out-dir). A frozen revision's W2 wording comes from its
-`w2_as_issued` snapshot so the regenerated sheet matches the issued one.
+`as_issued` snapshot (W2 + W3 where) so the regenerated sheet matches the issued one.
 
 Every value comes from blueprints/params/phase1.yaml (plus the Phase 2 building
 total from phase2.yaml, used ONLY in the "NOT INCLUDED" list). Unknowns print TBD.
@@ -43,7 +43,8 @@ ROW1_FRACS = (0.27, 0.215, 0.515)
 ROW1_FRACS_BY_ITEM = {"W2": 0.255, "W3": 0.475, "W1": 0.27}   # Rev C (panel_order)
 # Per-revision overrides for revisions with panel_order (Rev D has more text in W1/W2).
 ROW1_LAYOUT_BY_REV = {
-    "D": {"fracs": {"W2": 0.325, "W3": 0.36, "W1": 0.315}, "table_pt": 8.4, "table_c0": 0.335, "table_c2": 0.165, "body": 9.2},
+    "D": {"fracs": {"W2": 0.325, "W3": 0.36, "W1": 0.315}, "table_pt": 8.4, "table_c0": 0.335, "table_c2": 0.165, "body": 9.2,
+          "asks_pt": 10.0},
 }
 ROW2_FRACS_PRIORITY = (0.17, 0.335, 0.275)         # Rev C row 2: not included / who approves / asks (photos = rest)
 ROW2_TRIM_PRIORITY = 0.0                           # Rev C: row 2 height given to row 1 (none needed)
@@ -165,7 +166,9 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
         sh.text(x0, top - 1.0, p1["contacts"]["requester"]["sheet_line"], size=12, bold=True)
     sh.text(x1, top - 0.32, f"Location: {site['location']}", size=BODY, align="right")
     sh.text(x1, top - 0.54, f"Rooms: {site['rooms_in_scope']}", size=BODY, align="right")
-    sh.text(x1, top - 0.76, f"For review by: {sp['audience']}", size=BODY, align="right")
+    principal = p1["contacts"]["principal"].get("display_name") if rv.get("name_principal") else None
+    audience = f"{principal} (principal) + district facilities" if principal else sp["audience"]
+    sh.text(x1, top - 0.76, f"For review by: {audience}", size=BODY, align="right")
     sh.line(x0, top - 0.88 - hx, x1, top - 0.88 - hx, lw=1.2)
     sh.text(x0, top - 1.035 - hx, rv.get("row1_heading", "WHAT THIS PROJECT DOES — 3 WORK ITEMS"), size=12, bold=True)
 
@@ -183,7 +186,7 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
     ws_o = [avail * f for f in fracs]
     xs_o = [x0, x0 + ws_o[0] + GAP, x0 + ws_o[0] + ws_o[1] + 2 * GAP]
     slot = {k: (xs_o[i], ws_o[i]) for i, k in enumerate(order)}
-    w2_issued = rv.get("w2_as_issued")             # frozen revisions: W2 wording as printed
+    w2_issued = rv.get("as_issued")                # frozen revisions: W2 / W3-where wording as printed
     pri = bool(rv.get("show_priority"))
     B1 = ROW1_LAYOUT_BY_REV.get(rev, {}).get("body", ROW1_BODY_PRIORITY) if pri else BODY     # row-1 body text size (Rev C a bit smaller to fit the PRIORITY lines)
 
@@ -255,7 +258,11 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
         y = labeled(sh, x, y, w, "Why", sentence(w3["reason"]), size=B1)
         y = labeled(sh, x, y, w, "Result", f"{w3['result']} ({w3['restroom_type']}).", size=B1)
         y = labeled(sh, x, y, w, "Accessibility", f"{w3['ada_compliance']}.", size=B1)
-        y = labeled(sh, x, y, w, "Where / room sizes", f"{tbd(w3['location'])} — waiting on measurements.", size=B1)
+        if w2_issued:
+            where3 = w2_issued["w3_where"]
+        else:
+            where3 = f"{sentence(w3['location']).rstrip('.')} — {w3['location_note']}."
+        y = labeled(sh, x, y, w, "Where / room sizes", where3, size=B1)
         # key-number table
         y -= 0.06
         sh.text(x, y - pitch(B1), rv["table_heading"], size=B1, bold=True)
@@ -307,7 +314,7 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
 
     # ---- row 2: not included / who approves / waiting on / photos --------
     if rv.get("show_priority"):
-        fr2 = ROW2_FRACS_PRIORITY                   # Rev C: narrower photos column, 4 asks
+        fr2 = ROW1_LAYOUT_BY_REV.get(rev, {}).get("row2", ROW2_FRACS_PRIORITY)   # Rev C/D asks lists
     else:
         fr2 = (0.19, 0.25, 0.33) if codes else (0.17, 0.335, 0.275)
     ws2 = [avail * f for f in fr2]
@@ -330,7 +337,9 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
     fits("NOT INCLUDED", y, r2_y)
 
     x, y, w = box(sh, xs2[1], r2_y, ws2[1], r2_h, rv["approvals_heading"])
-    chain = rv.get("approvals_chain") or p1["approvals"]["chain_plain"]
+    chain = list(rv.get("approvals_chain") or p1["approvals"]["chain_plain"])
+    if principal and chain and chain[0] == "Principal":
+        chain[0] = f"Principal ({principal})"
     for i, step in enumerate(chain, 1):
         y = sh.para(x, y, w, step, size=BODY + 0.5, indent=0.25, bullet=f"{i}.")
     note = rv.get("approvals_note")
@@ -347,7 +356,7 @@ def build(p1: dict, p2: dict, rev: str = "D") -> Sheet:
         if codes:
             y = sh.para(x, y, w, it, size=BODY, indent=0.2, bullet="□")
         else:
-            y = sh.para(x, y, w, it, size=BODY + 0.5, indent=0.25, bullet=f"{i}.")
+            y = sh.para(x, y, w, it, size=lay.get("asks_pt", BODY + 0.5), indent=0.25, bullet=f"{i}.")
     fits("WAITING ON", y, r2_y)
 
     x, y, w = box(sh, xs2[3], r2_y, ws2[3], r2_h, "PHOTOS")

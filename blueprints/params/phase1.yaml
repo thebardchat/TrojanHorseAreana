@@ -43,10 +43,21 @@ existing:
     long_side: north-south
     measured_at: inside face of wall to inside face of wall
     floor_area_sf_calc: 2475   # 55 x 45, calculated by KEYSTONE from the tape dimensions (inside)
-    wall_thickness: TBD
-    ceiling: TBD
-    wall_material: TBD
+    wall_thickness: TBD                 # actual, unverified
+    wall_thickness_assumed_in: 8        # ASSUMED 8 in CMU unless noted (drawn on P1-A-101 outside the inside face)
+    wall_thickness_label: "8\" CMU — ASSUMED"
+    ceiling_ft: 10                      # 10'-0"
+    ceiling_label: "CLG 10'-0\""
+    wall_material: CMU (concrete masonry unit) building
     doors: TBD          # measured location, width, swing for each (still TBD)
+    door_assumed:       # applies to all 4 openings (3 emergency exits + 1 hallway door). ASSUMED, not measured.
+      width_ft: 3       # 3'-0"
+      height_ft: 7      # 7'-0"
+      type: single hollow metal door
+      label: "ASSUMED STANDARD, VERIFY"
+      swing_drawn: outward from the wrestling room (direction of egress); hinge side arbitrary — both ASSUMED, verify
+      south_exit_note: "Shane's markup shows two triangles at the south exit; it may be a pair of doors — verify"
+      source: "Shane 2026-10-03 10:12 PM CT (assume standard 3'-0\" x 7'-0\" single HM doors, label ASSUMED STANDARD, VERIFY); swing/hinge drawing choice by KEYSTONE"
     doors_approx:       # APPROX. locations read off Shane's aerial markup. NOT measured. Used only as tagged symbols on P1-A-101.
       exit_west:
         wall: west
@@ -75,7 +86,7 @@ existing:
     windows: TBD
     wall_devices: TBD   # outlets, switches, thermostats on walls to be padded
     existing_pads: TBD
-    source: "length_ft, width_ft, shape, long_side, measured_at → Shane tape, inside wall-to-wall, 2026-10-03; rest pending Shane measure/photos (D-001; checklist phase1/MEASUREMENT_CHECKLIST.md)"
+    source: "length_ft, width_ft, shape, long_side, measured_at → Shane tape, inside wall-to-wall, 2026-10-03; ceiling_ft, wall_material → Shane, firsthand 2026-10-03 10:12 PM CT; wall_thickness_assumed_in → Shane 10:12 PM CT instruction (assume 8 in CMU unless noted); rest pending Shane measure/photos (D-001; checklist phase1/MEASUREMENT_CHECKLIST.md)"
     estimate_aerial:    # ROUGH aerial estimate of the EXTERIOR ROOF footprint. NOT a tape measurement. NEVER draw as existing conditions.
       footprint_ns_ft_approx: 55       # north-south, roof outline incl. walls/eaves
       footprint_ew_ft_approx: 47       # east-west, roof outline incl. walls/eaves
@@ -142,16 +153,19 @@ work_items:
     supplied_by: TBD    # school purchase, donated, or fundraised
     supplied_by_options: school purchase, donation, or fundraiser
     purchase_note: "Wall pads must have an NFPA 286 assembly test report — not a foam-only rating. Ask the vendor before purchase."
-    pad_estimate:       # Shane's ESTIMATE, not a takeoff. Before door deductions. Assumes all 4 walls (which walls is still OPEN, D-021).
-      wall_length_lf_approx: 200     # 2 x (55 + 45)
-      pad_area_sf_approx: 1200       # 200 LF x 6 ft
+    pad_estimate:       # Shane's ESTIMATE, not a takeoff. Replaces the 10:06 PM estimate. Assumes all 4 walls (which walls is still OPEN, D-021).
+      wall_length_lf_gross: 200      # 2 x (55 + 45), inside perimeter
+      door_deduction_lf: 12          # 4 doors x 3 ft (ASSUMED standard doors)
+      padded_wall_lf_approx: 188     # 200 - 12
       panel_size: 2 ft x 6 ft
-      panel_count_approx: 100        # 1,200 SF / 12 SF per panel
-      deductions_not_taken: 3 exit doors + 1 hallway door (door widths TBD)
+      panel_count_approx: 94         # 188 x 6 / 12
+      pad_area_sf_calc: 1128         # 188 x 6, calculated by KEYSTONE (not on the sheet)
+      pad_height_note: 6'-0" pads under a 10'-0" ceiling
       assumes: all 4 walls padded
-      math_check: "2 x (55 + 45) = 200 LF; 200 x 6 = 1,200 SF; 1,200 / (2 x 6 = 12 SF) = 100 panels. KEYSTONE checked: correct."
-      sheet_line: "~200 LF of wall, ~1,200 SF of pad at 6 ft, ~100 panels (2 ft × 6 ft), before door deductions (3 exits + 1 hallway door). Estimate assumes all 4 walls."
-      source: "Shane estimate 2026-10-03 (10:06 PM CT), from tape 55 x 45 ft and pad height 6 ft (D-003); math checked by KEYSTONE"
+      math_check: "2 x (55 + 45) = 200; 200 - 4 x 3 = 188 LF; 188 x 6 / 12 = 94 panels. KEYSTONE checked: correct."
+      superseded: "10:06 PM estimate ~200 LF / ~1,200 SF / ~100 panels before door deductions (never shown to Shane on a sheet)"
+      sheet_line: "~188 LF of padded wall after 4 doors (~94 panels at 2 ft x 6 ft); 6'-0\" pads under a 10'-0\" ceiling. Estimate assumes all 4 walls."
+      source: "Shane estimate 2026-10-03 10:12 PM CT (tape 55 x 45 ft, 4 doors at 3 ft ASSUMED, pad height 6 ft per D-003, ceiling 10 ft); math checked by KEYSTONE"
     source: "concept sheet; priority → D-024 (Shane, firsthand 2026-10-03); pad_height → D-003 DECIDED (Shane, chat 2026-10-03; matches R-001 guidance); walls/supplier → D-021 (OPEN); why → Shane 2026-10-03; purchase_note verbatim → D-020 (Shane, chat 2026-10-03); fire rule in standards.wall_pads (R-001); product choice still TBD"
   - id: W2
     name: Restore water / plumbing repair
@@ -173,8 +187,9 @@ work_items:
     reason: the route to the training room is an open walk-through room
     restroom_type: single-user, one per sex
     accessibility_minimums: see standards.ada_single_user_restroom (R-003)
-    location: TBD
-    source: "concept sheet (result, reason); priority → D-024 (Shane, firsthand 2026-10-03); restroom_type + ada_compliance → D-019 (Shane, chat 2026-10-03); location → D-001, D-002; accessibility minimums in standards.ada_single_user_restroom (R-003)"
+    location: support wing
+    location_note: waiting on support wing measurements
+    source: "location, location_note → Shane 2026-10-03 10:12 PM CT (wrestling room measured; restrooms in support wing, rooms TBD); concept sheet (result, reason); priority → D-024 (Shane, firsthand 2026-10-03); restroom_type + ada_compliance → D-019 (Shane, chat 2026-10-03); location → D-001, D-002; accessibility minimums in standards.ada_single_user_restroom (R-003)"
 
 not_in_phase1:
   items:
@@ -185,11 +200,13 @@ not_in_phase1:
 
 contacts:
   principal:
-    name: "TBD (Headen or Hedden, unconfirmed)"
+    name: Headen
+    display_name: Dr. Headen
     title: Principal (Dr.)
     email: TBD
     phone: TBD
-    source: "Claude session (Headen); earlier HGTYW email (Hedden); spelling → D-005"
+    photos_taken: Dr. Headen took photos (copies requested; not received)
+    source: "spelling CONFIRMED 'Dr. Headen' → D-005 DECIDED (Shane, firsthand 2026-10-03 10:12 PM CT); photos_taken → Shane 2026-10-03 10:12 PM CT"
   facilities_manager:
     name: TBD
     email: TBD
@@ -340,20 +357,23 @@ sheets:
     size: "11x17 tabloid, landscape"
     plan_north: up (long side north-south)
     notes:
-      - "Room outline is the INSIDE face of the walls, from Shane's tape measurement 2026-10-03: 55'-0\" north-south × 45'-0\" east-west, wall to wall."
-      - Wall thickness TBD. Walls are drawn as a single line at the inside face.
-      - Door locations are APPROXIMATE, read from Shane's aerial sketch markup. Not measured. Door widths, swings, and hardware are TBD. Door marks are tags only, not to scale.
+      - "Dimensions are to the INSIDE face of the walls, from Shane's tape measurement 2026-10-03: 55'-0\" north-south × 45'-0\" east-west, wall to wall."
+      - "Walls: CMU building. Walls drawn as 8\" CMU outside the inside face — thickness ASSUMED, verify."
+      - "Ceiling: 10'-0\" (Shane, firsthand)."
+      - "Doors: all 4 openings (3 emergency exits + 1 hallway door) drawn as 3'-0\" × 7'-0\" single hollow metal doors — ASSUMED STANDARD, VERIFY. Swing and hinge side drawn are assumed."
+      - Door LOCATIONS are APPROXIMATE, read from Shane's aerial sketch markup. Not measured, not dimensioned.
+      - The south exit may be a pair of doors (two marks on Shane's markup) — verify.
       - The support wing is not yet measured. Its dashed outline is schematic only and not to scale.
       - North arrow is approximate (from the Google Maps aerial). Plan north is up.
-      - Ceiling height, wall material, windows, wall devices, and existing pads are TBD.
+      - Windows, wall devices, and existing pads are TBD.
     support_wing_label: SUPPORT WING — NOT YET MEASURED
     support_wing_note: (outline schematic only — not to scale)
     revisions:
       A:
         file: P1-A-101_RevA
         frozen: false
-        content: room outline only (tape dims, approx. door tags, north arrow, scale bar); no fixtures, no pads, no support wing dims
-        source: "Shane 2026-10-03 10:06 PM CT (start P1-A-101: outline only, doors APPROX., support wing dashed + not measured)"
+        content: room outline (tape inside dims, 8 in CMU walls ASSUMED, 3 ft doors ASSUMED at APPROX. locations, CLG 10 ft, north arrow, scale bar); no fixtures, no pads, no support wing dims
+        source: "Shane 2026-10-03 10:06 PM CT (start P1-A-101: outline only, doors APPROX., support wing dashed + not measured); 10:12 PM CT (CMU 8 in ASSUMED, doors 3x7 ASSUMED STANDARD, CLG 10 ft); revised in place (not yet shown to Shane)"
     source: "prompt §9 (sheet list, title block); Shane 2026-10-03 10:06 PM CT (content); scale chosen by KEYSTONE to fit 11x17"
   P1-G-001:
     title: SCOPE SHEET
@@ -388,13 +408,14 @@ sheets:
         table_footnote: "Planning numbers only. Final restroom layout comes on sheet P1-A-102 after the rooms are measured."
         show_why: false
         show_requester: false
-        w2_as_issued:     # W2 wording as printed on this revision (W2 was updated 2026-10-03; keeps the frozen sheet reproducible)
+        as_issued:        # W2 + W3-where wording as printed on this revision (both updated later 2026-10-03; keeps the frozen sheet reproducible)
           name: Plumbing repair
           lead: Repair plumbing already failing in the existing building.
           why: Failing plumbing is getting worse the longer it waits.
           where: TBD
           problem_spots: TBD
           existing_fixtures: TBD
+          w3_where: TBD — waiting on measurements.
           source: "Rev A as issued 2026-10-03 (concept sheet condition wording)"
         source: "frozen copy of Rev A content (P1-T-004, 2026-10-03); Shane 2026-10-03: keep Rev A as internal copy, unchanged"
       B:                  # PRINCIPAL version. No D-###/R-### codes, no name-spelling lines (validate checks the PDF).
@@ -413,13 +434,14 @@ sheets:
         table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
         show_why: true
         show_requester: true
-        w2_as_issued:     # W2 wording as printed on this revision (W2 was updated 2026-10-03; keeps the frozen sheet reproducible)
+        as_issued:        # W2 + W3-where wording as printed on this revision (both updated later 2026-10-03; keeps the frozen sheet reproducible)
           name: Plumbing repair
           lead: Repair plumbing already failing in the existing building.
           why: Failing plumbing is getting worse the longer it waits.
           where: TBD
           problem_spots: TBD
           existing_fixtures: TBD
+          w3_where: TBD — waiting on measurements.
           source: "Rev B as issued 2026-10-03 (commit 7ceb50c; concept sheet condition + Shane why)"
         source: "Shane 2026-10-03 (Rev B principal version: asks, approver wording, requester line, no codes); frozen after D-023"
       C:                  # PRINCIPAL version, current. Rev B + W2 no-water update + priority order (D-024). No codes. No aerial estimate.
@@ -448,13 +470,14 @@ sheets:
         table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
         show_why: true
         show_requester: true
-        w2_as_issued:     # W2 wording as printed on Rev C (W2 fill-ins came later, 2026-10-03 10:06 PM CT)
+        as_issued:        # W2 + W3-where wording as printed on Rev C (fill-ins came later, 2026-10-03 10:06 and 10:12 PM CT)
           name: Restore water / plumbing repair
           lead: Restore running water to the area and repair the plumbing so the fixtures work again.
           why: "Athletes have no working restroom or handwashing during practice; hygiene matters in a contact sport."
           where: TBD
           problem_spots: TBD
           existing_fixtures: TBD
+          w3_where: TBD — waiting on measurements.
           source: "Rev C as issued 2026-10-03 (commit ba9aa2e)"
         source: "Rev B (D-023) + Shane, firsthand 2026-10-03: W2 no-water status, new W2 why, ask #4, priority W2 → W3 → W1 (D-024)"
       D:                  # PRINCIPAL version, current. Rev C + W2 fill-ins (where, problem spots, fixtures) + W1 pad estimate. No codes.
@@ -473,16 +496,18 @@ sheets:
         show_w2_status: true
         show_pad_estimate: true
         pad_estimate_label: Estimate
+        name_principal: true      # uses contacts.principal.display_name (D-005 DECIDED)
         waiting_heading: "WHAT WE'RE ASKING THE SCHOOL FOR"
         waiting_on:
-          - Permission to measure and photograph the wrestling room and walk-through room
+          - Permission to measure and photograph the support wing and walk-through room
           - A district facilities contact
           - How approval works for this kind of work
           - A plumber visit to diagnose why there is no water (shutoff, supply line, or other)
+          - Copies of the photos Dr. Headen took
         approvals_heading: WHO APPROVES
         approvals_note_from: approvals.note_plain
         table_heading: KEY 2010 ADA NUMBERS FOR EACH RESTROOM
         table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
         show_why: true
         show_requester: true
-        source: "Rev C + Shane, firsthand 2026-10-03 10:06 PM CT: W2 where / problem spots / fixtures; W1 pad estimate (Shane estimate)"
+        source: "Rev C + Shane, firsthand 2026-10-03 10:06 PM CT (W2 where / problem spots / fixtures; W1 pad estimate) + 10:12 PM CT (Dr. Headen named, ask 1 reworded, ask 5, W3 where, revised W1 estimate). Revised in place before Shane saw it."

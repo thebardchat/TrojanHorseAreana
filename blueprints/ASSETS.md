@@ -76,6 +76,11 @@ Shane's rule (D-017): **USE** zones, adjacencies, the 5 SF tags, and the room li
 
 These are not measured, and no dimensions are given.
 
+**Update 2026-10-03 10:12 PM CT:**
+- P1-A-101 now draws these four openings as 3'-0" doors. That size is ASSUMED STANDARD, VERIFY; the locations are still APPROX.
+- The walls are drawn as 8" CMU (ASSUMED).
+- **Photos not yet received:** Shane says Dr. Headen (principal) took photos. Copies are requested on P1-G-001 Rev D (ask #5). Once received, they go here.
+
 **Layout per Shane's markup (qualitative, phase1.yaml `existing.layout_notes`):**
 - The **wrestling room** is the large west block.
 - **Emergency exits** are marked on its west side, its south side, and one near its NE corner.

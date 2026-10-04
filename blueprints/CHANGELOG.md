@@ -184,3 +184,27 @@
   - Outputs: `out/pdf/P1-A-101_RevA.pdf` + `out/dxf/P1-A-101_RevA.dxf` (paper inches; 1 in = 8 ft).
 - shared/titleblock.py: optional `dashed()` lines, an optional text rotation (stored only when used), and extra DXF layers added only when a sheet uses them. Existing sheets render unchanged.
 - DECISIONS: D-001 (room measured; wing, doors, ceiling, and photos TBD), D-002 (fixtures and spots), and D-021 (the estimate assumes all 4 walls). All still OPEN; the count stays 17. ASSETS §1c notes the tape and the door reads. BACKLOG: P1-T-005 IN PROGRESS.
+
+## 2026-10-03 ~10:45 PM CT · Shane update 10:12 PM: Dr. Headen, CLG 10 ft, CMU, doors · Rev D + P1-A-101 Rev A revised in place
+- **D-005 DECIDED:** the principal is "Dr. Headen" (phase1.yaml `contacts.principal.name/display_name`). Open count goes to 16.
+- **phase1.yaml `existing.wrestling_room`:**
+  - `ceiling_ft: 10` (Shane, firsthand)
+  - wall_material CMU
+  - `wall_thickness_assumed_in: 8` (ASSUMED; actual thickness stays TBD)
+  - `door_assumed` 3'-0" × 7'-0" single HM, "ASSUMED STANDARD, VERIFY", including the south-exit pair note
+- **W1 `pad_estimate` replaced** (Shane's estimate): ~188 LF after 4 doors (200 − 4×3), ~94 panels (188×6/12), 6'-0" pads under a 10'-0" ceiling, assumes all 4 walls. `pad_area_sf_calc: 1128` is a KEYSTONE calc and is not on the sheet. The earlier estimate is recorded as superseded.
+- **W3 `location`:** support wing (waiting on support wing measurements).
+- **P1-G-001 Rev D revised in place** (it had not been shown to Shane; no Rev E):
+  - "For review by: Dr. Headen (principal) + district facilities".
+  - WHO APPROVES 1 reads "Principal (Dr. Headen)".
+  - Ask 1 now covers the support wing + walk-through room. New ask 5: "Copies of the photos Dr. Headen took".
+  - W3 Where: "Support wing — waiting on support wing measurements."
+  - New W1 Estimate line.
+  - Asks text is 10 pt to fit five items.
+- **Frozen revs:** the snapshot key is renamed `as_issued` (W2 + W3 Where). Regenerating A/B/C to /tmp gives identical PDFs (B and C byte-identical to the committed files).
+- **P1-A-101 Rev A revised in place:**
+  - Walls are 8" CMU double lines OUTSIDE the tape inside face. The dimension strings are marked INSIDE.
+  - Four 3'-0" door openings with jambs, leaves, and 90° swings. Outward swing and hinge side are ASSUMED. Each is tagged "LOCATION APPROX." + "3'-0" × 7'-0" HM — ASSUMED STANDARD, VERIFY". The south tag adds "May be a pair of doors (markup) — verify".
+  - New tags: CLG 10'-0" and "WALLS: 8" CMU — ASSUMED".
+  - Notes (9) and legend are updated.
+- Single-file copies for Shane: `/workspace/keystone_previews/P1-G-001.pdf` (Rev D) and `/workspace/keystone_previews/P1-A-101.pdf`.
