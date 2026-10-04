@@ -2,7 +2,7 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-04T14:08:05-05:00",
+  "updated_at": "2026-10-04T14:09:02-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
@@ -24,7 +24,7 @@
     "P2-A-901 Rev B (in review; massing + OBJ model)"
   ],
   "sheets_in_progress": [],
-  "last_commit": "bb33df4",
+  "last_commit": "98a4fc9",
   "branch": "grok/keystone",
   "open_decisions": 17,
   "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012); trademark (D-042); brick pricing (D-044); chairs-only restrooms (D-069). G-001 / set / PR on hold (Shane 1:46 PM).",
