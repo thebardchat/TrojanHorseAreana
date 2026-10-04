@@ -90,3 +90,20 @@ stair:
   rules: "risers 4-7 in, treads >= 11 in (IBC 2021 1011.5.2); landing depth = stair width or 48 in, whichever is less (1011.6); handrails both sides, projections <= 4-1/2 in (1014.8)"
   basis: "same switch-back stair as R-015 / R-018.8 (26 risers of 6.92 in = 15 ft); stairs ST-1..ST-4 are not on cut A-A or B-B, so a typical stair section is shown"
   source: "R-015; R-018.8; Shane 2026-10-04 6:45 AM CT (D-038); IBC 2021 1011.5.2, 1011.6, 1014.8 (UpCodes, retrieved 2026-10-04)"
+
+# Rev B (Shane 2026-10-04 7:24 AM CT): switchback intermediate landing = stair width; under-tier use (D-049). Rev A frozen.
+rev_b:
+  revision: B
+  intermediate_landing_in: 70
+  floor_landing_in: 48
+  landing_rule: "IBC 2021 1011.6 (Alabama Building Code 2021 text, UpCodes): landing width measured perpendicular to the direction of travel >= the stair width; depth parallel to travel = stair width or 48 in, whichever is less. At a 180-degree switchback the travel turns across the intermediate landing, so the landing dimension parallel to the flights is its WIDTH and must be >= 70 in (D-051). The 90-degree-or-more exception still needs an arc of radius = flight width (70 in). Floor landings (straight entry / exit) stay 48 in"
+  landing_basis: "Shane's phrase ('48 in cap applies to straight runs only') matches the straight-run wording of earlier IBC editions (KEYSTONE recollection, not re-read); the 2021 text reaches the same 70 in through the width rule. Rev A's 48 in intermediate landing was wrong for a switchback — corrected in Rev B"
+  plan_length_in: 250
+  plan_width_in: 140
+  plan_basis: "48 in floor landing + 132 in flight run (12 treads x 11 in) + 70 in intermediate landing = 250 in (20.83 ft); 2 flights x 70 in clear = 140 in (11.67 ft). Clear dimensions; walls, handrail projections and a center wall / gap not included"
+  footprint_sf_per_stair_per_level: 243.06
+  frozen_plan_sf_per_stair_per_level: 205.2
+  frozen_plan_basis: "P2-A-101/102 Rev D (frozen) stair rects 10.8 x 19 ft (ST-1 [38.2, 233, 49, 252]); ST-2 19 x 10.8 turned"
+  delta: "+37.86 SF per stair per level; x 4 stairs = +151.4 SF per level; about +302.9 GSF over two levels (clear dims) — apply at the next A-101/A-102 revision (D-051). Shane's estimate ~11.67 x ~21 ft = 245 SF; computed 11.67 x 20.83 = 243.06 SF"
+  under_tier: "D-049 DECIDED: the upper tier steps DOWN from the L2 loop toward the court. Under its low front edge: telescopic stack (at the tier face), storage, mechanical. Lockers only where headroom is full = under the flat L2 slab behind the tier back line (ASSUMED reading)"
+  source: "Shane 2026-10-04 7:24 AM CT (D-049, D-051); IBC 2021 1011.6 (UpCodes, retrieved 2026-10-04); phase2_plan_rev_d.yaml stairs"

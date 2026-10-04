@@ -425,3 +425,16 @@
 - **Frozen checks:** P1-G-001 A-D, P1-A-101 A, P2-G-003 A-F, P2-A-101/102 A-D, P2-A-201 A-B and Phase 2 Schematic Set Rev A regenerated to /tmp: PDFs byte-identical and DXFs entity-identical (P2-A-201 A / B: 879 / 1,028 entities); only the known pre-existing P1-G-001 Rev A internal PDF byte difference (text + pixels identical, predates this work).
 - Previews: `P2-A-201.png/.pdf` = Rev C (`P2-A-201_RevB.png`, `_RevA.png` kept); `P2-A-301.png/.pdf`.
 - DECISIONS, ASSETS, BACKLOG, STATUS updated.
+
+## 2026-10-04 ~7:40 AM CT · D-048 closed · D-049..D-051 decided · D-052 / D-053 proposed · P2-A-201 Rev D · P2-A-301 Rev B · P2-A-302 Rev A
+
+Shane, firsthand, 7:24 AM CT (+ PDF vendor cost sheet for the Champion Walk bricks).
+- **D-048 CLOSED:** arch photo is Shane's own image (rights clear); removal stands, no history rewrite; ASSETS "Shane's own image; held off-repo by choice".
+- **D-044 input:** vendor cost averages $19.17 (4x8) / $29.50 (8x8), logo +$6, engraving + shipping included; ~3,700 x $19.17 ≈ $70.9k if all 4x8 (excl. install / base). Donor pricing still OPEN. PDF kept box-only (sha256 in ASSETS).
+- **D-049 DECIDED:** upper tier steps down from the L2 loop (as drawn); storage / mech / stack under the low front; lockers only at full height. Plan overlaps listed in DECISIONS; event lockers re-planned at the next A-101.
+- **P2-A-201 Rev C FROZEN; Rev D (D-050):** portal 50 ft max (was 56 ASSUMED); arch crown 40 → 34 ft, springline 26 → 22.1 ft (proportional, ASSUMED), semi-elliptical (rise 11.9 ft); attic band 36-50; badge 11 ft at 34.4-45.4 ft; wordmark 27 in caps, baseline 46.1, caps top 48.35, under the 48.8-50 ft cornice. `p2_a_201.py`: generic `portal_override`, elliptical `arch_pts`, `callout_targets`, `notes_override.heights`.
+- **P2-A-301 Rev A FROZEN; Rev B (D-051):** detail 4 intermediate landing 70 in (= stair width, IBC 2021 1011.6), floor landings 48 in; per stair 11.67 x 20.83 ft = 243.1 SF per level vs frozen 205.2 (+37.9; ≈ +303 GSF for 4 stairs x 2 levels at the next A-101/A-102). A-A / B-B / detail 3: under-tier storage / mech (D-049), lockers at full height; notes point to P2-A-302 (D-053) and R-018.9 (D-052).
+- **P2-A-302 Rev A sight-line study (new) + R-020:** Green Guide C-values, seated 1.2 m / standing 1.6 m eyes, focal = near mat edge (N/S 25 ft, E 10 ft). As drawn: upper tier fails everywhere (N/S 40-49 mm seated, east negative); east lower 46-74 seated. Proposed: upper 19 in risers (front 9.17 → 7.08 ft) + east tier 6 ft further out → all seated ≥ 101, standing ≥ 72. Stack: closed recess under the front fits only with ≤ 32.6 in structure; open rows under the overhang conflict with 7'-6" → keep the stack at the tier face.
+- **R-018.9 / D-052 (proposed):** worst case 292.4 in; 4 x 76 in = 304 (+11.6), +217.8 GSF vs 70 in; vs 74 / 78 in and a 5th stair (44 in: 324 in, +273.8 GSF + new core). Plans not redrawn.
+- **params/phase2.yaml v13:** portal height / arch / badge / wordmark, photo wording, `champion_walk.vendor_cost`, `egress_next_revision_2`, `under_tier_use`, `sight_lines`; sheets A-201 Rev C frozen + Rev D, A-301 Rev A frozen + Rev B, new P2-A-302.
+- Frozen checks re-run (adds P2-A-201 Rev C and P2-A-301 Rev A). DECISIONS (open 18), ASSETS, BACKLOG, STATUS updated.

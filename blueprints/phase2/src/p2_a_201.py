@@ -5,13 +5,16 @@ Rev B: official Trojan Horse Arena mark (brand/THA_logo_black.svg, D-041) on the
 wordmark, side panel, enlarged brand detail; freestanding portal over Champion Walk, key plan. FROZEN 2026-10-04 6:45 AM CT.
 Inputs phase2_elev.yaml + phase2_elev_rev_b.yaml (overlay).
 Rev C: 11 ft badge, portal raised to 56 ft (ASSUMED), Champion Walk 28 x 30 ft + brick tiers, crimson underside + gold trim
-(D-045..D-047). Inputs phase2_elev.yaml + phase2_elev_rev_c.yaml (overlay).
+(D-045..D-047). Inputs phase2_elev.yaml + phase2_elev_rev_c.yaml (overlay). FROZEN 2026-10-04 7:24 AM CT.
+Rev D: portal capped at 50 ft (D-050): arch crown 34 ft, springline 22.1 ft (26 x 34/40, ASSUMED), semi-elliptical arch
+(rise 11.9 ft); 11 ft badge 34.4-45.4 ft; wordmark baseline 46.1 ft, caps top 48.35 ft, under the 48.8-50 ft cornice.
+Inputs phase2_elev.yaml + phase2_elev_rev_d.yaml (overlay).
 
 South elevation (primary, 1/16 in = 1 ft) with the south portal; north, east and west (1/32 in = 1 ft).
 Heights and finishes: params/phase2_elev.yaml. Building outline, arena volume and doors: params/phase2_plan_rev_d.yaml
 (P2-A-101/102 Rev D, frozen in Phase 2 Schematic Set Rev A). DXF is in paper inches; fills are solid HATCH entities.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_201.py [--rev A|B|C|D] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -37,12 +40,13 @@ def load(rev="A"):
     ev = yaml.safe_load((BP / "params" / "phase2_elev.yaml").read_text(encoding="utf-8"))
     plan = yaml.safe_load((BP / "params" / "phase2_plan_rev_d.yaml").read_text(encoding="utf-8"))
     evb = None
-    if rev in ("B", "C"):
+    if rev in ("B", "C", "D"):
         evb = yaml.safe_load((BP / "params" / f"phase2_elev_rev_{rev.lower()}.yaml").read_text(encoding="utf-8"))
         po = evb.get("portal_override")
-        if po:                                     # Rev C: taller portal / attic (ASSUMED)
-            ev["portal"]["overall_height"] = po["overall_height"]
-            ev["portal"]["attic_band"] = po["attic_band"]
+        if po:                                     # Rev C: taller portal / attic; Rev D: lower arch, 50 ft cap (ASSUMED)
+            for k, v in po.items():
+                if k not in ("basis", "status", "source"):
+                    ev["portal"][k] = v
     return p2, ev, plan, evb
 
 
@@ -97,6 +101,17 @@ class Elev:
 
 def arc_pts(cu, cz, r, a0, a1, n=48):
     return [(cu + r * math.cos(math.radians(a0 + (a1 - a0) * k / n)), cz + r * math.sin(math.radians(a0 + (a1 - a0) * k / n))) for k in range(n + 1)]
+
+
+def arch_pts(pt, cu, cz, r, off, a0, a1, n=48):
+    """Arch intrados offset inward by `off`: semicircle (Revs A-C) or, when the portal carries `arch_rise` (Rev D), a
+    semi-ellipse with half-span r and rise arch_rise (crown lowered, springline scaled; ASSUMED)."""
+    a, b = r, pt.get("arch_rise", r)
+    for o in off:                                  # applied one by one so Revs A-C keep their exact floats
+        a, b = a - o, b - o
+    if "arch_rise" not in pt:
+        return arc_pts(cu, cz, a, a0, a1, n)
+    return [(cu + a * math.cos(math.radians(a0 + (a1 - a0) * k / n)), cz + b * math.sin(math.radians(a0 + (a1 - a0) * k / n))) for k in range(n + 1)]
 
 
 def faces(plan, ev):
@@ -170,7 +185,7 @@ def draw_portal(sh, el, ev, fin, evb=None):
     i0, i1 = cx - r, cx + r
     lime, crim, gold = fin["limestone"]["hex"], fin["crimson"]["hex"], fin["gold"]["hex"]
     # limestone frame with the arch opening cut out (one polygon, traced around)
-    arch = arc_pts(cx, sp, r, 0, 180)
+    arch = arch_pts(pt, cx, sp, r, (), 0, 180)
     outline = [(u0, 0), (i0, 0), (i0, sp)] + arch[::-1] + [(i1, sp), (i1, 0), (u1, 0), (u1, oh), (u0, oh)]
     if evb is None:
         # arch opening: crimson back plane, gold soffit band on the intrados, entry glazing below
@@ -199,8 +214,8 @@ def draw_portal(sh, el, ev, fin, evb=None):
         el.line(g0, 9, g1, 9, layer=L_OUT, lw=0.3)
         # crimson soffit band inside the arch with a thin gold edge (split TBD)
         band, ge = 1.6, 0.4
-        inner = arc_pts(cx, sp, r - band, 0, 180)
-        inner2 = arc_pts(cx, sp, r - band - ge, 0, 180)
+        inner = arch_pts(pt, cx, sp, r, (band,), 0, 180)
+        inner2 = arch_pts(pt, cx, sp, r, (band, ge), 0, 180)
         sh.poly([el.P(a, b) for a, b in arch + inner[::-1]], fill=crim, layer=L_FILL, lw=0)
         sh.poly([el.P(a, b) for a, b in [(i0, 0), (i0 + band, 0), (i0 + band, sp), (i0, sp)]], fill=crim, layer=L_FILL, lw=0)
         sh.poly([el.P(a, b) for a, b in [(i1 - band, 0), (i1, 0), (i1, sp), (i1 - band, sp)]], fill=crim, layer=L_FILL, lw=0)
@@ -452,9 +467,10 @@ def build(p2, ev, plan, evb=None):
         co = [c["text"] for c in evb["callouts"]] if evb.get("callouts") else [
             "CRIMSON soffit, inside the arch (Shane; ref. photo)", "GOLD edge (Shane: 'gold soffit'; split TBD)",
             "E1 ENTRY GLAZING TBD (building face, behind)"]
-        for zz, tu, tz, t_ in ((pt["crown"] - 3, cx + 9.0, 36.2, co[0]),
-                               (pt["springline"] - 4, cx + rr - 1.8, 22.6, co[1]),
-                               (pt["entry_glazing_height"] - 6, cx + 6, 10.6, co[2])):
+        tg = evb.get("callout_targets") or [[9.0, 36.2], [rr - 1.8, 22.6], [6, 10.6]]     # Rev D: arch lowered
+        for zz, tu, tz, t_ in ((pt["crown"] - 3, cx + tg[0][0], tg[0][1], co[0]),
+                               (pt["springline"] - 4, cx + tg[1][0], tg[1][1], co[1]),
+                               (pt["entry_glazing_height"] - 6, cx + tg[2][0], tg[2][1], co[2])):
             x_, y_ = elS.P(cx + pt["overall_width"] / 2 + 3, zz)
             x2_, y2_ = elS.P(tu, tz)
             sh.line(x2_, y2_, x_ - 0.04, y_ + 0.03, layer=L_TAG, lw=0.35)
@@ -528,6 +544,8 @@ def build(p2, ev, plan, evb=None):
     if no:
         notes = [n for n in notes if not n.startswith(("PORTAL:", "BRAND:"))]
         notes[1:1] = [no["portal"], no["brand"], no["walk"]]
+        if no.get("heights"):                      # Rev D: D-049 tier rake (highest aisle = the loop)
+            notes[0] = no["heights"]
     for t_ in notes:
         y = sh.para(nx, y + 0.02, nw, t_, size=5.6, indent=0.1, bullet="·")
     fl = body_bottom + 0.06
@@ -539,7 +557,7 @@ def build(p2, ev, plan, evb=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A", "B", "C"], default="C")
+    ap.add_argument("--rev", choices=["A", "B", "C", "D"], default="D")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")

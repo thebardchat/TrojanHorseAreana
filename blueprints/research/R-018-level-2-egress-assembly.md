@@ -106,3 +106,32 @@ Shane, 6:45 AM CT: "stairs 70 in clear". Recheck with the same factors (IBC 2021
 - Plan effect (next A-101/A-102 revision, not done — the set is frozen): same switch-back stair (26 risers of 6.92 in, 2 flights of 13, 12 treads x 11 in = 132 in run, 48 in landings, R-015 / phase2_program.yaml): plan 2 x 70 = 140 in (11.67 ft) wide x 19 ft, ≈ 221.7 SF per stair per level vs 205.2 SF drawn (19 x 10.8 ft) → about +16.5 SF per stair per level, ≈ +66 SF footprint and ≈ +132 SF GSF for 4 stairs before gross-up (KEYSTONE arithmetic; margin 2,262 SF stays ample).
 
 CONFIDENCE: HIGH for the arithmetic / MEDIUM for the inputs (same as R-018.7). NEEDS ARCHITECT CONFIRMATION: YES.
+
+## R-018.9 Addendum 2026-10-04 7:24 AM CT — design to PASS the worst case (D-052 proposed)
+
+Shane, 7:24 AM CT: design to pass the WORST case (loop counted + rail standing), currently 12.4 in short with 4 x 70 in; recommend with numbers. Plans are NOT redrawn (frozen set); this is a proposal for the next A-101/A-102 revision.
+
+Basis: worst case 1,462 occupants (R-018.8). IBC 2021 1005.3.1: 0.3 in per occupant for stairways; exception 1 allows 0.2 in where the building is sprinklered (903.3.1.1) and has an emergency voice/alarm communication system (907.5.2.2) — both are required here (R-015), so 0.2 in governs: **1,462 x 0.2 = 292.4 in**. (Without the exception: 438.6 in = 4 x 110 in — informational only.) Switchback footprint per stair per level (clear, walls excluded) = 2w x (48 floor landing + 132 run + w intermediate landing, 1011.6 / D-051).
+
+**Option W — four wider stairs** (each ≥ 292.4 / 4 = 73.1 in):
+
+| Clear width each | Total | Spare vs 292.4 | Occupants served (÷ 0.2) | SF per stair per level | vs 70 in | vs frozen 205.2 SF |
+|---|---|---|---|---|---|---|
+| 70 in (now) | 280 in | −12.4 in | 1,400 | 243.06 | — | +37.9 |
+| 74 in | 296 in | +3.6 in | 1,480 | 261.06 | +18.0 | +55.9 |
+| **76 in** | **304 in** | **+11.6 in** | **1,520** | **270.22** | **+27.2** | **+65.0** |
+| 78 in | 312 in | +19.6 in | 1,560 | 279.50 | +36.4 | +74.3 |
+
+- GSF vs 70 in (4 stairs x 2 levels): +144 (74 in), +217.8 (76 in), +291 (78 in). 76 in plan ≈ 12.67 x 21.33 ft.
+- 1014.9: all required capacity width within 30 in of a handrail → an intermediate handrail is needed above 60 in (already true at 70 in).
+- 1005.5 (lose one stair): 3 x 76 = 228 in ≥ 50% x 292.4 = 146.2 in ✓.
+
+**Option 5 — a fifth exit stair:** at the 44 in minimum (1011.2): total 280 + 44 = 324 in (+31.6 in); footprint 88 x 224 in = 136.9 SF per level ≈ +273.8 GSF, plus a new enclosure, exit door, exit discharge, separation (1007.1.1) and travel-distance checks and a location on the loop. A 5th stair at 70 in: 350 in total, ≈ +486 GSF.
+
+**Option O — operational:** no rail standing on the loop → 1,378 x 0.2 = 275.6 in, passes 4 x 70 in by 4.4 in. Not a worst-case design; relies on management.
+
+**Recommendation:** four stairs at **76 in clear** with intermediate handrails — closes the worst case with 11.6 in (≈ 58 occupants) to spare, keeps 4 cores in the same locations, costs ≈ +218 GSF vs 70 in (≈ +520 GSF vs the frozen plan) — less than a 5th stair's area and none of its new core, door and discharge. Logged as **D-052 (OPEN, proposed)** for Shane; the architect / AHJ confirm the occupant load and the exception.
+
+EDITION / SECTION: IBC 2021 §§1005.3.1 (exc. 1), 1005.5, 1007.1.1, 1011.2, 1011.6, 1014.9, 903.3.1.1, 907.5.2.2 (UpCodes, retrieved 2026-10-04).
+
+CONFIDENCE: HIGH for the arithmetic / MEDIUM for the occupant inputs (R-018.7). NEEDS ARCHITECT CONFIRMATION: YES.

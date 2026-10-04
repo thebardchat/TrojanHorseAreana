@@ -25,6 +25,10 @@
 # v12, 2026-10-04 6:45 AM CT: P2-A-201 Rev B approved + frozen; underside crimson + gold trim (D-045); Champion Walk 28 x 30 ft,
 #     brick tiers (D-046); badge 11 ft (D-047); stairs 70 in clear (D-038 closed); service S1 north + south bus loop (D-034);
 #     reference photo held off-repo (D-048 OPEN). P2-A-201 Rev C; P2-A-301 sections Rev A.
+# v13, 2026-10-04 7:24 AM CT: photo is Shane's own, held off-repo by choice (D-048 closed); upper tier steps down from the
+#     loop, storage / mech under its low front, lockers only at full height (D-049); portal <= 50 ft, crown 34 ft (D-050);
+#     switchback mid landing 70 in (D-051); egress 76 in stairs PROPOSED (D-052); sight-line fix PROPOSED (D-053).
+#     P2-A-201 Rev C + P2-A-301 Rev A frozen; P2-A-201 Rev D, P2-A-301 Rev B, P2-A-302 Rev A (sight lines).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -208,10 +212,13 @@ approach:
   grand_entrance_portal:
     form: "FREESTANDING limestone arch, not attached to the building; just before the south entrance, on the way in, straddling Champion Walk"
     setback_from_building: "TBD (30 ft ASSUMED on P2-A-201 Rev B)"
-    reference: "Shane's reference photo held OFF-REPO pending rights confirmation (box copy /workspace/keystone_previews/refs/portal_freestanding_champion_walk_ref.png; removed from the repo 2026-10-04 6:45 AM CT, D-048)"
+    reference: "Shane's own image; held off-repo by choice (D-048 CLOSED 7:24 AM CT; box copy /workspace/keystone_previews/refs/portal_freestanding_champion_walk_ref.png; removed from the repo 6:45 AM CT, no history rewrite)"
     underside: "crimson underside + gold trim (DECIDED, D-045)"
-    height: "56 ft on P2-A-201 Rev C (ASSUMED; raised from 50 ft for the 11 ft badge)"
-    source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043)"
+    height: "50 ft MAX (DECIDED, D-050; arena roof 42 ft); P2-A-201 Rev D draws 50 ft (Rev C's 56 ft superseded)"
+    arch: {opening_ft: 28, crown_ft: 34, springline_ft: 22.1, rise_ft: 11.9, shape: "semi-elliptical", status: "crown ~34 ft per Shane (D-050); springline 26 x 34/40 = 22.1 ft proportional and the elliptical shape ASSUMED", source: "Shane 2026-10-04 7:24 AM CT (D-050); params/phase2_elev_rev_d.yaml"}
+    badge_ft: {diameter: 11, bottom: 34.4, top: 45.4, source: "D-047 (11 ft); P2-A-201 Rev D layout (KEYSTONE)"}
+    wordmark_ft: {caps_in: 27, baseline: 46.1, caps_top: 48.35, cornice_band: [48.8, 50], source: "P2-A-201 Rev D layout (KEYSTONE); D-050"}
+    source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043); 7:24 AM CT (D-050)"
   champion_walk:
     paving: "brick — engraved donor / sponsor bricks"
     width_ft: 28
@@ -221,7 +228,16 @@ approach:
     brick_tiers: [{size: "4 x 8 in", use: "single name", source: "Shane 6:45 AM CT"}, {size: "8 x 8 in", use: "family / business", source: "Shane 6:45 AM CT"}]
     capacity_note: "about 3,700 4x8 bricks: 840 SF / 0.222 SF (4 x 8 in nominal face) = 3,780 before a border course and joints; each 8x8 uses two 4x8 slots"
     extension: "option to extend the walk to parking later"
-    pricing: "TBD (OPEN, D-044)"
+    pricing: "donor pricing TBD (OPEN, D-044)"
+    vendor_cost:
+      avg_4x8_usd: 19.17
+      avg_8x8_usd: 29.50
+      logo_addon_usd: 6
+      vendors: "Fundraising Brick 19.00 / 30.00 (bulk discount 1,500+); Polar Engraving 19.50 / 27.50 (5-brick min, logo +6); That's My Brick 19.00 / 31.00 (101+ tier)"
+      includes: "engraving + shipping; NOT installation or the sand / concrete base (Phase 2 site work)"
+      arithmetic: "~3,700 x 19.17 = about 70.9k USD vendor cost if every brick is 4x8 (KEYSTONE arithmetic; excludes install and base)"
+      status: "Shane's vendor sheet, prices pulled from the vendor sites 2026-10-04; not re-verified by KEYSTONE"
+      source: "Shane 2026-10-04 7:24 AM CT, PDF 'Champion_Walk_Brick_Pricing' (box-only copy, sha256 in ASSETS.md); D-044"
     source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043) + 6:45 AM CT (D-046)"
   site_plan: "portal + Champion Walk to be added at the next P2-A-101 revision (Rev D stays frozen in Phase 2 Schematic Set Rev A)"
   site_access:
@@ -232,6 +248,21 @@ approach:
     stair_clear_width_in: 70
     basis: "4 stairs at 70 in clear (DECIDED, D-038 closed): 280 in vs 255.8 in required at 0.2 in/occupant (1,279) and 275.6 in with the loop counted (R-018.8). Changes P2-A-101/102 at the next revision; the frozen set stays frozen"
     source: "Shane 2026-10-04 6:45 AM CT (D-038); R-018"
+  egress_next_revision_2:
+    intermediate_landing_in: 70
+    stair_plan_ft: [11.67, 20.83]
+    stair_sf_per_level: 243.06
+    delta: "+37.9 SF per stair per level vs the frozen 205.2 SF (10.8 x 19); about +303 GSF for 4 stairs x 2 levels (D-051 DECIDED)"
+    worst_case: "1,462 occupants x 0.2 in = 292.4 in vs 280 in (4 x 70) -> 12.4 in short; PROPOSED 4 x 76 in = 304 in (+11.6 in), about 270.2 SF per stair per level, +217.8 GSF vs 70 in (D-052 OPEN, R-018.9)"
+    source: "Shane 2026-10-04 7:24 AM CT (D-051, egress ask); IBC 2021 1011.6, 1005.3.1; R-018.9"
+  under_tier_use:
+    rule: "upper tier steps DOWN from the L2 loop toward the court (as drawn); under its low front edge: telescopic stack, storage, mechanical; lockers only where headroom is full (DECIDED, D-049)"
+    full_headroom: "under the flat L2 slab behind the tier back line (ASSUMED reading)"
+    next_revision: "event lockers 1-4 re-planned to their full-height parts; exit passages under the tier front need >= 7'-6 in (IBC 2021 1003.2); telescopic stack stays at the tier face (P2-A-302 stack check)"
+    source: "Shane 2026-10-04 7:24 AM CT (D-049); R-020; P2-A-301 Rev B"
+  sight_lines:
+    study: "P2-A-302 Rev A / R-020: upper tier (14 in risers) fails every side; east side (10 ft focal) fails; PROPOSED upper 19 in risers + east tier 6 ft further out (D-053 OPEN)"
+    source: "Shane 2026-10-04 7:24 AM CT; R-020"
   source: "Shane 2026-10-04 6:22 AM CT; D-043"
 
 support_rooms:
@@ -508,9 +539,14 @@ sheets:
         source: "Shane 2026-10-04 6:16 AM CT (official Trojan Horse Arena mark on the portal above the arch + TROJAN HORSE ARENA wordmark; side panel 'Hazel Green Regional Athletic Complex'; Rev A frozen); Shane 6:22 AM CT (portal freestanding over the brick Champion Walk, D-043); approved with changes and frozen 6:45 AM CT"
       C:
         file: P2-A-201_RevC
-        frozen: false
+        frozen: true
         inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_c.yaml"
-        source: "Shane 2026-10-04 6:45 AM CT (Rev B approved with changes: badge 11 ft dia, wordmark to match, nothing overflows; Champion Walk 28 x 30 ft + brick tiers; underside crimson + gold trim)"
+        source: "Shane 2026-10-04 6:45 AM CT (Rev B approved with changes: badge 11 ft dia, wordmark to match, nothing overflows; Champion Walk 28 x 30 ft + brick tiers; underside crimson + gold trim); frozen 7:24 AM CT when Rev D was ordered"
+      D:
+        file: P2-A-201_RevD
+        frozen: false
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_d.yaml"
+        source: "Shane 2026-10-04 7:24 AM CT (portal must not exceed 50 ft, arena roof 42; lower the arch crown 40 -> ~34 ft, springline proportional, ASSUMED; 11 ft badge + wordmark inside 50 ft, D-050)"
     source: "Shane 2026-10-04 5:27 AM CT"
   P2-A-301:
     title: BUILDING SECTIONS
@@ -519,10 +555,26 @@ sheets:
     revisions:
       A:
         file: P2-A-301_RevA
-        frozen: false
+        frozen: true
         inputs: "params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
-        source: "Shane 2026-10-04 6:45 AM CT (P2-A-301 Rev A building sections: N-S and E-W through the bowl / event floor and the L2 loop; locked / assumed heights; telescopic lower / fixed upper; 70 in stairs; sight lines TBD)"
+        source: "Shane 2026-10-04 6:45 AM CT (P2-A-301 Rev A building sections: N-S and E-W through the bowl / event floor and the L2 loop; locked / assumed heights; telescopic lower / fixed upper; 70 in stairs; sight lines TBD); frozen 7:24 AM CT when Rev B was ordered"
+      B:
+        file: P2-A-301_RevB
+        frozen: false
+        inputs: "params/phase2_sect.yaml (incl. rev_b) + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
+        source: "Shane 2026-10-04 7:24 AM CT (switchback intermediate landing >= stair width 70 in, IBC 2021 1011.6, D-051; fix detail 4 + per-stair footprint; note the under-tier use, D-049)"
     source: "Shane 2026-10-04 6:45 AM CT"
+  P2-A-302:
+    title: SIGHT-LINE STUDY
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_sightlines.yaml + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
+    revisions:
+      A:
+        file: P2-A-302_RevA
+        frozen: false
+        inputs: "params/phase2_sightlines.yaml + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
+        source: "Shane 2026-10-04 7:24 AM CT (sight-line study before more seating detail: standing + seated, both tiers, focal point = near edge of the nearest mat, C-value method; stack fit under the upper-tier front); R-020"
+    source: "Shane 2026-10-04 7:24 AM CT"
 
 sets:
   phase2_schematic_set_rev_a:

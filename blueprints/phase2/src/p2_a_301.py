@@ -7,8 +7,12 @@ Heights: params/phase2_elev.yaml (L2 15, ring roof 30, arena structure underside
 >= 25 CITED, R-019). Plan geometry: params/phase2_plan_rev_d.yaml (P2-A-101/102 Rev D, frozen). Tier / stair / guard
 section geometry: params/phase2_sect.yaml (CITED or ASSUMED, each value sourced). Slab, wall and roof thicknesses are
 graphic only (not designed). Sight lines NOT checked (TBD). DXF is in paper inches; fills are solid HATCH entities.
+Rev A FROZEN 7:24 AM CT (regenerate with --rev A --out-dir; byte-identical).
+Rev B (Shane 7:24 AM CT): switchback intermediate landing 70 in = stair width (IBC 2021 1011.6, D-051) in detail 4 with the
+per-stair plan footprint; under-tier use (D-049: storage / mech under the low front edge, lockers only at full height) on
+A-A, B-B and detail 3; sight-line pointer to P2-A-302 and egress pointer to D-052 (R-018.9). Rev B data: sect yaml rev_b.
 Usage (from the repo root):
-  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_301.py [--rev A] [--png PATH] [--out-dir DIR] [--force]
+  /workspace/.venv-keystone/bin/python blueprints/phase2/src/p2_a_301.py [--rev A|B] [--png PATH] [--out-dir DIR] [--force]
 """
 from __future__ import annotations
 
@@ -30,6 +34,9 @@ L_CUT, L_FILL, L_TAG, L_DAT, L_HID, L_GRD = ("A-SECT-CUTL", "A-SECT-FILL", "A-SE
 C = dict(cut="#3C3C3C", room="#F0ECE4", lobby="#F5E7C6", floor="#D9B77E", air="#E8F0F8", lower="#D88A8A",
          upper="#A7B3C3", loop="#C8693A", struct="#CFCFCF", stair="#BEBEBE", red="#CC0000")
 SLAB = 1.0            # graphic slab / roof / wall thickness (ft) — NOT designed
+
+
+REV = "A"          # set by main(); Rev B branches only (Rev A output stays byte-identical)
 
 
 def load():
@@ -301,8 +308,16 @@ def section_A(ev, plan, sc):
     m.text(uN[1] - 1.5, 11.8, "FIXED UPPER >", size=4.4, align="right")
     m.text((lp_o[1] + lp_i[1]) / 2, l2 + 4.6, "LOOP", size=4.2, align="center", bold=True)
     m.text((lp_i[3] + lp_o[3]) / 2, l2 + 4.6, "LOOP", size=4.2, align="center", bold=True)
-    m.text((evl["rect"][1] + by1) / 2, 5.0, "EVENT LOCKER 1", size=4.4, align="center", bold=True)
-    m.text((evl["rect"][1] + by1) / 2, 2.6, "(L1, under the tier)", size=3.9, align="center")
+    if REV == "A":
+        m.text((evl["rect"][1] + by1) / 2, 5.0, "EVENT LOCKER 1", size=4.4, align="center", bold=True)
+        m.text((evl["rect"][1] + by1) / 2, 2.6, "(L1, under the tier)", size=3.9, align="center")
+    else:
+        # D-049: storage / mech under the low front edge; lockers only under the flat L2 slab (full headroom, ASSUMED)
+        m.dashed(uN[3], 0, uN[3], l2 - SLAB, lw=0.4)
+        m.text((uN[1] + uN[3]) / 2, 5.0, "STORAGE /", size=4.0, align="center", bold=True)
+        m.text((uN[1] + uN[3]) / 2, 2.8, "MECH (D-049)", size=4.0, align="center", bold=True)
+        m.text((uN[3] + by1) / 2, 5.0, "LKR 1", size=4.0, align="center", bold=True)
+        m.text((uN[3] + by1) / 2, 2.8, "full-ht part", size=3.6, align="center")
     m.text(140, top + 1.0, f"ARENA ROOF {top:g}' (ASSUMED)", size=4.6, align="center", bold=True)
     m.text(140, us + 2.0, f"LONG-SPAN STRUCTURE ZONE {us:g}'–{top:g}' (not engineered)", size=4.0, align="center", ko=True)
     m.text(18, ring + 1.0, f"RING ROOF {ring:g}' (ASSUMED)", size=4.4, align="center")
@@ -365,7 +380,15 @@ def section_B(ev, plan, sc):
     m.text((lp_i[2] + lp_o[2]) / 2, l2 + 4.6, "LOOP", size=4.2, align="center", bold=True)
     m.text(lE[0] - 1.5, 7.0, "TELESCOPIC LOWER >", size=4.4, align="right")
     m.text(uE[0] - 1.5, 11.8, "FIXED UPPER >", size=4.4, align="right")
-    m.text((e4[0] + e4[2]) / 2, 5.0, "EVENT LKR 4", size=4.2, align="center", bold=True)
+    if REV == "A":
+        m.text((e4[0] + e4[2]) / 2, 5.0, "EVENT LKR 4", size=4.2, align="center", bold=True)
+    else:
+        m.dashed(uE[2], 0, uE[2], l2 - SLAB, lw=0.4)
+        m.text((uE[0] + uE[2]) / 2, 5.0, "STOR. /", size=3.8, align="center", bold=True)
+        m.text((uE[0] + uE[2]) / 2, 2.8, "MECH", size=3.8, align="center", bold=True)
+        m.text((uE[2] + e4[2]) / 2, 9.0, "LKR 4", size=3.4, align="center", bold=True)
+        m.text((uE[2] + e4[2]) / 2, 7.0, "7' full", size=3.2, align="center")
+        m.text((uE[2] + e4[2]) / 2, 5.2, "ht part", size=3.2, align="center")
     m.text(125, top + 1.0, f"ARENA ROOF {top:g}' (ASSUMED)", size=4.6, align="center", bold=True)
     m.text(125, us + 2.0, f"LONG-SPAN STRUCTURE ZONE {us:g}'–{top:g}' (not engineered)", size=4.0, align="center", ko=True)
     m.text(24.5, ring + 1.0, f"RING ROOF {ring:g}' (ASSUMED)", size=4.4, align="center")
@@ -449,12 +472,20 @@ def bowl_detail_annot(sh, P, ev, plan, sc):
     T((lp_o[3] + 252) / 2, l2 + 9.0, "STRETCH", 4.2, align="center")
     T((lp_o[3] + 252) / 2, l2 + 7.8, "6' (L2)", 4.2, align="center")
     # L1 headroom
-    T(uN[1] + 2.0, 4.6, "L1 headroom under the tier front", 4.6, color=C["red"])
-    T(uN[1] + 2.0, 3.4, f"≈ {zf:.1f}' less tier structure — TBD", 4.6, color=C["red"])
-    T(uN[1] + 2.0, 1.6, "EVENT LOCKER 1 (L1)", 4.6, bold=True)
-    # sight lines
-    T(197, 32.4, "SIGHT LINES: NOT CHECKED — TBD", 5.2, bold=True, color=C["red"])
-    T(197, 31.0, "(C-value, eye height, focal point not set)", 4.6, color=C["red"])
+    if REV == "A":
+        T(uN[1] + 2.0, 4.6, "L1 headroom under the tier front", 4.6, color=C["red"])
+        T(uN[1] + 2.0, 3.4, f"≈ {zf:.1f}' less tier structure — TBD", 4.6, color=C["red"])
+        T(uN[1] + 2.0, 1.6, "EVENT LOCKER 1 (L1)", 4.6, bold=True)
+        # sight lines
+        T(197, 32.4, "SIGHT LINES: NOT CHECKED — TBD", 5.2, bold=True, color=C["red"])
+        T(197, 31.0, "(C-value, eye height, focal point not set)", 4.6, color=C["red"])
+    else:
+        T(uN[1] + 1.9, 6.0, "UNDER-TIER (D-049): STORAGE / MECH", 4.4, bold=True, color=C["red"])
+        T(uN[1] + 1.9, 4.8, f"front {zf:.2f}' less structure; exits under it", 4.2, color=C["red"])
+        T(uN[1] + 1.9, 3.6, "need ≥ 7'-6\" ceiling (1003.2)", 4.2, color=C["red"])
+        T(uN[3] + 0.6, 1.6, "LOCKER (full ht)", 4.2, bold=True)
+        T(197, 32.4, "SIGHT LINES: see P2-A-302 — upper 14\"/row FAILS", 5.2, bold=True, color=C["red"])
+        T(197, 31.0, "(C < 60 mm); proposed 19\"/row, front 7.08' (D-053 OPEN)", 4.6, color=C["red"])
     # roof note
     T(222, us - 2.0, f"1030.6.2.2 (only if smoke-protected): roof ≥ 15' above", 4.4, layer=L_DAT)
     T(222, us - 3.3, f"highest aisle (loop {l2:g}') → ≥ {l2 + 15:g}'; {us:g}' drawn", 4.4, layer=L_DAT)
@@ -467,12 +498,13 @@ def stair_detail(sh, x0, y0, sc, ev):
     r, t = st["riser_in"] / 12, st["tread_in"] / 12
     n_r = st["risers"] // st["flights"]
     land = st["landing_depth_in"] / 12
+    land_m = land if REV == "A" else sc["rev_b"]["intermediate_landing_in"] / 12
     run = st["run_per_flight_in"] / 12
     rise = st["rise_ft"]
 
     def P(u, z):
         return x0 + u * s, y0 + z * s
-    L = land + run + land
+    L = land + run + land_m
     # floors
     for z0, z1, u0, u1 in ((-SLAB, 0, -2, L + 1), (rise - SLAB, rise, -2, land)):
         sh.poly([P(u0, z0), P(u1, z0), P(u1, z1), P(u0, z1)], fill=C["cut"], layer=L_CUT, lw=0)
@@ -513,7 +545,15 @@ def stair_detail(sh, x0, y0, sc, ev):
         sh.text(x, y, s_, size=size, layer=L_TAG, **kw)
     T(land + run / 2 + 2.6, 2.0, f"{n_r} R @ {st['riser_in']}\" = {n_r * st['riser_in'] / 12:.2f}'", 4.6)
     T(land + run / 2 + 2.6, 0.8, f"{st['treads_per_flight']} T @ {st['tread_in']}\" = {run:g}'", 4.6)
-    T(land + run + land / 2, zm + 0.8, f"{st['landing_depth_in']}\" landing", 4.2, align="center")
+    if REV == "A":
+        T(land + run + land / 2, zm + 0.8, f"{st['landing_depth_in']}\" landing", 4.2, align="center")
+    else:
+        T(land + run + land_m / 2, zm + 2.0, f"{sc['rev_b']['intermediate_landing_in']}\" mid", 4.2, align="center", bold=True)
+        T(land + run + land_m / 2, zm + 0.8, "landing", 4.2, align="center", bold=True)
+        T(land + run + land_m / 2, zm - 1.8, "= width", 4.0, align="center")
+        T(land + run + land_m / 2, zm - 3.0, "(1011.6)", 4.0, align="center")
+        T(land / 2, 3.0, f"{sc['rev_b']['floor_landing_in']}\" floor", 4.0, align="center")
+        T(land / 2, 1.8, "landing", 4.0, align="center")
     T(land / 2, rise + 0.6, "L2 FF 15' (A)", 4.2, align="center")
     T(land / 2, 0.6, "L1 FF 0'", 4.2, align="center")
     T(0.3, rise - 4.2, "flight 2 beyond", 4.4)
@@ -589,6 +629,27 @@ NOTES2 = [
 ]
 
 
+def notes_b():
+    """Rev B notes: Rev A lists with the changed entries swapped in place."""
+    n1 = list(NOTES1)
+    n1[n1.index(("L1 headroom under the upper-tier front ≈ 9.2' less structure — TBD (architect / structural).", "•"))] = (
+        "UNDER THE UPPER TIER (D-049 DECIDED): steps DOWN from the loop as drawn; under the low front edge: telescopic stack "
+        "(at the tier face), storage, mechanical. Lockers only where headroom is full (under the flat L2 slab — ASSUMED reading). "
+        "Front ≈ 9.2' less structure; exit passages under it need ≥ 7'-6\" (1003.2). Event lockers 1–4 re-planned at the next A-101.", "•")
+    n1[n1.index(("SIGHT LINES: NOT CHECKED — TBD. Rows and rises are placeholders until a sight-line study (C-value, eye height, focal point).", "•"))] = (
+        "SIGHT LINES: P2-A-302 Rev A. Rake unchanged here pending Shane: upper 14\"/row fails (C < 60 mm); proposed 19\"/row + east "
+        "tier 6' further out (D-053 OPEN). Closed stack recessed under the tier front conflicts — keep it at the tier face.", "•")
+    n2 = list(NOTES2)
+    n2[n2.index(("26 risers @ 6.92\" (15' ÷ 26), 2 flights of 13, 11\" treads, 48\" landings (1011.5.2, 1011.6). Stairs are not on cut A-A or B-B; typical shown.", "•"))] = (
+        "26 risers @ 6.92\" (15' ÷ 26), 2 flights of 13, 11\" treads (1011.5.2). Intermediate (switchback) landing 70\" = stair width "
+        "(1011.6 width rule at the 180° turn; 48\" = straight-run depth) — D-051; floor landings 48\". Typical shown (not on A-A / B-B).", "•")
+    n2[n2.index(("Plan effect at the next A-101/A-102 revision: ≈ 11.67' × 19' ≈ 221.7 SF per stair per level (+16.5 SF); egress recheck R-018.8. The frozen set stays frozen.", "•"))] = (
+        "Per stair: 11.67' × 20.83' (2 × 70\" by 48 + 132 + 70\") = 243.1 SF per level, clear — +37.9 SF vs the frozen 10.8' × 19' "
+        "(205.2); × 4 stairs × 2 levels ≈ +303 GSF at the next A-101/A-102 revision. Egress worst case still 12.4\" short: "
+        "proposed 4 × 76\" stairs (D-052 OPEN, R-018.9) — not drawn.", "•")
+    return n1, n2
+
+
 def notes(sh, x, y_top, width, items, floor, size=6.6):
     y = y_top
     for s_, b in items:
@@ -623,7 +684,7 @@ def build(p2, ev, plan, sc):
         "title": "BUILDING SECTIONS\nSCHEMATIC · COLOR",
         "scale": "AS NOTED",
         "date": meta2["sheet_date"],
-        "revision": sm["revision"],
+        "revision": sm["revision"] if REV == "A" else sc["rev_b"]["revision"],
         "drawn_by": meta2["drawn_by"],
         "sheet_no": SHEET_NO,
         "stamp": meta2["stamp"],
@@ -657,11 +718,16 @@ def build(p2, ev, plan, sc):
         raise SystemExit(f"LAYOUT OVERFLOW: bowl detail top/right {a_:.2f}, {b_:.2f}")
     title(sh, xD, yD - 0.55, "3", "NORTH BOWL EDGE (ENLARGED PART OF A-A)", "3/32\" = 1'-0\"  ·  y 196–252 at x = 100", 4.9)
     # ---- 4: typical stair
-    xs, ys = 7.40, 5.25
+    xs, ys = (7.40, 5.25) if REV == "A" else (7.20, 5.25)
     right_s = stair_detail(sh, xs, ys, sc, ev)
     if right_s > 9.95:
         raise SystemExit(f"LAYOUT OVERFLOW: stair detail right {right_s:.2f}")
-    title(sh, xs - 0.1, ys - 0.33, "4", "TYPICAL EXIT STAIR — 70\" CLEAR", "1/8\" = 1'-0\"  ·  D-038 CLOSED", 2.3)
+    if REV == "A":
+        title(sh, xs - 0.1, ys - 0.33, "4", "TYPICAL EXIT STAIR — 70\" CLEAR", "1/8\" = 1'-0\"  ·  D-038 CLOSED", 2.3)
+    else:
+        if xs - 0.25 < a_ + 0.02:
+            raise SystemExit(f"LAYOUT OVERFLOW: stair detail left {xs - 0.25:.2f} vs bowl detail right {a_:.2f}")
+        title(sh, xs - 0.1, ys - 0.33, "4", "TYPICAL EXIT STAIR — 70\" CLEAR", "1/8\" = 1'-0\" · 70\" mid landing (D-051) · 11.67' × 20.83' plan", 2.6)
     # ---- 5: key plan
     xk, yk = 7.75, 2.55
     tr = key_plan(sh, xk, yk, plan, sc)
@@ -672,19 +738,22 @@ def build(p2, ev, plan, sc):
     xn = 10.15
     y = legend(sh, xn, 7.30)
     y -= 0.08
-    yb1 = notes(sh, xn, y, 3.05, NOTES1, body_bottom + 0.06)
-    yb2 = notes(sh, xn + 3.2, y, 3.0, NOTES2, body_bottom + 0.06)
+    n1, n2 = (NOTES1, NOTES2) if REV == "A" else notes_b()
+    yb1 = notes(sh, xn, y, 3.05, n1, body_bottom + 0.06)
+    yb2 = notes(sh, xn + 3.2, y, 3.0, n2, body_bottom + 0.06)
     print(f"notes bottoms {yb1:.2f} / {yb2:.2f}; body_bottom {body_bottom:.2f}")
     return sh
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A"], default="A")
+    ap.add_argument("--rev", choices=["A", "B"], default="B")
     ap.add_argument("--png", help="optional PNG preview path (outside the repo)")
     ap.add_argument("--out-dir", help="write PDF/DXF here instead of phase2/out/{pdf,dxf}")
     ap.add_argument("--force", action="store_true", help="allow overwriting a FROZEN revision in the repo")
     a = ap.parse_args()
+    global REV
+    REV = a.rev
     p2, ev, plan, sc = load()
     rv = p2["sheets"][SHEET_NO]["revisions"][a.rev]
     if a.out_dir:

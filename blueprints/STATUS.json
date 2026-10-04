@@ -6,9 +6,9 @@
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
-  "phase2_percent": 45,
+  "phase2_percent": 50,
   "current_ticket": "P2-T-009",
-  "current_ticket_title": "P2-A-201 Rev C (11 ft badge, portal 56 ft ASSUMED, Champion Walk 28 x 30) + P2-A-301 Rev A building sections; Rev B frozen",
+  "current_ticket_title": "P2-A-201 Rev D (portal 50 ft, crown 34) + P2-A-301 Rev B (70 in mid landing) + P2-A-302 Rev A sight-line study; Rev C / A-301 Rev A frozen",
   "sheets_done": [
     "P1-G-001 Rev A (internal)",
     "P1-G-001 Rev B (principal)",
@@ -32,18 +32,21 @@
     "P2-A-102 Rev D (Level 2 block plan, approved, frozen)",
     "Phase 2 Schematic Set Rev A (G-003 F + A-101 D + A-102 D, one 17 x 11 PDF, frozen)",
     "P2-A-201 Rev A (exterior elevations, placeholders, frozen)",
-    "P2-A-201 Rev B (exterior elevations, official mark, approved with changes, frozen)"
+    "P2-A-201 Rev B (exterior elevations, official mark, approved with changes, frozen)",
+    "P2-A-201 Rev C (exterior elevations, 11 ft badge, frozen)",
+    "P2-A-301 Rev A (building sections, frozen)"
   ],
   "sheets_in_progress": [
-    "P2-A-201 Rev C (exterior elevations, 11 ft badge, Champion Walk 28 x 30)",
-    "P2-A-301 Rev A (building sections)"
+    "P2-A-201 Rev D (exterior elevations, portal 50 ft max)",
+    "P2-A-301 Rev B (building sections, 70 in mid landing, under-tier use)",
+    "P2-A-302 Rev A (sight-line study)"
   ],
   "last_commit": "ae5aa31",
   "branch": "grok/keystone",
-  "open_decisions": 17,
-  "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002 still OPEN). P2: owner (D-007), AHJ (D-008); trademark search (D-042); brick pricing (D-044); arch photo rights (D-048); site TBD (D-006)",
-  "what_changed": "P2-A-201 Rev B frozen. Rev C: 11 ft badge (D-047), portal raised 50 to 56 ft ASSUMED, walk 28 x 30 ft + brick tiers (D-046). Stairs 70 in (D-038 closed); service S1 north, south bus loop (D-034). Arch photo off-repo (D-048). P2-A-301 Rev A sections drawn.",
-  "what_to_verify": "Portal 56 ft high (ASSUMED) to fit the 11 ft badge; wordmark held at 27 in caps. A-301: upper tier steps down from the loop to a 9.17 ft front row (ASSUMED), L1 headroom under it TBD; Hussey 11-5/8 in rise; sight lines TBD.",
-  "next_action": "Shane reviews P2-A-201 Rev C and P2-A-301 Rev A, answers the tier question and D-048 (photo). Then the A-101/A-102 revision: 70 in stairs, portal + Champion Walk, site access. Phase 1 first when Dr. Headen data arrives.",
-  "question_for_shane": "Upper seats: should they step down from the Level 2 loop toward the court (drawn; rooms below get about 9 ft headroom), or sit on the Level 2 floor and rise to about 21 ft (full height below)?"
+  "open_decisions": 18,
+  "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002 still OPEN). P2: owner (D-007), AHJ (D-008); trademark search (D-042); brick donor pricing (D-044); egress stairs (D-052); sight-line fix (D-053); site TBD (D-006)",
+  "what_changed": "Photo is Shane's own, off-repo (D-048 closed). Upper tier steps down, storage/mech under it (D-049). A-201 Rev D: portal 50 ft, crown 34, springline 22.1 (D-050). A-301 Rev B: 70 in mid landing, 243 SF/stair (D-051). A-302 sight lines. Egress: 4 x 76 in stairs proposed (D-052).",
+  "what_to_verify": "Springline 22.1 ft + elliptical arch ASSUMED. Sight lines: upper 14 in risers fail (C 40-49 mm N/S, negative E); east 10 ft focal fails. Proposed 19 in risers + east +6 ft. Recessed stack conflicts; kept at the tier face.",
+  "next_action": "Shane answers D-053 (sight-line fix) and D-052 (76 in stairs). Then R-006 / R-007 and the site plan + A-101/A-102 revision (stairs, portal + walk, lockers re-plan). Phase 1 first when Dr. Headen data arrives.",
+  "question_for_shane": "Sight lines: approve 19 in upper-tier risers (front row drops 9.17 to 7.08 ft) plus moving the east seats 6 ft further from the mats (+1,512 SF), or accept weaker east views?"
 }
