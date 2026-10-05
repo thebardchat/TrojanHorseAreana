@@ -1,0 +1,92 @@
+# phase2_cover.yaml: P2-G-001 COVER SHEET inputs (Phase 2 Schematic Set Rev B). Read by phase2/src/p2_g_001.py.
+# Created 2026-10-04 5:03 PM CT (Shane "go, keep core 2 east"; Claude Code session covering for KEYSTONE, BACKLOG P2-T-012).
+# Every line comes from DECISIONS.md (D-###), the current sheets, or KEYSTONE_PROMPT_v1.3.1_ERRATA.md; D-070 is in
+# ARENA\_KEYSTONE\DECISIONS_ARENA.md (to merge). Approval state per sheet is read from params/phase2.yaml at build time.
+
+meta:
+  revision: A
+  drawn_by: "Drawn by Claude (AI) for Shane Brazelton"
+  set_name: "PHASE 2 — SCHEMATIC DESIGN SET · REV B"
+  set_sub: "Program package for the Alabama-registered architect of record · October 2026"
+  source: "Shane 2026-10-04 5:03 PM CT; ARENA CLAUDE.md steps 3-4"
+
+mark:
+  file: brand/THA_logo_red.svg
+  fill: "#CC0000"
+  diameter_in: 2.5
+  source: "D-041 (official mark, Shane's circular horse-head badge with Greek-key border); brand red #CC0000"
+
+project_rows:
+  - {k: "Building", v: "Indoor athletic arena, 2 levels; 210 x 252 ft + NE stair tower, + storage annex (north) + restroom bump-out (east)"}
+  - {k: "Owner / client", v: "Shane Brazelton (owner of record OPEN, D-007)"}
+  - {k: "Site", v: "TBD — unincorporated Hazel Green, Madison County, AL (D-006)"}
+  - {k: "Code basis", v: "IBC 2021 ASSUMED; county on 2018, State Fire Marshal on 2021 — AHJ to confirm (D-008)"}
+  - {k: "Occupancy", v: "A-4 main (arena), nonseparated mixed, fully sprinklered (ASSUMED, P2-G-002)"}
+  - {k: "Construction type", v: "TBD (architect)"}
+
+general_notes:
+  - "PRELIMINARY — CONCEPTUAL DESIGN — NOT FOR CONSTRUCTION. Schematic program package only; not a code review, not sealed."
+  - "Alabama requires a registered architect for this assembly building (Ala. Admin. Code 100-X-4-.03). This set is the program for that architect, who sets door widths, construction type, structure and MEP."
+  - "Labels on every sheet: DECIDED = Shane's decision (D-###); ASSUMED = KEYSTONE / Claude placeholder; CITED = code or source reference."
+  - "Drawn by AI (KEYSTONE / Claude) for Shane Brazelton. Older revisions are frozen history; new revisions are new files."
+
+index:
+  - {sheet: P2-G-001, title: "Cover sheet — sheet index + decisions", revision: A, status: "NEW (this sheet)"}
+  - {sheet: P2-G-002, title: "Code analysis (schematic)", revision: C}
+  - {sheet: P2-G-003, title: "Program test-fit — program + loop + storage + restrooms", revision: K}
+  - {sheet: P2-C-101, title: "Site plan — campus diagram (site TBD)", revision: E}
+  - {sheet: P2-A-101, title: "Overall floor plan — Level 1 (block plan)", revision: I}
+  - {sheet: P2-A-102, title: "Overall floor plan — Level 2 (block plan)", revision: F}
+  - {sheet: P2-A-103, title: "Floor overlays — mats, seating + conversions", revision: B}
+  - {sheet: P2-A-111, title: "Life safety plan — Levels 1 + 2", revision: C}
+  - {sheet: P2-A-201, title: "Exterior elevations", revision: H}
+  - {sheet: P2-A-301, title: "Building sections", revision: D}
+  - {sheet: P2-A-302, title: "Sight-line study", revision: C}
+  - {sheet: P2-A-401, title: "Enlarged plans — locker rooms + restroom core 2", revision: C}
+  - {sheet: P2-A-901, title: "3D massing model — views", revision: C}
+
+index_note: "IN REVIEW = drawn after Shane's decisions, awaiting his sign-off. Phase 2 Schematic Set Rev A (G-003 F, A-101 D, A-102 D; D-036) stays frozen. P2-A-103 Rev B predates D-069: the floor chair layouts still need an aisle kept open to V2 (next A-103 rev)."
+
+size_note: "Rev H = plan before the D-069 bump-out (+1,680 SF, L1 only). Set Rev A = plan Rev D (frozen baseline, D-036). Program total on P2-G-003 Rev K: 86,381 GSF (drawn − program = −588)."
+
+facts:
+  - "Event floor 120 x 144 ft drawn (16,400 SF program, D-030); 4 x 42 ft mats, 2 x 2 (D-014)."
+  - "2,200 seats = 1,100 telescopic lower + 1,100 fixed upper; upper tier steps down from the L2 loop, 21 in risers (D-009, D-049, D-061); east seats 16 ft from the mats (D-053)."
+  - "Level 2 FF 17'-9\" (D-061); 2-lane running / training loop (D-035, D-037); roofs: ring 32.75 ft, arena 42 ft, structure underside 36 ft (ASSUMED)."
+  - "Exits: E1 main = 8-pair door bank, 512 in clear, single controlled entry (D-033, Option 1 11:07 AM CT); 4 stairs x 76 in, 31 risers (D-051, D-052). 7'-6\" clear under the upper-tier front, zero margin (structure ≤ 1'-6\" ASSUMED)."
+  - "Restrooms (chairs-only case, load 3,446): lobby core + core 2 = 22 men's / 42 women's WC, 9 / 12 lav, 4 DF (D-064, D-069, D-070)."
+  - "Event lockers 4 x 900 = 3,600 SF (D-060); chair / table / stage storage annex 2,100 SF on the north wall with S1 (D-067)."
+
+decisions:
+  - {d: "D-030", t: "Two-level program around a 16,400 SF event floor; 2,200 seats (with D-009, D-032)."}
+  - {d: "D-033", t: "Single controlled public entry at E1; E1 = 8-pair door bank (Option 1, 11:07 AM CT)."}
+  - {d: "D-034", t: "Deliveries at north door S1 (staff only); bus loop south, offset from the portal view."}
+  - {d: "D-035/037", t: "Continuous Level 2 running / training loop, 2 lanes x 42 in."}
+  - {d: "D-039", t: "SW flex / storage and team assembly kept as drawn."}
+  - {d: "D-041", t: "Official mark = Shane's circular horse-head badge; red #CC0000 / black."}
+  - {d: "D-043/050", t: "Grand Entrance Portal freestanding over the Champion Walk; ≤ 50 ft, arch crown 34 ft (structural engineer required)."}
+  - {d: "D-045/047", t: "Portal arch underside crimson, gold trim; badge 11 ft dia + 27 in wordmark."}
+  - {d: "D-046/066", t: "Champion Walk 28 ft brick, widened to 40 ft at the doors (6 ft paved bands); 4x8 / 8x8 donor bricks."}
+  - {d: "D-049/053/061", t: "Upper tier steps down from the L2 loop; east seats 16 ft from mats; L2 FF 17'-9\", 21 in risers."}
+  - {d: "D-051/052", t: "4 exit stairs x 76 in clear, intermediate handrails; landing ≥ stair width."}
+  - {d: "D-054", t: "Floor uses: sports + chairs-only events (graduations, banquets, expos). No standing-concert design."}
+  - {d: "D-056/057", t: "No SF cap — size set by budget + parcel; every area table shows L1, L2, total, change."}
+  - {d: "D-060", t: "Event lockers back to full 3,600 SF behind the tier."}
+  - {d: "D-064", t: "L1 restrooms sized to the chairs-only case; posted loads per configuration; temp units beyond."}
+  - {d: "D-065", t: "Security screening in a side bay of the lobby, off the egress path."}
+  - {d: "D-067", t: "Chair / table / stage storage (~2,350 chairs + tables + stage) near the floor and S1."}
+  - {d: "D-069/070", t: "Second restroom pair (core 2) in a one-storey 30 x 56 ft bump-out on the EAST wall at V2."}
+
+open_items:
+  - {d: "D-006", t: "Site / parcel (drives X7 discharge, bus loop, utilities, site work)", owner: true}
+  - {d: "D-007", t: "Owner of record", owner: true}
+  - {d: "D-008", t: "Code edition + AHJ pre-application (Madison County)", owner: true}
+  - {d: "D-012", t: "Phase 2 budget target (ROM estimate in progress)", owner: true}
+  - {d: "D-042", t: "Trademark search before signage / apparel", owner: true}
+  - {d: "D-044", t: "Donor-brick program + pricing", owner: true}
+  - {d: "D-010/011/013", t: "Locker parity, concessions scope, girls 3,503 SF tag", owner: true}
+  - {d: "Structural", t: "Upper-tier structure depth ≤ 1'-6\" (7'-6\" clear, zero margin); portal + arch"}
+  - {d: "MEP", t: "Core-2 plumbing routing and 16 ft bump-out height (ASSUMED)"}
+  - {d: "Architect", t: "Door widths + hardware, construction type, allowable area, smoke-protected seating"}
+
+open_note: "Red = owner decisions (Shane). Others go to the architect of record / engineers."

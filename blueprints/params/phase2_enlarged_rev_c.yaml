@@ -1,0 +1,78 @@
+# phase2_enlarged_rev_c.yaml: P2-A-401 Rev C overrides (Phase 2). Read by phase2/src/p2_a_401.py --rev C together with
+# params/phase2_enlarged.yaml (Rev A: the 4 event locker rooms, unchanged, approved D-068).
+# Rev C, 2026-10-04 (Shane 3:31 PM CT): D-069 CLOSED = Option 2. Enlarged plan of the new restroom core 2 in the one-storey east
+# bump-out (plan Rev I rooms 25-27). Fixture split: lobby core (rooms 4 + 5, as drawn) + core 2 = chairs-only (D-064).
+# Units: feet. Test-fit frame per room: x = room length from the building wall (x 210) east, lavatory wall at x 0; y = room width
+# measured from the corridor wall (women: north from y 183.09; men: south from y 175.09); entry on the y = 0 (corridor) wall.
+# Rev B header (kept for history):
+# phase2_enlarged_rev_b.yaml: P2-A-401 Rev B overrides (Phase 2, BACKLOG P2-T-012). Read by phase2/src/p2_a_401.py --rev B together with
+# params/phase2_enlarged.yaml (Rev A: the 4 event locker rooms, unchanged, approved D-068).
+# Rev B, 2026-10-04 (Shane 1:21 / 1:22 PM CT): adds the L1 public restroom core TEST-FIT for the chairs-only fixture count (D-064 DECIDED
+# Option 2: L1 load = chairs-only floor 2,346 + lower seats 1,100 = 3,446 -> IBC 2021 T2902.1). The drawn rooms on P2-A-101 Rev H are NOT
+# redrawn (D-069 OPEN decides where the space comes from); this sheet shows how big the rooms need to be from cited minimums.
+# Units: feet. Test-fit frame: x = room length (lavatory wall at x 0, stall rows run along x), y = room width; origin = SW corner.
+# Rows: y = [y0, y1] band, x0 = first compartment, face = side the doors / fixtures open to (N or S), items = [type, count] in order.
+
+meta:
+  revision: C
+  file: P2-A-401_RevC
+  title_block: "ENLARGED PLANS\nLOCKER RMS + RESTROOM CORE 2"
+  scale_text: "1/8\" = 1'-0\" (rooms) · 1/16\" = 1'-0\" (core 2)"
+  source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out; A-401 Rev C new core enlarged plan)"
+
+basis:
+  plan: params/phase2_plan_rev_i.yaml
+  rooms_note: "Locker rooms 1-4 unchanged from Rev A (approved D-068); envelopes identical on plan Rev I; rooms 3-4 exit X7 now 30 ft further east (bump-out face)"
+  source: "phase2_plan_rev_i.yaml (evl_1..4 rects = Rev G / H); D-068 (A-401 Rev A approved, Shane 1:21 PM CT)"
+
+core:
+  scale_ft_per_in: 16
+  load_source: "p2_testfit.compute_rev_k: fx1c (chairs-only 3,446; IBC 2021 T2902.1) and prog rev_k.fixture_split (lobby core + core 2)"
+  modules:
+    wc_std: {w: 3.0, d: 5.0, label: "", source: "IPC 2021 405.3.1: compartment >= 30 x 60 in (floor-mounted); 36 in wide ASSUMED"}
+    wc_amb: {w: 3.0, d: 5.0, label: "AMB", source: "ADA 2010 604.8.2: ambulatory 35-37 in wide x >= 60 in deep; required where >= 6 WC + urinals in the room (213.3.1)"}
+    wc_acc: {w: 5.0, d: 5.0, label: "A", source: "ADA 2010 604.8.1.1: wheelchair compartment >= 60 in wide x 56 in (wall-hung) / 59 in (floor) deep"}
+    urinal: {w: 2.5, d: 2.0, label: "", source: "IPC 2021 405.3.1 (30 in c/c, 15 in to a side wall) and 405.3.5 (partitions >= 18 in from the wall)"}
+    urinal_acc: {w: 2.5, d: 2.0, label: "A", source: "ADA 2010 213.3.3 (more than 1 urinal: 1 per 605), rim <= 17 in, 30 x 48 in forward clear (605.3)"}
+    lav: {w: 2.5, d: 2.0, source: "30 in c/c ASSUMED (IPC 2021 405.3.1: 15 in to a side wall, 21 in clear in front); 1 accessible per room (ADA 213.3.4, 606: rim <= 34 in, 30 x 48 forward)"}
+  aisle_ft: 6
+  aisle_source: "6 ft aisles ASSUMED: >= 60 in turning circle (ADA 304.3.1) and >= 21 in in front of fixtures (IPC 405.3.1)"
+  allowance: 0.10
+  allowance_source: "+10 % for walls, plumbing chases and the entry maze, ASSUMED (KEYSTONE)"
+  rooms:
+    women:
+      name: "WOMEN (2) — CORE 2"
+      drawn_id: rr_wb
+      L: 28
+      W: 33
+      entry: [2.5, 7.5]
+      lav: {n: 7, y0: 1.5, source: "KEYSTONE test-fit (ASSUMED layout)"}
+      rows:
+        - {y: [0, 5], x0: 8, face: N, items: [[wc_std, 6]], source: "KEYSTONE test-fit (ASSUMED layout)"}
+        - {y: [11, 16], x0: 8, face: S, items: [[wc_std, 6]], source: "KEYSTONE test-fit (ASSUMED layout)"}
+        - {y: [17, 22], x0: 8, face: N, items: [[wc_std, 6]], source: "KEYSTONE test-fit (ASSUMED layout)"}
+        - {y: [28, 33], x0: 8, face: S, items: [[wc_acc, 1], [wc_amb, 1], [wc_std, 4]], source: "KEYSTONE test-fit (ASSUMED layout)"}
+      blocks:
+        - {rect: [8, 16, 26, 17], label: "", kind: chase, source: "KEYSTONE test-fit (ASSUMED layout)"}
+      turn: [5, 23.5]
+      source: "KEYSTONE test-fit (ASSUMED layout) from the module minimums above; 24 WC = core-2 share (phase2_program.yaml rev_k)"
+    men:
+      name: "MEN (2) — CORE 2"
+      drawn_id: rr_mb
+      L: 25.5
+      W: 13
+      entry: [2.5, 7.5]
+      lav: {n: 5, y0: 0.25, source: "KEYSTONE test-fit (ASSUMED layout)"}
+      rows:
+        - {y: [0, 5], x0: 8, face: N, items: [[wc_acc, 1], [wc_amb, 1], [wc_std, 3]], source: "KEYSTONE test-fit (ASSUMED layout)"}
+        - {y: [11, 13], x0: 8, face: S, items: [[urinal_acc, 1], [urinal, 6]], source: "KEYSTONE test-fit (ASSUMED layout)"}
+      blocks: []
+      turn: [5, 8]
+      source: "KEYSTONE test-fit (ASSUMED layout); 5 WC + 7 urinals = 12 WC-equivalents, urinals <= 67 % (IPC 2021 424.2)"
+  df_jan: {drawn_id: df_jan, df: 2, note: "hi-lo drinking fountain pair in an alcove off the corridor (ADA 2010 211.2, 602) + janitor / service sink (1 per level, T2902.1)", source: "Shane 3:31 PM CT (4 DF total); KEYSTONE layout"}
+  corridor: {zone_id: exit_e, width_ft: 8, note: "EXIT (E) passage continued 30 ft east through the bump-out to X7; restroom entries + DF alcove open off it; no queuing in it (IBC 1003.6)", source: "plan Rev I zones.exit_e; IBC 2021 1003.6, T1020.3 (R-018)"}
+  why_east: "East, not north: the north side is the back-of-house yard (service drive, S1 apron, storage annex x 52-122, X4 / X5 / ST-2 discharges); the east side is open, and the public reaches core 2 straight from the floor and the east lower tier through V2 and the 8 ft EXIT (E) passage. East concourse width and SW FLEX unchanged (D-039)."
+  why_east_source: "Shane 3:31 PM CT (east or north, pick and explain); plan Rev H / I north side (annex, S1, service apron, C-101 Rev D)"
+  source: "Shane 3:31 PM CT (D-069 Option 2; split 10/18, 4/5, 2 lobby + new core); IBC 2021 T2902.1, 2902.3.3; IPC 2021 405.3.1, 405.3.5, 424.2 (UpCodes, retrieved 2026-10-04); ADA 2010 211.2, 213.3, 304.3, 604.8, 605, 606"
+
+source: "KEYSTONE 2026-10-04 (Shane 3:31 PM CT); params/phase2_enlarged.yaml; params/phase2_plan_rev_i.yaml; phase2_program.yaml rev_k; IBC 2021 T2902.1; IPC 2021 Ch. 4; ADA 2010 Standards"

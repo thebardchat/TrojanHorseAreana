@@ -1,0 +1,143 @@
+# KEYSTONE — P2-A-302 SIGHT-LINE STUDY (Phase 2, P2-T-009). Created 2026-10-04 (Shane 7:24 AM CT: sight-line study BEFORE more
+# seating detail). Bowl geometry from params/phase2_sect.yaml (P2-A-301) and params/phase2_plan_rev_d.yaml (frozen plan).
+# Method and values are CITED (secondary sources, see research/R-020-sight-lines.md) or marked ASSUMED.
+meta:
+  sheet: P2-A-302
+  title: SIGHT-LINE STUDY
+  revision: A
+  source: "Shane 2026-10-04 7:24 AM CT (sight-line study: standing and seated, both tiers, focal point = near edge of the nearest mat; C-value method; report C per row, failures, riser changes; check the telescopic stack under the upper-tier front)"
+
+method:
+  formula: "C = D (N + R) / (D + T) - R  (Green Guide, Guide to Safety at Sports Grounds, 12.3; D, R = eye of the spectator in front to the focal point; N, T = riser and row depth to the spectator behind)"
+  computed_as: "C = D_front x R_behind / D_behind - R_front, with every eye placed from the actual tier geometry (equivalent; also handles the step between tiers and the rail)"
+  source: "Guide to Safety at Sports Grounds (DCMS 2008, 5th ed.) 12.3, as reprinted by Starena Group 'Sight Lines for Seated Spectators' and Parametric Monkey 'Seating bowl' (retrieved 2026-10-04)"
+
+eyes:
+  seated_m: 1.2
+  standing_m: 1.6
+  offset_from_row_rear_m: 0.15
+  basis: "seated eye 1.2 m above the row tread and 0.15 m forward of the row's rear edge = 'industry standard' defaults (BVN Stadium.Cvalue node, Parametric Monkey); standing eye 1.6 m (EN 13200-1 standing value as summarised by DIN EN 13200-1:2019 listing; 1.6 m also in a stand-design guide). Shane's range 5'-2\" to 5'-6\" (1.57-1.68 m) contains 1.6 m (5'-3\")"
+  status: "CITED (secondary sources) / standard paper value not purchased"
+  source: "Parametric Monkey 'Stadium seating bowl with Dynamo' (2017, updated 2023); kpt-bj.com summary of DIN EN 13200-1:2019-05; Shane 2026-10-04 7:24 AM CT; retrieved 2026-10-04"
+
+targets:
+  c_target_mm: 90
+  c_min_mm: 60
+  basis: "FIFA Football Stadiums Guidelines 2.3: C = 120 optimal, 90 preferred, 60 minimum in specific areas (avoid in lower tiers); CEN/TR 15913: C >= 90 for all new stands; Green Guide descriptors 60 = look between heads, 90 = see well with head tilted back. Shane's target 60-90 mm. KEYSTONE grades: >= 90 PASS, 60-90 MARGINAL, < 60 FAIL"
+  source: "FIFA Publications 'Football Stadiums Guidelines' 2.3 Stadium Bowl; CEN/TR 15913:2009 (iTeh preview); Starena / Green Guide table (retrieved 2026-10-04); Shane 7:24 AM CT"
+
+focus:
+  point: "near edge of the nearest mat, at the floor (mat thickness ignored — slightly conservative)"
+  z_ft: 0
+  mats: "4 x 42 ft mats at the Rev D origins (M1-M4); N and S tier fronts 25 ft from the nearest mat edge (10 ft clear + 15 ft table zone); E tier front 10 ft (10 ft clear); no west tier"
+  status: "Shane (focal point) / plan geometry (frozen Rev D)"
+  source: "Shane 2026-10-04 7:24 AM CT; phase2_plan_rev_d.yaml mats / tiers; phase2.yaml spaces.arena.mat_ft (D-014); R-005"
+
+loop:
+  width_ft: 7
+  basis: "Level 2 loop clear width (graphic extent of the loop slab behind the upper tier)"
+  source: "D-035 (Shane 2026-10-04 4:55 AM CT, 7 ft loop); phase2_plan_rev_d.yaml"
+
+rail:
+  standing_back_ft: 1.0
+  basis: "spectator standing on the loop 1 ft behind the upper tier's back edge (ASSUMED), always standing eye"
+  status: ASSUMED
+  source: "KEYSTONE (ASSUMED); D-035 loop; D-049 upper tier steps down from the loop"
+
+cases:
+  as_drawn:
+    lower_rise_in: 11.625
+    upper_rise_in: 14
+    east_clear_ft: 10
+    basis: "P2-A-301 Rev A / Rev B geometry (phase2_sect.yaml): telescopic 6 x 24 in at 11-5/8 in; fixed 5 x 36 in at 14 in, stepping down from the loop (D-049)"
+    source: "phase2_sect.yaml; phase2_plan_rev_d.yaml"
+  proposed:
+    lower_rise_in: 11.625
+    upper_rise_in: 19
+    upper_aisle: "3 aisle risers of 6-1/3 in with 12 in treads per 36 in row (IBC 2021 1030.14.2.1 >= 11 in, 1030.14.2.2 4-8 in)"
+    east_clear_ft: 16
+    basis: "smallest KEYSTONE change set that puts every seated C >= 90 mm on all sides with the loop held at L2 FF 15: upper riser 14 -> 19 in (front row 9.17 -> 7.08 ft) and the east tier front 6 ft further from the mats (10 -> 16 ft). Lower tier stays at the Hussey 11-5/8 in rise (16 in would fix the east lower rows but then the stepped-down upper tier collides with it). ASSUMED, proposed (D-053)"
+    status: "PROPOSED (D-053 OPEN)"
+    source: "KEYSTONE calculation (p2_a_302.py), 2026-10-04"
+
+stack:
+  closed_depth_in: 42
+  recess_depth_add_in: 6
+  overall_seat_height_in: 75.125
+  recess_height_add_in: 2.25
+  basis: "Hussey MAXAM, 6 rows at 11-5/8 in rise: overall seat height 6'-3 1/8\"; closed 3'-6\" (wall attached); recessed application: add 6 in to the closed dimension for the minimum recess depth (4'-0\") and 2-1/4 in to the seat height for the minimum recess height (6'-5 3/8\"). In a recessed application the rear row stays in the recess when the seats are open"
+  headroom_rule: "means of egress ceiling >= 7'-6\" (IBC 2021 1003.2); protruding objects >= 80 in headroom (1003.3.1)"
+  source: "Hussey MAXAM brochure, Dimensional Data + Dimensional Notes (research_src/hussey_maxam.pdf, retrieved 2026-10-03, R-008 S4); IBC 2021 1003.2, 1003.3.1 (UpCodes, retrieved 2026-10-04)"
+
+scales:
+  section_ft_per_in: 10.6667
+  stack_ft_per_in: 5.3333
+  source: "KEYSTONE sheet layout (3/32 in and 3/16 in = 1 ft)"
+
+# Rev B (Shane 2026-10-04 9:47 AM CT): the 'as drawn' basis changed. P2-A-101 Rev E / P2-A-301 Rev C draw 19 in upper risers and a
+# 16 ft east focal distance (D-053 DECIDED) = Rev A's PROPOSED case; Rev A's AS DRAWN (14 in / 10 ft) is now the superseded Rev D basis.
+# Rev A frozen (byte-identical; it still reads `cases` above).
+rev_b:
+  revision: B
+  plan_file: phase2_plan_rev_e.yaml
+  case_order: [drawn_e, rev_d]
+  cases:
+    drawn_e:
+      label: "AS DRAWN (P2-A-101 Rev E / A-301 Rev C)"
+      short: drawn
+      lower_rise_in: 11.625
+      upper_rise_in: 19
+      east_clear_ft: 16
+      basis: "D-053 DECIDED as drawn on P2-A-101 Rev E: telescopic 6 x 24 in at 11-5/8 in; fixed 5 x 36 in at 19 in (3 aisle risers of 6-1/3 in, 12 in treads), front row 7.08 ft, stepping down from the loop (D-049); east tier front 16 ft from the nearest mat (building 210 ft)"
+      source: "Shane 2026-10-04 7:44 AM CT (D-053); phase2_plan_rev_e.yaml; phase2_sect.yaml rev_c"
+    rev_d:
+      label: "REV D BASIS (superseded)"
+      short: "Rev D"
+      lower_rise_in: 11.625
+      upper_rise_in: 14
+      east_clear_ft: 10
+      basis: "P2-A-302 Rev A 'as drawn' = P2-A-301 Rev A / B on the frozen Plan Rev D (14 in upper risers, 10 ft east focal); shown for comparison only"
+      source: "phase2_sightlines.yaml cases.as_drawn (Rev A); phase2_plan_rev_d.yaml"
+  figures:
+    - {case: drawn_e, side: NS, title: "1  AS DRAWN (REV E) — NORTH / SOUTH SIDE (seated eyes)", sub: "focal 25' (10' clear + 15' table zone) · telescopic 11⅝\" · upper 19\"/row, front 7.08'", source: "phase2_plan_rev_e.yaml; D-053"}
+    - {case: drawn_e, side: E, title: "2  AS DRAWN (REV E) — EAST SIDE (seated eyes)", sub: "focal 16' (D-053) · upper 19\"/row · worst side", source: "phase2_plan_rev_e.yaml; D-053"}
+    - {case: rev_d, side: E, title: "3  REV D BASIS (SUPERSEDED) — EAST SIDE (seated eyes)", sub: "focal 10' · upper 14\"/row, front 9.17' · P2-A-302 Rev A 'as drawn'", source: "P2-A-302 Rev A"}
+  stack_sub: "3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn · dashed = Rev D 9.17' front"
+  basis_change: "Rev A AS DRAWN (14 in / 10 ft east) is no longer drawn; Plan Rev E draws 19 in / 16 ft (D-053) = Rev A PROPOSED, so the 'as drawn' basis changed and the sheet is re-cased (values unchanged)"
+  source: "Shane 2026-10-04 9:47 AM CT (A-302 Rev B only if the riser / east-clear change alters its 'as drawn' basis — it does); phase2_plan_rev_e.yaml"
+
+# Rev C (Shane 2026-10-04 10:27 AM CT): D-061 DECIDED Option B. The 'as drawn' basis changed again: P2-A-101/102 Rev F /
+# P2-A-301 Rev D draw L2 FF 17'-9" with 21 in upper risers (front row 9.0 ft). Rev E basis (15 ft / 19 in) kept for comparison.
+# Revs A and B frozen (byte-identical; they ignore l2_ft).
+rev_c:
+  revision: C
+  plan_file: phase2_plan_rev_f.yaml
+  case_order: [drawn_f, rev_e]
+  cases:
+    drawn_f:
+      label: "AS DRAWN (P2-A-101 Rev F / A-301 Rev D)"
+      short: drawn
+      lower_rise_in: 11.625
+      upper_rise_in: 21
+      l2_ft: 17.75
+      east_clear_ft: 16
+      basis: "D-061 DECIDED Option B as drawn on P2-A-101 Rev F: telescopic 6 x 24 in at 11-5/8 in; fixed 5 x 36 in at 21 in (3 aisle risers of 7 in, 12 in treads) from the loop at L2 FF 17'-9\" down to a 9.0 ft front row (D-049); east tier front 16 ft from the nearest mat (D-053)"
+      source: "Shane 2026-10-04 10:27 AM CT (D-061); phase2_plan_rev_f.yaml; phase2_sect.yaml rev_d"
+    rev_e:
+      label: "REV E BASIS (superseded)"
+      short: "Rev E"
+      lower_rise_in: 11.625
+      upper_rise_in: 19
+      l2_ft: 15
+      east_clear_ft: 16
+      basis: "P2-A-302 Rev B 'as drawn' = Plan Rev E (L2 FF 15 ft, 19 in upper risers, front row 7.08 ft, east 16 ft); shown for comparison only"
+      source: "phase2_sightlines.yaml rev_b.cases.drawn_e; phase2_plan_rev_e.yaml"
+  figures:
+    - {case: drawn_f, side: NS, title: "1  AS DRAWN (REV F) — NORTH / SOUTH SIDE (seated eyes)", sub: "focal 25' (10' clear + 15' table zone) · telescopic 11⅝\" · upper 21\"/row, L2 17'-9\", front 9.0'", source: "phase2_plan_rev_f.yaml; D-061"}
+    - {case: drawn_f, side: E, title: "2  AS DRAWN (REV F) — EAST SIDE (seated eyes)", sub: "focal 16' (D-053) · upper 21\"/row, L2 17'-9\" · worst side", source: "phase2_plan_rev_f.yaml; D-061"}
+    - {case: rev_e, side: E, title: "3  REV E BASIS (SUPERSEDED) — EAST SIDE (seated eyes)", sub: "focal 16' · L2 15' · upper 19\"/row, front 7.08' · P2-A-302 Rev B 'as drawn'", source: "P2-A-302 Rev B"}
+  stack_sub: "3/16\" = 1'-0\" · recessed (Hussey) · N/S as drawn 9.0' · dashed = Rev E 7.08'"
+  results: "C min (mm), as drawn Rev F: N/S seated 149 / standing 127; E seated 101 / standing 72 (lower tier governs, unchanged vs Rev E). Upper tier: N/S seated 179 (was 175), standing 156 (151); E seated 105 (109), standing 76 (81). No FAIL; E standing L4-L6 and U3-U5 MARGINAL (60-90)"
+  results_source: "KEYSTONE calculation (p2_a_302.py calc(), Rev C), 2026-10-04"
+  basis_change: "Rev B AS DRAWN (L2 15 ft / 19 in) is no longer drawn; Plan Rev F draws L2 17'-9\" / 21 in (D-061), so the sheet is re-cased and rechecked"
+  source: "Shane 2026-10-04 10:27 AM CT (A-302 Rev C sight-line recheck with 21 in risers; report C-values); phase2_plan_rev_f.yaml"

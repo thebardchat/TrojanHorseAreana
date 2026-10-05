@@ -1,0 +1,92 @@
+# phase2_elev_rev_b.yaml: P2-A-201 EXTERIOR ELEVATIONS Rev B overlay (Phase 2). Read by phase2/src/p2_a_201.py --rev B on top of
+# phase2_elev.yaml (which stays the frozen Rev A input, unchanged). Units: feet above L1 FF, u = ft along the south face from
+# the west end (portal centre u = 113). Every value carries `source`. Sizes ASSUMED unless cited.
+
+meta:
+  revision: B
+  change: "official Trojan Horse Arena mark on the portal above the arch + TROJAN HORSE ARENA wordmark; side panel 'Hazel Green Regional Athletic Complex'; keystone replaced by the mark; portal FREESTANDING in front of the south entrance over the brick Champion Walk (6:22 AM CT); key plan"
+  source: "Shane 2026-10-04 6:16 AM CT (official mark; P2-A-201 Rev B, Rev A frozen); Shane 6:22 AM CT (freestanding portal, Champion Walk)"
+
+mark:
+  name: "Trojan Horse Arena official mark — circular horse-head badge with Greek key border"
+  file: brand/THA_logo_black.svg
+  variant: black
+  fill: "#1A1A1A"
+  variants: [{id: black, file: brand/THA_logo_black.svg, fill: "#1A1A1A", source: "Shane 6:16 AM CT attachment, identified by fill"}, {id: red, file: brand/THA_logo_red.svg, fill: "#CC0000", source: "Shane 6:16 AM CT attachment, identified by fill"}, {id: white, file: brand/THA_logo_white.svg, fill: "#FFFFFF", source: "Shane 6:16 AM CT attachment, identified by fill"}]
+  diameter: 6.0
+  center_z: 43.4
+  basis: "black mark on the limestone attic, centred on the arch, between the arch crown (40 ft) and the wordmark; replaces the Rev A keystone; 6 ft = 0.375 in at 1/16 in = 1 ft-0 in (enlarged in the brand detail)"
+  status: ASSUMED
+  source: "Shane 2026-10-04 6:16 AM CT (official mark, D-041; mark on the portal above the arch; red / black); KEYSTONE (ASSUMED size and position)"
+
+wordmark:
+  text: "TROJAN HORSE ARENA"
+  color: "#CC0000"
+  baseline_z: 46.9
+  cap_height: 1.5
+  basis: "single line on the attic above the mark, below the cornice (48.8 ft); letter style TBD (drawn in the sheet font)"
+  status: ASSUMED
+  source: "Shane 2026-10-04 6:16 AM CT ('TROJAN HORSE ARENA' wordmark text; red / black); KEYSTONE (ASSUMED size)"
+
+side_panel:
+  lines: ["HAZEL GREEN REGIONAL", "ATHLETIC COMPLEX"]
+  rect: [40, 15.5, 86, 23.0]
+  panel: "#1A1A1A"
+  stripe: "#CC0000"
+  text_color: "#FFFFFF"
+  cap_height: 1.5
+  basis: "black panel with a red stripe on the west ring wall beside the portal (u 40-86 ft, z 15.5-23 ft); size, position and mounting ASSUMED"
+  status: ASSUMED
+  source: "Shane 2026-10-04 6:16 AM CT (side panel 'Hazel Green Regional Athletic Complex'; red / black); KEYSTONE (ASSUMED)"
+
+arena_sign:
+  text: "SIGNAGE ZONE — CONTENT TBD"
+  source: "KEYSTONE (Rev A placeholder kept on the arena south face; content not stated by Shane)"
+
+detail:
+  title_lines: ["BRAND DETAIL", "PORTAL ATTIC", "3/32\" = 1'-0\""]
+  ft_per_in: 10.6667
+  z_range: [40, 50]
+  source: "KEYSTONE sheet layout (enlarged view so the mark and wordmark read at print size)"
+
+trademark:
+  status: "OPEN (D-042): trademark search before signage / apparel"
+  source: "Shane 2026-10-04 6:16 AM CT"
+
+portal_freestanding:
+  gap_to_building: 30
+  depth: 6
+  basis: "freestanding limestone arch just before the south entrance, on the way in, straddling Champion Walk; nothing attaches it to the building. Gap from the building's south wall to the portal's north face 30 ft and portal depth 6 ft are ASSUMED (setback TBD by Shane / site plan). The arch opening is open (no glazing): through it the elevation shows the building's E1 entry behind"
+  soffit: "crimson soffit band inside the arch (Shane: 'crimson inside the arch'; reference photo shows a crimson soffit) with a thin gold edge (Shane earlier: 'gold soffit'; crimson / gold split TBD)"
+  status: ASSUMED
+  source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043; reference photo blueprints/references/portal_freestanding_champion_walk_ref.png); KEYSTONE (ASSUMED gap and depth)"
+
+champion_walk:
+  name: "CHAMPION WALK"
+  paving: brick
+  note: "Engraved donor / sponsor bricks"
+  width: 28
+  length: TBD
+  brick_hex: "#B5654A"
+  basis: "brick walkway from the south (way in) through the portal to the E1 entrance; width drawn = arch opening 28 ft (ASSUMED); length TBD; low walls / planters seen in the reference photo are not drawn (TBD)"
+  status: "ASSUMED width; length TBD; donor-brick program OPEN (D-044)"
+  source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043, D-044); brick hex ASSUMED"
+
+entry_glazing_building:
+  width: 18
+  height: 16
+  basis: "E1 entry glazing on the building's south wall behind the freestanding portal (seen through the open arch); width ASSUMED, height = Rev A entry glazing height (ASSUMED)"
+  status: ASSUMED
+  source: "phase2_plan_rev_d.yaml (E1 on the south wall at the entry axis); phase2_elev.yaml portal.entry_glazing_height; KEYSTONE (ASSUMED width)"
+
+key_plan:
+  title: "KEY PLAN — PORTAL + CHAMPION WALK — 1\" = 60'"
+  ft_per_in: 60
+  source: "KEYSTONE sheet layout (schematic key plan in the free band above the south elevation; site plan to follow on the next A-101 revision, D-043)"
+
+finish_brick:
+  id: brick
+  name: "BRICK (Champion Walk)"
+  hex: "#B5654A"
+  status: "Shane (material); hex ASSUMED"
+  source: "Shane 2026-10-04 6:22 AM CT (brick walkway)"

@@ -1,0 +1,145 @@
+# phase2_plan_rev_b.yaml: P2-T-004 SCHEMATIC BLOCK PLAN geometry, REV B (Phase 2). Read by phase2/src/p2_a_plan.py --rev B
+# and by P2-G-003 Rev E (seat counts). Rev A geometry stays in phase2_plan.yaml (FROZEN with P2-A-101/102 Rev A).
+# Shane's Rev A review (2026-10-04 4:30 AM CT): entry south-center on the arena N-S axis, lobby / hall of champions centered
+# on the south side under the south tier, restrooms flank the lobby, mech off the west public side, MIX seating (D-009),
+# seats N/S/E only, footprint margin >= 2,000 SF, shrink the box if it can shrink.
+# Units: feet. Origin = SW corner of the building; x runs east, y runs north. Rectangles are [x0, y0, x1, y1].
+# Status: every coordinate is ASSUMED (KEYSTONE layout choice, LOW confidence) unless a field says otherwise.
+
+meta:
+  ticket: P2-T-004
+  revision: B
+  sheets: [P2-A-101, P2-A-102]
+  label: "SCHEMATIC — BLOCK PLAN"
+  scale_ft_per_in: 32
+  scale_text: "1/32 in = 1 ft-0 in"
+  north: "plan north = up, APPROXIMATE; road assumed south (portal faces it); site and true north TBD"
+  status: ASSUMED
+  confidence: LOW
+  source: "Shane 2026-10-04 4:30 AM CT (P2-A-101/102 Rev B changes); KEYSTONE layout"
+
+building:
+  rect: [0, 0, 204, 252]
+  basis: "smallest KEYSTONE rectangle that holds lockers + athlete corridor (west), the arena volume with a 12 ft telescopic lower tier, 15 ft upper tier over a 22-28 ft ring (N, E) and a 56 ft south lobby band, and is not smaller than the P2-G-003 Rev E program footprint (so the 25% gross-up allowance stays inside it); 204 x 252 = 51,408 SF"
+  status: ASSUMED
+  confidence: LOW
+  source: "KEYSTONE layout; P2-G-003 Rev E; phase2.yaml building.footprint_cap_sf (D-031); Shane 4:30 AM CT (target >= 2,000 SF under 55,000; shrink if possible)"
+
+event_floor:
+  rect: [56, 68, 170, 212]
+  table_zone_ft: 15
+  clear_ft: 10
+  basis: "same 114 x 144 ft floor as Rev A (phase2.yaml spaces.arena.event_floor_dims); long axis N-S on the entry axis x = 113"
+  status: CITED clearances / ASSUMED table zone
+  confidence: MEDIUM
+  source: "R-005 (NFHS Wrestling 2-1-5, 2-3); D-014; D-030"
+
+entry_axis_x: {value: 113, basis: "arena N-S axis = event floor center line; entry, lobby, portal and lobby void centered on it", source: "Shane 2026-10-04 4:30 AM CT (entry south-center on the arena's N-S axis)"}
+
+mats:
+  - {id: M1, origin: [66, 145], source: "KEYSTONE layout from R-005 clearances"}
+  - {id: M2, origin: [118, 145], source: "KEYSTONE layout from R-005 clearances"}
+  - {id: M3, origin: [66, 93], source: "KEYSTONE layout from R-005 clearances"}
+  - {id: M4, origin: [118, 93], source: "KEYSTONE layout from R-005 clearances"}
+
+court:
+  rect: [88, 98, 138, 182]
+  runout_ft: 10
+  basis: "84 x 50 ft NFHS court centered on the floor, 10 ft preferred runout; overlay only"
+  status: CITED
+  confidence: HIGH
+  source: "R-012 (NFHS Basketball 1-1, 1-2-1)"
+
+arena_volume:
+  rect: [56, 56, 182, 224]
+  basis: "event floor + 12 ft telescopic lower tier on N, S, E; double height, nothing built above. No west tier (Shane OK 4:30 AM CT); the west floor edge opens to the athlete corridor"
+  status: ASSUMED
+  confidence: LOW
+  source: "KEYSTONE layout; phase2_program.yaml stacking; Shane 2026-10-04 4:30 AM CT"
+
+tiers:
+  lower:
+    type: telescopic
+    rows: 6
+    row_depth_ft: 2
+    depth_ft: 12
+    basis: "6 rows x 24 in row spacing (R-008 Hussey MAXAM option) = 12 ft extended; seats per row-foot = 24 in row ÷ 3.38 SF/seat (R-008 geometry incl. 48 in aisles); 6 rows ASSUMED (5 rows cannot hold 1,100 once the portal and vomitories are cut out)"
+    bands:
+      - {side: N, rect: [56, 212, 182, 224], source: "KEYSTONE layout"}
+      - {side: S, rect: [56, 56, 182, 68], source: "KEYSTONE layout"}
+      - {side: E, rect: [170, 68, 182, 212], source: "KEYSTONE layout"}
+    openings:
+      - {id: PORTAL, side: S, rect: [107, 56, 119, 68], note: "main portal: lobby straight to the floor on the entry axis", source: "KEYSTONE layout (ASSUMED 12 ft)"}
+      - {id: V1, side: N, rect: [120, 212, 128, 224], note: "event lockers 1-2 to the floor", source: "KEYSTONE layout (vomitory, 8 ft ASSUMED)"}
+      - {id: V2, side: E, rect: [170, 179, 182, 187], note: "event lockers 3-4 to the floor", source: "KEYSTONE layout (vomitory, 8 ft ASSUMED)"}
+    status: CITED row depth / ASSUMED rows and layout
+    confidence: LOW
+    source: "R-008; D-009 (telescopic lower tier); KEYSTONE geometry"
+  upper:
+    type: fixed
+    depth_ft: 15
+    basis: "fixed tier on the Level 2 deck over the L1 ring; capacity = band area ÷ 6.0 SF/seat (R-008, Loudoun 2014); 15 ft depth ASSUMED"
+    bands:
+      - {side: N, rect: [56, 224, 182, 239], source: "KEYSTONE layout"}
+      - {side: S, rect: [56, 41, 182, 56], source: "KEYSTONE layout (over the lobby: 'lobby under the south tier')"}
+      - {side: E, rect: [182, 41, 197, 239], source: "KEYSTONE layout (includes the NE and SE corners)"}
+    status: CITED SF/seat / ASSUMED depth and layout
+    confidence: LOW
+    source: "R-008; D-009 (fixed upper tier); KEYSTONE geometry"
+  allocation: "each tier holds 1,100 (phase2_program.yaml locked_program 50/50); seats split by side in proportion to each band's capacity (largest remainder); spare capacity is left for wheelchair spaces, companions and aisles"
+  source: "KEYSTONE arithmetic; phase2.yaml spaces.seating (2,200 bowl, MIX)"
+
+vertical:
+  stairs:
+    - {id: ST-1, name: "STAIR 1 (NW)", rect: [41.75, 233, 52.55, 252], source: "R-015 (4 stairs x 65 in, ~206 SF); KEYSTONE location (top of the athlete corridor)"}
+    - {id: ST-2, name: "STAIR 2 (NE)", rect: [185, 241.2, 204, 252], source: "R-015; KEYSTONE location (turned E-W, behind the north upper tier)"}
+    - {id: ST-3, name: "STAIR 3 (SE)", rect: [185, 0, 204, 10.8], source: "R-015; KEYSTONE location (turned E-W, east concourse)"}
+    - {id: ST-4, name: "STAIR 4 (SW)", rect: [0, 0, 10.8, 19], source: "R-015; KEYSTONE location (team / service entry)"}
+  elevator: {id: EL-1, name: ELEVATOR, rect: [56, 27, 64, 35], source: "R-015 (1 elevator, 8 x 8 ft hoistway ASSUMED); KEYSTONE location (west of the lobby)"}
+  basis: "same rectangles on both levels (aligned); one stair per corner zone for separation (separation distance NOT checked). Rev A positions moved because the box shrank and the entry moved"
+  source: "R-015; P2-G-003 Rev E"
+
+# Rooms. prog = key in compute_mix()['sf'] or 'mechanical' (share = drawn share of all mech rooms when 'auto').
+level_1:
+  rooms:
+    - {tag: "1", id: boys_locker, name: BOYS LOCKER, rect: [0, 140, 41.75, 224], prog: boys_locker, share: 1, source: "reference plan (lockers west, boys north of girls); DR1; Shane keep"}
+    - {tag: "2", id: girls_locker, name: GIRLS LOCKER, rect: [0, 56, 41.75, 140], prog: girls_locker, share: 1, note: "drawn equal to boys (D-013)", source: "reference plan; D-013"}
+    - {tag: "3", id: mech_nw, name: MECH / ELEC (NW), rect: [0, 224, 41.75, 252], prog: mechanical, share: auto, source: "Shane 4:30 AM CT (mech to the NW / NE corner or north wall); R-014 (5% of gross)"}
+    - {tag: "4", id: rr_m1, name: MEN, rect: [64, 0, 84, 35], prog: public_restroom_lower, fixtures: men1, source: "Shane 4:30 AM CT (restrooms flank the lobby); R-009 (T2902.1, L1 load)"}
+    - {tag: "5", id: rr_w1, name: WOMEN, rect: [142, 0, 165, 50], prog: public_restroom_lower, fixtures: women1, source: "Shane 4:30 AM CT (restrooms flank the lobby); R-009"}
+    - {tag: "6", id: first_aid, name: FIRST AID, rect: [84, 0, 96, 10], prog: first_aid, share: 1, source: "R-014; at the entry for EMS from the road (ASSUMED)"}
+    - {tag: "7", id: vestibule, name: VESTIBULE, rect: [103, 0, 123, 10], prog: foyer, share: 0.25, note: "200 of the foyer parts; lobby 400 + desk 200 sit in the lobby", source: "R-014 (Loudoun vestibule 200); Shane 4:30 AM CT (portal on the axis, faces the road)"}
+    - {tag: "8", id: concession, name: CONCESSION, rect: [127, 37.67, 142, 56], prog: concession_stand, share: 1, source: "R-014 (proxy); D-011 scope OPEN; in the lobby under the south upper tier"}
+    - {tag: "9", id: equip_storage, name: EQUIP. STORAGE, rect: [56, 224, 81, 252], prog: equipment_storage, share: 1, source: "R-014; top of the athlete corridor so mats roll to the floor (ASSUMED)"}
+    - {tag: "10", id: equip_room, name: EQUIP. ROOM, rect: [81, 224, 91.71, 252], prog: equipment_room, share: 1, source: "R-014; KEYSTONE location"}
+    - {tag: "11", id: evl_1, name: EVENT LOCKER 1, rect: [91.71, 224, 123.86, 252], prog: event_lockers, share: 0.25, source: "DR3; Shane keep (event lockers N + E)"}
+    - {tag: "12", id: evl_2, name: EVENT LOCKER 2, rect: [123.86, 224, 156, 252], prog: event_lockers, share: 0.25, source: "DR3; Shane keep"}
+    - {tag: "13", id: evl_3, name: EVENT LOCKER 3, rect: [182, 183.09, 204, 224], prog: event_lockers, share: 0.25, source: "DR3; Shane keep"}
+    - {tag: "14", id: evl_4, name: EVENT LOCKER 4, rect: [182, 142.18, 204, 183.09], prog: event_lockers, share: 0.25, source: "DR3; Shane keep"}
+    - {tag: "15", id: mech_n, name: MECH (N), rect: [156, 224, 185, 252], prog: mechanical, share: auto, source: "Shane 4:30 AM CT (north wall); R-014"}
+    - {tag: "16", id: mech_e, name: MECH (E), rect: [182, 56, 204, 142.18], prog: mechanical, share: auto, source: "Shane 4:30 AM CT (reconsider SE mech): east ring behind the bowl, off the public side; R-014"}
+  zones:
+    - {id: lobby, name: "LOBBY / HALL OF CHAMPIONS", rect: [84, 0, 142, 56], label_rect: [96, 12, 127, 37], note: "double height south of the balcony; south upper tier above its north 15 ft", source: "Shane 4:30 AM CT (lobby centered south, under the south tier); DR5"}
+    - {id: athlete, name: "ATHLETE CORRIDOR", rect: [41.75, 56, 56, 224], vertical: true, source: "DR1; Shane keep"}
+    - {id: team, name: "TEAM / SERVICE ENTRY", rect: [0, 0, 56, 56], label_rect: [11, 22, 56, 56], source: "KEYSTONE layout (athletes enter at the SW, off the public lobby; unprogrammed circulation)"}
+    - {id: conc_w, name: "CONCOURSE (W)", rect: [56, 35, 84, 56], source: "Rev E lower concourse; KEYSTONE layout"}
+    - {id: conc_e, name: "CONCOURSE (E)", rect: [165, 0, 204, 56], label_rect: [165, 14, 204, 41], source: "Rev E lower concourse; KEYSTONE layout"}
+  source: "KEYSTONE layout (ASSUMED, LOW) from Shane's Rev A review + P2-G-003 Rev E"
+
+level_2:
+  rooms:
+    - {tag: "17", id: sc, name: "STRENGTH & CONDITIONING", rect: [0, 141.2, 56, 252], prog: strength_conditioning, share: 1, source: "phase2.yaml (Level 2 over the lockers, D-030); Shane keep"}
+    - {tag: "18", id: xt, name: CROSS-TRAINING MAT, rect: [0, 69.77, 56, 141.2], prog: cross_training, share: 1, source: "phase2.yaml (Level 2 over the lockers, D-030); Shane keep"}
+    - {tag: "19", id: rr_m2, name: MEN, rect: [64, 5.5, 84, 33], prog: public_restroom_upper, fixtures: men2, source: "R-009 (T2902.1, L2 seats); stacked over the L1 men's room"}
+    - {tag: "20", id: rr_w2, name: WOMEN, rect: [142, 0, 169.27, 33], prog: public_restroom_upper, fixtures: women2, source: "R-009; stacked over the L1 women's room"}
+    - {tag: "21", id: admin, name: ADMIN, rect: [20, 0, 45, 18.8], prog: admin_office, share: 1, source: "R-014; Level 2 (P2-G-003 stacking), over the team entry"}
+  zones:
+    - {id: l2corr, name: "L2 CORRIDOR", rect: [0, 18.8, 64, 69.77], label_rect: [12, 41, 56, 69.77], source: "KEYSTONE layout (links S&C, cross-training, ST-4, elevator and the balcony)"}
+    - {id: balcony, name: "UPPER CONCOURSE / HALL OF CHAMPIONS BALCONY", rect: [56, 33, 204, 41], source: "Shane 11:09 PM CT (upper concourse, hall of champions) + 4:30 AM CT (stack over the lobby); KEYSTONE layout"}
+    - {id: conc_e2, name: "UPPER CONCOURSE (E)", rect: [169.27, 0, 204, 33], label_rect: [169.27, 11, 204, 33], source: "KEYSTONE layout"}
+    - {id: walk_n, name: "REAR WALKWAY (N)", rect: [56, 239, 185, 252], source: "KEYSTONE layout"}
+    - {id: walk_e, name: "WALKWAY (E)", rect: [197, 41, 204, 241.2], vertical: true, source: "KEYSTONE layout"}
+  open_below:
+    - {id: ob_lobby, name: "OPEN TO LOBBY BELOW", rect: [84, 0, 142, 33], source: "Shane 4:30 AM CT (lobby double-height open-to-below centered south)"}
+    - {id: ob_arena, name: "OPEN TO ARENA BELOW", rect: [56, 56, 182, 224], source: "arena volume (nothing built above)"}
+  source: "KEYSTONE layout (ASSUMED, LOW) from P2-G-003 Rev E stacking"

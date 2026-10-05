@@ -1,0 +1,194 @@
+# KEYSTONE — P2-C-101 SITE PLAN / CAMPUS DIAGRAM (Phase 2, P2-T-006). Schematic, SITE TBD (D-006). Created 2026-10-04 (Shane 7:44 AM CT).
+# Coordinates in feet, plan origin = SW corner of the building (same as params/phase2_plan_rev_d.yaml); y north, negative y = south of
+# the building. Road assumed south. Every site element is a DIAGRAM: locations ASSUMED, sizes TBD unless DECIDED and sourced.
+meta:
+  sheet: P2-C-101
+  title: SITE PLAN — CAMPUS DIAGRAM
+  revision: A
+  status: "SCHEMATIC — SITE TBD (D-006)"
+  source: "Shane 2026-10-04 7:44 AM CT (site plan revision: freestanding portal + 28x30 Champion Walk, south bus drop loop offset E/W, service at north door S1, stair growth); KEYSTONE prompt §9 (C-101 campus master plan, SITE TBD diagram)"
+
+scale:
+  ft_per_in: 60
+  source: "KEYSTONE sheet layout (1 in = 60 ft, same as the P2-A-201 key plan)"
+
+building:
+  frozen_rect: [0, 0, 204, 252]
+  frozen_tower: [185, 252, 204, 257]
+  frozen_footprint_sf: 51503
+  east_shift_ft: 6
+  rect: [0, 0, 210, 252]
+  tower: [188.667, 252, 210, 257]
+  basis: "Frozen Rev D box 204 x 252 + 19 x 5 NE stair tower (P2-A-101 Rev D). D-053 DECIDED: east seats 6 ft further from the mats -> east wall moves 6 ft (applies at the next A-101/A-102/A-301 revision). NE tower widened to the 76 in stair width (21.33 ft, D-052 DECIDED 7:49 AM CT) so ST-2 fits"
+  source: "phase2_plan_rev_d.yaml building; D-053 (Shane 7:44 AM CT); D-051; D-052 DECIDED (Shane 7:49 AM CT)"
+
+stairs:
+  frozen_ft: [10.8, 19]
+  d051_ft: [11.667, 20.833]
+  d052_ft: [12.667, 21.333]
+  drawn: d052
+  items:
+    - {id: ST-1, anchor: "NE", rect_frozen: [38.2, 233, 49, 252], source: "phase2_plan_rev_d.yaml ST-1 (long side N-S); grown toward the south / west inside the box"}
+    - {id: ST-2, anchor: "NE", turned: true, rect_frozen: [185, 246.2, 204, 257], source: "phase2_plan_rev_d.yaml ST-2 (long side E-W, in the NE tower); moves 6 ft east with the east wall (D-053)"}
+    - {id: ST-3, anchor: "SE", turned: true, rect_frozen: [185, 0, 204, 10.8], source: "phase2_plan_rev_d.yaml ST-3 (long side E-W); moves 6 ft east (D-053)"}
+    - {id: ST-4, anchor: "SW", rect_frozen: [0, 0, 10.8, 19], source: "phase2_plan_rev_d.yaml ST-4 (long side N-S)"}
+  basis: "Stairs grow inward from their exterior corners (footprint unchanged except the NE tower width). 70 in clear with a 70 in mid landing = 11.67 x 20.83 ft (D-051 DECIDED); 76 in clear with intermediate handrails and a 76 in mid landing = 12.67 x 21.33 ft (D-052 DECIDED, Shane 7:49 AM CT) — drawn"
+  source: "D-051 (Shane 7:24 AM CT); D-052 DECIDED (Shane 7:49 AM CT, R-018.9); phase2_plan_rev_d.yaml vertical.stairs"
+
+doors:
+  E1: {wall: S, at: 113, source: "phase2_plan_rev_d.yaml doors E1 (main entry / main exit, D-033)"}
+  S1: {wall: N, at: 68.5, source: "phase2_plan_rev_d.yaml doors S1; D-034 DECIDED default (service at the north door S1)"}
+  exits_frozen: {X1: [W, 38], X2: [W, 98], X3: [W, 182], X4: [N, 43.6], X5: [N, 127.85], X6: [E, 251.6], X7: [E, 179.09], X8: [E, 34], X9: [S, 194.5], X10: [S, 5.4], source: "phase2_plan_rev_d.yaml doors (EXIT ONLY, D-033); east-wall exits move 6 ft east and S-wall exit X9 moves 6 ft east with D-053"}
+  source: "phase2_plan_rev_d.yaml vertical.doors"
+
+portal:
+  center_x: 113
+  width: 44
+  depth: 6
+  gap_to_building: 30
+  height_max_ft: 50
+  source: "D-043 (freestanding); D-046 (30 ft portal to doors); D-050 (50 ft max); phase2_elev.yaml portal (44 ft wide, ASSUMED); phase2_elev_rev_d.yaml portal_freestanding (6 ft deep ASSUMED)"
+
+champion_walk:
+  rect: [99, -30, 127, 0]
+  width: 28
+  length: 30
+  extension: "dashed south toward parking (later option, D-046)"
+  source: "D-046 DECIDED (28 x 30 ft, portal to the E1 doors)"
+
+bus_drop:
+  side: E
+  basis: "south bus drop loop offset east so it does not block the portal view (D-034 DECIDED default: offset east OR west — east drawn, west equally possible; the FLEX / team assembly room is in the SW corner, so a west loop is the alternative). Loop geometry is a DIAGRAM: lane width, turning radius and curb length TBD (civil / bus turning template)"
+  loop_center: [178, -95]
+  loop_rx: 34
+  loop_ry: 26
+  curb_at: [140, 170]
+  source: "Shane 2026-10-04 6:45 AM CT (D-034); Shane 7:44 AM CT; KEYSTONE diagram (ASSUMED location)"
+
+service:
+  route: "service / delivery drive to the north door S1 along the west side (diagram; alignment TBD with the parcel). Apron at S1 diagrammatic"
+  apron: [52, 252, 85, 300]
+  source: "D-034 DECIDED default (service at the north door S1); KEYSTONE diagram (ASSUMED)"
+
+road:
+  y: -150
+  label: "ROAD (assumed south; site TBD, D-006)"
+  source: "phase2.yaml (road assumed south); D-006 OPEN"
+
+fire_access:
+  note: "Fire apparatus access roads, hydrants and fire flow per IFC Appendices B, C, D (adopted by the State Fire Marshal with the 2021 IFC, D107 recommended only) and the county's 2018 IFC — layout TBD with the parcel (R-006)"
+  source: "R-006 (Ala. Admin. Code 482-2-101-.02; Madison County codes page)"
+
+footprint_check:
+  cap_sf: 55000
+  cap_status: "RETIRED (D-056, 2026-10-04 8:36 AM CT): no 55,000 SF cap; key kept only so P2-C-101 Rev A (issued) regenerates; the next revision drops the margin column and reports L1 / L2 / TOTAL GSF (D-057)"
+  frozen_drawn_sf: 51503
+  east_shift_sf: 1512
+  tower_widen_sf_76: 11.667
+  tower_widen_sf_70: 9.167
+  stair_growth_outward_bound_sf_76: 260.09
+  program_basis_f_sf: 52738.4
+  program_basis_f_76_sf: 53076.9
+  basis: "drawn basis: 51,503 + 6 x 252 = 53,015; + NE tower widening (21.333 - 19) x 5 = 11.67 (76 in) -> 53,026.7 L1 footprint (all 4 stairs outward instead: 53,275.1). Program-basis estimate (P2-G-003 Rev F method): 52,738.4 -> 53,076.9 with four 76 in stairs + 1,512 = 54,588.9. L2 / TOTAL GSF and the line-by-line gap: R-021"
+  source: "P2-A-101 Rev D (frozen); P2-G-003 Rev F; D-031 (cap); D-051; D-052; D-053; KEYSTONE arithmetic 2026-10-04 7:44 AM CT; D-056 (cap retired); R-021"
+
+# Rev B (Shane 2026-10-04 9:47 AM CT): coordinated with P2-A-101/102 Rev E. Rev A frozen (byte-identical; it still reads the keys above).
+rev_b:
+  revision: B
+  plan_file: phase2_plan_rev_e.yaml
+  building:
+    rect: [0, 0, 210, 252]
+    tower: [188.667, 252, 210, 258.667]
+    prior_rect: [0, 0, 204, 252]
+    prior_tower: [185, 252, 204, 257]
+    basis: "outline = P2-A-101 Rev E as drawn: 210 x 252 ft (east seats 16 ft from the mats, D-053) + NE stair tower 21.33 x 6.67 ft (76 in ST-2 north of the loop's north leg, D-052 / D-051). Rev A showed the tower 5 ft deep (understated by 1.67 ft = 35.6 SF). Dashed: superseded Rev D outline 204 x 252 + 19 x 5 tower"
+    source: "phase2_plan_rev_e.yaml building + projection; phase2_plan_rev_d.yaml (prior outline)"
+  stairs_doors: "stairs (ST-1..ST-4, 12.67 x 21.33 ft) and perimeter doors read straight from phase2_plan_rev_e.yaml vertical.stairs / level_1.doors (no shift arithmetic)"
+  stairs_doors_source: "phase2_plan_rev_e.yaml"
+  area_table:
+    rev_d_drawn: {L1: 51503, L2: 28363, G: 79866, source: "P2-A-101/102 Rev D (frozen) via p2_testfit.drawn_size; P2-G-003 Rev G D-057 table"}
+    c101_rev_a_l1: 53026.7
+    c101_rev_a_basis: "P2-C-101 Rev A footprint row '+ NE tower widened for 76 in ST-2' (tower 5 ft deep); Rev E draws 6.67 ft -> 53,062.2"
+    rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs the last revision; no cap, no margin (D-056). Drawn = phase2_plan_rev_e.yaml (p2_testfit.drawn_size); program = P2-G-003 Rev G (p2_testfit.summary_g: footprint F, L2 gross, total = F + L2)"
+    source: "D-056, D-057 (Shane 2026-10-04 8:36 AM CT); P2-G-003 Rev G; R-021"
+  source: "Shane 2026-10-04 9:47 AM CT (C-101 Rev B: tower size, new outline, D-057 area table, no cap language)"
+rev_c:
+  revision: C
+  plan_file: phase2_plan_rev_f.yaml
+  building:
+    rect: [0, 0, 210, 252]
+    tower: [185.917, 252, 210, 258.667]
+    prior_rect: [0, 0, 210, 252]
+    prior_tower: [188.667, 252, 210, 258.667]
+    basis: "outline = P2-A-101 Rev F as drawn: 210 x 252 ft (unchanged) + NE stair tower 24.08 x 6.67 ft (ST-2 lengthened 2.75 ft for 31 risers at L2 17'-9\", D-061 Option B). Dashed: superseded Rev E tower 21.33 x 6.67"
+    source: "phase2_plan_rev_f.yaml building + projection; phase2_plan_rev_e.yaml (prior tower)"
+  stairs_doors: "stairs (ST-1..ST-4, 12.67 x 24.08 ft) and perimeter doors read straight from phase2_plan_rev_f.yaml vertical.stairs / level_1.doors"
+  stairs_doors_source: "phase2_plan_rev_f.yaml"
+  area_table:
+    rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs Rev E (p2_testfit.summary_h drawn / drawn_d); program = P2-G-003 Rev I (footprint F, L2 gross, total = F + L2); no cap, no margin (D-056)"
+    source: "D-057; D-061 (Shane 2026-10-04 10:27 AM CT); P2-G-003 Rev I"
+  source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: C-101 Rev C if footprint / tower changes; the NE tower grows 2.75 ft west)"
+# Rev D (Shane 2026-10-04 1:21 / 1:22 PM CT): coordinated with P2-A-101 Rev H — D-066 DECIDED 40 ft walk (28 ft brick + 6 ft bands each
+# side, flowing around both portal piers), D-067 storage annex on the north wall with S1 moved to its north wall. Rev C frozen.
+rev_d:
+  revision: D
+  plan_file: phase2_plan_rev_h.yaml
+  building:
+    rect: [0, 0, 210, 252]
+    tower: [185.917, 252, 210, 258.667]
+    prior_rect: [0, 0, 210, 252]
+    prior_tower: [185.917, 252, 210, 258.667]
+    annex: [52, 252, 122, 282]
+    basis: "outline = P2-A-101 Rev H as drawn: 210 x 252 ft + NE stair tower 24.08 x 6.67 ft (unchanged from Rev F / G) + one-storey storage annex 70 x 30 ft = 2,100 SF on the north wall (D-067)"
+    source: "phase2_plan_rev_h.yaml building + projection + annex"
+  walk:
+    brick: [99, -30, 127, 0]
+    band_w: [[93, 0], [99, 0], [99, -30], [91, -30], [91, -36], [99, -36], [99, -42], [85, -42], [85, -24], [93, -24]]
+    mirror_x: 226
+    pier_ft: 8
+    width_at_doors_ft: 40
+    width_at_portal_ft: 40
+    need_in: 467.0
+    basis: "D-066 DECIDED: 40 ft at the doors = 28 ft brick (x 99-127) + 6 ft bands (x 93-99, 127-133); at the portal the bands pass outside both 8 ft piers (x 85-91, 135-141): 28 + 6 + 6 = 40 ft = 480 in >= 467.0 in (E1 standing margin, P2-G-002 Rev B). Band shape between doors and portal ASSUMED; bands paved now, could be brick later (D-044)"
+    source: "D-066 (Shane 2026-10-04 1:22 PM CT); portal 44 ft / 28 ft arch, piers 8 ft (phase2_elev.yaml, ASSUMED); IBC 2021 1028.3, 1028.5"
+  service:
+    apron: [52, 282, 85, 306]
+    drive_turn_y: 290
+    basis: "S1 moved to the annex north wall (y 282, same x 68.5); apron and drive move 30 ft north with it (diagram, size TBD civil)"
+    source: "phase2_plan_rev_h.yaml S1; D-034; D-067"
+  area_table:
+    rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs Rev G (p2_testfit.summary_j drawn / drawn_d); program = P2-G-003 Rev J (footprint F, L2 gross, total = F + L2); no cap, no margin (D-056)"
+    source: "D-057; D-067; P2-G-003 Rev J"
+  source: "Shane 2026-10-04 1:21 PM CT (D-066 closed) + 1:22 PM CT (C-101 Rev D: 40 ft walk with bands around the piers; storage annex near S1)"
+
+rev_e:
+  revision: E
+  plan_file: phase2_plan_rev_i.yaml
+  building:
+    rect: [0, 0, 210, 252]
+    tower: [185.917, 252, 210, 258.667]
+    prior_rect: [0, 0, 210, 252]
+    prior_tower: [185.917, 252, 210, 258.667]
+    annex: [52, 252, 122, 282]
+    bumpout: [210, 161.09, 240, 217.09]
+    basis: "outline = P2-A-101 Rev I as drawn: 210 x 252 ft + NE stair tower 24.08 x 6.67 ft + storage annex 70 x 30 ft (D-067) + one-storey restroom bump-out 30 x 56 ft = 1,680 SF on the east wall at V2 / EXIT (E) (D-069); X7 moves 30 ft east to the bump-out east face"
+    source: "phase2_plan_rev_i.yaml building + projection + annex + bumpout; Shane 2026-10-04 3:31 PM CT (D-069 Option 2)"
+  walk:
+    brick: [99, -30, 127, 0]
+    band_w: [[93, 0], [99, 0], [99, -30], [91, -30], [91, -36], [99, -36], [99, -42], [85, -42], [85, -24], [93, -24]]
+    mirror_x: 226
+    pier_ft: 8
+    width_at_doors_ft: 40
+    width_at_portal_ft: 40
+    need_in: 467.0
+    basis: "unchanged from Rev D (D-066): 28 ft brick + 6 ft bands = 40 ft = 480 in >= 467.0 in (E1 standing margin, P2-G-002 Rev B)"
+    source: "D-066 (Shane 2026-10-04 1:22 PM CT); site rev_d walk"
+  service:
+    apron: [52, 282, 85, 306]
+    drive_turn_y: 290
+    basis: "unchanged from Rev D: S1 on the annex north wall (y 282, x 68.5); the bump-out is on the east side, clear of the service yard"
+    source: "phase2_plan_rev_i.yaml S1; D-034; D-067; site rev_d service"
+  area_table:
+    rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs Rev H (p2_testfit.summary_k drawn / drawn_d); program = P2-G-003 Rev K (footprint F, L2 gross, total = F + L2); no cap, no margin (D-056)"
+    source: "D-057; D-069; P2-G-003 Rev K"
+  source: "Shane 2026-10-04 3:31 PM CT (D-069 closed = Option 2, east restroom bump-out; C-101 Rev E if the outline changes)"

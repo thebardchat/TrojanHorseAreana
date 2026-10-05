@@ -1,0 +1,640 @@
+# phase1.yaml: SINGLE SOURCE OF TRUTH for Phase 1 (remodel of the existing high school wrestling room)
+# Rules (KEYSTONE prompt v1.1 §8): every value carries `source`. Unknown = TBD, drawn as TBD, logged OPEN in DECISIONS.md.
+# Phase 2 (new building) values never appear in this file. Superseded Feb 2026 concept values never appear anywhere.
+# Sources used: "concept sheet" | "Shane" | "Shane measure" (pending) | "Claude session" | "Grok session" | "intake 2026-10-03" | R-### | D-###
+
+meta:
+  project: Hazel Green Regional Athletic Complex
+  project_alt_title: North Alabama Regional Athletic Complex
+  arena_name: Trojan Horse Arena
+  phase: 1
+  type: remodel
+  units: feet
+  version: 1
+  version_date: "2026-10-03"
+  sheet_size: "11x17 tabloid"
+  sheet_date: October 2026
+  stamp: "PRELIMINARY — CONCEPTUAL DESIGN — NOT FOR CONSTRUCTION"
+  drawn_by: "Drawn by KEYSTONE (AI) for Shane Brazelton"
+  source: "Shane (KEYSTONE prompt v1.1 §3, §8, §9) + concept sheet"
+
+brand:
+  color_primary: "#CC0000"
+  color_secondary: "#1A1A1A"
+  use: covers and renders only; technical sheets black on white
+  tagline: "Building Champions, One Mat at a Time"
+  source: "Shane (colors); repo (tagline); prompt §9 (use)"
+
+site:
+  owner: Public high school property, Madison County
+  owner_detail: Madison County Schools
+  district: Madison County District 1
+  location: Hazel Green, Madison County, Alabama
+  building: existing high school building
+  rooms_in_scope: existing wrestling room + adjacent walk-through room
+  room_location_in_building: TBD
+  source: "concept sheet; intake 2026-10-03 (owner_detail; room location UNKNOWN → D-001)"
+
+existing:
+  wrestling_room:
+    length_ft: 55       # 55'-0", inside, wall to wall, north-south (long side)
+    width_ft: 45        # 45'-0", inside, wall to wall, east-west
+    shape: rectangle
+    long_side: north-south
+    measured_at: inside face of wall to inside face of wall
+    floor_area_sf_calc: 2475   # 55 x 45, calculated by KEYSTONE from the tape dimensions (inside)
+    wall_thickness: TBD                 # actual, unverified
+    wall_thickness_assumed_in: 8        # ASSUMED 8 in CMU unless noted (drawn on P1-A-101 outside the inside face)
+    wall_thickness_label: "8\" CMU — ASSUMED"
+    ceiling_ft: 10                      # 10'-0"
+    ceiling_label: "CLG 10'-0\""
+    wall_material: CMU (concrete masonry unit) building
+    doors: TBD          # measured location, width, swing for each (still TBD)
+    door_assumed:       # applies to all 4 openings (3 emergency exits + 1 hallway door). ASSUMED, not measured.
+      width_ft: 3       # 3'-0"
+      height_ft: 7      # 7'-0"
+      type: single hollow metal door
+      label: "ASSUMED STANDARD, VERIFY"
+      swing_drawn: outward from the wrestling room (direction of egress); hinge side arbitrary — both ASSUMED, verify
+      south_exit_note: "Shane's markup shows two triangles at the south exit; it may be a pair of doors — verify"
+      confirmation: "locations confirmed by Shane vs markup 2026-10-03; exit swings out confirmed; hallway door swing + south exit single/pair still to verify"
+      exit_swing: outward (CONFIRMED, Shane 2026-10-03 10:29 PM CT)
+      hallway_door_swing: outward as drawn — ASSUMED, verify
+      south_exit_leaves: single as drawn — ASSUMED, verify (may be a pair)
+      source: "Shane 2026-10-03 10:12 PM CT (assume standard 3'-0\" x 7'-0\" single HM doors, label ASSUMED STANDARD, VERIFY); swing/hinge drawing choice by KEYSTONE; confirmation → Shane 2026-10-03 10:29 PM CT (D-026: locations match markup, exits swing out; hallway swing + south single/pair left unfilled)"
+    doors_approx:       # APPROX. locations read off Shane's aerial markup. NOT measured (not dimensioned). Confirmed by Shane vs markup 2026-10-03 (D-026).
+      exit_west:
+        wall: west
+        kind: emergency exit
+        along_wall_from: north
+        fraction_approx: 0.65     # read from sketch pixels (~0.63), rounded to 0.05
+        source: "Shane aerial sketch 2026-10-03 (triangle on west side); position read by KEYSTONE, APPROX."
+      exit_south:
+        wall: south
+        kind: emergency exit (sketch shows two triangles, possibly a pair of doors)
+        along_wall_from: west
+        fraction_approx: 0.5      # read from sketch pixels (~0.49)
+        source: "Shane aerial sketch 2026-10-03 (triangles on south side); position read by KEYSTONE, APPROX."
+      exit_northeast:
+        wall: east
+        kind: emergency exit (to the outside, north of the support wing)
+        along_wall_from: north
+        fraction_approx: 0.3      # read from sketch pixels (~0.29)
+        source: "Shane aerial sketch 2026-10-03 (triangle near NE, drawn just outside the roof line); position read by KEYSTONE, APPROX."
+      hallway_door:
+        wall: east
+        kind: door to the support wing / open hallway
+        along_wall_from: north
+        fraction_approx: 0.7      # read from sketch pixels (~0.67-0.73)
+        source: "Shane 2026-10-03 (1 hallway door, east); position from aerial sketch triangle just south of the open hallway, read by KEYSTONE, APPROX."
+    windows: TBD
+    wall_devices: TBD   # outlets, switches, thermostats on walls to be padded
+    existing_pads: TBD
+    source: "length_ft, width_ft, shape, long_side, measured_at → Shane tape, inside wall-to-wall, 2026-10-03; ceiling_ft, wall_material → Shane, firsthand 2026-10-03 10:12 PM CT; wall_thickness_assumed_in → Shane 10:12 PM CT instruction (assume 8 in CMU unless noted); rest pending Shane measure/photos (D-001; checklist phase1/MEASUREMENT_CHECKLIST.md)"
+    estimate_aerial:    # ROUGH aerial estimate of the EXTERIOR ROOF footprint. NOT a tape measurement. NEVER draw as existing conditions.
+      footprint_ns_ft_approx: 55       # north-south, roof outline incl. walls/eaves
+      footprint_ew_ft_approx: 47       # east-west, roof outline incl. walls/eaves
+      diagonal_ft_approx: 72.7
+      uncertainty: "about ±2 ft from pixel picking, plus roof overhang/eaves and aerial image error (interior room will be smaller)"
+      basis: exterior roof footprint seen from above (Google Maps aerial), not interior wall-to-wall
+      method: "measure path = west side + south side + east side + north side + diagonal = 276.85 ft (84.38 m); side pixel lengths 413/350/413/354 px, diagonal 545 px (path drawn ~1.4 deg off north); scale 2074.5 px / 276.85 ft = 7.49 px/ft; 5 ft minor ticks measure 7.46 px/ft"
+      tick_check: "50 ft tick predicted 49.9 ft down west side (matches label); 150 ft tick predicted 7 ft below NE corner on east side (matches); 250 ft label sits ~63% along the diagonal (matches)"
+      user_cross_check: "rough 56 x 46 ft (aspect 0.82 taken from the diagonal) agrees within ±1 ft; side lengths give aspect 0.85, so ~55 x 47 ft"
+      tape_check: "CROSS-CHECK ONLY. Shane's tape (inside 55 x 45 ft) agrees with this exterior estimate (55.1 x 46.9 ft) within the estimate's error. Use wrestling_room.length_ft / width_ft, never this block."
+      confidence: LOW
+      draw_rule: never draw as existing conditions; not on any principal sheet
+      c12_rule: "D-063 (reviewer C-12, v1.3 §15, Shane 2026-10-04 10:48 AM CT): ignore the markup labels (250 / 150 / 50 / 276.85 ft); never use them as dimensions. This block is history / cross-check only; dimensions = wrestling_room.length_ft / width_ft (tape)."
+      source: "KEYSTONE estimate from Shane aerial sketch 2026-10-03 (Google Maps measure, total path 276.85 ft)"
+  layout_notes:        # QUALITATIVE only, from Shane's hand markup on the aerial. No dimensions. Not drawn as existing conditions.
+    wrestling_room: large west block of the building
+    emergency_exits: on the wrestling room's west side, south side, and one near its NE corner
+    support_wing: east of the wrestling room
+    support_wing_rooms:
+      - two showers (marked "broken showers")
+      - private toilet
+      - urinal
+      - two toilets
+      - washer/dryer
+      - office
+      - two storage rooms
+    open_hallway: two "open hallway" segments run east-west through the support wing (the walk-through route)
+    water_fixture_symbols: yellow stars marked as water fountain / sink near the urinal and hallway
+    map_label: "Hazel Green Wrestling"
+    doors_exits_symbol: triangles mark doors/exits
+    east_neighbor: "\"flag football side\" field to the east"
+    sketch_file: "wrestle-room-measure.png (ARENA folder; see blueprints/ASSETS.md; not committed)"
+    confidence: "LOW-MEDIUM: room names and order from Shane's markup; positions approximate"
+    source: "Shane aerial sketch 2026-10-03 (hand markup on Google Maps aerial)"
+  walkthrough_room:
+    length: TBD
+    width: TBD
+    ceiling: TBD
+    layout: TBD
+    doors: TBD
+    role: open walk-through room on the route to the training room
+    source: "concept sheet (role); Shane measure pending for the rest (D-001)"
+  plumbing:
+    failure_location: support wing east of the wrestling room, along the open hallway
+    leak_or_damage_spots: entire support wing; showers were already broken before the water loss
+    existing_fixtures: "2 showers, 1 private toilet, 2 toilets, 1 urinal, sinks (count TBD), water fountain/sink — all out of service, no running water"
+    sink_count: TBD
+    water_lines: TBD
+    drain_lines: TBD
+    condition: "no running water to the area; all fixtures (showers, toilets, sinks) out of service, not just leaking; cause unknown"
+    condition_before_2026_10_03: plumbing already failing in the existing building
+    cause: TBD
+    # Structured for P1-P-001 Rev A (scope narrative only — no design). Counts from existing_fixtures.
+    fixture_inventory:
+      items:
+        - fixture: Shower
+          count: 2
+          status: out of service
+          note: "broken before the water loss"
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Private toilet
+          count: 1
+          status: out of service
+          note: ""
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Toilet
+          count: 2
+          status: out of service
+          note: ""
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Urinal
+          count: 1
+          status: out of service
+          note: ""
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Sink
+          count: TBD
+          status: out of service
+          note: "count TBD"
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); sink count TBD (D-002)"
+        - fixture: Water fountain / sink
+          count: 1
+          status: out of service
+          note: "marked near urinal / hallway on aerial sketch"
+          source: "Shane, firsthand 2026-10-03 10:06 PM CT; aerial sketch location note; D-002"
+      source: "Shane, firsthand 2026-10-03 10:06 PM CT (fixture list); aerial sketch for fountain/sink location note; sink count still TBD (D-002)"
+    scope_of_work:
+      items:
+        - Diagnose the cause of the water loss (shutoff, supply line, or other) — plumber to determine
+        - Restore running water to the support wing / wrestling-room area
+        - Repair or replace fixtures and piping as the licensed plumber directs after diagnosis
+        - "Do NOT size pipe, design layouts, or seal plumbing drawings on this sheet — BY LICENSED PLUMBER / ENGINEER OF RECORD"
+      source: "phase1.yaml work_items W2 (scope, design_by, keystone_output); Shane, firsthand 2026-10-03 (D-024 priority W2 first); prompt §2"
+    open_asks:
+      items:
+        - Licensed plumber visit to diagnose why there is no water
+        - Photos of shutoff valves, supply / drain lines, and each fixture
+        - Confirm sink count (still TBD)
+        - Confirm water-line and drain-line routing (still TBD)
+        - Copies of the photos Dr. Headen already took
+        - District confirmation of approval path for this repair work (D-004)
+      source: "P1-G-001 Rev D waiting_on + D-002 remaining TBDs; contacts.principal.photos_taken"
+    licensed_trade:
+      note: "Plumbing work on this project is BY LICENSED PLUMBER / ENGINEER OF RECORD. Alabama requires a state plumbing certificate to engage in plumbing work except listed exemptions (owner; owner's regular maintenance employee). How those exemptions apply on public school property was not found — ask the district / PGFB / DCM inspector. KEYSTONE produces a scope narrative and fixture list only; no pipe sizing, no plumbing design."
+      cite: "R-004.3 (Ala. Code §§34-37-6(a), 34-37-15; PGFB FAQ); phase1.yaml standards.approvals_refs.plumbing_license; prompt §2"
+      source: "R-004.3; standards.approvals_refs.plumbing_license; prompt §2 / W2 design_by"
+    cross_refs:
+      items:
+        - "P1-G-001 Rev D (principal scope sheet) — Phase1_Package_for_Dr_Headen"
+        - "P1-A-101 Rev A (existing conditions — wrestling room outline; support wing not yet measured)"
+      package: Phase1_Package_for_Dr_Headen
+      source: "frozen Phase 1 package 2026-10-03; do not regenerate those sheets"
+    source: "Shane, firsthand 2026-10-03 (condition; failure_location, leak_or_damage_spots, existing_fixtures added 10:06 PM CT); concept sheet (earlier condition wording); sink count, lines, cause pending photos + plumber diagnosis (D-002); fixture_inventory / scope_of_work / open_asks / licensed_trade_note structured for P1-P-001 Rev A 2026-10-04 (P1-T-008)"
+
+work_items:
+  - id: W1
+    name: Wall padding
+    priority: 3
+    priority_note: can run in parallel; does not depend on water
+    description: proper training wall pads on the wrestling room walls; finish work, not new construction
+    walls: TBD
+    why: "Wrestlers can get hurt when they are thrown or fall into bare, unpadded walls during practice. Proper wall pads lower that risk."
+    pad_height: 6 ft
+    pad_thickness: TBD
+    fire_rating: TBD    # must meet standards.wall_pads.spec_basis (R-001)
+    supplied_by: TBD    # school purchase, donated, or fundraised
+    supplied_by_options: school purchase, donation, or fundraiser
+    purchase_note: "Wall pads must have an NFPA 286 assembly test report — not a foam-only rating. Ask the vendor before purchase."
+    pad_estimate:       # Shane's ESTIMATE, not a takeoff. Replaces the 10:06 PM estimate. Assumes all 4 walls (which walls is still OPEN, D-021).
+      wall_length_lf_gross: 200      # 2 x (55 + 45), inside perimeter
+      door_deduction_lf: 12          # 4 doors x 3 ft (ASSUMED standard doors)
+      padded_wall_lf_approx: 188     # 200 - 12
+      panel_size: 2 ft x 6 ft
+      panel_count_approx: 94         # 188 x 6 / 12
+      pad_area_sf_calc: 1128         # 188 x 6, calculated by KEYSTONE (not on the sheet)
+      pad_height_note: 6'-0" pads under a 10'-0" ceiling
+      assumes: all 4 walls padded
+      math_check: "2 x (55 + 45) = 200; 200 - 4 x 3 = 188 LF; 188 x 6 / 12 = 94 panels. KEYSTONE checked: correct."
+      superseded: "10:06 PM estimate ~200 LF / ~1,200 SF / ~100 panels before door deductions (never shown to Shane on a sheet)"
+      sheet_line: "~188 LF of padded wall after 4 doors (~94 panels at 2 ft x 6 ft); 6'-0\" pads under a 10'-0\" ceiling. Estimate assumes all 4 walls."
+      source: "Shane estimate 2026-10-03 10:12 PM CT (tape 55 x 45 ft, 4 doors at 3 ft ASSUMED, pad height 6 ft per D-003, ceiling 10 ft); math checked by KEYSTONE"
+    source: "concept sheet; priority → D-024 (Shane, firsthand 2026-10-03); pad_height → D-003 DECIDED (Shane, chat 2026-10-03; matches R-001 guidance); walls/supplier → D-021 (OPEN); why → Shane 2026-10-03; purchase_note verbatim → D-020 (Shane, chat 2026-10-03); fire rule in standards.wall_pads (R-001); product choice still TBD"
+  - id: W2
+    name: Restore water / plumbing repair
+    priority: 1
+    status: "No running water to the area. All fixtures out of service. Cause unknown."
+    status_detail: showers, toilets, and sinks are all non-functional, not just leaking
+    location: support wing east of the wrestling room, along the open hallway
+    cause: TBD          # plumber to diagnose: shutoff, supply line, or other
+    scope: restore running water to the area and repair the plumbing so the fixtures work again
+    why: "Athletes have no working restroom or handwashing during practice; hygiene matters in a contact sport."
+    design_by: BY LICENSED PLUMBER / ENGINEER OF RECORD
+    keystone_output: scope narrative + fixture list only (no plumbing design)
+    source: "Shane, firsthand 2026-10-03 (status, status_detail, why, rename, priority → D-024; location added 10:06 PM CT); concept sheet (original scope); Shane (prompt §2: design_by, keystone_output); cause → D-002"
+  - id: W3
+    name: Restroom split
+    priority: 2
+    result: 1 male + 1 female athlete restroom
+    ada_compliance: full 2010 ADA Standards, BOTH rooms
+    reason: the route to the training room is an open walk-through room
+    restroom_type: single-user, one per sex
+    accessibility_minimums: see standards.ada_single_user_restroom (R-003)
+    location: support wing
+    location_note: waiting on support wing measurements
+    source: "location, location_note → Shane 2026-10-03 10:12 PM CT (wrestling room measured; restrooms in support wing, rooms TBD); concept sheet (result, reason); priority → D-024 (Shane, firsthand 2026-10-03); restroom_type + ada_compliance → D-019 (Shane, chat 2026-10-03); location → D-001, D-002; accessibility minimums in standards.ada_single_user_restroom (R-003)"
+
+not_in_phase1:
+  items:
+    - the Phase 2 new building complex
+    - stadium seats
+    - any new structure
+  source: "concept sheet"
+
+contacts:
+  principal:
+    name: Headen
+    display_name: Dr. Headen
+    title: Principal (Dr.)
+    email: TBD
+    phone: TBD
+    photos_taken: Dr. Headen took photos (copies requested; not received)
+    source: "spelling CONFIRMED 'Dr. Headen' → D-005 DECIDED (Shane, firsthand 2026-10-03 10:12 PM CT); photos_taken → Shane 2026-10-03 10:12 PM CT"
+  facilities_manager:
+    name: TBD
+    email: TBD
+    phone: TBD
+    source: "Claude/Grok sessions (role only); intake 2026-10-03 (name UNKNOWN)"
+  athletic_director:
+    name: TBD
+    email: TBD
+    phone: TBD
+    source: "Claude/Grok sessions (role only)"
+  requester:
+    name: Shane Brazelton
+    phone: 256-508-4608
+    email: brazeltonshane@gmail.com
+    sheet_line: "Requested by: Shane Brazelton — 256-508-4608 / brazeltonshane@gmail.com"
+    source: "Shane 2026-10-03 (for the principal version of P1-G-001)"
+
+approvals:
+  chain: TBD          # principal → district facilities → anyone else
+  chain_plain:        # plain-words order shown on P1-G-001 Rev B (principal version)
+    - Principal
+    - District facilities (MCSS Operations & Facilities)
+    - Others as the district requires
+  note_plain: "District guidelines send campus building improvements to the Board of Education. State building review (Alabama DCM) may also apply."
+  chain_per_sources:  # draft from R-002; NEEDS DISTRICT CONFIRMATION (D-004 stays OPEN)
+    - Principal
+    - MCSS Operations & Facilities
+    - Madison County Board of Education (building/land improvements)
+    - Alabama DCM plan review + inspections; SDE School Architect reviews contracts if any
+  district_facilities_office: MCSS Operations & Facilities, 1275 Jordan Road, Huntsville
+  donated_labor_materials_allowed: TBD
+  source: "D-004 (OPEN); chain_plain → Shane 2026-10-03, line 2 office name + note_plain → R-002; chain_per_sources, district_facilities_office → R-002; donated work → R-004 (needs district confirmation)"
+
+schedule:
+  scope_confirmation_expected: "~end of October 2026"
+  confirming_parties: principal + facilities
+  package_target: before end of October 2026
+  source: "Claude session (confirmation); prompt §1 (package target)"
+
+funding:
+  budget: TBD
+  pad_funding: TBD
+  paths_mentioned: SRM divisions pitch, school board (nothing committed)
+  source: "intake 2026-10-03 (budget UNKNOWN; paths from Claude session); pad_funding → D-003"
+
+# ---------------------------------------------------------------------------
+# Reference parameters from research (P1-T-003, 2026-10-03). These are code /
+# guidance VALUES ONLY. They set limits for drawings; they are NOT room
+# dimensions and do not decide D-001/D-003. Units in inches (in) unless noted.
+standards:
+  governing:
+    building_code: 2021 IBC (Alabama State Building Code, DCM; amended 2025-03-17, no Ch. 8 changes)
+    existing_building_code: 2021 IEBC
+    fire_code: 2021 IFC
+    plumbing_code: 2021 IPC
+    accessibility: 2010 ADA Standards (supersede IBC / A117.1 accessibility per DCM)
+    applies_to: all work on public K-12 schools
+    source: "R-001 (R-001.3); R-003 (S3): dcm.alabama.gov/bldg_code.aspx retrieved 2026-10-03"
+  wall_pads:
+    code_classification: interior finish (IBC 2021 806.2)
+    room_min_flame_spread_class: C   # Table 803.13, rooms in Groups E and A-3, sprinklered or not
+    foam_rule: "foam plastic finish only per IBC 803.4 → 2603.9: large-scale test of finished assembly (e.g. NFPA 286 per 803.1.1.1)"
+    spec_basis: complete pad assembly tested to NFPA 286 (or AHJ-approved equal); component-only E84 ratings not sufficient
+    guidance_height_ft_approx: 6          # NFHS HST 2022 article, guidance not rule; final height TBD (D-003)
+    guidance_thickness_in: 2              # NFHS HST 2022 example + manufacturer data
+    guidance_bottom_gap_max_in: 4         # Porter white paper citing ASTM F2440 (second-hand, LOW confidence)
+    impact_standard: ASTM F2440 (cited by manufacturers; not verified)
+    doors_and_hardware: recess from wall surface where possible; walls flat, no bump-outs
+    competition_runoff_to_padded_wall_ft: 10   # meets only (KHSAA citing NFHS POE); NOT applied to Phase 1 practice room without Shane
+    confidence: "fire rule HIGH; height/thickness guidance MEDIUM; F2440 detail LOW"
+    sheet_basis: "R-001: 2021 IBC 806.2 and 803.4 → 2603.9 (Alabama Building Code via DCM)"
+    sheet_basis_plain: "2021 IBC 806.2 and 803.4 → 2603.9 (Alabama Building Code)"
+    source: "R-001"
+  ada_single_user_restroom:
+    turning_space_diameter_in: 60          # 304.3.1 (or T-shape in 60 in square, 304.3.2)
+    wc_clearance_from_side_wall_in: 60     # 604.3.1
+    wc_clearance_from_rear_wall_in: 56     # 604.3.1
+    wc_centerline_from_side_wall_min_in: 16   # 604.2
+    wc_centerline_from_side_wall_max_in: 18   # 604.2
+    wc_seat_height_min_in: 17              # 604.4
+    wc_seat_height_max_in: 19              # 604.4
+    grab_bar_side_length_min_in: 42        # 604.5.1
+    grab_bar_side_max_from_rear_wall_in: 12   # 604.5.1
+    grab_bar_side_extend_from_rear_wall_min_in: 54   # 604.5.1
+    grab_bar_rear_length_min_in: 36        # 604.5.2
+    grab_bar_rear_past_centerline_min_in: [12, 24]   # 604.5.2 (one side / other side)
+    grab_bar_height_min_in: 33             # 609.4
+    grab_bar_height_max_in: 36             # 609.4
+    grab_bar_wall_gap_in: 1.5              # 609.3
+    grab_bar_load_lbf: 250                 # 609.8
+    tp_dispenser_in_front_of_wc_in: [7, 9] # 604.7
+    tp_outlet_height_in: [15, 48]          # 604.7
+    lav_clear_floor_space_in: [30, 48]     # 606.2 / 305.3, forward approach
+    lav_rim_height_max_in: 34              # 606.3
+    lav_knee_clearance_zone_in: [9, 27]    # 306.3
+    lav_knee_clearance_width_min_in: 30    # 306.3.5
+    mirror_bottom_over_lav_max_in: 40      # 603.3
+    shelf_height_in: [40, 48]              # 603.4
+    door_clear_width_min_in: 32            # 404.2.3
+    door_maneuver_front_pull_in: [60, 18]  # Table 404.2.4.1 (perpendicular, beyond latch)
+    door_maneuver_front_push_in: [48, 0]   # Table 404.2.4.1 (+12 beyond latch if closer AND latch)
+    door_hardware_height_in: [34, 48]      # 404.2.7
+    door_opening_force_max_lbf: 5          # 404.2.9 (interior hinged)
+    threshold_max_in: 0.5                  # 404.2.5
+    door_swing_rule: may swing into turning space; not into fixture clearances (603.2.3 Exc. 2 allows it with 30x48 in clear space beyond the arc)
+    tactile_sign_baseline_height_in: [48, 60]   # 703.4.1, latch side (703.4.2)
+    unisex_room_rule: privacy latch; max 1 lav + 2 WC or 1 WC + 1 urinal (213.2.1)
+    both_rooms_comply: "YES, full 2010 ADA on both rooms (D-019, Shane 2026-10-03)"
+    source: "R-003 (2010 ADA Standards via access-board.gov / ada.gov, retrieved 2026-10-03)"
+    cites:                                  # 2010 ADA section for each value (used on P1-G-001 table)
+      turning_space_diameter_in: "304.3"
+      wc_clearance: "604.3.1"
+      wc_centerline: "604.2"
+      wc_seat_height: "604.4"
+      grab_bar_side: "604.5.1"
+      grab_bar_rear: "604.5.2"
+      grab_bar_height: "609.4"
+      lav_clear_floor_space_in: "305.3, 606.2"
+      lav_rim_height_max_in: "606.3"
+      mirror_bottom_over_lav_max_in: "603.3"
+      door_clear_width_min_in: "404.2.3"
+      door_hardware_height_in: "404.2.7"
+      door_swing_rule: "603.2.3"
+      tactile_sign_baseline_height_in: "703.4"
+      source: "R-003 (section numbers per 2010 ADA Standards)"
+
+  approvals_refs:      # reference values only (R-002 / R-004); NOT legal or procurement advice
+    dcm_review_k12: "all public K-12 projects: DCM plan review + pre-construction conference + inspections, regardless of cost or funding (incl. donations); DCM verifies small scopes case by case"
+    dcm_fee_exempt_max_usd: 750000      # fully locally-funded K-12: no DCM fees at or below; still reviewed/inspected
+    public_works_sealed_bid_over_usd: 100000   # Ala. Code 39-2-2(a)(1); DCM asks 3 quotes at or below
+    school_board_purchase_bid_min_usd: 40000   # Ala. Code 16-13B-1 (Act 2023-203), per Examiners Feb 2025; MEDIUM
+    gc_license_min_usd: 100000          # Ala. Code 34-8-1(a), Act 2024-277
+    bonds_not_required_under_usd: 100000   # performance/payment 39-1-1(e); bid bonds DCM MOP 6.D.2
+    plumbing_license: state certificate required except 34-37-15 exemptions (owner; owner's regular maintenance employee); volunteers not addressed
+    electrical_license: state license required except 303-X-3-.07 exemptions (owner; owner's employee/maintenance person); volunteers not addressed
+    privately_funded_work: AG opinions (via Examiners) say work paid entirely with private funds is not "public works" for bid law; none involve a school board
+    confidence: "DCM review HIGH; thresholds HIGH ($40k MEDIUM); donated/volunteer application LOW"
+    source: "R-002, R-004 (retrieved 2026-10-03); NEEDS DISTRICT CONFIRMATION"
+
+# ---------------------------------------------------------------------------
+# Sheet register (title block data). Drawing code reads these; nothing hard-coded.
+sheets:
+  P1-A-101:
+    title: EXISTING CONDITIONS PLAN
+    subtitle: "WRESTLING ROOM — ROOM OUTLINE ONLY"
+    scale: "1/8\" = 1'-0\""
+    scale_in_per_ft: 0.125     # 1/8 in per ft. 1/4 and 3/16 do not fit 55 ft on the 11x17 body height
+    size: "11x17 tabloid, landscape"
+    plan_north: up (long side north-south)
+    notes:
+      - "Dimensions are to the INSIDE face of the walls, from Shane's tape measurement 2026-10-03: 55'-0\" north-south × 45'-0\" east-west, wall to wall."
+      - "Walls: CMU building. Walls drawn as 8\" CMU outside the inside face — thickness ASSUMED, verify."
+      - "Ceiling: 10'-0\" (Shane, firsthand)."
+      - "Doors: all 4 openings (3 emergency exits + 1 hallway door) drawn as 3'-0\" × 7'-0\" single hollow metal doors — ASSUMED STANDARD, VERIFY. Swing and hinge side drawn are assumed."
+      - Door LOCATIONS are APPROXIMATE, read from Shane's aerial sketch markup. Not measured, not dimensioned.
+      - The south exit may be a pair of doors (two marks on Shane's markup) — verify.
+      - The support wing is not yet measured. Its dashed outline is schematic only and not to scale.
+      - North arrow is approximate (from the Google Maps aerial). Plan north is up.
+      - Windows, wall devices, and existing pads are TBD.
+    support_wing_label: SUPPORT WING — NOT YET MEASURED
+    support_wing_note: (outline schematic only — not to scale)
+    revisions:
+      A:
+        file: P1-A-101_RevA
+        frozen: true      # APPROVED by Shane 2026-10-03 10:29 PM CT (D-026). Do not edit; next changes go to Rev B.
+        content: room outline (tape inside dims, 8 in CMU walls ASSUMED, 3 ft doors ASSUMED at APPROX. locations, CLG 10 ft, north arrow, scale bar); no fixtures, no pads, no support wing dims
+        source: "Shane 2026-10-03 10:06 PM CT (start P1-A-101: outline only, doors APPROX., support wing dashed + not measured); 10:12 PM CT (CMU 8 in ASSUMED, doors 3x7 ASSUMED STANDARD, CLG 10 ft); revised in place (not yet shown to Shane)"
+    source: "prompt §9 (sheet list, title block); Shane 2026-10-03 10:06 PM CT (content); scale chosen by KEYSTONE to fit 11x17"
+  P1-G-001:
+    title: SCOPE SHEET
+    subtitle: "PHASE 1 — REMODEL OF EXISTING WRESTLING ROOM"
+    scale: NTS
+    size: "11x17 tabloid, landscape"
+    audience: principal + district facilities
+    photo_boxes: [Wrestling room, Walk-through room]
+    source: "prompt §9 (sheet list, title block fields, 11x17); Shane chat 2026-10-03 (P1-T-004 content + subtitle)"
+    revisions:
+      A:                  # INTERNAL copy. FROZEN as issued 2026-10-03 (commit f002dff). Do not edit.
+        audience_label: internal
+        file: P1-G-001_RevA_internal
+        frozen: true
+        show_codes: true
+        pad_height_label: "6 ft proposed (R-001 guidance), coach to confirm"
+        waiting_heading: WAITING ON
+        waiting_on:
+          - "Room measurements + photos: wrestling room and walk-through room (Shane) — D-001"
+          - "Pad height: 6 ft proposed, coach's call — D-003"
+          - "Which walls get pads, and who buys or donates them — D-003"
+          - "Where the plumbing fails + photos — D-002"
+          - "Principal's name spelling — D-005"
+          - "Approval path: who signs off, donated work allowed? — D-004 (R-002, R-004)"
+        approvals_heading: "WHO APPROVES (DRAFT — TBD)"
+        approvals_chain:
+          - Principal (name spelling TBD)
+          - District facilities (Madison County Schools)
+          - TBD
+        approvals_note: "Final approval path, and whether donated labor or materials are allowed: TBD (R-002 and R-004 research pending)."
+        table_heading: "KEY 2010 ADA NUMBERS FOR EACH RESTROOM (from R-003)"
+        table_footnote: "Planning numbers only. Final restroom layout comes on sheet P1-A-102 after the rooms are measured."
+        show_why: false
+        show_requester: false
+        as_issued:        # W2 + W3-where wording as printed on this revision (both updated later 2026-10-03; keeps the frozen sheet reproducible)
+          name: Plumbing repair
+          lead: Repair plumbing already failing in the existing building.
+          why: Failing plumbing is getting worse the longer it waits.
+          where: TBD
+          problem_spots: TBD
+          existing_fixtures: TBD
+          w3_where: TBD — waiting on measurements.
+          source: "Rev A as issued 2026-10-03 (concept sheet condition wording)"
+        source: "frozen copy of Rev A content (P1-T-004, 2026-10-03); Shane 2026-10-03: keep Rev A as internal copy, unchanged"
+      B:                  # PRINCIPAL version. No D-###/R-### codes, no name-spelling lines (validate checks the PDF).
+        audience_label: principal
+        file: P1-G-001_RevB_principal
+        frozen: true      # approved by Shane 2026-10-03 (D-023). Do not edit; Rev C carries the changes.
+        show_codes: false
+        waiting_heading: "WHAT WE'RE ASKING THE SCHOOL FOR"
+        waiting_on:
+          - Permission to measure and photograph the wrestling room and walk-through room
+          - A district facilities contact
+          - How approval works for this kind of work
+        approvals_heading: WHO APPROVES
+        approvals_note_from: approvals.note_plain
+        table_heading: KEY 2010 ADA NUMBERS FOR EACH RESTROOM
+        table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
+        show_why: true
+        show_requester: true
+        as_issued:        # W2 + W3-where wording as printed on this revision (both updated later 2026-10-03; keeps the frozen sheet reproducible)
+          name: Plumbing repair
+          lead: Repair plumbing already failing in the existing building.
+          why: Failing plumbing is getting worse the longer it waits.
+          where: TBD
+          problem_spots: TBD
+          existing_fixtures: TBD
+          w3_where: TBD — waiting on measurements.
+          source: "Rev B as issued 2026-10-03 (commit 7ceb50c; concept sheet condition + Shane why)"
+        source: "Shane 2026-10-03 (Rev B principal version: asks, approver wording, requester line, no codes); frozen after D-023"
+      C:                  # PRINCIPAL version, current. Rev B + W2 no-water update + priority order (D-024). No codes. No aerial estimate.
+        audience_label: principal
+        file: P1-G-001_RevC_principal
+        frozen: true      # issued 2026-10-03 (commit ba9aa2e). Do not edit; Rev D carries the changes.
+        show_codes: false
+        row1_heading: "WHAT THIS PROJECT DOES — 3 WORK ITEMS, IN PRIORITY ORDER"
+        panel_order: [W2, W3, W1]
+        show_priority: true
+        priority_labels:
+          1: PRIORITY 1
+          2: PRIORITY 2
+          3: PRIORITY 3 — CAN RUN IN PARALLEL
+          source: "D-024 (Shane, firsthand 2026-10-03: W2 → W3 → W1, W1 can run in parallel)"
+        show_w2_status: true
+        waiting_heading: "WHAT WE'RE ASKING THE SCHOOL FOR"
+        waiting_on:
+          - Permission to measure and photograph the wrestling room and walk-through room
+          - A district facilities contact
+          - How approval works for this kind of work
+          - A plumber visit to diagnose why there is no water (shutoff, supply line, or other)
+        approvals_heading: WHO APPROVES
+        approvals_note_from: approvals.note_plain
+        table_heading: KEY 2010 ADA NUMBERS FOR EACH RESTROOM
+        table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
+        show_why: true
+        show_requester: true
+        as_issued:        # W2 + W3-where wording as printed on Rev C (fill-ins came later, 2026-10-03 10:06 and 10:12 PM CT)
+          name: Restore water / plumbing repair
+          lead: Restore running water to the area and repair the plumbing so the fixtures work again.
+          why: "Athletes have no working restroom or handwashing during practice; hygiene matters in a contact sport."
+          where: TBD
+          problem_spots: TBD
+          existing_fixtures: TBD
+          w3_where: TBD — waiting on measurements.
+          source: "Rev C as issued 2026-10-03 (commit ba9aa2e)"
+        source: "Rev B (D-023) + Shane, firsthand 2026-10-03: W2 no-water status, new W2 why, ask #4, priority W2 → W3 → W1 (D-024)"
+      D:                  # PRINCIPAL version, FROZEN as approved (D-025); superseded by Rev E 2026-10-04 10:03 AM CT. Rev C + W2 fill-ins (where, problem spots, fixtures) + W1 pad estimate. No codes.
+        audience_label: principal
+        file: P1-G-001_RevD_principal
+        frozen: true      # APPROVED by Shane 2026-10-03 10:29 PM CT (D-025). Do not edit; next changes go to Rev E.
+        show_codes: false
+        row1_heading: "WHAT THIS PROJECT DOES — 3 WORK ITEMS, IN PRIORITY ORDER"
+        panel_order: [W2, W3, W1]
+        show_priority: true
+        priority_labels:
+          1: PRIORITY 1
+          2: PRIORITY 2
+          3: PRIORITY 3 — CAN RUN IN PARALLEL
+          source: "D-024 (Shane, firsthand 2026-10-03: W2 → W3 → W1, W1 can run in parallel)"
+        show_w2_status: true
+        show_pad_estimate: true
+        pad_estimate_label: Estimate
+        name_principal: true      # uses contacts.principal.display_name (D-005 DECIDED)
+        waiting_heading: "WHAT WE'RE ASKING THE SCHOOL FOR"
+        waiting_on:
+          - Permission to measure and photograph the support wing and walk-through room
+          - A district facilities contact
+          - How approval works for this kind of work
+          - A plumber visit to diagnose why there is no water (shutoff, supply line, or other)
+          - Copies of the photos Dr. Headen took
+        approvals_heading: WHO APPROVES
+        approvals_note_from: approvals.note_plain
+        table_heading: KEY 2010 ADA NUMBERS FOR EACH RESTROOM
+        table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
+        show_why: true
+        show_requester: true
+        source: "Rev C + Shane, firsthand 2026-10-03 10:06 PM CT (W2 where / problem spots / fixtures; W1 pad estimate) + 10:12 PM CT (Dr. Headen named, ask 1 reworded, ask 5, W3 where, revised W1 estimate). Revised in place before Shane saw it."
+      E:                  # PRINCIPAL version, current. Rev D + code edition "2021 ASSUMED, verify with AHJ" (reviewer C-6). Phase 1 content only. No codes.
+        audience_label: principal
+        file: P1-G-001_RevE_principal
+        frozen: true
+        approved: "Shane 2026-10-04 10:27 AM CT ('APPROVED: ... P1-G-001 Rev E ... freeze those revs'); frozen 10:27 AM CT"
+        code_edition_suffix: " — 2021 ASSUMED, verify with AHJ"
+        code_edition_note: "Edition still open: county lists 2018 codes; State Fire Marshal uses 2021."
+        code_edition_source: "reviewer C-6 (Shane 2026-10-04 10:03 AM CT: add '2021 ASSUMED, verify with AHJ'); R-006 (Madison County enforces 2018 IBC / IFC / NFPA 101; State Fire Marshal 2021 IFC; DCM 2021 IBC for K-12) — edition conflict OPEN, D-008. Codes kept off the principal sheet"
+        hide_phase2_size: true    # Phase 1 content only: the Phase 2 building size (stale since D-056) no longer prints in NOT INCLUDED
+        show_codes: false
+        row1_heading: "WHAT THIS PROJECT DOES — 3 WORK ITEMS, IN PRIORITY ORDER"
+        panel_order: [W2, W3, W1]
+        show_priority: true
+        priority_labels:
+          1: PRIORITY 1
+          2: PRIORITY 2
+          3: PRIORITY 3 — CAN RUN IN PARALLEL
+          source: "D-024 (Shane, firsthand 2026-10-03: W2 → W3 → W1, W1 can run in parallel)"
+        show_w2_status: true
+        show_pad_estimate: true
+        pad_estimate_label: Estimate
+        name_principal: true      # uses contacts.principal.display_name (D-005 DECIDED)
+        waiting_heading: "WHAT WE'RE ASKING THE SCHOOL FOR"
+        waiting_on:
+          - Permission to measure and photograph the support wing and walk-through room
+          - A district facilities contact
+          - How approval works for this kind of work
+          - A plumber visit to diagnose why there is no water (shutoff, supply line, or other)
+          - Copies of the photos Dr. Headen took
+        approvals_heading: WHO APPROVES
+        approvals_note_from: approvals.note_plain
+        table_heading: KEY 2010 ADA NUMBERS FOR EACH RESTROOM
+        table_footnote: Planning numbers only. The final restroom layout comes after the rooms are measured.
+        show_why: true
+        show_requester: true
+        source: "Rev D (approved, D-025) + Shane 2026-10-04 10:03 AM CT (reviewer C-6: '2021 ASSUMED, verify with AHJ'; note the R-006 edition conflict, D-008 OPEN; new Rev E, 11x17, Phase 1 content only)"
+
+  P1-P-001:
+    title: PLUMBING / WATER RESTORE SCOPE
+    subtitle: "PHASE 1 — WORK ITEM W2 (PRIORITY 1) — SCOPE NARRATIVE ONLY"
+    scale: NTS
+    size: "11x17 tabloid, landscape"
+    audience: principal + district facilities + licensed plumber
+    keystone_role: "scope narrative + fixture list only (no plumbing design)"
+    design_by: BY LICENSED PLUMBER / ENGINEER OF RECORD
+    priority: 1
+    work_item: W2
+    cross_ref_package: Phase1_Package_for_Dr_Headen
+    cross_ref_sheets: ["P1-G-001 Rev D", "P1-A-101 Rev A"]
+    notes:
+      - "This sheet is a scope narrative. It is not a plumbing design, pipe schedule, or construction document."
+      - "All fixture counts and conditions come from Shane's firsthand report 2026-10-03; unknowns print TBD."
+      - "Work is BY LICENSED PLUMBER / ENGINEER OF RECORD (Alabama state certificate required except listed exemptions — R-004)."
+      - "Cross-ref: P1-G-001 Rev D and P1-A-101 Rev A in Phase1_Package_for_Dr_Headen (frozen — do not regenerate)."
+    revisions:
+      A:
+        file: P1-P-001_RevA
+        frozen: false
+        content: existing-condition narrative, fixture inventory table, scope-of-work bullets, licensed-trade note, open asks, cross-refs
+        source: "P1-T-008 2026-10-04; values from existing.plumbing + work_items W2 + R-004.3"
+    source: "prompt §9 sheet list (P1-P-001); Shane W2 priority D-024; KEYSTONE P1-T-008 2026-10-04"

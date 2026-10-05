@@ -1,0 +1,44 @@
+# KEYSTONE P2-A-901 Rev A massing materials (drafting colours from params/phase2_massing.yaml)
+newmtl m_9C9C9C
+Kd 0.6118 0.6118 0.6118
+illum 1
+
+newmtl m_9E1B32
+Kd 0.6196 0.1059 0.1961
+illum 1
+
+newmtl m_B5654A
+Kd 0.7098 0.3961 0.2902
+illum 1
+
+newmtl m_B8B8B8
+Kd 0.7216 0.7216 0.7216
+illum 1
+
+newmtl m_CDCDCD
+Kd 0.8039 0.8039 0.8039
+illum 1
+
+newmtl m_D6D6D6
+Kd 0.8392 0.8392 0.8392
+illum 1
+
+newmtl m_D8CCB0
+Kd 0.8471 0.8000 0.6902
+illum 1
+
+newmtl m_E4E4E4
+Kd 0.8941 0.8941 0.8941
+illum 1
+
+newmtl m_E9D3A6
+Kd 0.9137 0.8275 0.6510
+illum 1
+
+newmtl m_EFEFEF
+Kd 0.9373 0.9373 0.9373
+illum 1
+
+newmtl m_F2EBDD
+Kd 0.9490 0.9216 0.8667
+illum 1

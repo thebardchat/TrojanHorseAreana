@@ -1,0 +1,140 @@
+# KEYSTONE Phase 2 — CODE ANALYSIS inputs (P2-G-002). Created 2026-10-04 10:48 AM CT (Shane: next backlog item P2-T-007).
+# Contents come from cited research notes only: R-006 (editions / AHJ), R-007 (occupancy, load factors), R-009 (fixtures),
+# R-015 (sprinklers, voice alarm, exits, main exit), R-018 (L2 egress), R-019 / R-022 (heights), R-021 (area basis).
+# Sections looked up this session are quoted in R-007.3 (IBC 2021 ch. 10 box copy research_src/upc_ibc10.txt, UpCodes).
+# Areas = P2-A-101/102 Rev F as drawn (phase2_plan_rev_f.yaml rects). Not a code review: architect of record + AHJ confirm.
+
+meta:
+  sheet: P2-G-002
+  title: "CODE ANALYSIS (SCHEMATIC)"
+  revision: A
+  file: P2-G-002_RevA
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  disclaimer: "Design basis for the architect of record and the AHJ. Not a code review and no statement of approval: every line needs architect + AHJ confirmation (D-008). Values from KEYSTONE research notes; IBC 2021 text read on UpCodes (Alabama)."
+  source: "Shane 2026-10-04 10:48 AM CT (P2-G-002 Rev A: schematic set style, title block, PRELIMINARY stamp; contents from cited R-files)"
+
+editions:
+  rows:
+    - {code: "Building", designed: "IBC 2021 (ASSUMED, Shane)", county: "IBC 2018 (Madison County, since 2021-01-01)", status: "verify with AHJ (D-008)", source: "R-006.2 S1-S3"}
+    - {code: "Fire", designed: "IFC 2021 (State Fire Marshal; App. B, C, D)", county: "IFC 2018 (county)", status: "verify with AHJ", source: "R-006.2 S1, S6"}
+    - {code: "Life safety", designed: "not reviewed", county: "NFPA 101 2018 (county); ch. 12 new assembly", status: "verify with AHJ; may be stricter (R-006.2)", source: "R-006.2"}
+    - {code: "Plumbing", designed: "IPC 2021 / IBC 2021 ch. 29 (ASSUMED)", county: "IPC 2018; arena row of T2902.1 reads the same (R-009)", status: "verify with AHJ", source: "R-009; R-006.2"}
+    - {code: "Assembly egress", designed: "IBC 2021 §1030.x", county: "IBC 2018 §1029.x (same subsections; excerpts only, UNVERIFIED)", status: "verify with AHJ", source: "R-018 S2"}
+    - {code: "Energy / electrical", designed: "not checked", county: "IECC 2015 (state) / NEC 2017", status: "engineers", source: "R-006.2"}
+  ahj: "AHJ: Madison County Inspection Department if the parcel is unincorporated (Hazel Green is; R-006.1, MEDIUM). DCM 'schoolhouse' review question OPEN. Assembly building needs a registered architect (Ala. Admin. Code 100-X-4-.03)."
+  source: "R-006 (retrieved 2026-10-04)"
+
+occupancy:
+  rows:
+    - {space: "Bowl + event floor", group: "A-4", cite: "303.5 ('arenas'); HIGH", source: "R-007.1"}
+    - {space: "S&C, cross-training", group: "A-3 or B", cite: "303.4 / 304.1 (training); MEDIUM", source: "R-007.1"}
+    - {space: "Admin, first aid", group: "B", cite: "304.1", source: "R-007.1"}
+    - {space: "Storage, equipment, mech", group: "S-1", cite: "R-007.1 (likely group)", source: "R-007.1"}
+    - {space: "Locker rooms, event lockers", group: "A-4 or B", cite: "R-007.1", source: "R-007.1"}
+  mixed: "Mixed occupancy: nonseparated (508.3.1) with A-4 as the main occupancy, fully sprinklered — KEYSTONE recommendation, architect chooses (accessory 508.2 or separated 508.4 also possible)."
+  source: "R-007.1 (IBC 2021 §§303.1.2, 303.4, 303.5, 304.1, 508.2, 508.3)"
+
+construction:
+  type: TBD
+  note: "Construction type TBD (architect). Allowable height / area (IBC Tables 504.3, 504.4, 506.2) NOT checked. Inputs for that check: 2 stories, L2 FF 17'-9\" (D-061), arena roof 42' ASSUMED, fully sprinklered."
+  source: "R-007 (not researched); P2-A-301 Rev D heights"
+
+fire_protection:
+  items:
+    - "Automatic sprinklers throughout (903.3.1.1, ASSUMED): 903.2.1.4 triggers for A-4 — fire area > 12,000 SF, occupant load >= 300, floor other than exit discharge; all three met (R-015.5)."
+    - "Emergency voice/alarm (907.2.1.1: Group A, occupant load >= 1,000; 907.5.2.2) ASSUMED (R-015.5)."
+    - "Sprinklers + voice alarm allow 0.2 in/occupant for stairs (1005.3.1 exc. 1) and 0.15 in for doors and other components (1005.3.2 exc.) (R-018.2, R-015.6)."
+    - "Smoke-protected seating NOT assumed (1030.6.2 needs smoke control per 909 + a life safety evaluation; NFPA 101 not reviewed). If used: 1030.6.2.2 roof >= 15' above the highest aisle (loop 17.75') = 32.75'; arena U/S structure 36' drawn (R-022 §5)."
+    - "Group A: post the occupant load (1004.9); fire safety + evacuation plan with a seating plan (IFC 403.2.1); telescopic seating per ICC 300 (1030.1.1) (R-007.2)."
+  source: "R-015.5, R-015.6, R-018.2, R-007.2, R-022 §5"
+
+factors:
+  exercise: {sf: 50, kind: gross, label: "exercise rooms 50 gross", source: "IBC 2021 Table 1004.5 (R-007.2)"}
+  locker: {sf: 50, kind: gross, label: "locker rooms 50 gross", source: "IBC 2021 Table 1004.5 (R-007.2)"}
+  business: {sf: 150, kind: gross, label: "business areas 150 gross", source: "IBC 2021 Table 1004.5 (R-007.2)"}
+  kitchen: {sf: 200, kind: gross, label: "commercial kitchens 200 gross", source: "IBC 2021 Table 1004.5 (R-007.2)"}
+  storage: {sf: 300, kind: gross, label: "storage / mechanical 300 gross", source: "IBC 2021 Table 1004.5 (R-007.2)"}
+  unconcentrated: {sf: 15, kind: net, label: "unconcentrated (tables + chairs) 15 net", source: "IBC 2021 Table 1004.5 (R-007.2)"}
+  chairs: {sf: 7, kind: net, label: "concentrated (chairs only) 7 net", source: "IBC 2021 Table 1004.5 (R-007.2)"}
+  standing: {sf: 5, kind: net, label: "standing space 5 net", source: "IBC 2021 Table 1004.5 (R-007.2)"}
+  rounding: "each space: drawn area rounded to 1 SF, divided by the factor, rounded up"
+  source: "R-007.2 (IBC 2021 Table 1004.5, 1004.6)"
+
+level_1:
+  seats: {label: "Lower tier seats (telescopic)", basis: "number of seats (1004.6); if benches: 1 per 18 in of seat length (row lengths not drawn — may raise the count)", source: "R-007.2; P2-G-003 Rev I seat split (1,100 lower)"}
+  spaces:
+    - {label: "Boys locker", ids: [boys_locker], factor: locker, source: "R-007.2; plan Rev F"}
+    - {label: "Girls locker", ids: [girls_locker], factor: locker, source: "R-007.2; plan Rev F"}
+    - {label: "Event lockers 1-4", ids: [evl_1, evl_2, evl_3, evl_4], factor: locker, source: "R-007.2; plan Rev F (D-060)"}
+    - {label: "Flex / team assembly", ids: [team_asm], factor: unconcentrated, basis: "use ASSUMED as assembly (D-039 flex)", source: "R-007.2; plan Rev F zone team_asm"}
+    - {label: "Flex / storage (SW)", ids: [storage_sw], factor: storage, basis: "use ASSUMED storage (D-039)", source: "R-007.2; plan Rev F"}
+    - {label: "Equipment storage + room", ids: [equip_storage, equip_room], factor: storage, source: "R-007.2; plan Rev F"}
+    - {label: "Mech / elec (4 rooms)", ids: [mech_nw, mech_n, mech_e, mech_ne], factor: storage, source: "R-007.2; plan Rev F"}
+    - {label: "First aid", ids: [first_aid], factor: business, source: "R-007.2; plan Rev F"}
+    - {label: "Concession", ids: [concession], factor: kitchen, source: "R-007.2; plan Rev F (D-011 scope OPEN)"}
+  not_added: "Not added (same occupants moving through; R-018.1 method): lobby, concourses, athlete corridor / route, vestibule, restrooms, stairs. The AHJ may count waiting / standing space."
+  source: "R-007.2; R-018.1; phase2_plan_rev_f.yaml"
+
+event_floor:
+  area_sf: 16416
+  area_basis: "114 x 144 ft (R-007.2 / D-054; the locked program value is 16,400 SF, D-030)"
+  cases:
+    - {id: sports, label: "Sports (exercise 50 gross, ASSUMED)", factor: exercise, source: "R-007.2"}
+    - {id: tables, label: "Tables + chairs (15 net)", factor: unconcentrated, source: "R-007.2"}
+    - {id: chairs, label: "Chairs only (7 net)", factor: chairs, source: "R-007.2"}
+    - {id: standing, label: "Standing (5 net) — WORST", factor: standing, source: "R-007.2"}
+  design_case: standing
+  design_rule: "D-054 OPEN: design L1 exits to PASS the worst case (standing), show the other cases alongside (Shane's worst-case egress rule, 10:48 AM CT)"
+  source: "R-007.2; D-054; Shane 2026-10-04 10:48 AM CT"
+
+level_2:
+  seats: {label: "Upper tier seats (fixed)", basis: "number of seats (1004.6)", source: "R-018.1; P2-G-003 Rev I (1,100 upper)"}
+  spaces:
+    - {label: "Strength & conditioning", ids: [sc], factor: exercise, minus_stairs: true, source: "R-018.1; plan Rev F (ST-1 deducted)"}
+    - {label: "Cross-training", ids: [xt], factor: exercise, source: "R-018.1; plan Rev F"}
+    - {label: "Admin", ids: [admin], factor: business, source: "R-018.1; plan Rev F"}
+  sensitivities:
+    - {id: loop, label: "+ loop counted as exercise (R-018 a)", area: loop, factor: exercise, source: "R-018.1 (a); loop area from plan Rev F"}
+    - {id: rail, label: "+ standing at the W rail (R-018 b)", area_sf: 420, factor: standing, basis: "2.5 ft x 168 ft strip (depth ASSUMED, R-018.1 b)", source: "R-018.1 (b)"}
+  design_case: "base + both sensitivities (D-052 worst case)"
+  source: "R-018.1, R-018.8, R-018.9; D-052"
+
+egress:
+  door_in_per_occ: 0.15
+  door_basis: "Doors and other components 0.15 in per occupant (1005.3.2 exc.: sprinklers 903.3.1.1 + voice alarm 907.5.2.2)"
+  stair_in_per_occ: 0.2
+  stair_basis: "Stairs 0.2 in per occupant (1005.3.1 exc. 1)"
+  stair_clear_in: 76
+  stair_count: 4
+  door_clear_in: 64
+  door_basis_width: "Widths are NOT drawn on P2-A-101 Rev F: each door symbol taken as a pair of 3'-0\" leaves (A-201: 6' x 8' symbols, ASSUMED) at 2 x 32 in = 64 in clear (1010.1.1: 32 in minimum clear per leaf) — architect sets the real widths"
+  openings: [E1, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10]
+  main_exit: E1
+  stair_discharge: [X4, X6, X9, X10]
+  rules: "1030.2 main exit >= 1/2 of the occupant load (and fronts a street or 10 ft open space); 1030.3 other exits on each level >= 1/2 of that level's load; 1030.2 / 1030.3 alternative: no well-defined main exit or multiple main exits -> exits distributed around the perimeter, total >= 100%; 1005.5 lose one exit >= 50%; T1006.3.3 > 1,000 per story -> 4 exits"
+  source: "R-015.6 (1030.2, 1030.3, 1005.3.2, T1006.3.3); R-018.2 (1005.3.1, 1005.5); R-007.3 (1010.1.1, 1030.2 full text) — IBC 2021, UpCodes"
+
+travel:
+  items:
+    - "Exit access travel (T1017.2, A sprinklered): 250 ft. L2 worst measured ≈ 141 ft (R-018.4, Rev D plan; not re-measured on Rev F). L1: NOT CHECKED (TBD)."
+    - "Common path: seats 30 ft to two directions (1030.8; rows not drawn, TBD). Spaces with one exit: T1006.2.1 Group A 49 occupants / 75 ft — locker rooms (71 each) have 2 exits (X2 / X3 + corridor); event lockers (18 each) one door OK if the common path <= 75 ft (TBD)."
+    - "Stepped aisles, handrails, guards (1030.9, 1030.16, 1030.17): TBD with the seating layout (R-018.4-5)."
+  source: "R-018.4, R-018.5; R-015.6; IBC 2021 T1006.2.1, T1017.2"
+
+open_items:
+  items:
+    - "Code editions + AHJ (D-008): 2021 vs 2018 / NFPA 101 — pre-application meeting with Madison County."
+    - "Event floor uses (D-054): sets the L1 exits, main exit and L1 fixtures (tables 7-10)."
+    - "Door widths, hardware, main-exit frontage (1030.2: street or 10 ft open space) — architect."
+    - "Construction type + allowable area (ch. 5 / 6) — architect."
+    - "Smoke-protected seating or not (1030.6.2) — architect / AHJ."
+    - "Upper-tier structure 1'-6\" ASSUMED (structural engineer): front-row clear is exactly 7'-6\" (1003.2), zero margin."
+    - "Seat type on the telescopic tier (benches: 1 per 18 in) and the seating layout (aisles, rails, guards)."
+  source: "D-008, D-054 (OPEN); R-006, R-007, R-018; phase2_sect.yaml rev_d structure_status (Shane 10:48 AM CT)"
+
+plumbing:
+  basis: "IPC 2021 ASSUMED (IBC 2021 T2902.1 assembly — arenas; 50/50 split 2902.1.1; urinals <= 67% of male WC, IPC 424.2). 2018 arena row reads the same (R-009). Fixture loads = P2-G-003 Rev I (seats + event floor at 50 gross)."
+  source: "R-009; P2-G-003 Rev I (p2_testfit.summary_h fx1 / fx2)"
+
+source: "KEYSTONE 2026-10-04 (Shane 10:48 AM CT); R-006, R-007, R-009, R-015, R-018, R-021, R-022"

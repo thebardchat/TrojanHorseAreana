@@ -1,0 +1,175 @@
+# phase2_elev_rev_f.yaml: P2-A-201 EXTERIOR ELEVATIONS Rev F overlay (Phase 2). Read by phase2/src/p2_a_201.py --rev F on top of
+# phase2_elev.yaml (frozen Rev A input, unchanged). phase2_elev_rev_b.._e.yaml stay the frozen Rev B-E overlays. Rev F = Rev E geometry
+# unchanged + reviewer items C-5 (25' clear = REFERENCE, not CITED) and C-8 (portal STRUCTURAL ENGINEER REQUIRED; ETFE only as an open question). Rev E = Rev D portal + brand
+# unchanged, coordinated with P2-A-101/102 Rev E (210 ft width, 6.67 ft NE stair tower). Units: feet above L1 FF. Every value carries `source`. Sizes ASSUMED unless cited.
+
+meta:
+  revision: F
+  change_rev_f: "reviewer C-5: arena clear >= 25' labelled REFERENCE (NFHS court specs via Draper; LA RAP gym standard; R-019), not CITED; reviewer C-8: portal callout + note STRUCTURAL ENGINEER REQUIRED; ETFE roof / solar removed from NOT SHOWN and listed only as an OPEN QUESTION. No geometry, height or seating change (D-061 still OPEN)"
+  source_rev_f: "Shane 2026-10-04 10:03 AM CT (do reviewer items C-5..C-11 that do not depend on D-061; A-201 Rev F if needed)"
+  change_rev_e: "coordinated with P2-A-101/102 Rev E: building 204 → 210 ft wide (east clear 16 ft, D-053), arena volume flush with the new east wall (loop outer [49,34,210,246]), NE stair tower 21.33 x 6.67 ft (was 19 x 5; 76 in stair, D-052 / D-051), doors from Rev E. Portal, brand, Champion Walk unchanged from Rev D"
+  source_rev_e: "Shane 2026-10-04 9:47 AM CT (coordinate the set with Plan Rev E: A-201 Rev E 210 ft width, ST-2 tower 6.67 ft); phase2_plan_rev_e.yaml"
+  change_rev_d: "portal capped at 50 ft (Shane: must not exceed 50 ft; arena roof 42): arch crown lowered 40 → 34 ft, springline scaled 26 → 22.1 ft (semi-elliptical arch, rise 11.9 ft on the 28 ft opening), attic 36-50; 11 ft badge 34.4-45.4 ft; wordmark 27 in caps, baseline 46.1 ft"
+  change_rev_c: "badge 11 ft dia (Shane, from the 10-12 ft range); wordmark scaled up but held inside the portal width; portal raised 50 → 56 ft (attic 42-56) so nothing overflows; brand detail updated; south elevation moved down 0.45 in on the sheet to fit; Champion Walk 28 x 30 ft + brick tiers + capacity on the key plan; arch underside crimson + gold trim DECIDED (D-045); bus drop loop note (D-034)"
+  change_rev_b: "official Trojan Horse Arena mark on the portal above the arch + TROJAN HORSE ARENA wordmark; side panel 'Hazel Green Regional Athletic Complex'; keystone replaced by the mark; portal FREESTANDING in front of the south entrance over the brick Champion Walk (6:22 AM CT); key plan"
+  source: "Shane 2026-10-04 7:24 AM CT (P2-A-201 Rev D: portal must not exceed 50 ft; lower the arch crown 40 → ~34 ft, springline proportional, ASSUMED; Rev C frozen); Rev C: Shane 6:45 AM CT; Rev B: Shane 6:16 + 6:22 AM CT"
+
+mark:
+  name: "Trojan Horse Arena official mark — circular horse-head badge with Greek key border"
+  file: brand/THA_logo_black.svg
+  variant: black
+  fill: "#1A1A1A"
+  variants: [{id: black, file: brand/THA_logo_black.svg, fill: "#1A1A1A", source: "Shane 6:16 AM CT attachment, identified by fill"}, {id: red, file: brand/THA_logo_red.svg, fill: "#CC0000", source: "Shane 6:16 AM CT attachment, identified by fill"}, {id: white, file: brand/THA_logo_white.svg, fill: "#FFFFFF", source: "Shane 6:16 AM CT attachment, identified by fill"}]
+  diameter: 11.0
+  center_z: 39.9
+  basis: "Rev D: 11 ft badge (Shane picked from 10-12 ft) centred on the arch, 0.4 ft above the lowered arch crown (34 ft): spans 34.4-45.4 ft; replaces the Rev A keystone; 11 ft = 0.69 in at 1/16 in = 1 ft-0 in"
+  status: "DECIDED size (Shane) / ASSUMED position"
+  source: "Shane 2026-10-04 6:45 AM CT (badge 11 ft dia, D-047); Shane 7:24 AM CT (portal <= 50 ft, crown ~34 ft, D-050); Shane 6:16 AM CT (official mark, D-041; above the arch); KEYSTONE (position)"
+
+wordmark:
+  text: "TROJAN HORSE ARENA"
+  color: "#CC0000"
+  baseline_z: 46.1
+  cap_height: 2.25
+  basis: "Rev D: single line 0.7 ft above the badge (45.4 ft), caps top 48.35 ft, below the cornice band (48.8-50 ft). Scaling 'to match' the badge (Rev B ratio cap / badge = 1.5 / 6) would give 2.75 ft caps and a 47.9 ft line — wider than the 44 ft portal — so the caps are held at 2.25 ft (27 in): line ≈ 39.2 ft, inside the 40 ft between the corner piers. Letter style TBD (sheet font)"
+  status: ASSUMED
+  source: "Shane 2026-10-04 6:45 AM CT (wordmark scales to match the badge; nothing overflows); KEYSTONE (ASSUMED size, capped by the portal width)"
+
+side_panel:
+  lines: ["HAZEL GREEN REGIONAL", "ATHLETIC COMPLEX"]
+  rect: [40, 15.5, 86, 23.0]
+  panel: "#1A1A1A"
+  stripe: "#CC0000"
+  text_color: "#FFFFFF"
+  cap_height: 1.5
+  basis: "black panel with a red stripe on the west ring wall beside the portal (u 40-86 ft, z 15.5-23 ft); size, position and mounting ASSUMED"
+  status: ASSUMED
+  source: "Shane 2026-10-04 6:16 AM CT (side panel 'Hazel Green Regional Athletic Complex'; red / black); KEYSTONE (ASSUMED)"
+
+arena_sign:
+  text: "SIGNAGE ZONE — CONTENT TBD"
+  source: "KEYSTONE (Rev A placeholder kept on the arena south face; content not stated by Shane)"
+
+detail:
+  title_lines: ["BRAND DETAIL", "PORTAL ATTIC", "3/32\" = 1'-0\""]
+  ft_per_in: 10.6667
+  z_range: [34, 50]
+  y_bottom: 8.93
+  source: "KEYSTONE sheet layout (enlarged view so the mark and wordmark read at print size)"
+
+trademark:
+  status: "OPEN (D-042): trademark search before signage / apparel"
+  source: "Shane 2026-10-04 6:16 AM CT"
+
+portal_freestanding:
+  gap_to_building: 30
+  depth: 6
+  basis: "freestanding limestone arch just before the south entrance, straddling Champion Walk (D-043). Gap = Champion Walk length 30 ft portal-to-doors (DECIDED for now, D-046); portal depth 6 ft ASSUMED. The arch opening is open: through it the elevation shows the building's E1 entry behind"
+  soffit: "arch underside crimson + gold trim, as drawn (DECIDED, D-045)"
+  status: ASSUMED
+  source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043); Shane 6:45 AM CT (walk 30 ft portal to doors, D-046; underside crimson + gold trim, D-045); KEYSTONE (ASSUMED depth)"
+
+champion_walk:
+  name: "CHAMPION WALK"
+  paving: brick
+  note: "Engraved donor / sponsor bricks"
+  width: 28
+  length: 30
+  area_sf: 840
+  brick_hex: "#B5654A"
+  tiers: [{size: "4 x 8 in", use: "single name", source: "Shane 6:45 AM CT"}, {size: "8 x 8 in", use: "family / business", source: "Shane 6:45 AM CT"}]
+  pricing: "TBD (OPEN, D-044)"
+  capacity_4x8: "about 3,700 (Shane): 840 SF / (4 x 8 in = 0.222 SF) = 3,780 at nominal face size with no border course or joints; a border and joints bring it under that. Each 8 x 8 uses two 4 x 8 slots"
+  extension: "option to extend the walk south to parking later (not drawn as part of the 28 x 30)"
+  labels:
+    - {text: "CHAMPION WALK 28' x 30' = 840 SF (portal → doors, for now)", bold: true, source: "D-046"}
+    - {text: "Engraved donor / sponsor bricks: 4x8 single name · 8x8 family / business", bold: false, source: "D-046"}
+    - {text: "≈ 3,700 4x8 (840 SF ÷ 0.222 SF = 3,780, less border + joints) · pricing TBD", bold: false, source: "D-046, D-044"}
+    - {text: "FREESTANDING PORTAL (2 piers, depth 6' ASSUMED)", bold: true, source: "D-043"}
+  ext_label: "OPTION: extend the walk to parking later"
+  bus_label: "BUS DROP LOOP: south, offset E or W of the portal view (D-034; site plan)"
+  basis: "brick walkway from the portal to the E1 doors, 28 ft wide (= arch opening) x 30 ft long, DECIDED for now; paving under the portal shown continuous; low walls / planters TBD"
+  status: "DECIDED for now (D-046); pricing OPEN (D-044)"
+  source: "Shane, firsthand, 2026-10-04 6:45 AM CT (D-046); 6:22 AM CT (D-043)"
+
+entry_glazing_building:
+  width: 18
+  height: 16
+  basis: "E1 entry glazing on the building's south wall behind the freestanding portal (seen through the open arch); width ASSUMED, height = Rev A entry glazing height (ASSUMED)"
+  status: ASSUMED
+  source: "phase2_plan_rev_d.yaml (E1 on the south wall at the entry axis); phase2_elev.yaml portal.entry_glazing_height; KEYSTONE (ASSUMED width)"
+
+key_plan:
+  title: "KEY PLAN — PORTAL + CHAMPION WALK — 1\" = 60'"
+  ft_per_in: 60
+  y_wall: 10.30
+  y_bottom: 9.30
+  title_y: 9.20
+  source: "KEYSTONE sheet layout (schematic key plan in the free band above the south elevation; site plan to follow on the next A-101 revision, D-043)"
+
+finish_brick:
+  id: brick
+  name: "BRICK (Champion Walk)"
+  hex: "#B5654A"
+  status: "Shane (material); hex ASSUMED"
+  source: "Shane 2026-10-04 6:22 AM CT (brick walkway)"
+
+portal_override:
+  overall_height: 50
+  attic_band: [36, 50]
+  crown: 34
+  springline: 22.1
+  arch_rise: 11.9
+  basis: "Rev D: portal back to 50 ft (Shane's cap). Crown 40 → 34 ft; springline scaled with it, 26 x 34 / 40 = 22.1 ft; the 28 ft opening keeps its width, so the arch becomes a semi-ellipse (half-span 14 ft, rise 11.9 ft). Attic band starts 2 ft above the crown (36 ft, as Rev A: crown 40 / attic 42). Width 44 ft and opening 28 ft unchanged. A semicircular arch with crown 34 would need springline 20 ft (not drawn)"
+  status: ASSUMED
+  source: "Shane 2026-10-04 7:24 AM CT ('portal must NOT exceed 50 ft (arena roof 42). Lower arch crown 40 -> ~34 ft (adjust springline proportionally, ASSUMED)', D-050); KEYSTONE"
+
+layout:
+  south_y0: 6.25
+  notes_dy: 0.25
+  source: "KEYSTONE sheet layout (south elevation 0.45 in lower so the taller portal, its title and the 16 ft brand detail fit under the border; Rev F: notes block raised 0.25 in into the free band under the east elevation so the added structural / open-question lines fit)"
+
+title2: "30' in front of the E1 doors (D-046) · 50' max (D-050) · see key plan"
+source: "Shane 2026-10-04 7:24 AM CT (Rev D); title2 = KEYSTONE subtitle text for the portal (walk length D-046, 50 ft cap D-050)"
+
+callout_targets: [[9.0, 30.2], [12.2, 18.7], [6, 10.6]]
+callout_targets_source: "KEYSTONE sheet layout (leader end points moved onto the lowered crimson band / gold trim, ft from the portal centre and ft above grade)"
+
+callouts:
+  - {text: "CRIMSON underside (D-045)", source: "D-045"}
+  - {text: "GOLD trim (D-045)", source: "D-045"}
+  - {text: "E1 ENTRY GLAZING TBD (building face, behind)", source: "Rev B"}
+
+notes_override:
+  portal: "PORTAL: FREESTANDING limestone arch 30' in front of the E1 doors over Champion Walk (D-043, D-046); 50' max (D-050): crown 34', springline 22.1', depth 6' ASSUMED; underside crimson + gold trim (D-045). STRUCTURAL ENGINEER REQUIRED."
+  heights: "HEIGHTS: L2 FF 15' (R-015), ring roof 30' ASSUMED. Arena clear ≥ 25' REFERENCE (NFHS via Draper, LA RAP; R-019). U/S structure 36', roof 42' ASSUMED. Upper tier steps DOWN from the loop (D-049): 19\" risers (D-053), front row 7.08'; highest aisle = loop 15' (1030.6.2.2: 21' to U/S). Low band + exit paths: D-061 OPEN (R-022)."
+  brand: "BRAND: official mark Ø 11' (Shane, D-047) at 34.4'-45.4'; wordmark 27\" caps, baseline 46.1' (inside the 44' x 50' portal) + side panel, ASSUMED sizes. Trademark search before signage / apparel OPEN (D-042)."
+  walk: "CHAMPION WALK: 28' x 30' brick (for now, D-046); 4x8 single name, 8x8 family / business; ≈ 3,700 4x8; pricing OPEN (D-044); may extend to parking. Bus drop: south, offset E or W (D-034)."
+  not_shown: "NOT SHOWN: rooftop units, grading, lighting."
+  open_question: "OPEN QUESTION: ETFE roof / solar (aspirations) — not designed, not in the SF or budget."
+  source: "D-034, D-042 to D-047, D-049, D-050, D-053, D-061; Rev F: reviewer C-5 (REFERENCE label, R-019), C-8 (structural engineer; ETFE as open question) per Shane 10:03 AM CT"
+
+plan_file: phase2_plan_rev_e.yaml
+plan_file_source: "P2-A-101/102 Rev E geometry (Shane 9:47 AM CT: coordinate the set with Plan Rev E)"
+
+arena_volume_override:
+  rect: [49, 34, 210, 246]
+  basis: "high roof over the upper tier, the loop and the arena = Level 2 loop outer edge on P2-A-102 Rev E; flush with the 210 ft east wall"
+  status: ASSUMED
+  source: "phase2_plan_rev_e.yaml level_2.loop.outer; KEYSTONE massing (ASSUMED)"
+
+text_rev_e:
+  tower_label: "NE STAIR TOWER (+6.67')"
+  tower_u: 10.67
+  key_wall: "BUILDING — SOUTH WALL (P2-A-101 Rev E)"
+  key_sub: "north up · site plan: P2-C-101 Rev B"
+  doors_note: "DOORS: symbols (6' x 8' ASSUMED) from P2-A-101 Rev E; X# EXIT ONLY (D-033); S1 size TBD (D-034)."
+  source: "KEYSTONE labels for Rev E (tower 21.33 x 6.67 ft centred 10.67 ft from the east end; P2-A-101 Rev E doors; P2-C-101 Rev B site plan)"
+
+se_callout:
+  text: "STRUCTURAL ENGINEER REQUIRED (freestanding portal)"
+  z: 4.0
+  target: [20.5, 4.0]
+  color: "#CC0000"
+  basis: "reviewer C-8: a freestanding 44 x 50 ft masonry arch needs a structural engineer (foundations, wind, seismic, lateral bracing); KEYSTONE does not size it. Leader to the east pier"
+  source: "Shane 2026-10-04 10:03 AM CT (reviewer C-8: mark the portal 'STRUCTURAL ENGINEER REQUIRED'); KEYSTONE sheet layout"

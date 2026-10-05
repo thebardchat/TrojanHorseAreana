@@ -1,0 +1,95 @@
+# phase2_life_safety.yaml: P2-A-111 LIFE SAFETY PLAN (SCHEMATIC), Levels 1 + 2 (Phase 2). Read by phase2/src/p2_a_111.py.
+# Rev A, 2026-10-04 (Shane 11:07 AM CT): exits with capacities and egress widths, occupant loads per P2-G-002 Rev A (worst case,
+# standing floor), exit access travel distance and common path (measured on the diagram or TBD / UNVERIFIED), exit separation
+# (1/3 diagonal, sprinklered), E1 8-pair door bank (Option 1 DECIDED). Geometry: params/phase2_plan_rev_g.yaml (Level 1 = P2-A-101
+# Rev G; Level 2 = Rev F, unchanged). Loads and egress factors: params/phase2_code.yaml via p2_g_002.compute().
+# Units: feet on plan (origin = SW building corner, x east, y north), inches for egress widths.
+# Status: every travel path is a KEYSTONE diagram measurement (rectilinear, along open floor, LOW confidence) — UNVERIFIED until the
+# architect lays out walls, doors, aisles and seating. Not a code review (D-008).
+
+meta:
+  sheet: P2-A-111
+  title: "LIFE SAFETY PLAN (SCHEMATIC) — LEVELS 1 + 2"
+  revision: A
+  file: P2-A-111_RevA
+  size: "17 x 11 in (tabloid), landscape"
+  scale_ft_per_in: 50
+  scale_text: "1\" = 50'-0\""
+  disclaimer: "Schematic life safety diagram for the architect of record and the AHJ. Not a code review and no statement of approval; every line needs architect + AHJ confirmation (D-008). Door widths ASSUMED, travel paths measured on the diagram."
+  source: "Shane 2026-10-04 11:07 AM CT (P2-A-111 Rev A: schematic set style, title block, PRELIMINARY stamp)"
+
+basis:
+  plan: params/phase2_plan_rev_g.yaml
+  loads: "P2-G-002 Rev A: occupant loads by space from the drawn areas (IBC 2021 Table 1004.5), event floor 16,416 SF standing (5 net) = WORST case; Level 2 base + loop + rail sensitivities"
+  floor_sensitivity: {area_sf: 17280, factor_sf: 5, label: "whole drawn floor zone 120 x 144 ft standing", source: "P2-A-101 Rev G drawn event floor + east zone (D-053); IBC 2021 Table 1004.5 standing 5 net"}
+  source: "P2-G-002 Rev A (Shane 10:48 AM CT); D-054 (OPEN, exits sized for the standing worst case: Shane 11:07 AM CT)"
+
+exits:
+  e1_from_plan: "E1 bank: params/phase2_plan_rev_g.yaml level_1.doors E1.bank (8 pairs x 64 in = 512 in clear, ASSUMED per pair)"
+  door_rule: "capacity = clear width / 0.15 in per occupant (IBC 2021 1005.3.2 exception: sprinklered 903.3.1.1 + emergency voice / alarm 907.5.2.2)"
+  stair_rule: "capacity = clear width / 0.2 in per occupant (IBC 2021 1005.3.1 exception 1)"
+  checks: "1030.2 main exit >= 1/2 of the total occupant load; 1030.3 other exits on L1 >= 1/2 of the L1 load; 1005.3 total; 1005.5 lose any one exit >= 50 % of the required capacity"
+  source: "R-015.6, R-018.2, R-007.3 (IBC 2021 1005.3.1, 1005.3.2, 1005.5, 1030.2, 1030.3; UpCodes, research_src/upc_ibc10.txt, retrieved 2026-10-04); Shane 11:07 AM CT (Option 1)"
+
+travel:
+  limit_ft: 250
+  limit_cite: "IBC 2021 Table 1017.2: Group A with sprinklers (903.3.1.1) 250 ft"
+  measure: "1017.3: from the most remote point along the natural and unobstructed path to the entrance to the nearest exit. Paths below are rectilinear along open floor on the diagram (walls / doors / aisles not drawn): UNVERIFIED."
+  stair_note: "L2 paths end at the stair. If the stairs are open exit access stairways rather than enclosed exit stairways (TBD, architect), travel continues down the stair (1017.3.1, along the nosings) to the L1 exit door: about +50 ft ASSUMED (2 flights + 76 in landings + 5 ft to the door) — still under 250 ft."
+  paths:
+    - {id: T1, level: 1, label: "event floor center → V2 → EXIT (E) → X7", pts: [[116, 140], [116, 179.09], [210, 179.09]], source: "KEYSTONE diagram measurement on plan Rev G (UNVERIFIED)"}
+    - {id: T2, level: 1, label: "floor SE corner → portal → lobby → E1", pts: [[176, 68], [113, 68], [113, 0]], source: "KEYSTONE diagram measurement on plan Rev G (UNVERIFIED)"}
+    - {id: T3, level: 1, label: "girls locker far corner → X2", pts: [[41, 57], [41, 98], [0, 98]], source: "KEYSTONE diagram measurement on plan Rev G (UNVERIFIED; locker door layout TBD)"}
+    - {id: T4, level: 2, label: "E upper tier, front row mid → aisle → loop → ST-2", pts: [[188, 140], [206.5, 140], [206.5, 246]], source: "KEYSTONE diagram measurement on plan Rev F L2 (UNVERIFIED; aisles not drawn)"}
+    - {id: T5, level: 2, label: "S upper tier, front row mid → loop → upper concourse (E) → ST-3", pts: [[113, 56], [113, 37.5], [180, 37.5], [180, 6.3], [185.917, 6.3]], source: "KEYSTONE diagram measurement on plan Rev F L2 (UNVERIFIED)"}
+    - {id: T6, level: 2, label: "S&C far corner → ST-1", pts: [[0.5, 141.7], [42.7, 141.7], [42.7, 227.917]], source: "KEYSTONE diagram measurement on plan Rev F L2 (UNVERIFIED; equipment layout TBD)"}
+  previous: "R-018.4: L2 ≈ 141 ft on the Rev D plan (superseded by these Rev G / F measurements)"
+  source: "IBC 2021 1017.2, Table 1017.2, 1017.3, 1017.3.1 (UpCodes, research_src/upc_ibc10.txt, retrieved 2026-10-04); R-018.4; KEYSTONE diagram"
+
+common_path:
+  rules:
+    - {text: "Spaces with one exit (Table 1006.2.1, Group A): occupant load <= 49 and common path <= 75 ft (sprinklered)", source: "IBC 2021 1006.2.1, Table 1006.2.1"}
+    - {text: "Seating (1030.8): 30 ft from any seat to a choice of two paths (75 ft if the area serves < 50; 50 ft if smoke-protected)", source: "IBC 2021 1030.8"}
+    - {text: "Unoccupied mechanical rooms: common path not required (1006.2.1 exception 3)", source: "IBC 2021 1006.2.1 exception 3"}
+  checks:
+    - {space: "Event lockers 1-4", load: "18 each", result: "one door OK if <= 75 ft: room 32 x 28 / 22 x 41 ft → <= 63 ft rectilinear to any wall point", status: "LIKELY — door not located (UNVERIFIED)", source: "plan Rev G; Table 1006.2.1"}
+    - {space: "Boys / girls locker", load: "71 each", result: "> 49 → 2 exits: X2 / X3 + corridor door", status: "OK as planned (corridor door ASSUMED)", source: "plan Rev G; Table 1006.2.1"}
+    - {space: "Flex / team assembly", load: "134", result: "> 49 → 2 exits: X1 + lobby side (CD-1 free egress, 1010.2)", status: "OK as planned", source: "plan Rev G; Table 1006.2.1"}
+    - {space: "S&C / cross-training (L2)", load: "103 / 70", result: "> 49 → 2 exit access doorways each (ST-1 / loop; corridor / loop)", status: "ASSUMED doors (TBD)", source: "plan Rev F L2; Table 1006.2.1"}
+    - {space: "Seats (both tiers)", load: "1,100 + 1,100", result: "30 ft to a choice of two paths: aisle 12-15 ft to the floor / loop, then two ways", status: "TBD — aisles and row lengths not drawn", source: "IBC 2021 1030.8; plan Rev G / F"}
+  source: "IBC 2021 1006.2.1, Table 1006.2.1 (footnote c: fixed seating see 1030.8), 1030.8 (UpCodes, research_src/upc_ibc10.txt, retrieved 2026-10-04); P2-G-002 Rev A loads"
+
+separation:
+  rule: "1007.1.1 exception 2 (sprinklered 903.3.1.1): >= 1/3 of the maximum overall diagonal of the area served; 1007.1.1.1: measured to any point along the doorway width / to the closest riser of an exit access stair; 1007.1.2: with 3 or more exits, two meet 1007.1.1 and the rest are a reasonable distance apart"
+  diagonal_from: [[0, 0], [210, 258.667]]
+  diagonal_basis: "maximum overall diagonal: SW corner to the NE stair tower corner (building 210 x 252 + 6.67 ft tower); used for both levels (L2 is the same outline)"
+  pairs:
+    - {level: 1, a: E1, b: X5, a_pt: [127.85, 0], b_pt: [127.85, 252], note: "E1 measured at the point of the bank (x 87.25-138.75) in line with X5", source: "plan Rev G doors"}
+    - {level: 2, a: ST-1, b: ST-3, note: "nearest corners of the stair rectangles (risers lie inside, so the riser distance is not shorter)", source: "plan Rev F vertical.stairs"}
+    - {level: 2, a: ST-2, b: ST-4, note: "nearest corners of the stair rectangles", source: "plan Rev F vertical.stairs"}
+  source: "IBC 2021 1007.1.1, 1007.1.1.1, 1007.1.2 (UpCodes, research_src/upc_ibc10.txt, retrieved 2026-10-04)"
+
+findings:
+  checkpoint:
+    id: D-065
+    status: OPEN
+    text: "Security checkpoint vs egress: the 32 ft checkpoint stands directly inside the E1 bank; clear lobby width beside it = 58 - 32 = 26 ft = 312 in < 466.5 in the main exit needs. Exits must not pass through the checkpoint in the egress direction, and the required width cannot be narrowed (IBC 1003.6, 1010.5, 1030.2)."
+    options:
+      - "Option 1: move screening into a side bay of the lobby (e.g. the west side by CD-1), off the egress path; keep >= 466.5 in (38.9 ft) of clear width from the portal / lobby to the E1 bank, free of lanes, stanchions and queues."
+      - "Option 2: screen outdoors on the entry plaza (temporary lanes beside a clear discharge path >= 466.5 in to the public way); the lobby stays clear. Plaza paving wider than the 28 ft Champion Walk (D-006 site, P2-C-101)."
+    source: "Shane 2026-10-04 11:07 AM CT (flag with two options if it conflicts); plan Rev G checkpoint [97, 10, 129, 21]; IBC 2021 1003.6, 1010.5, 1030.2"
+  restrooms:
+    id: D-064
+    status: OPEN
+    text: "Restrooms at the worst case: standing floor + lower seats = 4,384 → 26 men's / 50 women's WC (lav 11 / 15, DF 5) vs 10 / 18 drawn on L1 (P2-G-003 Rev I basis 1,428). Not redesigned."
+    options:
+      - "Option 1: size the L1 restrooms for the worst case (+16 M / +32 W WC, +7 / +10 lav: about +65 fixtures ≈ +3,250 SF at 50 SF per fixture, phase2_program.yaml ASSUMED)."
+      - "Option 2: limit standing / large floor events by a posted occupant load, or bring temporary facilities for them (AHJ acceptance NOT researched)."
+    source: "Shane 2026-10-04 11:07 AM CT (log restroom shortfall OPEN with two options; don't redesign); P2-G-002 Rev A fixture lines (IBC 2021 T2902.1 via R-009)"
+  discharge:
+    status: TBD
+    text: "Exit discharge (1028.3): width from E1 to the public way >= the exit's required capacity, 466.5 in (38.9 ft); the 28 ft Champion Walk / portal opening alone is 336 in — plaza paving beside it must carry the rest; site TBD (D-006, P2-C-101). Access to a public way 1028.5."
+    source: "IBC 2021 1028.3, 1028.5 (UpCodes, research_src/upc_ibc10.txt); D-043, D-046 (28 ft walk); P2-C-101 Rev C"
+  source: "Shane 2026-10-04 11:07 AM CT; KEYSTONE"
+
+source: "KEYSTONE 2026-10-04 (Shane 11:07 AM CT); P2-G-002 Rev A; params/phase2_plan_rev_g.yaml; IBC 2021 Ch. 10 (UpCodes, retrieved 2026-10-04)"

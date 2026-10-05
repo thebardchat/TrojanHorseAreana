@@ -1,0 +1,867 @@
+# phase2.yaml: SINGLE SOURCE OF TRUTH for Phase 2 (new building + campus)
+# v1 SEED, 2026-10-03: P2-T-001 pulled forward at Shane's request, only to hold his data.
+# v2, 2026-10-03 10:45 PM CT: PHASE 2 ACTIVE in parallel with Phase 1 (D-027). Phase 2 is Shane's build, not a school
+# project (D-028): no school ownership, district approval, school bidding or school review is assumed here. Owner OPEN (D-007).
+# Program test-fit inputs live in params/phase2_program.yaml (P2-T-003b).
+# v3, 2026-10-03 11:09 PM CT: 55,000 SF is a FOOTPRINT cap; up to 2 levels; total GSF no longer capped at 55,000 (D-031).
+# v4, 2026-10-03 11:26 PM CT: ~1,370-seat option rejected (D-032); suites to keep ~2,200 spectators under study (D-030 OPEN).
+# v5, 2026-10-03 11:39 PM CT: PROGRAM LOCKED (D-030 DECIDED): 16,400 SF event floor, 4 x 42 ft mats, 2,200 bowl seats, 2 levels,
+#     no suites (PARKED), S&C + cross-training on Level 2 over the lockers. The 22,000 SF tag is SUPERSEDED for the event
+#     floor and kept as history (sf_tagged_superseded). Locked facts change only on "CHANGE APPROVED".
+# v6, 2026-10-04 4:30 AM CT: SEATING TYPE LOCKED (D-009 DECIDED): MIX — telescopic lower tier, fixed upper tier.
+#     Block plan Rev B direction: entry south-center on the arena N-S axis, mech off the west public side (Shane review).
+# v7, 2026-10-04 4:43 AM CT: ACCESS CONTROL DECIDED (D-033): single controlled entry for everyone at the south grand entrance
+#     (security checkpoint); perimeter doors EXIT ONLY; deliveries / buses OPEN (D-034). Block plan Rev C.
+# v8, 2026-10-04 4:55 AM CT: LEVEL 2 RUNNING / TRAINING LOOP DECIDED (D-035): S&C 6,000 → 5,224 SF and cross-training
+#     4,000 → 3,500 SF (Shane's approval to change these locked values); new spaces.training_loop. Block plan Rev D.
+# v9, 2026-10-04 5:27 AM CT: P2-A-101/102 Rev D + P2-G-003 Rev F APPROVED (D-036) and FROZEN as "Phase 2 Schematic Set
+#     Rev A" (sets.phase2_schematic_set_rev_a). Loop 2 lanes x 42 in DECIDED for now (D-037); concourse width vs egress
+#     OPEN (D-038, R-018). West unprogrammed space kept as-is, labeled FLEX (D-039). P2-A-201 elevations Rev A started.
+# v10, 2026-10-04 6:16 AM CT: OFFICIAL MARK DECIDED (D-041): circular horse-head badge with Greek key border
+#     (brand.official_mark, blueprints/brand/THA_logo_*.svg); D-040 closed; trademark search OPEN (D-042). P2-A-201 Rev A
+#     frozen; Rev B puts the mark on the portal.
+# v11, 2026-10-04 6:22 AM CT: GRAND ENTRANCE PORTAL FREESTANDING over the brick CHAMPION WALK (donor bricks) (D-043; approach);
+#     walk size + donor-brick program OPEN (D-044). P2-A-201 Rev B shows it; next A-101 revision adds it to the plan.
+# v12, 2026-10-04 6:45 AM CT: P2-A-201 Rev B approved + frozen; underside crimson + gold trim (D-045); Champion Walk 28 x 30 ft,
+#     brick tiers (D-046); badge 11 ft (D-047); stairs 70 in clear (D-038 closed); service S1 north + south bus loop (D-034);
+#     reference photo held off-repo (D-048 OPEN). P2-A-201 Rev C; P2-A-301 sections Rev A.
+# v13, 2026-10-04 7:24 AM CT: photo is Shane's own, held off-repo by choice (D-048 closed); upper tier steps down from the
+#     loop, storage / mech under its low front, lockers only at full height (D-049); portal <= 50 ft, crown 34 ft (D-050);
+#     switchback mid landing 70 in (D-051); egress 76 in stairs PROPOSED (D-052); sight-line fix PROPOSED (D-053).
+#     P2-A-201 Rev C + P2-A-301 Rev A frozen; P2-A-201 Rev D, P2-A-301 Rev B, P2-A-302 Rev A (sight lines).
+# v14, 2026-10-04 7:49 AM CT: D-053 DECIDED (upper risers 19 in, east seats 6 ft further out, +~1,512 SF) and D-052 DECIDED
+#     (4 stairs x 76 in clear + intermediate handrails); both apply at the next A-101/A-102/A-301 revision. Footprint
+#     53,026.7 SF drawn basis (margin wording retired by D-056). R-006 / R-007 done; D-054 (event floor uses) OPEN.
+#     New site sheet P2-C-101 Rev A (campus diagram).
+# v15, 2026-10-04 8:36 AM CT: NO 55,000 SF cap (D-056): 55,000 SF was an early rough estimate, not a limit; D-031 retired;
+#     margin language removed (frozen sheets keep it as history). Every area table reports L1 footprint, L2 area, TOTAL GSF
+#     and change vs the last revision (D-057). Size is controlled by budget and parcel. building.size_next_revision (R-021).
+# v16, 2026-10-04 10:27 AM CT: D-061 DECIDED Option B (L2 FF 17'-9", 21 in upper risers, front row 9.0 ft = 7'-6" clear, no
+#     seats lost); D-060 settled (event lockers 3,600 SF); A-201 Rev F, G-003 Rev H, P1-G-001 Rev E, R-023 APPROVED + frozen (D-062).
+# v17, 2026-10-04 10:48 AM CT: new sheet P2-G-002 Rev A (code analysis, params/phase2_code.yaml); C-12 rule D-063 (Phase 1 only).
+# v18, 2026-10-04 11:07 AM CT: L1 exits Option 1 DECIDED (E1 8-pair door bank, 512 in clear; D-054 note); P2-A-101 Rev G
+#     (params/phase2_plan_rev_g.yaml), Rev F frozen; new sheet P2-A-111 Rev A life safety plan (params/phase2_life_safety.yaml).
+# v19, 2026-10-04 11:24 AM CT: new sheet P2-A-401 Rev A enlarged plans, event locker rooms 1-4 (params/phase2_enlarged.yaml); D-066 OPEN.
+# v20, 2026-10-04 11:45 AM CT: new sheet P2-A-103 Rev A floor overlays (mats, court, telescopic open / closed, floor cases; params/phase2_overlays.yaml).
+# v21, 2026-10-04 12:10 PM CT: new sheet P2-A-901 Rev A 3D massing model + views (params/phase2_massing.yaml; model file phase2/out/3d).
+# v22, 2026-10-04 1:21-1:26 PM CT: D-054 (chairs-only), D-064 (Option 2), D-065 (Option 1), D-066 (40 ft walk) DECIDED; D-067 storage
+#     annex; D-068 approvals (A-111 A, A-401 A, A-103 A, G-002 A frozen); D-069 restroom space OPEN. New revs on plan Rev H.
+# v23, 2026-10-04 3:31 PM CT: D-069 DECIDED (Option 2): east restroom bump-out (core 2) on plan Rev I; G-003 K, A-101 I, A-111 C, A-401 C,
+#     C-101 E, A-901 C, A-201 H.
+# Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
+# the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
+# Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
+# Phase 1 (remodel) values never appear here. Superseded Feb 2026 concept values never appear anywhere.
+
+meta:
+  project: Hazel Green Regional Athletic Complex
+  project_alt_title: North Alabama Regional Athletic Complex
+  arena_name: Trojan Horse Arena
+  phase: 2
+  type: new building + campus
+  units: feet
+  version: 2
+  version_date: "2026-10-03"
+  status: "ACTIVE in parallel with Phase 1 (D-027). Phase 1 tickets jump the line whenever Phase 1 data arrives"
+  project_type: "Shane's build, not a school project (D-028). Owner of record OPEN (D-007)"
+  location: "Hazel Green area, Madison County, Alabama (site TBD, D-006)"
+  sheet_date: October 2026
+  drawn_by: "Drawn by KEYSTONE (AI) for Shane Brazelton"
+  sheet_size: "ARCH D 24x36 landscape"
+  stamp: "PRELIMINARY — CONCEPTUAL DESIGN — NOT FOR CONSTRUCTION"
+  source: "Shane (prompt v1.1 §3, §8, §9); Shane 2026-10-03 (seed request); Shane 2026-10-03 10:45 PM CT (Phase 2 active, Shane's build: D-027, D-028)"
+
+reference_plan:
+  file: Phase2-floor-plan-flat.png
+  same_file_as: arenav1-floor-plan.png
+  sha256: d030dcb46a65d98e47b2c0041a20554dc38465aa0028c8130b196723f880bd54
+  location: C:\Users\Hubby\Desktop\ARENA\ (not committed to repo)
+  role: Phase 2 REFERENCE PLAN (primary)
+  use: [zone layout, adjacencies, 5 main SF tags, room list]
+  ignore: [dimension strings, scale bar, garbled text, green/gold legend]
+  secondary: north_alabama_3d_diorama.html (presentation viewer)
+  not_a_source: Phase2-floor-plan.jpeg (tabletop render; wrong labels)
+  source: "Shane 2026-10-03 (D-017)"
+
+brand:
+  color_primary: "#CC0000"
+  color_secondary: "#1A1A1A"
+  accent: gold only at the south portal soffit (not a team color)
+  rule: red, never green; reference plan's green/gold legend ignored
+  source: "Shane (colors, rule); concept sheet (accent); D-017"
+  official_mark:
+    name: "Trojan Horse Arena official mark — circular horse-head badge with Greek key border"
+    files: {black: brand/THA_logo_black.svg, red: brand/THA_logo_red.svg, white: brand/THA_logo_white.svg, source: "Shane 2026-10-04 6:16 AM CT (3 SVG attachments; copies of Desktop\\ARENA\\THA_logo_*.svg); colour identified by fill #1A1A1A / #CC0000 / #FFFFFF"}
+    supersedes: "logo Concepts 01 / 02 (kept as history, SUPERSEDED, not deleted)"
+    school_badge: "not used on the building: the portal carries the Trojan Horse Arena mark, not the HGHS badge (D-040 closed by D-041)"
+    trademark: "OPEN (D-042): trademark search before signage / apparel"
+    portal_badge_dia_ft: 11
+    portal_badge_basis: "Shane picked 11 ft from a 10-12 ft range (D-047); P2-A-201 Rev C"
+    source: "Shane, firsthand, 2026-10-04 6:16 AM CT (D-041)"
+
+building:
+  total_sf: 55000
+  total_sf_meaning: "RETIRED (D-056, Shane 2026-10-04 8:36 AM CT): 55,000 SF was an early rough estimate, NOT a limit — no footprint cap, no total cap. Value kept only because frozen sheets (P2-G-003 A-F, P2-A-101/102 A-D) and P2-C-101 Rev A read it; future revisions must not use it as a cap"
+  footprint_cap_sf: 55000
+  footprint_cap_status: "RETIRED (D-056): not a cap; history key read by frozen / issued generators only"
+  size_basis: "size is controlled by budget (D-012) and parcel (D-006), not by an area cap (D-057)"
+  size_next_revision:
+    rev_d_drawn: {l1_footprint_sf: 51503, l2_area_sf: 28363, total_gsf: 79866, basis: "P2-A-101/102 Rev D: 204 x 252 + 19 x 5 tower = 51,503; L2 = 51,503 - arena open 126 x 168 (21,168) - lobby open 58 x 34 (1,972) = 28,363", source: "phase2_plan_rev_d.yaml; P2-A-102 Rev D area check"}
+    decided: {l1_footprint_sf: 53026.7, l2_area_sf: 28878.7, total_gsf: 81905.3, basis: "Rev D + east shift 6 x 252 = 1,512 L1 / +504 L2 (arena opening widens 6 x 168 = 1,008, ASSUMED) (D-053) + NE tower widened 2.333 x 5 = 11.67 on both levels (D-052; other stair growth is inward)", source: "D-052, D-053; R-021"}
+    change_vs_rev_d: {l1_footprint_sf: 1523.7, l2_area_sf: 515.7, total_gsf: 2039.3, source: "R-021 arithmetic"}
+    program_estimate: "P2-G-003 Rev F method with 76 in stairs + east shift: footprint 54,588.9, L2 28,432.1, GSF 81,521.9 (planning-factor estimate, not the size)"
+    detail: "research/R-021-area-reconciliation.md"
+    rev_e_drawn: {l1_footprint_sf: 53062.2, l2_area_sf: 28914.2, total_gsf: 81976.4, change_vs_rev_d: "+1,559.2 / +551.2 / +2,110.4", basis: "P2-A-101/102 Rev E: 210 x 252 + 21.33 x 6.67 NE stair tower (142.2) = 53,062.2; L2 = 53,062.2 - arena open 132 x 168 (22,176) - lobby open 58 x 34 (1,972) = 28,914.2. Differs from the R-021 decided value (53,026.7) by +35.6 SF on each level: the 76 in ST-2 needs a 6.67 ft tower, not 5 ft, to clear the loop", program_rev_g: "P2-G-003 Rev G: footprint 54,240.9, L2 gross 28,012.1, L1 + L2 gross 80,747.5", source: "phase2_plan_rev_e.yaml; p2_testfit.py drawn_size() / compute_rev_g(); Shane 2026-10-04 9:10 AM CT"}
+    source: "D-052, D-053, D-056, D-057; KEYSTONE arithmetic 2026-10-04 8:36 AM CT (R-021)"
+  levels: 2
+  levels_basis: "LOCKED 2 levels (D-030 DECIDED, Shane 11:39 PM CT); D-031 allowed up to 2"
+  stories: 2 (D-030, D-031)
+  total_gsf_cap: "none (D-056: no cap of any kind)"
+  structure: TBD
+  clear_span: TBD
+  north: up (same as the floor plan)
+  source: "concept sheet; reference plan legend agrees (digits partly garbled); footprint cap → D-031 (2026-10-03 11:09 PM CT), RETIRED by D-056 (Shane, Grok chat, 2026-10-04 8:36 AM CT); levels 2 → D-030 DECIDED (Shane, firsthand, 11:39 PM CT)"
+
+spaces:
+  arena:
+    name: Championship Wrestling Arena
+    event_floor_sf: 16400
+    event_floor_status: "LOCKED (D-030 DECIDED, Shane 11:39 PM CT). Change only on CHANGE APPROVED"
+    event_floor_dims: "114 ft E-W x 144 ft N-S = 16,416 SF drawn (KEYSTONE layout; +16 SF over 16,400)"
+    event_floor_dims_basis: "E-W 114 = 2 mats x 42 + 3 x 10 ft clear (NFHS 2-1-5, R-005); N-S 144 = 2 x 42 + 3 x 10 + two 15 ft table/bench zones (scorer's table >= 10 ft from mat, NFHS 2-3, R-005; 15 ft depth ASSUMED); holds the 114 x 126 option B layout and an 84 x 50 court + 10 ft runout = 104 x 70 (NFHS Basketball 1-1, 1-2-1, R-012)"
+    sf_tagged_superseded: 22000
+    sf_tagged_note: "HISTORY: concept-sheet / reference-plan tag; SUPERSEDED for the event floor by D-030 (16,400 SF). Read only by frozen P2-G-003 Revs A-C"
+    mats: 4
+    mat_labels: [Wrestling Mat 1, Wrestling Mat 2, Wrestling Mat 3, Wrestling Mat 4]
+    mat_size: 42 ft x 42 ft
+    mat_ft: 42
+    mat_layout: "2 x 2 grid on the event floor (LOCKED, D-030)"
+    mat_size_basis: "DECIDED (D-014). Meets NFHS 28 ft minimum circle + 5 ft safety area (R-005)"
+    design_events: home duals + AHSAA / regional tournaments
+    location: east / center-right of the building
+    floor_converts: mats up → court or martial-arts surface down; seats stay
+    event_floor_daily_practice: false
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); mat_size → D-014 DECIDED 2026-10-03 10:45 PM CT (Shane); design_events → D-029 (Shane 10:45 PM CT); event_floor_sf → D-030 DECIDED (Shane, firsthand, 11:39 PM CT); dims → KEYSTONE from R-005, R-012"
+  courts:
+    basketball_full_courts: 1
+    basketball_second_court: TBD
+    volleyball_courts: TBD
+    note: 1 basketball court claimed; a 2nd only after clear span is measured; volleyball count waits on striping + clearance
+    source: "concept sheet; R-012 (partial 2026-10-03: NFHS basketball 84 x 50 ft + 3 ft min / 10 ft preferred runout; volleyball not yet researched)"
+  seating:
+    total: 2200
+    bowl: 2200
+    bowl_status: "LOCKED: all 2,200 seats in the bowl (D-030 DECIDED, Shane 11:39 PM CT)"
+    suites: "none — PARKED as a future add-on (PARKING_LOT, D-030)"
+    placement: outside the event floor (16,400 SF, D-030)
+    banks_on_plan: north, south, east, plus short corner banks flanking the stage on the west
+    type: "MIX — telescopic lower tier, fixed upper tier (LOCKED, D-009 DECIDED, Shane 2026-10-04 4:30 AM CT)"
+    lower_tier_type: telescopic
+    upper_tier_type: fixed
+    seats_per_tier: "1,100 lower (telescopic) + 1,100 upper (fixed) = 2,200 — 50/50 split ASSUMED (phase2_program.yaml locked_program)"
+    sides: "north, south, east only (no west tier; OK per Shane 2026-10-04 4:30 AM CT)"
+    conflict_note: "Reference plan labels say north bank 3,200 / south bank 2,200; legend says 2,200 spectators. Locked total stays 2,200 (D-016 OPEN)"
+    rejected_option: "~1,370 bowl seats with no make-up — REJECTED by Shane ('not enough', D-032)"
+    suites_direction: "studied in P2-G-003 Rev C; not chosen — PARKED (D-030 DECIDED 11:39 PM CT)"
+    type_note: "D-009 DECIDED 2026-10-04 4:30 AM CT (Shane, firsthand): MIX; superseded the 11:39 PM CT 'fixed vs telescopic overlay' note"
+    source: "concept sheet; Shane 2026-10-03 (2,200 total stays locked); reference plan (banks); type → D-009 DECIDED (Shane, firsthand, 2026-10-04 4:30 AM CT); sides → Shane 4:30 AM CT; rejected_option → D-032 (Shane 11:26 PM CT); suites_direction → Shane 11:26 PM CT, D-030"
+  boys_locker:
+    name: Boys Locker Room
+    sf: 3500
+    location: west side, directly above (north of) girls locker
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+  girls_locker:
+    name: Girls Locker Room
+    sf_tagged: 3503
+    location: west side, directly below (south of) boys locker
+    draw_rule: draw equal to boys_locker until D-013 is decided
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); D-013 (draw equal)"
+  strength_conditioning:
+    name: Strength & Conditioning Center
+    sf: 5224
+    sf_tagged_superseded: 6000
+    sf_note: "LOCKED 5,224 SF (D-035, Shane 2026-10-04 4:55 AM CT: room trimmed for the Level 2 running / training loop; drawn 49 x 110.8 ft less ST-1). The 6,000 SF tag is SUPERSEDED and kept as history (frozen P2-G-003 Revs A-E and P2-A Revs A-C read it)"
+    location: northwest corner
+    level: 2
+    level_status: "LOCKED: Level 2, over the locker rooms (D-030 DECIDED, Shane 11:39 PM CT)"
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); level → D-030; sf → D-035 (Shane 2026-10-04 4:55 AM CT)"
+  cross_training:
+    name: Cross-Training Mat Area
+    sf: 3500
+    sf_tagged_superseded: 4000
+    sf_note: "LOCKED 3,500 SF (D-035, Shane 2026-10-04 4:55 AM CT: room trimmed for the Level 2 running / training loop; drawn 49 x 71.43 ft). The 4,000 SF tag is SUPERSEDED and kept as history (frozen revisions read it)"
+    location: north center, north of concourse, east of S&C (open mat)
+    level: 2
+    level_status: "LOCKED: Level 2, over the locker rooms (D-030 DECIDED, Shane 11:39 PM CT)"
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png); level → D-030; sf → D-035 (Shane 2026-10-04 4:55 AM CT)"
+  training_loop:
+    name: Level 2 running / training loop
+    level: 2
+    form: "complete continuous loop around the top of Level 2 behind the upper tier (N, E, S legs + new W leg along the arena-side edge of S&C and cross-training)"
+    lanes: 2
+    lane_width_in: 42
+    width_ft: 7
+    width_basis: "2 lanes x 42 in = 84 in = 7 ft (lane width per UFC 4-740-02N 4.1.7 and Athletic Business 36-42 in; guidelines prefer 3 lanes — 3 x 42 in needs 10.5 ft, more than the 7 ft east side allows without moving the upper tier or the box)"
+    corners: squared
+    centerline_ft: 706
+    laps_per_mile: 7.48
+    event_day_use: "upper concourse on event days (spectators cross at the upper-tier entries); training loop on non-event days"
+    guards: "42 in guards at open edges over the arena and the lobby (IBC 2021 1015.2, 1015.3)"
+    status: "DECIDED loop (D-035); 2 lanes x 42 in = 7 ft DECIDED for now (D-037, Shane 5:27 AM CT); go to 3 lanes (10.5 ft) if egress requires (D-038 OPEN, R-018)"
+    source: "Shane, firsthand, 2026-10-04 4:55 AM CT (D-035); UFC 4-740-02N; Athletic Business 'A Running Start' + 'Designing Tracks for Recreational Users'; NCAA indoor lane 36 in min; IBC 2021 1015 (UpCodes, retrieved 2026-10-04)"
+  concourse:
+    name: Concourse / hall of champions spine
+    sf: TBD
+    role: public spine; spectators kept off the athlete path
+    location: center, between the locker/S&C wing and the arena
+    source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+  foyer:
+    name: Hall of champions trophy lobby
+    sf: TBD
+    lighting: lit to read from U.S. 231 at night
+    source: "concept sheet"
+  entry:
+    name: South portal / Public Entry
+    form: one limestone arch, crimson inside, gold soffit
+    site_rule: drive kept clear, cars to the side
+    location: south center
+    location_block_plan: "south-center on the arena's N-S axis; lobby / hall of champions centered on the south side under the south tier; portal faces the road (road assumed south, site TBD)"
+    source: "concept sheet; reference plan (location); location_block_plan → Shane 2026-10-04 4:30 AM CT (P2-A-101 Rev B review)"
+  access_control:
+    rule: "single controlled entry point for all people (public, teams, staff): everyone passes through the south grand entrance, which serves as a security checkpoint (DECIDED, D-033)"
+    quote: "Everyone passes through the grand entrance; it will serve as a checkpoint, a security feature."
+    checkpoint: "SECURITY CHECKPOINT in the vestibule / lobby — size TBD (ASSUMED location)"
+    team_route: "teams / athletes enter at the grand entrance, then a controlled door off the lobby leads to the athlete corridor and locker rooms, separate from public flow (ASSUMED layout)"
+    perimeter_exits: "all other perimeter doors are EXIT ONLY — alarmed, no exterior entry hardware; egress side openable without a key (IBC 2021 1010.2, 1010.2.9; 2018 1010.1.9, 1010.1.10); exit count and capacity per R-015 (Table 1006.3.3, 1005.3) and 1030.2 / 1030.3"
+    service_door: "SERVICE / LOADING door at equipment storage — staff-controlled, not a people entrance; deliveries / buses under the single-entry rule OPEN (D-034); no size set"
+    status: "DECIDED rule (D-033); layout ASSUMED"
+    source: "Shane, firsthand, 2026-10-04 4:43 AM CT (D-033); R-015; IBC 2021 Ch. 10 (UpCodes, Alabama, retrieved 2026-10-04); D-034 OPEN"
+
+approach:
+  grand_entrance_portal:
+    form: "FREESTANDING limestone arch, not attached to the building; just before the south entrance, on the way in, straddling Champion Walk"
+    setback_from_building: "TBD (30 ft ASSUMED on P2-A-201 Rev B)"
+    reference: "Shane's own image; held off-repo by choice (D-048 CLOSED 7:24 AM CT; box copy /workspace/keystone_previews/refs/portal_freestanding_champion_walk_ref.png; removed from the repo 6:45 AM CT, no history rewrite)"
+    underside: "crimson underside + gold trim (DECIDED, D-045)"
+    height: "50 ft MAX (DECIDED, D-050; arena roof 42 ft); P2-A-201 Rev D draws 50 ft (Rev C's 56 ft superseded)"
+    arch: {opening_ft: 28, crown_ft: 34, springline_ft: 22.1, rise_ft: 11.9, shape: "semi-elliptical", status: "crown ~34 ft per Shane (D-050); springline 26 x 34/40 = 22.1 ft proportional and the elliptical shape ASSUMED", source: "Shane 2026-10-04 7:24 AM CT (D-050); params/phase2_elev_rev_d.yaml"}
+    badge_ft: {diameter: 11, bottom: 34.4, top: 45.4, source: "D-047 (11 ft); P2-A-201 Rev D layout (KEYSTONE)"}
+    wordmark_ft: {caps_in: 27, baseline: 46.1, caps_top: 48.35, cornice_band: [48.8, 50], source: "P2-A-201 Rev D layout (KEYSTONE); D-050"}
+    source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043); 7:24 AM CT (D-050)"
+  champion_walk:
+    paving: "brick — engraved donor / sponsor bricks"
+    width_ft: 28
+    length_ft: 30
+    length_basis: "portal to doors, 'for now' (DECIDED as current, D-046)"
+    area_sf: 840
+    brick_tiers: [{size: "4 x 8 in", use: "single name", source: "Shane 6:45 AM CT"}, {size: "8 x 8 in", use: "family / business", source: "Shane 6:45 AM CT"}]
+    capacity_note: "about 3,700 4x8 bricks: 840 SF / 0.222 SF (4 x 8 in nominal face) = 3,780 before a border course and joints; each 8x8 uses two 4x8 slots"
+    extension: "option to extend the walk to parking later"
+    pricing: "donor pricing TBD (OPEN, D-044)"
+    vendor_cost:
+      avg_4x8_usd: 19.17
+      avg_8x8_usd: 29.50
+      logo_addon_usd: 6
+      vendors: "Fundraising Brick 19.00 / 30.00 (bulk discount 1,500+); Polar Engraving 19.50 / 27.50 (5-brick min, logo +6); That's My Brick 19.00 / 31.00 (101+ tier)"
+      includes: "engraving + shipping; NOT installation or the sand / concrete base (Phase 2 site work)"
+      arithmetic: "~3,700 x 19.17 = about 70.9k USD vendor cost if every brick is 4x8 (KEYSTONE arithmetic; excludes install and base)"
+      status: "Shane's vendor sheet, prices pulled from the vendor sites 2026-10-04; not re-verified by KEYSTONE"
+      source: "Shane 2026-10-04 7:24 AM CT, PDF 'Champion_Walk_Brick_Pricing' (box-only copy, sha256 in ASSETS.md); D-044"
+    source: "Shane, firsthand, 2026-10-04 6:22 AM CT (D-043) + 6:45 AM CT (D-046)"
+  site_plan: "portal + Champion Walk to be added at the next P2-A-101 revision (Rev D stays frozen in Phase 2 Schematic Set Rev A)"
+  site_access:
+    service: "service / deliveries at the north door S1 (DECIDED default, refine on the site plan, D-034)"
+    bus_drop: "bus drop loop on the south, offset east or west so it does not block the portal view (DECIDED default, D-034)"
+    source: "Shane 2026-10-04 6:45 AM CT (D-034)"
+  egress_next_revision:
+    stair_clear_width_in: 70
+    basis: "4 stairs at 70 in clear (DECIDED, D-038 closed): 280 in vs 255.8 in required at 0.2 in/occupant (1,279) and 275.6 in with the loop counted (R-018.8). Changes P2-A-101/102 at the next revision; the frozen set stays frozen"
+    source: "Shane 2026-10-04 6:45 AM CT (D-038); R-018"
+  egress_next_revision_2:
+    intermediate_landing_in: 70
+    stair_plan_ft: [11.67, 20.83]
+    stair_sf_per_level: 243.06
+    delta: "+37.9 SF per stair per level vs the frozen 205.2 SF (10.8 x 19); about +303 GSF for 4 stairs x 2 levels (D-051 DECIDED)"
+    worst_case: "1,462 occupants x 0.2 in = 292.4 in vs 280 in (4 x 70) -> 12.4 in short; PROPOSED 4 x 76 in = 304 in (+11.6 in), about 270.2 SF per stair per level, +217.8 GSF vs 70 in (D-052 OPEN, R-018.9)"
+    source: "Shane 2026-10-04 7:24 AM CT (D-051, egress ask); IBC 2021 1011.6, 1005.3.1; R-018.9"
+  egress_next_revision_3:
+    stair_clear_width_in: 76
+    handrails: "intermediate handrails (IBC 2021 1014.9 / 1029.16 as applicable)"
+    intermediate_landing_in: 76
+    stair_plan_ft: [12.67, 21.33]
+    stair_sf_per_level: 270.2
+    capacity: "4 x 76 in = 304 in vs 292.4 in worst case (1,462 x 0.2 in) -> passes, ~11.6 in spare"
+    applies: "next P2-A-101 / A-102 / A-301 revision; frozen sheets stay frozen; shown on P2-C-101 Rev A"
+    status: "DECIDED (D-052)"
+    source: "Shane 2026-10-04 7:49 AM CT (D-052 DECIDED); R-018.9"
+  under_tier_use:
+    rule: "upper tier steps DOWN from the L2 loop toward the court (as drawn); under its low front edge: telescopic stack, storage, mechanical; lockers only where headroom is full (DECIDED, D-049)"
+    full_headroom_rev_f: "D-061 DECIDED Option B / D-060 settled (Shane 10:27 AM CT): L2 FF 17'-9\", 21 in risers, front row 9.0 ft = 7'-6\" clear under row 1, so no low band; event lockers run to the tier lines (3,600 SF, P2-A-101 Rev F)"
+    full_headroom: "HISTORY (superseded by full_headroom_rev_f): Rev E (ASSUMED, D-060 OPEN): clear height >= 7 ft 6 in (IBC 2021 1003.2) = under upper-tier rows 3-5; rows 1-2 (front 6 ft) are the low band (storage / mech / stack). Earlier reading: under the flat L2 slab behind the tier back line"
+    next_revision: "done on P2-A-101 Rev E: event lockers 1-4 start behind the 6 ft low band (2,723 SF vs 3,600); exit passages N / E, SE concourse and the lobby / portal edge under rows 1-2 still need >= 7 ft 6 in (omit or raise rows 1-2 there); telescopic stack stays at the tier face (P2-A-302)"
+    source: "Shane 2026-10-04 7:24 AM CT (D-049); R-020; P2-A-301 Rev B; Shane 2026-10-04 10:27 AM CT (D-061 Option B, D-060 settled)"
+  sight_lines:
+    study: "P2-A-302 Rev A / R-020: upper tier (14 in risers) fails every side; east side (10 ft focal) fails; PROPOSED upper 19 in risers + east tier 6 ft further out (D-053 OPEN)"
+    decision: "APPROVED: upper-tier risers 19 in (front row 7.08 ft) AND east seats 6 ft further from the mats (+~1,512 SF); applies at the next A-101/A-102/A-301 revision (DECIDED, D-053)"
+    rev_f: "D-061 Option B: upper risers 19 -> 21 in with L2 FF 17'-9\" (front row 9.0 ft); C rechecked on P2-A-302 Rev C (min seated N/S 149, E 101 mm unchanged)"
+    source: "Shane 2026-10-04 7:24 AM CT; R-020; Shane 2026-10-04 7:44 AM CT (D-053 DECIDED); Shane 2026-10-04 10:27 AM CT (D-061)"
+  source: "Shane 2026-10-04 6:22 AM CT; D-043"
+
+support_rooms:
+  - id: stage
+    name: Stage
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: west edge of the arena, facing the concourse
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: concession_stand
+    name: Concession Stand
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: concourse core, center
+    scope: TBD
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03; scope → D-011"
+  - id: public_restroom
+    name: Public Restroom
+    count: 2
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: one in the concourse core, one southwest of the concourse
+    fixture_count: TBD
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03; fixtures → R-009"
+  - id: first_aid
+    name: First Aid
+    count: TBD
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    note: plan shows two 'First Aid' rooms in the SW block plus a 'First Aid Room' further south by the entry; count TBD
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: admin_office
+    name: Administrative Office
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: southwest of the concourse, near the entry
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: equipment_storage
+    name: Equipment Storage
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: northeast corner
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: equipment_room
+    name: Equipment Room
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: south edge service strip, under the south seating
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: utility
+    name: Utility Room
+    count: 1
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: south edge service strip, east of the entry
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03"
+  - id: mechanical
+    name: Mechanical
+    count: 2
+    sf: TBD
+    status: shown on reference plan, SF TBD
+    location: south edge ('Mechanical / Electrical Room') and southeast corner ('Mechanical / Storage / Utility')
+    location_block_plan: "off the west public side: NW corner + north wall + east ring (Shane 2026-10-04 4:30 AM CT: NW or NE corner or along the north wall)"
+    source: "reference plan (Phase2-floor-plan-flat.png); Shane 2026-10-03; location_block_plan → Shane 2026-10-04 4:30 AM CT"
+
+flow:
+  types: [athlete flow, spectator flow]
+  rule: kept separate
+  on_plan: solid gray arrows = athlete flow; dashed arrows = spectator flow (drawn red)
+  source: "concept sheet; reference plan (Phase2-floor-plan-flat.png)"
+
+design_rules:
+  - id: DR1
+    rule: keep athlete/spectator split
+    shown_on_reference_plan: partly (flow arrows); verify at A-101
+    source: "concept sheet"
+  - id: DR2
+    rule: event floor does not host daily practice
+    shown_on_reference_plan: TBD
+    source: "concept sheet"
+  - id: DR3
+    rule: add event/visitor locker rooms under the bowl
+    count: 4
+    shown_on_reference_plan: false
+    sf: TBD
+    source: "concept sheet; reference plan check 2026-10-03 (not shown yet)"
+  - id: DR4
+    rule: mezzanine overlook on daily mat
+    shown_on_reference_plan: false
+    source: "concept sheet; reference plan check 2026-10-03 (not shown yet)"
+  - id: DR5
+    rule: foyer as hall of champions
+    shown_on_reference_plan: TBD
+    source: "concept sheet"
+
+sustainability:
+  # Design intent only. No sizes, panel counts, or gallons until a cited R-file sizes them for THIS building.
+  - id: rooftop_solar
+    status: design intent
+    size: TBD
+    sized_by: TBD (future R-file)
+    source: "D-018; Shane, CHANGE APPROVED 2026-10-03"
+  - id: stormwater_storage
+    status: design intent
+    size: TBD
+    sized_by: TBD (future R-file)
+    source: "D-018; Shane, CHANGE APPROVED 2026-10-03"
+  - id: retractable_roof
+    status: CUT
+    source: "D-018; Shane, CHANGE APPROVED 2026-10-03"
+
+campus:
+  search_acres_min: 25
+  search_acres_max: 30
+  highway: south side
+  highway_named: U.S. 231
+  parcel: TBD
+  address: TBD
+  north: up (same as the floor plan)
+  field_pads_acres_approx: 15
+  field_pads_note: ~15 acres of field pads + building + south parking lot
+  source: "concept sheet; intake 2026-10-03 (U.S. 231); parcel → D-006"
+  fields:
+    - id: football
+      count: 1
+      acres_approx: 2.5
+      location: north side, against the building
+      track: false
+      source: "concept sheet"
+    - id: soccer
+      count: 2
+      acres_approx_each: 2
+      runoff: included
+      location: one west of the lockers, one east of the arena
+      source: "concept sheet"
+    - id: baseball_softball
+      count: 2
+      shared: true
+      acres_approx_total: 8
+      location: NW and NE corners, home plate faces the building
+      base_path_baseball_ft: 90
+      base_path_softball_ft: 60
+      simultaneous_use_one_diamond: false
+      source: "concept sheet"
+  not_included:
+    items: [track, stands at fields, 3rd soccer field]
+    reason: need more land
+    source: "concept sheet"
+
+open_items:
+  owner_of_record: "OPEN — Shane / Hazel Green Trojan Youth Wrestling / partnership (D-007). Not a school project (D-028)"
+  ahj: "OPEN (D-008) — R-006: Madison County Inspection Department if unincorporated (county: 2018 IBC / IFC / NFPA 101; State Fire Marshal: 2021 IFC); DCM if a 'schoolhouse' use applies; confirm at pre-application"
+  occupancy: "R-007: Group A-4 (arena with spectator seating) main; S&C / cross-training A-3 or accessory; offices B; storage S-1 (ASSUMED until G-002). Event floor load 329 → up to 3,284 by use (D-054 OPEN)"
+  budget: TBD
+  seating_type: "DECIDED (D-009, 2026-10-04 4:30 AM CT): MIX — telescopic lower tier, fixed upper tier"
+  concessions_scope: TBD
+  access_control: "DECIDED (D-033, 2026-10-04 4:43 AM CT): single controlled entry for everyone at the south grand entrance"
+  deliveries_buses: "OPEN (D-034): how deliveries and team buses work under the single-entry rule"
+  program_fit: "DECIDED (D-030, 11:39 PM CT): 16,400 SF floor, 2,200 bowl seats, 2 levels, no suites; P2-G-003 Rev D = locked program sheet"
+  source: "D-007, D-008, D-012, D-009, D-011, D-028, D-030, D-031, D-032; Shane 2026-10-03 10:45 PM + 11:09 PM + 11:26 PM CT; Shane 2026-10-04 4:30 AM CT (D-009); Shane 2026-10-04 4:43 AM CT (D-033, D-034)"
+
+sheets:
+  P2-G-003:
+    title: PROGRAM TEST-FIT
+    size: "17 x 11 in (tabloid), landscape (Shane 10:45 PM CT; set sheets stay ARCH D)"
+    inputs: params/phase2_program.yaml
+    revisions:
+      A:
+        file: P2-G-003_RevA
+        frozen: true
+        note: one-level arithmetic against 55,000 SF read as total floor area; superseded by Rev B after D-031
+        source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b); frozen 11:09 PM CT when Rev B was ordered"
+      B:
+        file: P2-G-003_RevB
+        frozen: true
+        note: two-level arithmetic; ground footprint vs the 55,000 SF footprint cap (D-031)
+        source: "Shane 2026-10-03 11:09 PM CT (redo test-fit as Rev B, Rev A frozen); frozen 11:26 PM CT when Rev C was ordered"
+      C:
+        file: P2-G-003_RevC
+        frozen: true
+        note: suites to keep ~2,200 spectators; suite level above the upper tier; hybrids with a smaller floor
+        source: "Shane 2026-10-03 11:26 PM CT (Rev C, Rev B frozen); frozen 11:39 PM CT when Rev D was ordered"
+      D:
+        file: P2-G-003_RevD
+        frozen: true
+        note: LOCKED PROGRAM sheet (D-030); FIXED vs TELESCOPIC columns
+        source: "Shane 2026-10-03 11:39 PM CT (Rev D = locked program; Rev C frozen); frozen 2026-10-04 4:30 AM CT when Rev E was ordered"
+      E:
+        file: P2-G-003_RevE
+        frozen: true
+        note: LOCKED PROGRAM with MIX seating (D-009); footprint margin; seats by side and tier
+        source: "Shane 2026-10-04 4:30 AM CT (Rev E; Rev D frozen); frozen 4:55 AM CT when Rev F was ordered"
+      F:
+        file: P2-G-003_RevF
+        frozen: true
+        approved: "Shane 2026-10-04 5:27 AM CT (D-036); frozen in Phase 2 Schematic Set Rev A"
+        note: LOCKED PROGRAM with the Level 2 running / training loop (D-035); S&C 5,224, cross-training 3,500
+        source: "Shane 2026-10-04 4:55 AM CT (Rev F; Rev E frozen; keep >= 2,000 SF footprint margin)"
+      G:
+        file: P2-G-003_RevG
+        frozen: true
+        inputs: "params/phase2_program.yaml (rev_g, meta_rev_g) + params/phase2_plan_rev_e.yaml"
+        note: "Rev F + 76 in stairs / 76 in intermediate landings (D-052, D-051) + 6 ft east clear zone (D-053) + Rev E loop; D-057 size table (L1 footprint, L2 area, TOTAL GSF, change vs Rev F / Rev D), drawn vs program side by side (C-3); no cap, no margin (D-056)"
+        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4; Rev F stays frozen); frozen 10:03 AM CT when Rev H was ordered (reviewer C-11)"
+      H:
+        file: P2-G-003_RevH
+        frozen: true
+        approved: "Shane 2026-10-04 10:27 AM CT (D-062: 'APPROVED: ... G-003 Rev H ... freeze those revs')"
+        inputs: "params/phase2_program.yaml (rev_g, meta_rev_h) + params/phase2_plan_rev_e.yaml"
+        note: "Rev G numbers unchanged; fixture table WC+LAV column (restroom-SF basis, 66) + SUM incl. 4 drinking fountains (70) (reviewer C-11)"
+        source: "Shane 2026-10-04 10:03 AM CT (reviewer C-11: label the fixture SUM column 'incl. 4 drinking fountains'; new rev); approved and frozen 10:27 AM CT when Rev I was ordered"
+      I:
+        file: P2-G-003_RevI
+        frozen: true
+        inputs: "params/phase2_program.yaml (rev_g, rev_i, meta_rev_i) + params/phase2_plan_rev_f.yaml"
+        note: "Rev H method + floor-to-floor 17'-9\" (D-061): stairs 31 risers, 305.1 SF per stair per level; event lockers 3,600 drawn (D-060); D-057 size vs Plan Rev E"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B; D-060 settled; G-003 Rev I if program / area tables change: they do, stair SF)"
+      J:
+        file: P2-G-003_RevJ
+        frozen: false
+        inputs: "params/phase2_program.yaml (rev_i, rev_j) + params/phase2_plan_rev_h.yaml"
+        note: "Rev I method + D-067 storage room 2,100 SF (annex); D-057 size vs Plan Rev G"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); program + storage room, area table L1 / L2 / TOTAL GSF / delta"
+      K:
+        file: P2-G-003_RevK
+        frozen: false
+        inputs: "params/phase2_program.yaml (rev_k) + params/phase2_plan_rev_i.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); program Rev K = Rev J + restroom bump-out 1,680 SF gross"
+    source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
+  P2-A-101:
+    title: OVERALL FLOOR PLAN — LEVEL 1
+    size: "17 x 11 in (tabloid), landscape"
+    scale: "1/32 in = 1 ft-0 in"
+    inputs: params/phase2_plan.yaml
+    revisions:
+      A:
+        file: P2-A-101_RevA
+        frozen: true
+        inputs: params/phase2_plan.yaml
+        source: "Shane 2026-10-03 11:39 PM CT (start P2-A-101 Level 1, schematic block plan); frozen 2026-10-04 4:30 AM CT ('good first block plan')"
+      B:
+        file: P2-A-101_RevB
+        frozen: true
+        inputs: params/phase2_plan_rev_b.yaml
+        source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating); frozen 4:43 AM CT when Rev C was ordered"
+      C:
+        file: P2-A-101_RevC
+        frozen: true
+        inputs: params/phase2_plan_rev_c.yaml
+        source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed); frozen 4:55 AM CT when Rev D was ordered"
+      D:
+        file: P2-A-101_RevD
+        frozen: true
+        approved: "Shane 2026-10-04 5:27 AM CT (D-036); frozen in Phase 2 Schematic Set Rev A after a label-only re-issue (FLEX labels, D-039)"
+        inputs: params/phase2_plan_rev_d.yaml
+        source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
+      E:
+        file: P2-A-101_RevE
+        frozen: true
+        inputs: params/phase2_plan_rev_e.yaml
+        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4: 76 in stairs + 76 in landings D-052 / D-051, east tier +6 ft D-053, 19 in upper risers noted, FLEX / STORAGE kept D-039 = C-1, portal + Champion Walk + S1 / bus notes, upper tier steps down D-049, D-057 area table, drawn vs program C-3); Rev D stays frozen; frozen 10:27 AM CT when Rev F was ordered"
+      F:
+        file: P2-A-101_RevF
+        frozen: true
+        inputs: params/phase2_plan_rev_f.yaml
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B: L2 17'-9\", 21 in upper risers, front row 7'-6\" clear over all exit paths, no low band; stairs 31 risers / longer stair footprint; D-060 settled: event lockers 3,600 SF); Rev E frozen; frozen 11:07 AM CT when Rev G was ordered"
+      G:
+        file: P2-A-101_RevG
+        frozen: true
+        inputs: params/phase2_plan_rev_g.yaml
+        source: "Shane 2026-10-04 11:07 AM CT (L1 exits Option 1 DECIDED: 8-pair door bank at E1 across the lobby's 58 ft south wall, 512 in clear, 64 in per pair ASSUMED; single controlled entry kept, D-033; bundle with P2-A-111 Rev A because the bank must be drawn on the plan); Level 1 only, P2-A-102 stays at Rev F"
+      H:
+        file: P2-A-101_RevH
+        frozen: false
+        inputs: "params/phase2_plan_rev_h.yaml"
+        note: "Level 1 only; restrooms not redrawn (D-069 OPEN)"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); Level 1: screening bay off the egress path, first aid + concession moved, storage annex + S1"
+      I:
+        file: P2-A-101_RevI
+        frozen: false
+        inputs: "params/phase2_plan_rev_i.yaml + params/phase2_program.yaml (rev_k)"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); Plan Rev I: east bump-out 30 x 56 ft at EXIT (E), X7 moved to the bump-out east face"
+    source: "Shane 2026-10-03 11:39 PM CT"
+  P2-A-102:
+    title: OVERALL FLOOR PLAN — LEVEL 2
+    size: "17 x 11 in (tabloid), landscape"
+    scale: "1/32 in = 1 ft-0 in"
+    inputs: params/phase2_plan.yaml
+    revisions:
+      A:
+        file: P2-A-102_RevA
+        frozen: true
+        inputs: params/phase2_plan.yaml
+        source: "Shane 2026-10-03 11:39 PM CT (start P2-A-102 Level 2, schematic block plan); frozen 2026-10-04 4:30 AM CT ('good first block plan')"
+      B:
+        file: P2-A-102_RevB
+        frozen: true
+        inputs: params/phase2_plan_rev_b.yaml
+        source: "Shane 2026-10-04 4:30 AM CT (Rev B: entry south-center, restrooms flank the lobby, mech off the west side, MIX seating); frozen 4:43 AM CT when Rev C was ordered"
+      C:
+        file: P2-A-102_RevC
+        frozen: true
+        inputs: params/phase2_plan_rev_c.yaml
+        source: "Shane 2026-10-04 4:43 AM CT (Rev C: single controlled entry D-033, security checkpoint, exit-only perimeter doors, service door, SW entry removed); frozen 4:55 AM CT when Rev D was ordered"
+      D:
+        file: P2-A-102_RevD
+        frozen: true
+        approved: "Shane 2026-10-04 5:27 AM CT (D-036); frozen in Phase 2 Schematic Set Rev A"
+        inputs: params/phase2_plan_rev_d.yaml
+        source: "Shane 2026-10-04 4:55 AM CT (Rev D: continuous Level 2 running / training loop, D-035; S&C + cross-training trimmed; stairs / elevator moved to clear the loop, kept aligned L1 / L2)"
+      E:
+        file: P2-A-102_RevE
+        frozen: true
+        inputs: params/phase2_plan_rev_e.yaml
+        source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4: 76 in stairs + 76 in landings D-052 / D-051, east tier +6 ft D-053, 19 in upper risers noted, FLEX / STORAGE kept D-039 = C-1, portal + Champion Walk + S1 / bus notes, upper tier steps down D-049, D-057 area table, drawn vs program C-3); Rev D stays frozen; frozen 10:27 AM CT when Rev F was ordered"
+      F:
+        file: P2-A-102_RevF
+        frozen: false
+        inputs: params/phase2_plan_rev_f.yaml
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B: L2 17'-9\", 21 in upper risers, front row 7'-6\" clear over all exit paths, no low band; stairs 31 risers / longer stair footprint; D-060 settled: event lockers 3,600 SF); Rev E frozen"
+    source: "Shane 2026-10-03 11:39 PM CT"
+  P2-A-201:
+    title: EXTERIOR ELEVATIONS
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: params/phase2_elev.yaml
+    revisions:
+      A:
+        file: P2-A-201_RevA
+        frozen: true
+        inputs: params/phase2_elev.yaml
+        source: "Shane 2026-10-04 5:27 AM CT (start P2-A-201: south elevation primary with the portal, plus north, east, west; schematic); frozen 6:16 AM CT when Rev B was ordered"
+      B:
+        file: P2-A-201_RevB
+        frozen: true
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_b.yaml"
+        source: "Shane 2026-10-04 6:16 AM CT (official Trojan Horse Arena mark on the portal above the arch + TROJAN HORSE ARENA wordmark; side panel 'Hazel Green Regional Athletic Complex'; Rev A frozen); Shane 6:22 AM CT (portal freestanding over the brick Champion Walk, D-043); approved with changes and frozen 6:45 AM CT"
+      C:
+        file: P2-A-201_RevC
+        frozen: true
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_c.yaml"
+        source: "Shane 2026-10-04 6:45 AM CT (Rev B approved with changes: badge 11 ft dia, wordmark to match, nothing overflows; Champion Walk 28 x 30 ft + brick tiers; underside crimson + gold trim); frozen 7:24 AM CT when Rev D was ordered"
+      D:
+        file: P2-A-201_RevD
+        frozen: true
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_d.yaml"
+        source: "Shane 2026-10-04 7:24 AM CT (portal must not exceed 50 ft, arena roof 42; lower the arch crown 40 -> ~34 ft, springline proportional, ASSUMED; 11 ft badge + wordmark inside 50 ft, D-050); frozen 9:47 AM CT when Rev E was ordered"
+      E:
+        file: P2-A-201_RevE
+        frozen: true
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_e.yaml + params/phase2_plan_rev_e.yaml"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-201 Rev E 210 ft width, ST-2 tower 6.67 ft projection); portal / brand as Rev D; frozen 10:03 AM CT when Rev F was ordered (reviewer C-5 / C-8)"
+      F:
+        file: P2-A-201_RevF
+        frozen: true
+        approved: "Shane 2026-10-04 10:27 AM CT (D-062: 'APPROVED: A-201 Rev F ... freeze those revs')"
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_f.yaml + params/phase2_plan_rev_e.yaml"
+        source: "Shane 2026-10-04 10:03 AM CT (reviewer C-5: 25' clear = REFERENCE, not CITED; C-8: portal STRUCTURAL ENGINEER REQUIRED, ETFE roof only as an open question; A-201 Rev F). Geometry as Rev E (D-061 not touched); approved and frozen 10:27 AM CT when Rev G was ordered"
+      G:
+        file: P2-A-201_RevG
+        frozen: false
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_f.yaml + params/phase2_elev_rev_g.yaml + params/phase2_plan_rev_f.yaml"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: A-201 Rev G L2 line 17'-9\", ring roof 32.75'); Rev F approved and frozen"
+      H:
+        file: P2-A-201_RevH
+        frozen: false
+        inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_f.yaml + params/phase2_elev_rev_g.yaml + params/phase2_elev_rev_h.yaml + params/phase2_plan_rev_i.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); elevations show the storage annex (D-067) and the bump-out, both one storey 16 ft ASSUMED"
+    source: "Shane 2026-10-04 5:27 AM CT"
+  P2-A-301:
+    title: BUILDING SECTIONS
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_sect.yaml + params/phase2_elev.yaml (heights) + params/phase2_plan_rev_d.yaml (plan)"
+    revisions:
+      A:
+        file: P2-A-301_RevA
+        frozen: true
+        inputs: "params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
+        source: "Shane 2026-10-04 6:45 AM CT (P2-A-301 Rev A building sections: N-S and E-W through the bowl / event floor and the L2 loop; locked / assumed heights; telescopic lower / fixed upper; 70 in stairs; sight lines TBD); frozen 7:24 AM CT when Rev B was ordered"
+      B:
+        file: P2-A-301_RevB
+        frozen: true
+        inputs: "params/phase2_sect.yaml (incl. rev_b) + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
+        source: "Shane 2026-10-04 7:24 AM CT (switchback intermediate landing >= stair width 70 in, IBC 2021 1011.6, D-051; fix detail 4 + per-stair footprint; note the under-tier use, D-049); frozen 9:47 AM CT when Rev C was ordered"
+      C:
+        file: P2-A-301_RevC
+        frozen: true
+        inputs: "params/phase2_sect.yaml (incl. rev_b + rev_c) + params/phase2_elev.yaml + params/phase2_plan_rev_e.yaml"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-301 Rev C east 16 ft clear, 19 in upper risers, 76 in stairs / landings, low-headroom band under the tier front per D-049 / D-060 as drawn on A-101 Rev E; show the exit-path conflict, D-061 OPEN, R-022); frozen 10:27 AM CT when Rev D was ordered"
+      D:
+        file: P2-A-301_RevD
+        frozen: false
+        inputs: "params/phase2_sect.yaml (incl. rev_b + rev_c + rev_d) + params/phase2_elev.yaml + params/phase2_plan_rev_f.yaml"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: A-301 Rev D L2 17'-9\", ring roof 32.75', 21 in risers, front row 9.0 ft / 7'-6\" clear; C-5 REFERENCE label for the 25' clear; C-7 intermediate handrails on the 76 in stairs, architect to confirm)"
+    source: "Shane 2026-10-04 6:45 AM CT"
+  P2-A-302:
+    title: SIGHT-LINE STUDY
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_sightlines.yaml + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
+    revisions:
+      A:
+        file: P2-A-302_RevA
+        frozen: true
+        inputs: "params/phase2_sightlines.yaml + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_d.yaml"
+        source: "Shane 2026-10-04 7:24 AM CT (sight-line study before more seating detail: standing + seated, both tiers, focal point = near edge of the nearest mat, C-value method; stack fit under the upper-tier front); R-020; frozen 9:47 AM CT when Rev B was ordered"
+      B:
+        file: P2-A-302_RevB
+        frozen: true
+        inputs: "params/phase2_sightlines.yaml (incl. rev_b) + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_e.yaml"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: A-302 Rev B only if the riser / east-clear change alters its 'as drawn' basis. It does: Rev A as drawn = 14 in / 10 ft east; Rev E draws 19 in / 16 ft = Rev A's proposed case); frozen 10:27 AM CT when Rev C was ordered"
+      C:
+        file: P2-A-302_RevC
+        frozen: false
+        inputs: "params/phase2_sightlines.yaml (incl. rev_b + rev_c) + params/phase2_sect.yaml + params/phase2_elev.yaml + params/phase2_plan_rev_f.yaml"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: A-302 Rev C sight-line recheck with 21 in risers and L2 17'-9\"; report C-values)"
+    source: "Shane 2026-10-04 7:24 AM CT"
+  P2-C-101:
+    title: SITE PLAN — CAMPUS DIAGRAM
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_site.yaml + params/phase2_plan_rev_d.yaml"
+    revisions:
+      A:
+        file: P2-C-101_RevA
+        frozen: true
+        inputs: "params/phase2_site.yaml + params/phase2_plan_rev_d.yaml"
+        source: "Shane 2026-10-04 7:44 AM CT (site plan revision: freestanding portal + 28x30 Champion Walk, south bus drop loop offset E/W, service at north door S1, stair growth; frozen revs stay byte-identical). First site sheet (KEYSTONE prompt §9 C-101, SITE TBD diagram); frozen 9:47 AM CT when Rev B was ordered"
+      B:
+        file: P2-C-101_RevB
+        frozen: true
+        inputs: "params/phase2_site.yaml (incl. rev_b) + params/phase2_plan_rev_e.yaml + params/phase2_program.yaml (rev_g)"
+        source: "Shane 2026-10-04 9:47 AM CT (coordinate the rest of the set with Plan Rev E: C-101 Rev B tower size, new outline, D-057 area table, no cap language); frozen 10:27 AM CT when Rev C was ordered"
+      C:
+        file: P2-C-101_RevC
+        frozen: true
+        inputs: "params/phase2_site.yaml (incl. rev_b + rev_c) + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_g, rev_i)"
+        source: "Shane 2026-10-04 10:27 AM CT (D-061 Option B: C-101 Rev C because the NE stair tower grows 21.33 -> 24.08 ft and the D-057 table changes)"
+      D:
+        file: P2-C-101_RevD
+        frozen: false
+        inputs: "params/phase2_site.yaml (incl. rev_d) + params/phase2_plan_rev_h.yaml + params/phase2_program.yaml (rev_i, rev_j)"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); 40 ft walk at the doors with bands around both piers (D-066), storage annex + S1 apron, D-057 table"
+      E:
+        file: P2-C-101_RevE
+        frozen: false
+        inputs: "params/phase2_site.yaml (rev_e) + params/phase2_plan_rev_i.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); building outline adds the east bump-out, X7 discharge east"
+    source: "Shane 2026-10-04 7:44 AM CT"
+  P2-G-002:
+    title: CODE ANALYSIS (SCHEMATIC)
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_code.yaml + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_i, via p2_testfit.summary_h)"
+    revisions:
+      A:
+        file: P2-G-002_RevA
+        frozen: true
+        approved: "Shane 2026-10-04 1:22 PM CT (D-068: 'Approved: A-111 Rev A, A-401 Rev A, A-103 Rev A, G-002 Rev A (log approvals)')"
+        inputs: "params/phase2_code.yaml + params/phase2_plan_rev_f.yaml + params/phase2_program.yaml (rev_i)"
+        source: "Shane 2026-10-04 10:48 AM CT (next backlog item P2-T-007: G-002 Rev A code analysis from cited R-files; D-054 worst-case L1 egress check with the 329 / 1,095 / 2,346 cases alongside)"
+      B:
+        file: P2-G-002_RevB
+        frozen: false
+        inputs: "params/phase2_code_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_program.yaml (rev_i)"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); chairs-only design case, posted loads per configuration (1004.9), chairs-only fixtures"
+    source: "Shane 2026-10-04 10:48 AM CT; BACKLOG P2-T-007"
+  P2-A-111:
+    title: LIFE SAFETY PLAN (SCHEMATIC) — LEVELS 1 + 2
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_life_safety.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml (via p2_g_002.compute)"
+    revisions:
+      A:
+        file: P2-A-111_RevA
+        frozen: true
+        approved: "Shane 2026-10-04 1:22 PM CT (D-068: 'Approved: A-111 Rev A, A-401 Rev A, A-103 Rev A, G-002 Rev A (log approvals)')"
+        inputs: "params/phase2_life_safety.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml"
+        source: "Shane 2026-10-04 11:07 AM CT (next standard step: P2-A-111 Rev A life safety plan, L1 + L2: exits with capacities, egress widths, occupant loads per P2-G-002, travel distance / common path, exit separation, E1 door bank drawn)"
+      B:
+        file: P2-A-111_RevB
+        frozen: false
+        inputs: "params/phase2_life_safety_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); E1 egress re-checked with the screening bay, chairs design case, standing margin"
+      C:
+        file: P2-A-111_RevC
+        frozen: false
+        inputs: "params/phase2_life_safety_rev_c.yaml + params/phase2_plan_rev_i.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); recheck travel, common path and exit separation with the bump-out"
+    source: "Shane 2026-10-04 11:07 AM CT"
+  P2-A-401:
+    title: ENLARGED PLANS — EVENT LOCKER ROOMS 1-4
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_enlarged.yaml + params/phase2_plan_rev_g.yaml"
+    revisions:
+      A:
+        file: P2-A-401_RevA
+        frozen: true
+        approved: "Shane 2026-10-04 1:22 PM CT (D-068: 'Approved: A-111 Rev A, A-401 Rev A, A-103 Rev A, G-002 Rev A (log approvals)')"
+        inputs: "params/phase2_enlarged.yaml + params/phase2_plan_rev_g.yaml"
+        source: "Shane 2026-10-04 11:24 AM CT (next standard step P2-T-010: P2-A-401 Rev A, the 4 event locker rooms only at 1/8 in scale; restroom core waits on D-064; doors so the common path <= 75 ft; ADA 2010 cited)"
+      B:
+        file: P2-A-401_RevB
+        frozen: false
+        inputs: "params/phase2_enlarged_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); restroom core test-fit to chairs-only fixtures (D-064), D-069 options"
+      C:
+        file: P2-A-401_RevC
+        frozen: false
+        inputs: "params/phase2_enlarged_rev_c.yaml + params/phase2_plan_rev_i.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); new core 2 enlarged plan; fixture split lobby core + core 2 = chairs-only"
+    source: "Shane 2026-10-04 11:24 AM CT; BACKLOG P2-T-010"
+  P2-A-103:
+    title: FLOOR OVERLAYS — MATS, SEATING + FLOOR CONVERSIONS
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_overlays.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml"
+    revisions:
+      A:
+        file: P2-A-103_RevA
+        frozen: true
+        approved: "Shane 2026-10-04 1:22 PM CT (D-068: 'Approved: A-111 Rev A, A-401 Rev A, A-103 Rev A, G-002 Rev A (log approvals)')"
+        inputs: "params/phase2_overlays.yaml + params/phase2_plan_rev_g.yaml + params/phase2_code.yaml"
+        source: "Shane 2026-10-04 11:45 AM CT (next standard step P2-T-005: P2-A-103 Rev A overlays on the Rev G plan: wrestling 4 x 42 ft mats 2 x 2 with NFHS clearances; basketball / volleyball only if in params / decisions; telescopic tier open vs closed; G-002 floor cases hatched; D-054 OPEN)"
+      B:
+        file: P2-A-103_RevB
+        frozen: false
+        inputs: "params/phase2_overlays_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_code_rev_b.yaml"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); chairs-only design case, posted loads, storage annex route"
+    source: "Shane 2026-10-04 11:45 AM CT; BACKLOG P2-T-005"
+  P2-A-901:
+    title: 3D MASSING MODEL — VIEWS
+    size: "17 x 11 in (tabloid), landscape"
+    inputs: "params/phase2_massing.yaml + phase2_plan_rev_g.yaml + phase2_elev_rev_g.yaml + phase2_elev.yaml + phase2_site.yaml + phase2_sect.yaml"
+    revisions:
+      A:
+        file: P2-A-901_RevA
+        frozen: true
+        inputs: "params/phase2_massing.yaml + phase2_plan_rev_g.yaml + phase2_elev_rev_g.yaml + phase2_elev.yaml + phase2_site.yaml + phase2_sect.yaml"
+        source: "Shane 2026-10-04 12:10 PM CT (next standard step P2-T-011: 3D massing model + P2-A-901 Rev A views from current params; massing only; nothing implying a choice on D-054 / 064 / 065 / 066)"
+      B:
+        file: P2-A-901_RevB
+        frozen: false
+        inputs: "params/phase2_massing_rev_b.yaml + phase2_plan_rev_h.yaml + phase2_elev_rev_g.yaml + phase2_elev.yaml + phase2_site.yaml (rev_d) + phase2_sect.yaml"
+        source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); massing with the 40 ft walk and the storage annex"
+      C:
+        file: P2-A-901_RevC
+        frozen: false
+        inputs: "params/phase2_massing.yaml + params/phase2_massing_rev_c.yaml + params/phase2_plan_rev_i.yaml + params/phase2_site.yaml (rev_e)"
+        source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); bump-out box 16 ft ASSUMED"
+    source: "Shane 2026-10-04 12:10 PM CT; BACKLOG P2-T-011"
+
+sets:
+  phase2_schematic_set_rev_a:
+    name: "Phase 2 Schematic Set Rev A"
+    file: Phase2_Schematic_Set_RevA
+    frozen: true
+    size: "17 x 11 in (tabloid), landscape, 3 pages"
+    sheets: [{sheet: P2-G-003, revision: F, source: "D-036"}, {sheet: P2-A-101, revision: D, source: "D-036, D-039 (label-only FLEX re-issue)"}, {sheet: P2-A-102, revision: D, source: "D-036"}]
+    tag: p2-schematic-revA
+    source: "Shane 2026-10-04 5:27 AM CT ('P2-A-101/102 Rev D + P2-G-003 Rev F approved'; freeze as Phase 2 Schematic Set Rev A)"

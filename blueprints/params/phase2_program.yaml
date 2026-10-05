@@ -1,0 +1,440 @@
+# phase2_program.yaml: P2-T-003b PROGRAM TEST-FIT inputs (Phase 2). Read by phase2/src/p2_g_003.py.
+# A test-fit, NOT a floor plan and NOT a decision. Locked values (building, arena, seats, 5 SF tags)
+# are read from phase2.yaml and never repeated here. Every factor carries `source`.
+# Status words: CITED (a published source gives the number) · ASSUMED (KEYSTONE choice, verify) · TBD (no number; left out of totals).
+# Confidence: HIGH / MEDIUM / LOW.
+
+meta:
+  ticket: P2-T-003b
+  sheet: P2-G-003
+  title: PROGRAM TEST-FIT
+  subtitle: "AREA ARITHMETIC, NOT A PLAN"
+  revision: A
+  file: P2-G-003_RevA
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: one-level area arithmetic; no stacking (mezzanine, rooms under the seating bowl) is credited
+  source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: area table, seating, fixtures, gross-up, fit check, options A/B/C, sheet P2-G-003)"
+
+code_basis:
+  edition_used: "IBC 2021 / IPC 2021 (per Shane 10:45 PM CT)"
+  edition_conflict: "Madison County's building-codes page lists the 2018 IBC/IPC (effective Jan 2021) for county permits. AHJ is OPEN (D-008). The 2018 Table 2902.1 assembly row checked reads the same as 2021."
+  assembly_section_2021: "IBC 2021 numbers the assembly egress section 1030 (it was 1029 in the 2018 edition)"
+  occupancy_assumed: "A-4 (indoor arena with spectator seating) for the event bowl — ASSUMED pending R-007"
+  source: "Shane 2026-10-03 10:45 PM CT; Madison County AL, Building Codes page (retrieved 2026-10-03); UpCodes IBC 2021 (Alabama) + IBC 2018 (Texas) text; R-009"
+
+factors:
+  gross_up:
+    base: 1.25
+    lean: 1.15
+    base_basis: "+25% for walls, structure and circulation (Groton MA feasibility study, Reinhardt Assoc.); Loudoun County 2014 Recreation Center standard uses 80% efficiency (÷0.80 = ×1.25) for program space incl. gymnasium"
+    lean_basis: "Loudoun County 2014 'Gross Building Area Allowance' 15% (walls/structure only); used as a LOW-end check that assumes the programmed concourse carries all circulation"
+    status: CITED
+    confidence: MEDIUM
+    source: "R-014 (Loudoun County Capital Facilities Manual 2014 §4.3; Town of Groton MA Senior Center feasibility study)"
+  mechanical:
+    share_of_gross: 0.05
+    basis: "HVAC equipment area 'typically 5 percent of gross floor space' (MIL-HDBK-1027/4A, in UFC 4-171-01N); electrical not separately sized"
+    status: CITED
+    confidence: LOW
+    source: "R-014 (MIL-HDBK-1027/4A via UFC 4-171-01N); different building type (training facility)"
+  seating:
+    base_sf_per_seat: 6.0
+    base_basis: "Loudoun County 2014 Recreation Center standard: spectator/team seating area per seat (elevated seating) = 6.0 SF/seat"
+    lean_seat_width_in: 18
+    lean_row_depth_in: 24
+    lean_seats_between_aisles: 21
+    lean_aisle_in: 48
+    lean_basis: "telescopic bleacher geometry: 18 in per person (IBC 1004.6; Hussey net-capacity basis), 24 in row spacing (Hussey MAXAM standard option), 48 in stepped aisle with seats both sides (IBC 2021 1030.9.1), 21 seats max between aisles for 12 in accessway, seats without backrests (IBC 2021 1030.13.2.1). Excludes front walkway, cross aisles, wheelchair spaces."
+    status: CITED (factors) / KEYSTONE arithmetic (lean geometry)
+    confidence: MEDIUM
+    source: "R-008"
+  occupant_load:
+    spectators: seats (IBC 2021 1004.6 fixed seating = number of seats)
+    event_floor_sf_per_occupant: 50
+    event_floor_basis: "IBC Table 1004.5 'Exercise rooms 50 gross' chosen for the competition floor — function choice ASSUMED (building official decides, 1004.5)"
+    status: CITED factor / ASSUMED function
+    confidence: MEDIUM
+    source: "R-009 (IBC 2021 Table 1004.5, 1004.6)"
+  restrooms:
+    table: "IBC 2021 Table 2902.1, Assembly — coliseums, arenas … indoor sporting events"
+    wc_male: "1 per 75 for the first 1,500 + 1 per 120 for the remainder"
+    wc_female: "1 per 40 for the first 1,520 + 1 per 60 for the remainder"
+    lav_male: "1 per 200"
+    lav_female: "1 per 150"
+    drinking_fountain: "1 per 1,000"
+    service_sink: 1
+    split: "occupant load divided in half (IBC 2902.1.1); fractions rounded up"
+    urinals: "may replace up to 67% of required male water closets in assembly (IPC 2021 424.2)"
+    sf_per_fixture: 50
+    sf_per_fixture_status: ASSUMED
+    sf_per_fixture_check: "a bare water-closet module from cited minimums is ~27 SF (36x60 in stall + 48 in aisle in front); 50 SF/fixture adds lavatory clear floor space, accessible stalls, entries and chases — ASSUMED, verify"
+    counted_in_sf: [water closets incl. urinals, lavatories]
+    not_in_sf: [drinking fountains (concourse alcoves), service sink (utility room, TBD)]
+    confidence: "HIGH (fixture ratios) / LOW (SF per fixture)"
+    source: "R-009 (IBC 2021 Table 2902.1, 2902.1.1, 2903.1.1; IPC 2021 424.2; ASI restroom layout guide for stall sizes)"
+
+# Rooms. method: tag (from phase2.yaml) | each (sf_each x count) | seating | restrooms | mechanical | concourse | locker_load | tbd
+rooms:
+  - {id: arena, short: "phase2.yaml tag (concept sheet)", group: main, name: Championship Wrestling Arena (event floor), method: tag, tag_path: spaces.arena.sf_tagged_superseded, status: TAG, confidence: HIGH, source: "phase2.yaml (concept sheet / reference plan)"}
+  - {id: boys_locker, short: "phase2.yaml tag", group: main, name: Boys Locker Room, method: tag, tag_path: spaces.boys_locker.sf, status: TAG, confidence: HIGH, source: "phase2.yaml"}
+  - {id: girls_locker, short: "phase2.yaml tag; D-013 open", group: main, name: Girls Locker Room (as tagged; D-013), method: tag, tag_path: spaces.girls_locker.sf_tagged, status: TAG, confidence: HIGH, source: "phase2.yaml; D-013 open (draw equal)"}
+  - {id: strength_conditioning, short: "phase2.yaml tag", group: main, name: Strength & Conditioning, method: tag, tag_path: spaces.strength_conditioning.sf_tagged_superseded, status: TAG, confidence: HIGH, source: "phase2.yaml"}
+  - {id: cross_training, short: "phase2.yaml tag", group: main, name: Cross-Training Mat Area, method: tag, tag_path: spaces.cross_training.sf_tagged_superseded, status: TAG, confidence: HIGH, source: "phase2.yaml"}
+  - {id: seating, short: "2,200 x 6.0 SF/seat (Loudoun 2014)", group: bowl, name: "Spectator seating (2,200 seats)", method: seating, status: CITED, confidence: MEDIUM, source: "R-008"}
+  - {id: event_lockers, short: "4 x (14 wrestlers + 4 staff) x 50 SF", group: bowl, name: Event / visitor locker rooms (DR3), count: 4, method: locker_load, team_wrestlers: 14, team_staff: 4, sf_per_occupant: 50, basis: "14 = AHSAA 2026-27 high school weight classes; 4 staff per team ASSUMED; 50 gross SF/occupant = IBC Table 1004.5 locker rooms (an egress factor used here as a sizing yardstick — ASSUMED method)", status: ASSUMED, confidence: LOW, source: "AHSAA 2026-27 Wrestling handbook item 7; IBC 2021 Table 1004.5; R-014"}
+  - {id: concourse, short: "25% of seats x 5 SF standing (T1004.5)", group: public, name: Concourse / hall of champions spine, method: concourse, peak_share: 0.25, sf_per_person: 5, basis: "IBC Table 1004.5 standing space 5 net SF/person (CITED) x 25% of spectators on the concourse at peak (ASSUMED)", status: ASSUMED, confidence: LOW, source: "IBC 2021 Table 1004.5; share ASSUMED by KEYSTONE; R-014"}
+  - {id: foyer, short: "200 + 400 + 200 (Loudoun 2014)", group: public, name: Foyer / trophy lobby (hall of champions), method: parts, parts_sf: [200, 400, 200], basis: "Loudoun 2014 rec center: vestibule 200, lobby 400, customer service desk/control 200", status: CITED, confidence: MEDIUM, source: "R-014 (Loudoun County 2014 §4.3)"}
+  - {id: public_restroom, short: "fixtures (T2902.1) x 50 SF", group: support, name: Public restrooms (2 on plan), method: restrooms, status: CITED fixtures / ASSUMED SF, confidence: MEDIUM, source: "R-009"}
+  - {id: concession_stand, short: "Loudoun kitchen proxy; D-011", group: support, name: Concession stand, method: each, count: 1, sf_each: 275, basis: "Loudoun 2014 rec center kitchen 275 SF (nearest cited room); scope OPEN (D-011)", status: CITED (proxy), confidence: LOW, source: "R-014; D-011"}
+  - {id: first_aid, short: "Loudoun 2014; 1 room counted", group: support, name: First aid, method: each, count: 1, sf_each: 120, basis: "Loudoun 2014 first-aid room 120 SF; plan shows 2-3 rooms, count TBD — 1 counted", status: CITED, confidence: MEDIUM, source: "R-014"}
+  - {id: admin_office, short: "150 + 120 + 200 (Loudoun 2014)", group: support, name: Administrative office, method: parts, parts_sf: [150, 120, 200], basis: "Loudoun 2014: manager office 150 + assistant office 120 + office storage/workroom 200 (mix ASSUMED)", status: CITED sizes / ASSUMED mix, confidence: LOW, source: "R-014"}
+  - {id: equipment_storage, short: "Loudoun gym storage proxy", group: support, name: Equipment storage (mats + floor covers), method: each, count: 1, sf_each: 700, basis: "Loudoun 2014 gym storage 700 SF incl. floor covers; storage for 4 rolled 42 ft mats NOT separately sized", status: CITED (proxy), confidence: LOW, source: "R-014"}
+  - {id: equipment_room, short: "Loudoun equip./maint. proxy", group: support, name: Equipment room, method: each, count: 1, sf_each: 300, basis: "Loudoun 2014 equipment storage/maintenance room 300 SF", status: CITED (proxy), confidence: LOW, source: "R-014"}
+  - {id: stage, short: "no source: left out", group: support, name: Stage, method: tbd, basis: "no cited size found; left OUT of the total", status: TBD, confidence: n/a, source: "reference plan (room shown); no planning source"}
+  - {id: utility, short: "no source: left out", group: support, name: Utility room, method: tbd, basis: "no cited size found; left OUT of the total", status: TBD, confidence: n/a, source: "reference plan (room shown); no planning source"}
+  - {id: mechanical, short: "5% of gross (MIL-HDBK-1027/4A)", group: support, name: Mechanical (2 rooms on plan), method: mechanical, status: CITED, confidence: LOW, source: "R-014 (5% of gross)"}
+
+option_b:
+  mats: 4
+  mat_ft: 42
+  layout: 2 x 2 grid
+  clear_around_ft: 10
+  clear_between_ft: 10
+  clear_basis: "NFHS Rule 2-1-5: mat area includes a space of at least 10 ft surrounding the mat; one 10 ft space shared between adjacent mats is a KEYSTONE assumption (R-005)"
+  table_zone_ft: 6
+  table_zone_basis: "scorer's table at least 10 ft from the mat edge (NFHS 2-3); a 6 ft deep table + chairs strip on the north and south sides is ASSUMED"
+  court_length_ft: 84
+  court_width_ft: 50
+  court_runout_preferred_ft: 10
+  court_runout_min_ft: 3
+  court_basis: "NFHS Basketball Rule 1-1 (84 x 50 ft ideal high school court) and 1-2-1 (at least 3 ft, preferably 10 ft, unobstructed space outside boundaries)"
+  source: "R-005 (NFHS Wrestling 2-1-5, 2-3); R-012 (NFHS Basketball 1-1, 1-2-1); D-014 (42 x 42 ft mats); table zone ASSUMED"
+
+# ---------------------------------------------------------------------------------------------------
+# REV B INPUTS (Shane 2026-10-03 11:09 PM CT, D-031): 55,000 SF is a FOOTPRINT cap; up to 2 levels.
+# Rev A (one-level arithmetic) reads only the sections above and is FROZEN. Rev B adds the sections below.
+# ---------------------------------------------------------------------------------------------------
+meta_rev_b:
+  ticket: P2-T-003b
+  sheet: P2-G-003
+  title: "PROGRAM TEST-FIT, 2 LEVELS"
+  subtitle: "FOOTPRINT MATH, NOT A PLAN"
+  revision: B
+  file: P2-G-003_RevB
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "two-level area arithmetic: ground footprint vs the 55,000 SF footprint cap (D-031); total GSF is not capped"
+  source: "Shane 2026-10-03 11:09 PM CT (55,000 SF is a footprint cap that could allow two levels; redo test-fit as P2-G-003 Rev B)"
+
+stacking:
+  method: "Footprint F = max(L1 gross, arena volume gross + L2 gross). The arena volume (event floor + lower seating tier) is double height: nothing is stacked over it. Every L2 room and the upper seating tier must sit over L1 support rooms (the ring around the bowl). Upper-tier overhang past the L1 ring is NOT credited (conservative)."
+  gross_up_per_level: "same gross-up as Rev A (factors.gross_up) applied to each level's net; mechanical (5% of total gross, factors.mechanical) sits on L1 and is grossed up with L1"
+  arena_volume: [arena, seating_lower]
+  level_1:
+    - {id: arena, short: "double height; nothing above", why: "event floor; high-ceiling arena volume, no rooms above it", source: "concept sheet; KEYSTONE (arena volume rule)"}
+    - {id: seating_lower, short: "lower tier, inside arena volume", why: "lower seating tier sits on the floor edge inside the arena volume", source: "KEYSTONE geometry; R-015"}
+    - {id: boys_locker, short: "next to the floor (DR1)", why: "locker rooms adjacent to the event floor; athlete path kept off the public concourse (DR1)", source: "DR1 (concept sheet); Reed Arena guide (lockers on event level)"}
+    - {id: girls_locker, short: "next to the floor (DR1; D-013)", why: "same as boys locker (DR1); D-013 open", source: "DR1; D-013; Reed Arena guide"}
+    - {id: event_lockers, short: "under bowl, next to floor (DR3)", why: "event/visitor lockers under the bowl next to the floor (DR3)", source: "DR3 (concept sheet); Orleans Arena guide (lockers on event level)"}
+    - {id: foyer, short: "main entry at grade (DR5)", why: "main entry at grade: south portal + hall of champions lobby (DR5)", source: "DR5; phase2.yaml spaces.entry (south portal)"}
+    - {id: concourse_lower, short: "25% of lower seats x 5 SF", why: "serves the lower tier; share of seats on L1", source: "KEYSTONE split of the Rev A concourse factor (R-014)"}
+    - {id: public_restroom_lower, short: "T2902.1 on L1 load x 50 SF", why: "sized from the L1 occupant load (lower seats + event floor)", source: "R-009; R-015"}
+    - {id: concession_stand, short: "main concourse (ASSUMED)", why: "one stand counted, on the main concourse (ASSUMED); scope OPEN (D-011)", source: "ASSUMED by KEYSTONE; D-011"}
+    - {id: first_aid, short: "at grade for EMS (ASSUMED)", why: "at grade for EMS access (ASSUMED)", source: "ASSUMED by KEYSTONE"}
+    - {id: equipment_storage, short: "mats roll onto floor (ASSUMED)", why: "rolled 42 ft mats and floor covers move straight onto the event floor (ASSUMED)", source: "ASSUMED by KEYSTONE; D-014 (42 ft mats)"}
+    - {id: equipment_room, short: "service at grade (ASSUMED)", why: "service room at grade (ASSUMED)", source: "ASSUMED by KEYSTONE"}
+    - {id: mechanical, short: "5% of total gross, at grade", why: "at grade (ASSUMED); rooftop units could move some of it off the footprint (not credited)", source: "ASSUMED by KEYSTONE; R-014 (5% of gross)"}
+    - {id: vertical_circulation, short: "stairs + elevator (both levels)", why: "stairs + elevator shaft occupy both levels", source: "R-015"}
+  level_2:
+    - {id: seating_upper, short: "upper tier over the L1 ring", why: "upper seating tier rings the arena volume over L1 rooms (rooms under the seating)", source: "KEYSTONE geometry; R-015"}
+    - {id: strength_conditioning, short: "daily room; gym floor loads", why: "daily athlete room, no event-floor adjacency needed; floor structure must carry gym loads (structural engineer)", source: "Shane 11:09 PM CT (S&C may go up); structural loads → engineer"}
+    - {id: cross_training, short: "daily mat IS the mezzanine (DR4)", why: "daily mat room; on L2 it becomes the mezzanine itself, so DR4 'mezzanine overlook on daily mat' flips (overlook from the daily mat onto the arena instead)", source: "Shane 11:09 PM CT; DR4 (concept sheet)"}
+    - {id: admin_office, short: "no grade need; desk in foyer", why: "no grade adjacency needed; the foyer control desk stays on L1 (Loudoun 'customer service desk' part of the foyer)", source: "Shane 11:09 PM CT (admin may go up); R-014 (Loudoun foyer parts)"}
+    - {id: concourse_upper, short: "25% of upper seats x 5 SF", why: "serves the upper tier; carries the hall of champions display wall", source: "Shane 11:09 PM CT (upper concourse, hall of champions); R-014"}
+    - {id: public_restroom_upper, short: "T2902.1 on L2 seats x 50 SF", why: "sized from the L2 seat count; IBC 2021 2902.3.3 keeps required public toilets within one story of the users, so per-level sizing is conservative", source: "R-009; R-015 (IBC 2902.3.3)"}
+    - {id: vertical_circulation, short: "stairs + elevator (both levels)", why: "same stairs + elevator as L1", source: "R-015"}
+  not_credited: "rooms under the lower (fixed) seating tier; upper-tier overhang; rooftop mechanical"
+  lean_rule: "lean case: lower tier = telescopic bleachers (nothing can be built under them; Reed Arena retractable risers retract under the permanent seating); upper tier = fixed seating on the L2 deck"
+  status: ASSUMED (stacking choices) / CITED (precedent + DR rules)
+  confidence: MEDIUM
+  source: "phase2.yaml design_rules DR1, DR3, DR4, DR5 (concept sheet); Reed Arena Facility Guide (Texas A&M; venuecoalition.com, retrieved 2026-10-03): 'locker rooms and dressing rooms on the event level', retractable risers 'retracted under the permanent seating'; Orleans Arena Production Guide 2024: event level holds 'all of the locker rooms'; stacking split by KEYSTONE; R-015"
+
+seat_split:
+  upper_share_assumed: 0.5
+  upper_share_min: 0.3
+  upper_share_max: 0.7
+  step: 0.05
+  basis: "50/50 lower/upper is ASSUMED. The sheet also reports the split (30% to 70% upper, 5% steps; range ASSUMED so both tiers exist) that gives the smallest footprint. Sightlines are not checked."
+  status: ASSUMED
+  confidence: LOW
+  source: "KEYSTONE assumption (Rev B); seating type OPEN (D-009)"
+
+vertical_circulation:
+  floor_to_floor_in: 180
+  floor_to_floor_status: "ASSUMED 15 ft (LOW): no section drawn yet; sets the stair run"
+  riser_max_in: 7
+  tread_min_in: 11
+  flight_rise_max_in: 144
+  landing_depth_rule: "landing depth = stair width or 48 in, whichever is less (IBC 1011.6)"
+  stair_min_width_in: 44
+  stair_capacity_in_per_occupant: 0.2
+  stair_capacity_basis: "IBC 2021 1005.3.1 exception: 0.2 in/occupant where the building is sprinklered (903.3.1.1) and has an emergency voice/alarm system. Both are expected: 903.2.1.4 requires sprinklers for A-4 fire areas over 12,000 SF or 300+ occupants; 907.2.1.1 requires voice/alarm for Group A with 1,000+ occupants. Without them the factor is 0.3."
+  exits_table_1006_3_3: "1-500 occupants: 2 exits; 501-1,000: 3; more than 1,000: 4"
+  stair_layout: "switch-back: two flights side by side (plan width 2 x stair width, no well), run = treads of one flight + top and bottom landings; walls are in the gross-up"
+  stairs_repeat_on_both_levels: true
+  shaft_enclosure: "not required for exit access stairs connecting only two stories (IBC 2021 1019.3 exception 1); stairs still drawn as rooms on both levels"
+  l2_other_occupants:
+    - {id: strength_conditioning, sf_per_occupant: 50, basis: "IBC Table 1004.5 exercise rooms 50 gross", source: "IBC 2021 Table 1004.5 (UpCodes); R-015"}
+    - {id: cross_training, sf_per_occupant: 50, basis: "IBC Table 1004.5 exercise rooms 50 gross (function ASSUMED)", source: "IBC 2021 Table 1004.5 (UpCodes); R-015"}
+    - {id: admin_office, sf_per_occupant: 150, basis: "IBC Table 1004.5 business areas 150 gross", source: "IBC 2021 Table 1004.5 (UpCodes); R-015"}
+  l2_concourse_occupants: "not added (the concourse serves the same spectators; ASSUMED)"
+  elevator_count: 1
+  elevator_basis: "IBC 2021 1104.4: at least one accessible route shall connect each accessible story and mezzanine; the 3,000 SF exception does not apply (L2 is far larger). ADA 2010 206.2.3 exception 1 may exempt a private building under three stories, but the IBC still applies through the building permit. An elevator is the assumed accessible route (a ramp for 15 ft is impractical — ASSUMED)."
+  elevator_car_min: "ADA 2010 Table 407.4.1: centered door, 80 in wide x 54 in to the door face (51 in to the front return), 42 in door"
+  elevator_hoistway_sf_per_level: 64
+  elevator_hoistway_status: "ASSUMED 8 ft x 8 ft per level (LOW): car + running clearance + walls, machine-room-less; manufacturer to confirm"
+  accessible_egress: "IBC 2021 1009.1: two accessible means of egress where two exits are required. In a sprinklered building the exit stairs qualify without 48 in between handrails (1009.3.2 exc. 1) or an area of refuge (1009.3.3 exc. 2). An elevator as accessible means of egress is required only at 4+ stories (1009.2.1)."
+  status: CITED (code rules) / ASSUMED (floor-to-floor, hoistway SF, stair layout)
+  confidence: MEDIUM
+  source: "R-015 (IBC 2021 via UpCodes: 1005.3.1, 1005.5, T1006.3.3, 1009.1, 1009.2.1, 1009.3.2, 1009.3.3, 1011.2, 1011.5.2, 1011.6, 1011.8, 1019.3, 1104.4, 903.2.1.4, 907.2.1.1; 2010 ADA Standards 206.2.3, Table 407.4.1)"
+
+# ---------------------------------------------------------------------------------------------------
+# REV C INPUTS (Shane 2026-10-03 11:26 PM CT): ~1,370 seats rejected ("not enough", D-032). Direction under
+# study: keep ~2,200 total spectators by adding rentable SUITES at the top of the upper tier (D-030 still OPEN).
+# Rev A and Rev B read only the sections above and are FROZEN. Rev C adds the sections below. No $ figures (revenue out of scope).
+# ---------------------------------------------------------------------------------------------------
+meta_rev_c:
+  ticket: P2-T-003b
+  sheet: P2-G-003
+  title: "PROGRAM TEST-FIT, SUITES"
+  subtitle: "FOOTPRINT MATH, NOT A PLAN"
+  revision: C
+  file: P2-G-003_RevC
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "two-level (or three with a suite level) arithmetic: bowl seats + suites x guests ≈ 2,200 spectators; ground footprint vs the 55,000 SF footprint cap (D-031)"
+  source: "Shane 2026-10-03 11:26 PM CT (reject ~1,370 seats; add rentable suites just above the top seats to keep ~2,200 spectators; Rev C)"
+
+suites:
+  guests_per_suite:
+    low: 12
+    mid: 16
+    high: 20
+    low_basis: "Petersen Events Center (Pitt) Production Guide 2020: smaller suites 'typically accommodate 12 guests comfortably'"
+    mid_basis: "Diddle Arena (WKU), College Heights Herald 2002-10-22: each suite lease 'comes with 16 tickets'"
+    high_basis: "Sheldon ISD Panther Stadium (high school) press box: passes give '20 ADULT VIPs access to one of two suites'"
+    status: CITED
+    confidence: MEDIUM
+    source: "R-016 (S1 Petersen Events Center; S2 WKU Herald; S3 Sheldon ISD)"
+  sf_per_guest: 25
+  sf_per_guest_basis: "Diddle Arena suites 'measuring 400 square feet' with 16 tickets = 25 SF/guest (one cited suite with both numbers). Cross-check: Texas Tech United Supermarkets Arena standard suites 276 SF (no guest count given). Covers seating ledge + lounge; suite-level restrooms counted separately (Diddle: 'private bathrooms for the suite level')."
+  sf_per_guest_status: CITED (derived from one source)
+  kitchenette_pantry: "TBD — no cited size; left OUT (suites assumed served from the concession stand)"
+  frontage_rule: "suite width = (guests ÷ 2 ledge rows, rounded up) x 18 in + 24 in for walls — ASSUMED (18 in per seat from IBC 1004.6; 2 rows ASSUMED)"
+  corridor_width_in: 44
+  corridor_basis: "suite corridor along the suite fronts at the IBC 2021 Table 1020.3 minimum, 44 in (ASSUMED at the minimum; architect may widen)"
+  code_occupant_load: "per suite = guests (fixed seats, IBC 1004.6) + lounge area ÷ 15 net (Table 1004.5 'unconcentrated (tables and chairs)'; 1004.6: non-fixed-seat areas 'shall be … added to the number of fixed seats'). Lounge = suite SF − guests x seat SF. Used for exits and fixtures; spectators counted = guests only."
+  wheelchair_spaces: "1 wheelchair space + 1 companion seat in EACH suite (IBC 1109.2.2.2 / ADA 221.2.1.2, Table 1109.2.2.1: 4 to 25 seats = 1), counted suite by suite"
+  target_spectators: "phase2.yaml spaces.seating.total (2,200 locked; bowl seats + suite guests)"
+  placements:
+    - {id: L2_back, short: "back of the upper tier on Level 2", rule: "suites + corridor added to L2; L2 must still sit over the L1 ring", source: "Shane 11:26 PM CT (Level 2 / top of upper tier); KEYSTONE geometry"}
+    - {id: L3_top, short: "suite level above the top row (Level 3)", rule: "suites + corridor + suite restrooms on a 3rd level over the L1 ring / L2 rooms; adds floor area, adds footprint only if L3 > L1 ring; forces a 3rd story", source: "Shane 11:26 PM CT ('just above the top seats'); Diddle Arena precedent ('clear at the top of the arena'); KEYSTONE geometry"}
+  third_level_flags: "3 stories: open exit access stairs lose the two-story exception (IBC 1019.3 exc. 1), so stairs become enclosed interior exit stairways, 1-hour where connecting fewer than 4 stories (1023.2); elevator must stop at the suite level (1104.4); each suite needs a wheelchair space (1109.2.4); elevator egress still not required below 4 stories (1009.2.1); allowable stories by construction type (IBC ch. 5) NOT checked"
+  floors_checked: [22000, 20000, 18000, 16400]
+  floors_basis: "22,000 = locked arena tag; 16,400 = largest floor that fits all 2,200 bowl seats on base inputs (Rev B); 18,000 and 20,000 = Shane's hybrid range 11:26 PM CT"
+  precedent_suite_counts: "Diddle Arena 16 suites; United Supermarkets Arena 24 + corners; Petersen Events Center 5 courtside + 16"
+  headline_case:
+    floor_sf: 18000
+    guests: 20
+    placement: L3_top
+    basis: "KEYSTONE pick for the sheet headline: the largest checked floor whose suite count (13-22 across 12-20 guests) stays inside the cited precedent counts (16-24 suites); 20,000 SF needs 30-50 suites"
+    status: ASSUMED
+    confidence: LOW
+    source: "KEYSTONE (Rev C); R-016 precedents"
+  revenue: out of scope (no $ figures)
+  status: CITED (guests, SF/guest, code rules) / ASSUMED (frontage, corridor at minimum, placement)
+  confidence: MEDIUM
+  source: "R-016; Shane 2026-10-03 11:26 PM CT; D-030, D-032"
+
+# ---------------------------------------------------------------------------------------------------
+# REV D INPUTS (Shane 2026-10-03 11:39 PM CT, D-030 DECIDED): 16,400 SF event floor, all 2,200 seats in the bowl,
+# 2 levels, no suites. Revs A-C read only the sections above and are FROZEN. Rev D = LOCKED PROGRAM sheet.
+# Locked numbers (event floor, bowl seats, levels) are read from phase2.yaml and not repeated here.
+# ---------------------------------------------------------------------------------------------------
+meta_rev_d:
+  ticket: P2-T-003b
+  sheet: P2-G-003
+  title: LOCKED PROGRAM
+  subtitle: "D-030 · AREA BY LEVEL, NOT A PLAN"
+  revision: D
+  file: P2-G-003_RevD
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "two-level area arithmetic (Rev B method) at the locked event floor and bowl seat count; footprint vs the 55,000 SF footprint cap (D-031); seating type shown both ways (D-009 OPEN)"
+  source: "Shane 2026-10-03 11:39 PM CT (D-030 DECIDED; Rev D = LOCKED PROGRAM sheet; Rev C frozen)"
+
+locked_program:
+  upper_share: 0.5
+  upper_share_basis: "same 50/50 lower/upper split as Rev B (seat_split.upper_share_assumed); sightlines not checked"
+  columns:
+    - {id: base, label: FIXED, seat_basis: "6.0 SF/seat elevated seating (factors.seating.base_sf_per_seat)", status: CITED, confidence: MEDIUM, source: "R-008 (Loudoun County 2014)"}
+    - {id: telescopic, label: TELESCOPIC, seat_basis: "telescopic bleacher geometry (factors.seating lean_*), every bowl seat on telescopic risers", status: CITED geometry / KEYSTONE arithmetic, confidence: MEDIUM, source: "R-008 (IBC 1004.6, 1030.9.1, 1030.13.2.1; Hussey)"}
+  gross_up_telescopic: 1.25
+  gross_up_basis: "the TELESCOPIC column uses the same 1.25 gross-up as the FIXED column (factors.gross_up.base) so only the seating type differs; the Rev A-C 'lean' case also cut the gross-up to 1.15 and is not repeated here"
+  gross_up_status: ASSUMED
+  wheelchair_table: "IBC 2021 Table 1109.2.2.1 / 2010 ADA Table 221.2.1.1: 501-5,000 seats = 6 + 1 per 150 (or fraction) over 500; the bowl counted as one assembly area"
+  wheelchair_dispersion: "dispersed across both tiers with lines of sight (ADA 221.2.3, 802.2); split by tier is an architect task"
+  status: ASSUMED (split, telescopic gross-up) / CITED (seat factors, wheelchair table)
+  confidence: MEDIUM
+  source: "Shane 2026-10-03 11:39 PM CT (D-030); R-008; R-015; R-016 (wheelchair table)"
+
+# ---------------------------------------------------------------------------------------------------
+# REV E INPUTS (Shane 2026-10-04 4:30 AM CT, D-009 DECIDED): seating MIX — telescopic lower tier, fixed upper tier.
+# Revs A-D read only the sections above and are FROZEN. Rev E = locked program with the decided seating mix.
+# ---------------------------------------------------------------------------------------------------
+meta_rev_e:
+  ticket: P2-T-003b
+  sheet: P2-G-003
+  title: "LOCKED PROGRAM (MIX)"
+  subtitle: "D-009 · AREA BY LEVEL, NOT A PLAN"
+  revision: E
+  file: P2-G-003_RevE
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev D method; lower tier at telescopic geometry, upper tier at fixed 6.0 SF/seat; footprint margin vs the 55,000 SF cap; seats by side and tier from the Rev B block plan"
+  source: "Shane 2026-10-04 4:30 AM CT (D-009 DECIDED MIX; Rev E, Rev D frozen; target >= 2,000 SF under 55,000)"
+
+mixed_seating:
+  lower_tier: telescopic
+  upper_tier: fixed
+  lower_basis: "factors.seating lean_* telescopic geometry (3.38 SF/seat)"
+  upper_basis: "factors.seating.base_sf_per_seat (6.0 SF/seat)"
+  gross_up_basis: "x 1.25 (factors.gross_up.base) on both levels, as in Rev D"
+  target_margin_sf: 2000
+  target_basis: "Shane: footprint margin target >= 2,000 SF under 55,000"
+  target_status: "RETIRED (D-056, 2026-10-04 8:36 AM CT): no 55,000 SF cap, no margin target. Kept only because frozen P2-G-003 Rev E / F read it"
+  comparison: "ALL FIXED column = P2-G-003 Rev D base case, for reference"
+  status: DECIDED (mix) / CITED (seat factors) / ASSUMED (50/50 split)
+  confidence: MEDIUM
+  source: "Shane 2026-10-04 4:30 AM CT (D-009); R-008"
+
+meta_rev_f:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "LOCKED PROGRAM + LOOP"
+  subtitle: "D-035 · AREA BY LEVEL ONLY"
+  revision: F
+  file: P2-G-003_RevF
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev E method with S&C and cross-training at their D-035 SF; the Level 2 loop (drawn area, P2-A-102 Rev D) replaces the upper concourse line and is added to L2 gross without the gross-up"
+  source: "Shane 2026-10-04 4:55 AM CT (D-035 DECIDED: continuous L2 running/training loop; S&C and cross-training reduced to fit; Rev E frozen)"
+
+meta_rev_g:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "LOCKED PROGRAM + LOOP"
+  subtitle: "REV E PLAN · D-057 SIZES"
+  revision: G
+  file: P2-G-003_RevG
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev F method with 76 in stairs and 76 in intermediate landings (D-052, D-051), the 6 ft east clear zone (D-053) added to L1 and the arena volume, and the Rev E loop area; size reported as L1 footprint, L2 area, TOTAL GSF and change vs the last revision (D-057); no cap, no margin (D-056)"
+  source: "Shane 2026-10-04 9:10 AM CT (Plan Rev E set, reviewer C-1..C-4; Rev F frozen)"
+
+meta_rev_h:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "LOCKED PROGRAM + LOOP"
+  subtitle: "REV E PLAN · D-057 SIZES"
+  revision: H
+  file: P2-G-003_RevH
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev G numbers unchanged (same summary_g method and inputs); fixture table: WC+LAV column = restroom-SF basis (66 x 50 SF, ASSUMED), SUM = WC + lav + drinking fountains, labelled 'incl. 4 drinking fountains' (2 per level, T2902.1). Rev G's SUM printed WC + lav only, so the label alone would have been wrong"
+  source: "Shane 2026-10-04 10:03 AM CT (reviewer C-11: fixture tables label SUM column 'incl. 4 drinking fountains'; new rev); Rev G frozen"
+
+meta_rev_i:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "LOCKED PROGRAM + LOOP"
+  subtitle: "REV F PLAN · L2 17'-9\" · D-057"
+  revision: I
+  file: P2-G-003_RevI
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev H method and fixture table with floor-to-floor 17'-9\" (213 in, D-061 Option B): stairs 31 risers of 6.87 in, 2 flights, 15 treads x 11 in = 152 x 289 in = 305.1 SF per stair per level (Rev H 270.2); event lockers 3,600 SF drawn (D-060 settled); drawn size from P2-A-101/102 Rev F, change vs Rev E (D-057)"
+  source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B; D-060 settled; G-003 Rev H APPROVED and frozen)"
+
+meta_rev_j:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "PROGRAM + LOOP + STORAGE"
+  subtitle: "REV H PLAN · D-067 · D-057"
+  revision: J
+  file: P2-G-003_RevJ
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev I method and numbers + the D-067 chair / table / stage storage room (2,100 SF one-storey annex, added gross: its 2.0 aisle factor already covers circulation, so no x1.25 and no mech share); fixtures: L1 restrooms to the chairs-only case (D-064), shortfall = finding D-069; size table vs Plan Rev G (D-057)"
+  source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054, D-064, D-065, D-066 DECIDED; D-067 storage room)"
+
+rev_j:
+  storage_room: {id: storage_annex, label: "Chair / table / stage storage (annex, D-067)", sf: 2100, level: 1, gross_up: false, basis: "56 NPS 42-8 chair / table trucks (42 chairs + 8-10 tables each, 67 x 33.25 in = 15.47 SF) = 866 SF + stage 24 decks 4 x 8 ft on 5 carts about 170 SF (ASSUMED) = 1,036 SF net x 2.0 aisles / turning (ASSUMED) = 2,072 -> drawn 70 x 30 = 2,100 SF", status: "DECIDED room (D-067) / ASSUMED size", source: "Shane 2026-10-04 1:22 PM CT (D-067); NPS 42-8 vendor listing (Home Depot / GovernmentFurniture2Go, retrieved 2026-10-04)"}
+  fixtures_l1_case: {floor: chairs, basis: "L1 restrooms sized to chairs-only: floor 2,346 + lower seats 1,100 = 3,446 (D-064 Option 2); drawn rooms keep the Rev I fixtures until D-069 is decided", source: "D-064 DECIDED (Shane 1:22 PM CT); IBC 2021 T2902.1 = IPC 2021 T403.1 (R-009)"}
+  source: "Shane 2026-10-04 1:22 PM CT (D-064, D-067)"
+
+meta_rev_k:
+  ticket: P2-T-004
+  sheet: P2-G-003
+  title: "PROGRAM + LOOP + STORAGE + RESTROOMS"
+  subtitle: "REV I PLAN · D-069 · D-057"
+  revision: K
+  file: P2-G-003_RevK
+  size: "17 x 11 in (tabloid), landscape"
+  scale: NTS
+  rule: "Rev J method and numbers + the D-069 restroom bump-out (core 2, 30 x 56 ft = 1,680 SF one storey, drawn on P2-A-101 Rev I) added gross to L1 / footprint / GSF like the D-067 annex (no x1.25, no mech share); L1 fixtures = lobby core + core 2 = chairs-only (D-064); size table A-101 Rev I vs Rev H drawn"
+  source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out)"
+
+rev_k:
+  restroom_bumpout: {id: restroom_core_2, label: "Restroom bump-out, core 2 (D-069)", sf: 1680, level: 1, gross_up: false, basis: "drawn 30 x 56 ft on Plan Rev I (P2-A-101 Rev I): men 26 x 14 = 364 SF, women 30 x 34 = 1,020 SF, DF alcove + janitor 4 x 14 = 56 SF, corridor 30 x 8 = 240 SF; test-fit P2-A-401 Rev C (stalls, 6 ft aisles, +10 % walls / chases ASSUMED). At 50 SF per fixture (R-014 ASSUMED) the 48 core-2 fixtures would be 2,400 SF", source: "Shane 2026-10-04 3:31 PM CT (D-069 Option 2); P2-A-401 Rev C test-fit; KEYSTONE layout (ASSUMED)"}
+  fixture_split:
+    required: {men_wc: 22, women_wc: 42, men_lav: 9, women_lav: 12, df: 4, source: "chairs-only L1 load 3,446 (floor 2,346 + lower seats 1,100), IBC 2021 T2902.1 = IPC 2021 T403.1 (R-009); D-064 Option 2"}
+    lobby_core: {men_wc: 10, women_wc: 18, men_lav: 4, women_lav: 5, df: 2, source: "P2-A-101 Rev H / Rev I rooms 4 and 5 as drawn (Rev I fixture basis), unchanged; Shane 3:31 PM CT split (10/18, 4/5, 2)"}
+    core_2: {men_wc: 5, men_urinals: 7, women_wc: 24, men_lav: 5, women_lav: 7, df: 2, source: "KEYSTONE split = required minus lobby core; urinals 7 of the 12 men's WC-equivalents <= 67 % (IPC 2021 424.2, R-009); DF 2 = one hi-lo pair (ADA 2010 211.2)"}
+    urinal_rule: {cite: "IPC 2021 424.2", text: "urinals shall not be substituted for more than 67 percent of the required water closets in assembly and educational occupancies", source: "IPC 2021 424.2 via UpCodes (R-009, retrieved 2026-10-04)"}
+    source: "Shane 2026-10-04 3:31 PM CT (targets 22M / 42W toilets, 9M / 12W lavs, 4 DF; split between the lobby core 10/18, 4/5, 2 and the new core)"
+  source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2)"
+
+rev_g:
+  stair_width_in: 76
+  intermediate_landing_in: 76
+  stair_basis: "D-052 DECIDED 7:49 AM CT: 76 in stairs; D-051: switch-back intermediate landing >= stair width (IBC 2021 1011.6); floor landing stays min(width, 48 in)"
+  east_clear_sf: 864
+  east_clear_basis: "event floor 6 ft wider on the east side x 144 ft = 864 SF net (D-053 APPROVED 7:44 AM CT: east tier front 16 ft from the mats); counted in L1 and in the arena volume, grossed up like the floor"
+  loop_basis: "drawn loop area from phase2_plan_rev_e.yaml level_2.loop (east leg 6 ft further east), not grossed up (as Rev F)"
+  status: "DECIDED inputs (D-051, D-052, D-053) / ASSUMED method (Rev F)"
+  source: "Shane 2026-10-04 7:44, 7:49, 9:10 AM CT; D-051; D-052; D-053; P2-G-003 Rev F"
+
+rev_i:
+  floor_to_floor_in: 213
+  floor_to_floor_basis: "D-061 DECIDED Option B: Level 2 FF 15 ft -> 17'-9\" so the upper-tier front row sits at 9.0 ft with 21 in risers (7'-6\" clear under row 1, no low band, no seats lost); stairs and the elevator travel 17'-9\""
+  stair_result: "31 risers of 6.87 in (<= 7 in, IBC 2021 1011.5.2), 2 flights of 16 + 15 (each <= 12 ft rise, 1011.8), longest flight 15 treads x 11 in = 165 in; 2 x 76 in x (165 + 48 + 76 in) = 305.1 SF per stair per level"
+  event_lockers_drawn_sf: 3600
+  event_lockers_basis: "D-060 SETTLED: event lockers 1-4 run to the tier lines (no low band) = 4 x 900 SF = program 3,600"
+  status: "DECIDED (D-061, D-060) / ASSUMED method (Rev G/H)"
+  source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B; D-060 settled); research/R-022-exit-paths-under-low-band.md; IBC 2021 1011.5.2, 1011.8"
+
+training_loop:
+  replaces: concourse_upper
+  area_basis: "drawn loop area from phase2_plan_rev_d.yaml level_2.loop (outer rect minus inner rect)"
+  gross_up: false
+  gross_up_note: "ASSUMED: the loop is itself circulation drawn at full width, so it is not multiplied by the 1.25 gross-up (R-014); the grossed-up alternative is shown on the sheet"
+  lane_width_in: 42
+  lane_width_sources:
+    - {ref: "UFC 4-740-02N (DoD fitness/recreation design) 4.1.7", text: "indoor running track >= 12 ft wide, minimum 3 lanes at 42 in", url: "https://www.constructionknowledge.net/public_domain_documents/Div_11_Equipment/DOD_Fitness_and_Rec_facilities_4_740_02n.pdf", retrieved: 2026-10-04, source: "UFC 4-740-02N"}
+    - {ref: "Athletic Business, A Running Start", text: "three lanes of 36-42 in typically adequate; ACSM 20 ft inside radius on turns", url: "https://www.athleticbusiness.com/facilities/fitness/article/15140481/a-running-start", retrieved: 2026-10-04, source: "Athletic Business"}
+    - {ref: "Athletic Business, Designing Tracks for Recreational Users", text: "max 12 laps per mile, 8-10 preferred; users crossing the track is a hazard", url: "https://www.athleticbusiness.com/facilities/rec-center/article/15146121/designing-tracks-for-recreational-users", retrieved: 2026-10-04, source: "Athletic Business"}
+  lanes_status: "ASSUMED 2 lanes (guides prefer 3 = 10.5-12 ft, which does not fit without moving the upper tier or growing the box)"
+  guards: "IBC 2021 1015.2 (open side > 30 in above the floor below), 1015.3 (42 in high), 1015.4 (4 in sphere)"
+  source: "Shane 2026-10-04 4:55 AM CT (D-035); sources retrieved 2026-10-04"
