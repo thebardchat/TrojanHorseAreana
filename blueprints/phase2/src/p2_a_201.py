@@ -36,6 +36,7 @@ import yaml
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import WHITE  # noqa: E402
 from titleblock import Sheet, add_titleblock, text_width_in  # noqa: E402
 
 W, H, M = 17.0, 11.0, 0.5
@@ -297,11 +298,11 @@ def draw_portal(sh, el, ev, fin, evb=None):
         # brand / signage placeholder on the attic
         a0, a1 = pt["attic_band"]
         el.box(cx - 15, a0 + 1.4, cx + 15, a1 - 2.4, fill=fin["brand_red"]["hex"], layer=L_SIGN, lw=0.8)
-        el.text(cx, (a0 + a1) / 2 - 1.55, ev["signage"]["text"], size=6.4, bold=True, align="center", layer=L_SIGN, color="#FFFFFF")
+        el.text(cx, (a0 + a1) / 2 - 1.55, ev["signage"]["text"], size=6.4, bold=True, align="center", layer=L_SIGN, color=WHITE)
     else:
         draw_brand(sh, el, ev, evb, 1.0 / el.s)
     if evb is None:
-        el.text(cx, gh + 1.0, "E1 MAIN ENTRY / EXIT", size=5.2, bold=True, align="center", layer=L_TAG, color="#FFFFFF")
+        el.text(cx, gh + 1.0, "E1 MAIN ENTRY / EXIT", size=5.2, bold=True, align="center", layer=L_TAG, color=WHITE)
     else:
         el.text(cx, gh + 1.0, "E1 MAIN ENTRY (building, behind)", size=5.0, bold=True, align="center", layer=L_TAG)
         cw = evb["champion_walk"]
