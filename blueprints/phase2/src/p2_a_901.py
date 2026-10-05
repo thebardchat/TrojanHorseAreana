@@ -23,13 +23,14 @@ import yaml
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import INK_MUTED, SCHOOL_RED  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from titleblock import Sheet, add_titleblock  # noqa: E402
 import p2_g_002 as g2  # noqa: E402
 
 W, H, M = 17.0, 11.0, 0.5
 SHEET_NO = "P2-A-901"
-RED, GRY = "#CC0000", "#555555"
+RED, GRY = SCHOOL_RED, INK_MUTED
 L_MASS, L_GRND, L_TAG, L_VIEW = "A-MASS", "C-SITE-DIAG", "A-ANNO-TEXT", "A-ANNO-VIEW"
 FACES = ("top", "B", "S", "N", "W", "E")
 NORM = {"top": (0, 0, 1), "B": (0, 0, -1), "S": (0, -1, 0), "N": (0, 1, 0), "W": (-1, 0, 0), "E": (1, 0, 0)}
