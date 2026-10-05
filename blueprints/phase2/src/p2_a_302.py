@@ -24,6 +24,7 @@ import yaml
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import SCHOOL_RED  # noqa: E402
 from titleblock import Sheet, add_titleblock, text_width_in  # noqa: E402
 
 W, H, M = 17.0, 11.0, 0.5
@@ -31,7 +32,7 @@ SHEET_NO = "P2-A-302"
 FT = 0.3048
 L_CUT, L_FILL, L_TAG, L_SL = "A-SITE-CUTL", "A-SITE-FILL", "A-SITE-IDEN", "A-SITE-SLIN"
 C = dict(cut="#3C3C3C", floor="#D9B77E", mat="#C9A227", lower="#D88A8A", upper="#A7B3C3", loop="#C8693A", room="#F0ECE4",
-         air="#E8F0F8", ok="#2B2B2B", mid="#D9822B", bad="#CC0000", stack="#B9B9B9")
+         air="#E8F0F8", ok="#2B2B2B", mid="#D9822B", bad=SCHOOL_RED, stack="#B9B9B9")
 SLAB = 1.0            # graphic only
 REV = "A"             # set by main(); Rev B branches only (Rev A output stays byte-identical)
 CASES = ("as_drawn", "proposed")
