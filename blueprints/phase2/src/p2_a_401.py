@@ -21,13 +21,14 @@ import yaml
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import INK_MUTED, SCHOOL_RED  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from titleblock import Sheet, add_titleblock  # noqa: E402
 import p2_g_002 as g2  # noqa: E402
 
 W, H, M = 17.0, 11.0, 0.5
 SHEET_NO = "P2-A-401"
-RED, GRN, GRY = "#CC0000", "#1E7B34", "#555555"
+RED, GRN, GRY = SCHOOL_RED, "#1E7B34", INK_MUTED
 L_WALL, L_PART, L_FIX, L_CLR, L_TAG, L_DIM, L_DOOR, L_PATH = ("A-WALL", "A-WALL-PRTN", "P-FIXT", "A-CLER-ADA", "A-ANNO-TEXT",
                                                            "A-ANNO-DIMS", "A-DOOR", "LS-CPTH")
 NAMES = {"evl_1": "EVENT LOCKER ROOM 1", "evl_2": "EVENT LOCKER ROOM 2", "evl_3": "EVENT LOCKER ROOM 3", "evl_4": "EVENT LOCKER ROOM 4"}
