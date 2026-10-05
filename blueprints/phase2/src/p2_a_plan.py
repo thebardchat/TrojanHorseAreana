@@ -26,6 +26,7 @@ import yaml
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import SCHOOL_RED  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from titleblock import Sheet, add_titleblock, pitch, text_width_in  # noqa: E402
 import p2_testfit as tf  # noqa: E402
@@ -1915,7 +1916,7 @@ def build_e(sheet_no, p2, prog, plan, X_, seats, lg, DR, DD, rows_f, rev="E"):
         if rh:
             pass
         elif rg:
-            sh.text(x_, y_ - 0.085, "EGRESS CONFLICT — see P2-A-111", size=5.0, bold=True, align="center", layer=L_TAG, color="#CC0000")
+            sh.text(x_, y_ - 0.085, "EGRESS CONFLICT — see P2-A-111", size=5.0, bold=True, align="center", layer=L_TAG, color=SCHOOL_RED)
         else:
             sh.text(x_, y_ - 0.085, "— size TBD (ASSUMED)", size=5.0, align="center", layer=L_TAG)
         # controlled door off the lobby to the athlete route
