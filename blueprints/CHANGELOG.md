@@ -682,3 +682,6 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message â€
 - **Findings:** (1) chair layouts on the floor must keep an aisle to V2 (core 2 is reached through V2); (2) X7's discharge path from x 240 to a public way is TBD with the parcel (D-006); (3) core-2 plumbing (waste, vent, water) is an MEP item; (4) P2-G-002 Rev B still shows D-069 OPEN (no G-002 Rev C was ordered).
 - **Still PAUSED:** G-001 cover, combined set PDF and PR not built.
 - **Frozen check:** `/tmp/cur_check7.sh` (explicit `--rev`, now including the 1:21 PM revs, A-201 A-G and the new revs): every frozen / committed revision re-renders byte-identical (PDF + DXF entities; A-901 OBJ / MTL); new revs deterministic.
+
+## 2026-10-05 4:48 PM CT â€” palette
+- palette.py added from existing script colors; no sheet output changed.
