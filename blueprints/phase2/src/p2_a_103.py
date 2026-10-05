@@ -23,13 +23,14 @@ import yaml
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import INK_MUTED, SCHOOL_RED, TINT_BLUE, TINT_GREEN, TINT_SAND, WHITE  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from titleblock import Sheet, add_titleblock  # noqa: E402
 import p2_g_002 as g2  # noqa: E402
 
 W, H, M = 17.0, 11.0, 0.5
 SHEET_NO = "P2-A-103"
-RED, GRN, GRY, BLU = "#CC0000", "#1E7B34", "#555555", "#1F4E8C"
+RED, GRN, GRY, BLU = SCHOOL_RED, "#1E7B34", INK_MUTED, "#1F4E8C"
 L_WALL, L_TIER, L_MAT, L_FURN, L_COURT, L_HATCH, L_TAG, L_DIM, L_ZONE = ("A-WALL", "A-SEAT-TELE", "A-EQPM-MATS", "A-FURN",
                                                                        "A-FLOR-CRT", "A-HATCH", "A-ANNO-TEXT", "A-ANNO-DIMS", "A-AREA-ZONE")
 CASE_NAMES = {"sports": "SPORTS", "tables": "TABLES + CHAIRS", "chairs": "CHAIRS ONLY", "standing": "STANDING"}
@@ -268,7 +269,7 @@ def tiers_open(v, plan, fill="#E4E4E4", rows=True, labels=True):
                 else:
                     v.line(r[0] + k * tl["row_depth_ft"], r[1], r[0] + k * tl["row_depth_ft"], r[3], L_TIER, lw=0.12)
     for o in tl["openings"]:
-        v.fill(o["rect"], "#FFFFFF", L_TIER)
+        v.fill(o["rect"], WHITE, L_TIER)
         r = o["rect"]
         if o["side"] in ("N", "S"):
             v.line(r[0], r[1], r[0], r[3], L_TIER, lw=0.4)
@@ -333,15 +334,15 @@ def build(c):
     tiers_open(v, plan)
     context(v, plan)
     tz = plan["event_floor"]["table_zone_ft"]
-    v.fill([fl[0], fl[1], fl[2], fl[1] + tz], "#EAF0F8", L_ZONE)
-    v.fill([fl[0], fl[3] - tz, fl[2], fl[3]], "#EAF0F8", L_ZONE)
+    v.fill([fl[0], fl[1], fl[2], fl[1] + tz], TINT_BLUE, L_ZONE)
+    v.fill([fl[0], fl[3] - tz, fl[2], fl[3]], TINT_BLUE, L_ZONE)
     v.rect(fl, L_WALL, lw=0.55)
     xs = sorted({r[0] for r in c["mats"].values()} | {r[2] for r in c["mats"].values()})
     ys = sorted({r[1] for r in c["mats"].values()} | {r[3] for r in c["mats"].values()})
     cl = wr["clear_ft"]
     v.rect([xs[0] - cl, ys[0] - cl, xs[3] + cl, ys[3] + cl], L_ZONE, lw=0.35, dash=True)
     for mid, r in c["mats"].items():
-        v.fill(r, "#F4E6C8", L_MAT, lw=0.8)
+        v.fill(r, TINT_SAND, L_MAT, lw=0.8)
         cx, cy = (r[0] + r[2]) / 2, (r[1] + r[3]) / 2
         v.circle(cx, cy, wr["circle_min_ft"] / 2, L_MAT, lw=0.45)
         v.text(cx, cy - 1.5, mid, size=5.0, bold=True, align="center", layer=L_TAG)
@@ -393,11 +394,11 @@ def build(c):
         r = b["rect"]
         s = b["side"]
         st = {"N": [r[0], clz[3], r[2], r[3]], "S": [r[0], r[1], r[2], clz[1]], "E": [clz[2], r[1], r[2], r[3]]}[s]
-        v.fill(st, "#555555", L_TIER)
+        v.fill(st, INK_MUTED, L_TIER)
     for o in tl["openings"]:
         r = o["rect"]
         q = {"S": [r[0], av[1], r[2], clz[1]], "N": [r[0], clz[3], r[2], av[3]], "E": [clz[2], r[1], av[2], r[3]]}[o["side"]]
-        v.fill(q, "#FFFFFF", L_TIER)
+        v.fill(q, WHITE, L_TIER)
     v.rect(av, L_WALL, lw=1.1)
     v.rect(fl, L_WALL, lw=0.9)
     v.rect(clz, L_ZONE, lw=0.6, dash=True)
@@ -423,7 +424,7 @@ def build(c):
     hp = ov["occupancy"]["hatch"]
     for i, cs in enumerate(c["cases"]):
         v = View(sh, mx[i % 2], my[i // 2], mf, fl[0], fl[1])
-        v.fill(z, ("#EEEEEE" if cs["id"] == "standing" else "#E3F1E6" if cs is c["design"] else "#F5F5F5") if rb else
+        v.fill(z, ("#EEEEEE" if cs["id"] == "standing" else TINT_GREEN if cs is c["design"] else "#F5F5F5") if rb else
                ("#FBEFE6" if cs["id"] == "standing" else "#F5F5F5"), L_ZONE)
         h = hp[cs["id"]]
         v.hatch(z, h["angle"], h["step_ft"], L_HATCH, lw=0.2, cross=h.get("cross", False))
@@ -542,14 +543,14 @@ def build_b_tail(c, sh, body_bottom, top, cm, xm, wm, ov, om, rb, plan, d):
     bx0, by0, bx1, by1 = plan["building"]["rect"]
     v.line(vx0, by1, min(vx1, bx1), by1, L_WALL, lw=0.9)
     v.line(bx0, vy0, bx0, by1, L_WALL, lw=0.9)
-    v.fill(ar, "#E3F1E6", L_ZONE, lw=0.6)
+    v.fill(ar, TINT_GREEN, L_ZONE, lw=0.6)
     v.rect(ar, L_WALL, lw=0.9)
     eq = rooms["equip_storage"]["rect"]
-    v.fill(eq, "#F4E6C8", L_ZONE, lw=0.4)
+    v.fill(eq, TINT_SAND, L_ZONE, lw=0.4)
     ath = next(z_ for z_ in plan["level_1"]["zones"] if z_["id"] == "athlete")["rect"]
     v.fill(ath, "#F2F2F2", L_ZONE, lw=0.3)
     fl = c["fl"]
-    v.fill([fl[0], max(fl[1], vy0), min(fl[2], vx1), fl[3]], "#FFFFFF", L_ZONE, lw=0.6)
+    v.fill([fl[0], max(fl[1], vy0), min(fl[2], vx1), fl[3]], WHITE, L_ZONE, lw=0.6)
     v.text((ar[0] + ar[2]) / 2, (ar[1] + ar[3]) / 2 + 4, "STORAGE", size=4.4, bold=True, align="center", layer=L_TAG)
     v.text((ar[0] + ar[2]) / 2, (ar[1] + ar[3]) / 2 - 5, f"{(ar[2] - ar[0]) * (ar[3] - ar[1]):,.0f} SF", size=4.0, align="center", layer=L_TAG)
     v.text((eq[0] + eq[2]) / 2, (eq[1] + eq[3]) / 2 - 2, "EQUIP.", size=3.6, align="center", layer=L_TAG)
