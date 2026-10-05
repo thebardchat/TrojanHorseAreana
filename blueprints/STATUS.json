@@ -2,7 +2,7 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-05T16:49:53-05:00",
+  "updated_at": "2026-10-05T17:24:56-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
@@ -24,11 +24,11 @@
     "P2-A-901 Rev C (in review; massing + OBJ model)"
   ],
   "sheets_in_progress": [],
-  "last_commit": "5acd13a",
+  "last_commit": "41f16a7",
   "branch": "grok/keystone",
   "open_decisions": 16,
   "blocked_on": "P1: Dr. Headen / support wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012); trademark (D-042); brick pricing (D-044). G-001 / set / PR on hold per Shane.",
-  "what_changed": "palette.py added from existing script colors; no sheet output changed.",
+  "what_changed": "p2_c_101 now imports palette.py; output identical (C-101 Revs A-E re-rendered byte-identical, no revision bump).",
   "what_to_verify": "East location (vs north) and 16 ft height ASSUMED; X7 moved 30 ft east, discharge to a public way TBD (D-006); floor chair layouts keep an aisle to V2; core-2 plumbing = MEP; G-002 Rev B still shows D-069 open. ARENA naming ASSUMED.",
   "next_action": "PAUSED per Shane. Waiting on his review of the 7 Oct 4 revisions; then P2-T-012 G-001 cover + combined set + draft PR when he says go. P1-T-005 to 007 jump the line when Dr. Headen's support-wing data arrives.",
   "question_for_shane": "Core 2 on the EAST wall at V2 (30x56 ft, X7 moved to its east face) OK, or do you want it on the north side? And should G-002 get a Rev C so its D-069 note reads closed?"
