@@ -31,6 +31,7 @@ import yaml
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import SCHOOL_RED  # noqa: E402
 from titleblock import Sheet, add_titleblock, text_width_in  # noqa: E402
 
 W, H, M = 17.0, 11.0, 0.5
@@ -39,7 +40,7 @@ L_CUT, L_FILL, L_TAG, L_DAT, L_HID, L_GRD = ("A-SECT-CUTL", "A-SECT-FILL", "A-SE
                                              "A-SECT-GUAR")
 # graphic colours only (materials TBD)
 C = dict(cut="#3C3C3C", room="#F0ECE4", lobby="#F5E7C6", floor="#D9B77E", air="#E8F0F8", lower="#D88A8A",
-         upper="#A7B3C3", loop="#C8693A", struct="#CFCFCF", stair="#BEBEBE", red="#CC0000", conf="#F2B8B8",
+         upper="#A7B3C3", loop="#C8693A", struct="#CFCFCF", stair="#BEBEBE", red=SCHOOL_RED, conf="#F2B8B8",
          stor="#DCD6CA")
 SLAB = 1.0            # graphic slab / roof / wall thickness (ft) — NOT designed
 
