@@ -25,6 +25,7 @@ from pathlib import Path
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import SCHOOL_RED  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from titleblock import Sheet, add_titleblock, pitch, text_width_in  # noqa: E402
 import p2_testfit as tf  # noqa: E402
@@ -1617,12 +1618,12 @@ def build_g(p2, prog, ob, out, rev="G"):
         cells = ["L1 chairs", n(fc["load"]), str(fc["wc_m"]), str(fc["wc_f"]), str(fc["lav_m"]), str(fc["lav_f"]), str(fc["df"]), str(fc["in_rooms"]),
                  str(fc["in_rooms"] + fc["df"])]
         for (lab, dx, al), c in zip(fh, cells):
-            sh.text(x2 + dx, y, c, size=7.8, bold=True, align="left" if al == "l" else "right", layer=TB, color="#CC0000")
+            sh.text(x2 + dx, y, c, size=7.8, bold=True, align="left" if al == "l" else "right", layer=TB, color=SCHOOL_RED)
         y -= rp
         cells = ["L1 short", "", f"+{fc['wc_m'] - f1['wc_m']}", f"+{fc['wc_f'] - f1['wc_f']}", f"+{fc['lav_m'] - f1['lav_m']}",
                  f"+{fc['lav_f'] - f1['lav_f']}", f"+{fc['df'] - f1['df']}", f"+{fc['in_rooms'] - f1['in_rooms']}", f"+{fc['in_rooms'] + fc['df'] - f1['in_rooms'] - f1['df']}"]
         for (lab, dx, al), c in zip(fh, cells):
-            sh.text(x2 + dx, y, c, size=7.8, align="left" if al == "l" else "right", layer=TB, color="#CC0000")
+            sh.text(x2 + dx, y, c, size=7.8, align="left" if al == "l" else "right", layer=TB, color=SCHOOL_RED)
     y -= 0.04
     if rk:
         y = sh.para(x2, y, c2w, f"L1 / L2 rows = the Rev I set the program lines carry (L1 = lower seats + {n(X_['occ_floor'])} floor at 50 SF). "
