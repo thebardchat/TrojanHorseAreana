@@ -19,13 +19,14 @@ import yaml
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import INK_MUTED, SCHOOL_RED, WHITE  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from titleblock import Sheet, add_titleblock  # noqa: E402
 import p2_g_002 as g2  # noqa: E402
 
 W, H, M = 17.0, 11.0, 0.5
 SHEET_NO = "P2-A-111"
-RED, GRN, GRY, LRED = "#CC0000", "#1E7B34", "#555555", "#F6D5D5"
+RED, GRN, GRY, LRED = SCHOOL_RED, "#1E7B34", INK_MUTED, "#F6D5D5"
 L_WALL, L_ROOM, L_TAG, L_SEAT, L_VERT = "A-WALL-BLDG", "A-AREA-BLCK", "A-AREA-IDEN", "A-SEAT", "A-FLOR-STRS"
 L_EXIT, L_PATH, L_SEP = "LS-EXIT", "LS-TRAV", "LS-SEPR"
 n0, n1 = g2.n0, g2.n1
@@ -264,7 +265,7 @@ def build(c):
                 xx = r[0] + k * 2
                 pl.line(xx, r[1], xx, r[3], L_SEAT, lw=0.15)
     for o in plan["tiers"]["lower"]["openings"]:
-        pl.fill(o["rect"], "#FFFFFF", L_SEAT)
+        pl.fill(o["rect"], WHITE, L_SEAT)
         pl.rect(o["rect"], L_SEAT, lw=0.4)
     outline(pl, plan)
     stairs(pl, plan, {"ST-1": (42.7, 221, "center"), "ST-2": (176, 250, "right"), "ST-3": (183, 4, "right"), "ST-4": (16, 4, "left")})
