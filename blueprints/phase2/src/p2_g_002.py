@@ -21,13 +21,14 @@ import yaml
 
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
+from palette import INK_MUTED, SCHOOL_RED  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from titleblock import Sheet, add_titleblock, text_width_in  # noqa: E402
 import p2_testfit as tf  # noqa: E402
 
 W, H, M = 17.0, 11.0, 0.5
 SHEET_NO = "P2-G-002"
-RED, GRN, GRY = "#CC0000", "#1E7B34", "#555555"
+RED, GRN, GRY = SCHOOL_RED, "#1E7B34", INK_MUTED
 L_TAB = "G-ANNO-TABL"
 
 
