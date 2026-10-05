@@ -31,12 +31,13 @@ import yaml
 BP = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BP / "shared"))
 from titleblock import Sheet, add_titleblock, text_width_in  # noqa: E402
+from palette import BRICK, BRICK_LIGHT, SCHOOL_RED, WHITE  # noqa: E402
 
 W, H, M = 17.0, 11.0, 0.5
 SHEET_NO = "P2-C-101"
 L_SITE, L_BLDG, L_HID, L_TAG, L_STR, L_DIM = "C-SITE", "A-WALL", "A-AREA-OPEN", "A-ANNO-TEXT", "A-FLOR-STRS", "A-ANNO-DIMS"
-C = dict(road="#C9C9C9", bldg="#EFE9DE", floor="#E6D3A8", stair="#8C8C8C", brick="#B5654A", stone="#D8CFC0",
-         drive="#DADADA", bus="#CFCFCF", red="#CC0000", band="#D9B79A")
+C = dict(road="#C9C9C9", bldg="#EFE9DE", floor="#E6D3A8", stair="#8C8C8C", brick=BRICK, stone="#D8CFC0",
+         drive="#DADADA", bus="#CFCFCF", red=SCHOOL_RED, band=BRICK_LIGHT)
 REV = "A"          # set by main(); Rev B branches only (Rev A output stays byte-identical)
 
 
@@ -142,7 +143,7 @@ def draw_site(v, si, plan, full=True):
         for sx in (cx - rx + 4, cx + rx - 16):
             v.rect([sx, rd["y"] + 12, sx + 12, cy - ry + 6], C["bus"], lw=0.3)
         v.poly(ellipse(cx, cy, rx, ry), C["bus"], lw=0.4)
-        v.poly(ellipse(cx, cy, rx - 12, ry - 12), "#FFFFFF", lw=0.4)
+        v.poly(ellipse(cx, cy, rx - 12, ry - 12), WHITE, lw=0.4)
         c0, c1 = bus["curb_at"]
         v.line(c0, cy + ry + 1.5, c1, cy + ry + 1.5, L_SITE, 1.4)
         v.dline(c0, cy + ry + 2, pt["center_x"] + pt["width"] / 2, -pt["gap_to_building"] - pt["depth"] / 2, L_SITE, 0.6, 0.05, 0.035)
@@ -386,7 +387,7 @@ def build(p2, si, plan):
     sx, sy = v.P(150, rd["y"] - 22)
     for k in range(3):
         sh.poly([(sx + k * 1.0, sy), (sx + (k + 1) * 1.0, sy), (sx + (k + 1) * 1.0, sy + 0.06), (sx + k * 1.0, sy + 0.06)],
-                fill="#000000" if k % 2 == 0 else "#FFFFFF", lw=0.4, layer=L_DIM)
+                fill="#000000" if k % 2 == 0 else WHITE, lw=0.4, layer=L_DIM)
         sh.text(sx + k * 1.0, sy - 0.12, f"{int(k * fpi)}'", size=5, align="center", layer=L_DIM)
     sh.text(sx + 3.0, sy - 0.12, f"{int(3 * fpi)}'", size=5, align="center", layer=L_DIM)
     t1 = "1  SITE PLAN — CAMPUS DIAGRAM (SITE TBD)"
