@@ -1,0 +1,9 @@
+<!-- @dsCard group="Status" height=96 subtitle="Accent outline, pulsing on arena" -->
+<style>
+  body{margin:0;padding:24px;background:var(--surface);font-family:var(--font-arena);}
+  .badge{display:inline-block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:4px 14px;border-radius:var(--radius-sharp);color:var(--brand);border:1px solid var(--brand);}
+  [data-theme="arena"] .badge{color:var(--accent);border-color:var(--accent);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{box-shadow:0 0 4px var(--accent);}50%{box-shadow:var(--glow-accent);}}
+  @media (prefers-reduced-motion:reduce){.badge{animation:none!important;}}
+</style>
+<span class="badge">ShaneBrain Ecosystem</span>

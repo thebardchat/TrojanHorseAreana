@@ -1,0 +1,31 @@
+<!-- @dsCard height=288 -->
+<style>
+  html,body{margin:0;}
+  body{background:var(--surface);}
+  .cover{position:relative;width:960px;height:288px;overflow:hidden;font-family:var(--font-arena);}
+  svg{position:absolute;left:0;top:0;}
+  .brand{fill:var(--brand);} .ink{fill:var(--ink);} .accent{fill:var(--accent);} .muted{fill:var(--ink-muted);} .ground{fill:var(--surface);}
+  h1{position:absolute;left:32px;top:136px;margin:0;font-size:64px;line-height:.95;font-weight:900;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;}
+  p{position:absolute;left:32px;top:212px;margin:0;font-size:14px;color:var(--ink-muted);}
+</style>
+<div class="cover">
+<svg width="960" height="112" viewBox="0 0 960 112" aria-hidden="true">
+  <!--
+  blocks: brand 288x112, ink 360x112, accent 120x112, ink-muted 192x112 (flush strip of unequal bands, bleeding off the right edge)
+  arrangement: horizontal strip across the top; name beneath because it is 18 characters wide
+  pattern: discs - the wrestling mats from the plan: one championship (42 ft) cut out of the red block, four practice (32 ft) in red on the ink block; ratio 46:35
+  steps: radii 46 and 35 from the plan's 21 ft and 16 ft mat radii; centers 80px apart
+  -->
+  <rect class="brand" x="0" y="0" width="288" height="112"/>
+  <rect class="ink" x="288" y="0" width="360" height="112"/>
+  <rect class="accent" x="648" y="0" width="120" height="112"/>
+  <rect class="muted" x="768" y="0" width="192" height="112"/>
+  <circle class="ground" cx="144" cy="56" r="46"/>
+  <circle class="brand" cx="340" cy="56" r="35"/>
+  <circle class="brand" cx="420" cy="56" r="35"/>
+  <circle class="brand" cx="500" cy="56" r="35"/>
+  <circle class="brand" cx="580" cy="56" r="35"/>
+</svg>
+<h1>Trojan Horse Arena</h1>
+<p>Building Champions, One Mat at a Time</p>
+</div>
