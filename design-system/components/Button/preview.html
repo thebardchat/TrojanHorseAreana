@@ -1,0 +1,14 @@
+<!-- @dsCard group="Actions" height=100 subtitle="Primary and ghost" -->
+<style>
+  body{margin:0;padding:24px;background:var(--surface);color:var(--ink);font-family:var(--font-arena);}
+  .row{display:flex;gap:var(--space-4);flex-wrap:wrap;}
+  .btn{display:inline-block;padding:var(--space-3) var(--space-8);font:700 14px/1.2 var(--font-arena);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:var(--radius-sharp);transition:all .2s;}
+  .primary{background:var(--brand);color:var(--on-brand);border:1px solid var(--brand);box-shadow:var(--glow-brand);}
+  .primary:hover{filter:brightness(1.2);transform:translateY(-2px);}
+  .ghost{background:transparent;color:var(--ink);border:1px solid var(--border);}
+  .ghost:hover{border-color:var(--brand);color:var(--brand);}
+</style>
+<div class="row">
+  <a class="btn primary">View on GitHub</a>
+  <a class="btn ghost">ShaneBrain Hub</a>
+</div>

@@ -78,3 +78,6 @@ Built with Claude (Anthropic) · Runs on Raspberry Pi 5 + Pironman 5-MAX
 - Commit and push directly to `claude/trojans-sports-complex-3d-r07Pw`. Do NOT create branches.
 - Run build/test commands before committing.
 - Update CLAUDE.md session log before final commit.
+
+## Session Log
+- 2026-10-06 — Added `design-system/` (tokens.json, README, four component previews, cover) extracted from the repo's render scripts, `index.html`, 3D viewer and `blueprints/`. Additive only; no existing file other than this log was changed. Branch: `claude/design-system-extraction-25fzdu`. The same system exists as a private claude.ai Design System artifact.
