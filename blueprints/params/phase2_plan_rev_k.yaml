@@ -1,0 +1,52 @@
+# phase2_plan_rev_k.yaml: P2-A-101 Rev K overrides (Phase 2, concept envelope, D-074 / D-077). Read by phase2/src/p2_a_101_rev_k.py together with
+# params/phase2_plan_rev_i.yaml (Rev J geometry is plan Rev I; rooms, zones, tiers, doors unchanged unless listed here).
+# Rev K, 2026-10-08 (Shane: "approve R=20 and draw Rev K but ST-2 is outside the building I assume you will fix that").
+# Rev J is FROZEN (D-073); this is a new file. Everything below is ASSUMED until the architect confirms.
+
+meta:
+  revision: K
+  file: P2-A-101_RevK
+  source: "Shane 2026-10-08 (D-074 direction, D-077 approval of R = 20 ft)"
+  status: ASSUMED
+
+envelope:
+  corner_radius_ft: 20
+  basis: "D-077: 20 ft keeps the radiused SRM-language look and costs 343 SF per level at the four corners (34 ft would cost 992 SF and push the two south corner stairs off the plan). Footprint box stays 210 x 252 ft."
+  status: ASSUMED
+  source: "Shane 2026-10-08 (D-077 approved R = 20); Claude measurement, render_srm_concept_plan_revk.py"
+
+stairs:
+  ST-3:
+    rect: [177.333, 0, 190, 24.083]
+    basis: "SE stair slides west along the south wall (12.667 x 24.083 ft, same 305 SF, not turned) so it sits inside the radius; clears L2 WOMEN (2) (x <= 169.27); exit X9 stays on the south wall"
+    status: ASSUMED
+    source: "Shane 2026-10-08 (D-078: R = 20 ft, corner stairs resolved); Claude measurement, render_srm_concept_plan_revk.py (source line added in P2-T-017, KEYSTONE)"
+  ST-4:
+    rect: [0, 20, 12.667, 44.083]
+    basis: "SW stair slides north along the west wall into the FLEX / TEAM ASSEMBLY zone (no program); exit X10 moves to the west wall"
+    status: ASSUMED
+    source: "Shane 2026-10-08 (D-078: R = 20 ft, corner stairs resolved); Claude measurement, render_srm_concept_plan_revk.py (source line added in P2-T-017, KEYSTONE)"
+  ST-2:
+    kind: cylinder
+    centre: [178, 257.7]
+    radius_ft: 10
+    basis: "NE stair becomes a cylindrical tower INSIDE the building envelope (Shane: ST-2 must not sit outside the building). The envelope wraps it (one continuous outline); it lands on the L2 loop north leg (loop outer edge y = 246, tower south edge y = 247.7). 314 SF vs 305 SF stair. Replaces the Rev J 24.08 x 6.67 ft NE projection (160.6 SF) plus the 6 ft strip."
+    status: ASSUMED
+    source: "Shane 2026-10-08; D-061 (31 risers), D-052 (76 in stairs)"
+
+mech_bay:
+  id: mech_bay
+  tag: "29"
+  name: "MECH / ELEC BAY"
+  rect: [136, 252, 166, 282]
+  storeys: 1
+  height_ft: 16
+  basis: "30 x 30 ft one-storey metal-building pop-out east of the storage annex (D-074), set 14 ft east of the annex so the EXIT (N) passage at X5 (x 123.85-131.85) discharges to open ground (the first draft at x 122-152 blocked it). Makes up the corner mech rooms' loss (MECH NW, MECH NE) and the open MEP shortfall (total mech ~4.1 % vs 5 %; annex noted able to absorb more mech area later (D-072))."
+  status: ASSUMED
+  source: "D-077; D-072 MEP open item"
+
+exits_moved:
+  X1:  {wall: W, at: 50.0, note: "was y 38; ST-4 now occupies y 20-44.08, so the team-assembly exit moves north of it", source: "D-078 (Rev K exits moved with ST-3 / ST-4 / ST-2; source added in P2-T-017)"}
+  X10: {wall: W, at: 32.0, note: "ST-4 exit, was south wall at x 6.333", source: "D-078 (Rev K exits moved with ST-3 / ST-4 / ST-2; source added in P2-T-017)"}
+  X9:  {wall: S, at: 183.667, note: "ST-3 exit, was south wall at x 197.958", source: "D-078 (Rev K exits moved with ST-3 / ST-4 / ST-2; source added in P2-T-017)"}
+  X6:  {wall: tower, at: [188, 257.7], note: "ST-2 tower exit, east face (was east wall at y 252.333)", source: "D-078 (Rev K exits moved with ST-3 / ST-4 / ST-2; source added in P2-T-017)"}
