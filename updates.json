@@ -31,6 +31,13 @@
     {
       "date": "2026-10-09",
       "tag": "Sheet",
+      "title": "Exit recheck (P2-G-002 Rev E): doors and stairs pass, the NE tower is too small",
+      "text": "Level 2 sheet approved. The exit recheck on the curved plan passes on door capacity, stair capacity, travel distance and stair separation. One real problem: the 20 ft NE stair tower cannot hold the 76 in, 31-riser stair, which needs about 27 ft across. Recommended fix is a 29 ft drum, about 340 SF more per level. Not drawn yet; waiting on the owner. Assumptions only; architect confirms.",
+      "image": "concepts/P2-G-002_RevE_sheet.png"
+    },
+    {
+      "date": "2026-10-09",
+      "tag": "Sheet",
       "title": "P2-A-102 Rev G drawn: Level 2 inside the curved envelope",
       "text": "Rev K approved. Level 2 plan on the project sheet format as a new file (Rev F stays frozen). The NE stair tower is entered from the north warm-up strip, and the running loop's NE corner is rounded so it stays 7 ft wide. Level 2 area is 28,692 SF and total is 86,212 GSF, about 420 more than Rev J. This corrects the Rev K sheet's Level 2 figure. Everything is assumed until the architect confirms.",
       "image": "concepts/P2-A-102_RevG_sheet.png"
@@ -66,9 +73,9 @@
   ],
   "upcoming": [
     {
-      "title": "Exit capacity recheck and area sheet",
-      "text": "Recheck exits with the moved stairs and tower (P2-G-002), then carry the corrected areas to P2-G-003 Rev L.",
-      "status": "Next"
+      "title": "Resize the NE stair tower",
+      "text": "Redraw plan and Level 2 with a 29 ft stair drum, then carry areas to P2-G-003 Rev L.",
+      "status": "Needs owner yes"
     },
     {
       "title": "Structural review",
@@ -106,6 +113,11 @@
       "src": "concepts/P2-A-102_RevG_sheet.png",
       "title": "P2-A-102 Rev G (Level 2)",
       "caption": "Level 2 plan: tower landing, rounded NE loop corner, corrected areas."
+    },
+    {
+      "src": "concepts/P2-G-002_RevE_sheet.png",
+      "title": "P2-G-002 Rev E (exit recheck)",
+      "caption": "Exit capacity, travel and the NE tower finding."
     },
     {
       "src": "concepts/render_srm_concept_aerial_ne.png",
