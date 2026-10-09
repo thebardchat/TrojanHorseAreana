@@ -745,3 +745,4 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 ## 2026-10-09 4:49 PM CT — D-089 · P1-A-101 Rev C · P1-G-002 Rev A cost sheet (R-026)
 - D-089: NE small EXIT-ONLY door confirmed (4 doors). P1-A-101 Rev C (new params/phase1_a101_rev_c.yaml, p1_a_101_rev_c.py): NE door solid; Rev B kept.
 - R-026 + params/phase1_cost.yaml + phase1/src/p1_g_002.py: mats 2,475 SF, pads 188 LF / 94 panels (NFPA 286 / Class A). Mats + pads incl. 10 % contingency: Low $39,404 / Mid $61,775 / High $76,897. W0 clear-out, W2, W3, LED: TBD lines. Published list prices with URLs.
+- Scope change (Shane 4:50-4:51 PM CT): materials only (team clears, relocates, installs: $0 by owner); W2 / W3 removed; LED IN (10-12 fixtures ASSUMED); Z-clip hardware added. Materials incl. 10 %: Low $32,111 / Mid $52,354 / High $66,190.

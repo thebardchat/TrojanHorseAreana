@@ -42,9 +42,10 @@ def compute(c):
         ("Wrestling mat, wall to wall", f"{q['mat_sf']:,} SF", {k: psf[k] * q["mat_sf"] for k in B}, {k: f"${psf[k]:.2f}/SF" for k in B}),
         ("Mat tape (3 in x 60 yd rolls)", f"{q['tape_rolls']} rolls", {k: c["tape_per_roll"][k] * q["tape_rolls"] for k in B}, {k: f"${c['tape_per_roll'][k]:.2f}/roll" for k in B}),
         ("Mat freight", "1 lot", {k: float(c["mat_freight"][k]) for k in B}, {k: "" for k in B}),
-        ("Mat install (staff roll-out, ASSUMED)", "-", {k: 0.0 for k in B}, {k: "" for k in B}),
         ("Wall pads 2 x 6 ft, NFPA 286 / Class A", f"{q['pad_panels']} panels ({q['pad_lf']} LF)", {k: pad[k] * q["pad_panels"] for k in B}, {k: f"${pad[k]:.2f}/panel" for k in B}),
-        ("Wall pad install", f"{q['pad_panels']} panels", {k: c["pad_install_per_panel"][k] * q["pad_panels"] for k in B}, {k: f"${c['pad_install_per_panel'][k]}/panel" for k in B}),
+        ("Pad mounting hardware (Z-clip kits)", f"{q['pad_panels']} panels", {k: c["pad_hardware_per_panel"][k] * q["pad_panels"] for k in B}, {k: f"${c['pad_hardware_per_panel'][k]:.2f}/panel" for k in B}),
+        ("LED 4 ft wrap fixtures (count ASSUMED)", "{low}-{high} fixtures".format(**c["led"]["count"]), {k: c["led"]["price"][k] * c["led"]["count"][k] for k in B},
+         {k: f"{c['led']['count'][k]} x ${c['led']['price'][k]:.2f}" for k in B}),
     ]
     sub = {k: sum(r[2][k] for r in rows) for k in B}
     con = {k: sub[k] * c["contingency_pct"] / 100 for k in B}
@@ -61,15 +62,15 @@ def build(rev):
     bb = add_titleblock(sh, {
         "project": f"{meta['project']}\n{site['location']}",
         "phase": f"PHASE {meta['phase']}\n{meta['type'].upper()}",
-        "title": "COST SHEET\nMATS + WALL PADS",
+        "title": "COST SHEET\nMATS, PADS, LED",
         "sheet_no": SHEET_NO, "scale": "NTS", "date": meta["sheet_date"], "revision": rev,
         "drawn_by": meta["drawn_by"], "stamp": meta["stamp"],
     }, margin=M, tb_h=0.95, stamp_h=0.40)
     x0, top = 0.85, H - M - 0.45
-    sh.text(x0, top, "PHASE 1 WRESTLING ROOM — COST (mats + wall pads)", size=18, bold=True)
+    sh.text(x0, top, "PHASE 1 WRESTLING ROOM — MATERIALS COST (mats, wall pads, LED)", size=18, bold=True)
     sh.text(x0, top - 0.3, f"Room cleared: 100 % of the {q['mat_sf']:,} SF floor (55' x 45') gets mat. Pads 6 ft high on the whole perimeter less {q['doors']} doors: "
             f"{q['perimeter_lf']} - {q['doors']} x {q['door_width_ft']} ft = {q['pad_lf']} LF = {q['pad_panels']} panels.", size=10.5)
-    sh.text(x0, top - 0.5, "Published list prices read 2026-10-09 (sources below). Not a quote or a bid. Tax, pad freight and custom-size upcharges not included.", size=10.5, color=INK_MUTED)
+    sh.text(x0, top - 0.5, "Materials only: the team clears, relocates and installs ($0, by owner). Water / restrooms out of scope. List prices 2026-10-09; not a quote. Tax, pad freight, custom sizes extra.", size=10.5, color=INK_MUTED)
     # table
     cx = [x0, x0 + 3.7, x0 + 5.6, x0 + 7.15, x0 + 8.7, x0 + 10.25]
     y = top - 0.95
@@ -86,14 +87,14 @@ def build(rev):
                 sh.text(xx, y - 0.14, unit[k], size=7.5, align="right", color=INK_MUTED)
     y -= 0.36
     sh.line(x0, y + 0.2, cx[5] + 0.05, y + 0.2, lw=0.5)
-    for lab, d, bold in (("Subtotal, mats + pads", sub, True), (f"Contingency {c['contingency_pct']} %", con, False), ("TOTAL, mats + pads", tot, True)):
+    for lab, d, bold in (("Subtotal, materials", sub, True), (f"Contingency {c['contingency_pct']} %", con, False), ("TOTAL, materials", tot, True)):
         sh.text(cx[0], y, lab, size=11.5 if bold else 10.5, bold=bold)
         for k, xx in zip(B, cx[3:]):
             sh.text(xx, y, money(d[k]), size=11.5 if bold else 10.5, bold=bold, align="right", color=SCHOOL_RED if lab.startswith("TOTAL") else None)
         y -= 0.3
     sh.line(x0, y + 0.42, cx[5] + 0.05, y + 0.42, lw=0.8)
     y -= 0.05
-    sh.text(x0, y, "SEPARATE LINES — NOT IN THE TOTAL (TBD)", size=12, bold=True)
+    sh.text(x0, y, "BY OWNER / NOTES — NOT IN THE TOTAL", size=12, bold=True)
     for t in c["tbd_lines"]:
         y -= 0.25
         sh.text(x0, y, f"{t['id']}  {t['text']}: {t['value']} ({t['note']})", size=9.5)
@@ -111,7 +112,8 @@ def build(rev):
     sy -= 0.08
     srcs = [(m["brand"], f"${m['price']:,.2f} / {m['sf']:,} SF" if m["price"] else m["note"], m["url"] or "") for m in c["mat_prices"]]
     srcs += [(p["name"], f"${p['price']:,.2f} / panel", p["url"]) for p in c["pad_prices"]]
-    srcs += [("Wall pad install", c["pad_install_per_panel"]["note"], c["pad_install_per_panel"]["url"]),
+    srcs += [(i_["name"], f"${c['led']['price'][i_['band']]:.2f} each", i_["url"]) for i_ in c["led"]["items"]]
+    srcs += [("Z-clip hardware", c["pad_hardware_per_panel"]["note"], c["pad_hardware_per_panel"]["urls"][1]),
              ("Mat freight", c["mat_freight"]["note"], c["mat_freight"]["urls"][0]),
              ("Mat tape", c["tape_per_roll"]["note"], c["tape_per_roll"]["url"])]
     for i, (n, v, u) in enumerate(srcs, 1):

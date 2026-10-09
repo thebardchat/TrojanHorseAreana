@@ -1,4 +1,4 @@
-# phase1_cost.yaml: Phase 1 wrestling room cost analysis (P1-G-002 Rev A, research R-026). Shane 2026-10-09 4:49 PM CT.
+# phase1_cost.yaml: Phase 1 wrestling room cost analysis (P1-G-002 Rev A, research R-026). Shane 2026-10-09 4:49 PM CT; scope 4:50-4:51 PM CT = materials only.
 # Prices = published web list prices read 2026-10-09 (URL on each). PRELIMINARY: not a quote or bid. mat_bands = indexes into mat_prices.
 meta:
   source: Shane 2026-10-09 4:49 PM CT, KEYSTONE chat (cost analysis of the Phase 1 room); research R-026
@@ -80,13 +80,6 @@ pad_prices:
   price: 354.0
   url: https://shop.jayprosports.com/Wall-Padding--WallGuard-FireImpact-Rated-2-ft-x-6-ft-Z-Clip-Top-Bottom-_p_4855.html
   source: https://shop.jayprosports.com/Wall-Padding--WallGuard-FireImpact-Rated-2-ft-x-6-ft-Z-Clip-Top-Bottom-_p_4855.html
-pad_install_per_panel:
-  low: 100
-  mid: 125
-  high: 150
-  note: range $100-150 / panel (cited); mid = midpoint
-  url: https://dgfloors.com/wall-padding/
-  source: https://dgfloors.com/wall-padding/
 mat_freight:
   low: 240
   mid: 1220
@@ -103,14 +96,9 @@ tape_per_roll:
   note: JVCC WMT-7 3 in x 60 yd listings
   url: https://www.findtape.com/JVCC-WMT-7-Wrestling-Mat-Tape/p747/
   source: https://www.findtape.com/JVCC-WMT-7-Wrestling-Mat-Tape/p747/
-mat_install:
-  value: 0
-  status: ASSUMED
-  note: roll-out mats laid and taped by staff / team (no published labor price); verify
-  source: KEYSTONE ASSUMED (no published labor price)
 pad_freight:
   status: TBD
-  note: 'pads ship by truck freight (listings: ''Shipping Method: Freight''); quote'
+  note: pads ship by truck freight; not listed, quote (not in the total)
   source: R-026 (web list prices read 2026-10-09)
 contingency_pct: 10
 used_options:
@@ -128,31 +116,61 @@ used_options:
   url: https://tulsa.craigslist.org/app/d/nowata-nice-used-x-40-wrestling-mat/7859837584.html
   source: https://tulsa.craigslist.org/app/d/nowata-nice-used-x-40-wrestling-mat/7859837584.html
 tbd_lines:
-- id: W0
-  text: Clear the room; relocate desk, TV, lockers, mat carts to the support wing / storage
-  value: TBD
-  note: staff / custodial; destination TBD (support wing not measured)
-  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
-- id: W2
-  text: Restore water / plumbing repair (licensed plumber)
-  value: TBD
-  note: no number in the Phase 1 docs; cause unknown (D-002)
-  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
-- id: W3
-  text: Restroom split, 1 M + 1 F single-user, full 2010 ADA
-  value: TBD
-  note: no number in the Phase 1 docs; support wing not measured
-  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
+- id: OWNER
+  text: Clear the room; relocate desk, TV, lockers, mat carts
+  value: $0
+  note: by owner (team)
+  source: 'Shane 2026-10-09 4:50-4:51 PM CT (scope: materials only; owner clears, relocates and installs)'
+- id: OWNER
+  text: Install mats, wall pads and LED fixtures
+  value: $0
+  note: by owner (team); electrical license exemption for owner's employees per phase1.yaml approvals_refs, confirm
+  source: 'Shane 2026-10-09 4:50-4:51 PM CT (scope: materials only; owner clears, relocates and installs)'
 - id: NFPA
   text: NFPA 286 assembly test report for the pads
   value: in pad price
-  note: ask the vendor before purchase (phase1.yaml W1 purchase_note)
-  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
-- id: LED
-  text: LED lighting (optional)
-  value: TBD
-  note: not in the Phase 1 docs yet; optional
-  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
-procurement_note: 'School-board purchases at or over $40,000 go to competitive bid (Ala. Code 16-13B-1, per Examiners Feb 2025; MEDIUM confidence; phase1.yaml approvals_refs). Low total is just under it;
-  Mid and High are over: plan for a bid (confirm with the district).'
+  note: ask the vendor before purchase
+  source: phase1.yaml W1 purchase_note
+- id: FRT
+  text: Wall pad freight
+  value: quote
+  note: truck freight, not listed
+  source: R-026
+procurement_note: School-board purchases at or over $40,000 go to competitive bid (Ala. Code 16-13B-1, per Examiners Feb 2025; MEDIUM; phase1.yaml approvals_refs). Check each total against it with the district.
 source: Shane 2026-10-09 4:49 PM CT, KEYSTONE chat (cost analysis); R-026
+scope:
+  text: 'Materials only: wall-to-wall mats, 6 ft wall pads (NFPA 286), LED fixtures, tape + mounting hardware, freight, 10 % contingency. W2 / W3 out. Clear-out, relocation and all install by the team ($0,
+    by owner).'
+  source: 'Shane 2026-10-09 4:50-4:51 PM CT (scope: materials only; owner clears, relocates and installs)'
+pad_hardware_per_panel:
+  low: 22.32
+  mid: 24.98
+  high: 25.0
+  note: 'Z-clip kits for 3 pads: Gared $66.97 / $74.95, Century $75 (per panel = kit / 3)'
+  urls:
+  - https://sportsfacilitiesgroup.com/store/z-clip-wall-pad-attachment-kit-gared-gymnasium-equipment
+  - https://www.kitsuperstore.com/wall-stage-padding/3991-gared-z-clip-attachment-kit-3-pads-4196.html
+  - https://www.centurymats.com/products/z-clip-mounting-system
+  source: https://www.kitsuperstore.com/wall-stage-padding/3991-gared-z-clip-attachment-kit-3-pads-4196.html
+led:
+  count:
+    low: 10
+    mid: 11
+    high: 12
+  count_status: ASSUMED
+  count_basis: about 10-12 existing 4 ft fixtures seen in Shane's photos 2026-10-09; one-for-one replacement, 2,475 SF, CLG 10 ft
+  price:
+    low: 67.2
+    mid: 76.13
+    high: 168.0
+  items:
+  - band: low
+    name: GLT LW4 4 ft LED wrap, 4,000 lm, 34 W
+    url: https://www.beeslighting.com/products/glt-lw4-40l-40k-d10-4ft-led-wrap-light-34-watts-4400-lumens-4000k-120-277v
+  - band: mid
+    name: Lithonia FML4W 4 ft LED wrap, 4,000-6,000 lm
+    url: https://www.homedepot.com/p/Lithonia-Lighting-Contractor-Select-4-ft-40-Watt-4000-5000-6000-Lumens-Integrated-LED-Dimmable-White-Wraparound-Light-Fixture-4000K-FML4W-48-ALO6-SEF-840-MVOLT/313845712
+  - band: high
+    name: Auvolar A-WR4FT 4 ft wrap with 90-min emergency battery
+    url: https://www.auvolar.com/p/led-wraparound-a-wr4ft
+  source: Shane 2026-10-09 4:50 PM CT (LED IN, team installs); prices R-026

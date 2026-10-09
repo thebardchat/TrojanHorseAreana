@@ -1,7 +1,9 @@
-# R-026 — Phase 1 wrestling room cost: wall-to-wall mat + 6 ft wall pads
+# R-026 — Phase 1 wrestling room materials cost: wall-to-wall mat, 6 ft wall pads, LED
 
 Written 2026-10-09 by KEYSTONE for Shane (KEYSTONE chat 4:49 PM CT). Drawn as P1-G-002 Rev A. Values: params/phase1_cost.yaml.
 **PRELIMINARY — published list prices read 2026-10-09; not a quote, not a bid.** Tax, pad freight and custom-size upcharges are not included.
+
+**Scope (Shane 4:50-4:51 PM CT): materials only.** The team clears and relocates the room and installs the mats, pads and lights ($0, by owner). Water (W2) and restrooms (W3) are out of this analysis.
 
 ## Quantities
 - Mat: room cleared, 100 % of the floor: 55 x 45 = **2,475 SF** (Shane tape 2026-10-03).
@@ -31,30 +33,34 @@ Custom 55 x 45 mats are quoted by the maker; $/SF from listed sizes ASSUMED to s
 
 NFPA 286: ask for the assembly test report, not a foam-only rating (phase1.yaml W1 purchase_note). Greatmats lists the foam as NFPA 286; Mansion says the pad was tested as a unit.
 
-## Install, freight, tape
-- Pad install $100–150 / panel (mid = midpoint $125): https://dgfloors.com/wall-padding/
+## Hardware, LED, freight, tape
+- Pad mounting hardware (Z-clip kits for 3 pads): Gared $66.97 (https://sportsfacilitiesgroup.com/store/z-clip-wall-pad-attachment-kit-gared-gymnasium-equipment), $74.95 (https://www.kitsuperstore.com/wall-stage-padding/3991-gared-z-clip-attachment-kit-3-pads-4196.html), Century $75 (https://www.centurymats.com/products/z-clip-mounting-system) = $22.32 / $24.98 / $25.00 per panel.
+- LED: one-for-one replacement of about 10-12 existing 4 ft fixtures seen in the photos (count ASSUMED: 10 / 11 / 12), 2,475 SF, CLG 10 ft.
+  - Low: GLT LW4 4 ft wrap, 4,000 lm, $67.20: https://www.beeslighting.com/products/glt-lw4-40l-40k-d10-4ft-led-wrap-light-34-watts-4400-lumens-4000k-120-277v
+  - Mid: Lithonia FML4W 4 ft wrap, 4,000-6,000 lm, $76.13: https://www.homedepot.com/p/Lithonia-Lighting-Contractor-Select-4-ft-40-Watt-4000-5000-6000-Lumens-Integrated-LED-Dimmable-White-Wraparound-Light-Fixture-4000K-FML4W-48-ALO6-SEF-840-MVOLT/313845712
+  - High: Auvolar A-WR4FT with 90-min emergency battery, $168: https://www.auvolar.com/p/led-wraparound-a-wr4ft
 - Mat freight $240 / $1,220 (comparison table) and $1,300 flat (Great Call): https://www.akathleticshop.com/ak-athletic-equipment-ultra-shock-mats-42-x-42-ultra-shock-roll-up-wrestling-mat/
 - Mat tape JVCC WMT-7 3 in x 60 yd: $27.52 / $44.99 / $61.49 per roll: https://www.findtape.com/JVCC-WMT-7-Wrestling-Mat-Tape/p747/
-- Mat install $0 ASSUMED (roll-out, staff / team). Pad freight TBD (truck freight, quote).
+- Pad freight: truck freight, not listed (quote; not in the total).
 
-## Result (mats + pads)
+## Result (materials only)
 | | Low | Mid | High |
 |---|---:|---:|---:|
 | Mat 2,475 SF | $10,519 | $16,328 | $21,046 |
 | Tape (3 rolls) | $83 | $135 | $184 |
 | Mat freight | $240 | $1,220 | $1,300 |
 | Pads (94) | $15,580 | $26,726 | $33,276 |
-| Pad install (94) | $9,400 | $11,750 | $14,100 |
-| **Subtotal** | **$35,822** | **$56,159** | **$69,906** |
-| Contingency 10 % | $3,582 | $5,616 | $6,991 |
-| **Total** | **$39,404** | **$61,775** | **$76,897** |
+| Pad hardware (94) | $2,098 | $2,348 | $2,350 |
+| LED fixtures | $672 | $837 | $2,016 |
+| **Subtotal** | **$29,192** | **$47,595** | **$60,172** |
+| Contingency 10 % | $2,919 | $4,759 | $6,017 |
+| **Total** | **$32,111** | **$52,354** | **$66,190** |
 
-## Separate lines (not in the total)
-- Clear the room; relocate the desk, TV, lockers and mat carts to the support wing or storage: TBD (staff / custodial).
-- W2 restore water / plumbing: TBD (no number in the Phase 1 docs; cause unknown, D-002).
-- W3 restroom split, 1 M + 1 F single-user, full 2010 ADA: TBD (no number in the Phase 1 docs).
-- NFPA 286 pad requirement: inside the pad price (verify the report).
-- LED lighting, optional: TBD (not in the Phase 1 docs yet).
+## By owner / notes (not in the total)
+- Clear the room; relocate the desk, TV, lockers, mat carts: $0, by owner (team).
+- Install mats, pads and LED fixtures: $0, by owner (team). Electrical work by the owner's employees: license exemption per phase1.yaml approvals_refs (303-X-3-.07); confirm with the district.
+- NFPA 286 assembly test report: inside the pad price (ask the vendor).
+- Pad freight: quote.
 
 ## Used / trade-in
 - Resilite used Classic 625, 29 x 52'7", as-is: $5,760: https://www.resilite.com/products/classic-wrestling-mat-classic-625-462-x-50-navy-and-orange-copy
@@ -63,4 +69,4 @@ NFPA 286: ask for the assembly test report, not a foam-only rating (phase1.yaml 
 - The existing red / black mats could be sold or traded in; no trade-in price was published.
 
 ## Procurement
-School-board purchases at or over $40,000 go to competitive bid (Ala. Code 16-13B-1; MEDIUM, phase1.yaml approvals_refs). The Low total is just under it ($39,404); Mid and High are over, so plan for a bid or split funding (to be confirmed with the district).
+School-board purchases at or over $40,000 go to competitive bid (Ala. Code 16-13B-1; MEDIUM, phase1.yaml approvals_refs). Low ($32,111) is under it; Mid ($52,354) and High ($66,190) are over. Confirm with the district.
