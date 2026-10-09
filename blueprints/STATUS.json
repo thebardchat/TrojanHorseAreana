@@ -2,13 +2,13 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-09T10:11:06-05:00",
+  "updated_at": "2026-10-09T10:27:02-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
   "phase2_percent": 85,
   "current_ticket": "P2-T-017",
-  "current_ticket_title": "D-082/083/084: 30 ft drum, drum door west, east side = plan Rev J. New P2-A-101 Rev M, P2-A-102 Rev I, P2-G-003 Rev M (in review)",
+  "current_ticket_title": "D-086: old NE stair strip = 30 MECH (remote). New P2-A-101 Rev N, P2-G-003 Rev N (in review); A-102 Rev I unchanged",
   "sheets_done": [
     "P1-G-001 Rev E (principal, approved)",
     "P1-A-101 Rev A (approved)",
@@ -17,17 +17,18 @@
     "P2-A-101 Rev K + P2-A-102 Rev G (approved, D-079 / D-080)",
     "P2-G-002 Rev E (exit recheck; F1 closed by D-081)",
     "P2-A-101 Rev L / A-102 Rev H / G-003 Rev L (29 ft drum, D-081; superseded by M / I / M)",
-    "P2-A-101 Rev M (in review; 30 ft drum, east side = plan Rev J, D-082 / D-084)",
+    "P2-A-101 Rev M / G-003 Rev M (D-082..D-084; superseded by Rev N)",
     "P2-A-102 Rev I (in review; drum door at 235 deg, D-083)",
-    "P2-G-003 Rev M (in review; L1 57,896 / L2 29,068 / 86,964 GSF, +70)"
+    "P2-A-101 Rev N (in review; 30 MECH (remote), D-086)",
+    "P2-G-003 Rev N (in review; mech 4.95 % vs 5 %; 86,964 GSF unchanged)"
   ],
   "sheets_in_progress": [],
-  "last_commit": "c8c9226",
+  "last_commit": "688fc51",
   "branch": "grok/keystone",
   "open_decisions": 16,
   "blocked_on": "P1: support-wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012, $39M working number only); trademark (D-042). G-001 / set / PR on hold.",
-  "what_changed": "D-082/083/084: drum 30 ft (stair fit 1.49 ft spare); L2 drum door 240->235 deg; east side = plan Rev J (bump-out y 119-175, 8 ft corridor, X7 on wall, X11). 86,964 GSF: +70 vs Rev L/H, +1,171 vs Set Rev D. D-085: drum door landing overlap (4.9 in) left for the architect.",
-  "what_to_verify": "Architect: confirm the loop corner counts as the drum door landing (D-085, IBC 2021 1010.1.5). East side: T1 133 ft, common path 61/30 ft, corridor 96 in, dead end 5.2 ft (as calculated). X7/X11 discharge TBD.",
-  "next_action": "Shane reviews A-101 M, A-102 I, G-003 M and the door-landing finding. Set Rev D handoff patch still not applied (validate fixes). G-001 / combined set / PR only on go.",
-  "question_for_shane": "Approve A-101 M / A-102 I / G-003 M? (Drum door landing left for the architect, D-085.)"
+  "what_changed": "D-086: old NE stair strip = 30 MECH (remote), 67 SF. Mechanical 4,234 -> 4,302 SF = 4.95 % of GSF vs 5 % (47 SF short). GSF unchanged (86,964). D-085: drum door landing left for the architect.",
+  "what_to_verify": "30 MECH (remote) does not touch the MECH / ELEC BAY (22.3 ft) and has no door; access TBD (abuts MECH (NE) 18.4 ft). Architect: drum door landing (D-085). X7/X11 discharge TBD.",
+  "next_action": "Shane reviews A-101 N and G-003 N. Set Rev D handoff patch still not applied (validate fixes). G-001 / combined set / PR only on go.",
+  "question_for_shane": "Approve A-101 N / A-102 I / G-003 N? 30 MECH (remote) has no door: reach it through MECH (NE) 22, merge it into 22, or leave to the MEP engineer?"
 }
