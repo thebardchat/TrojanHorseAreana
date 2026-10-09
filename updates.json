@@ -22,17 +22,24 @@
         "wrestling mats, 2 × 2"
       ],
       [
-        "4 rooms",
-        "affected by the curved corners"
+        "R = 20 ft",
+        "recommended corner radius (study)"
       ]
     ]
   },
   "updates": [
     {
       "date": "2026-10-08",
+      "tag": "Study",
+      "title": "Plan Rev K study: resolving the curved corners",
+      "text": "We measured what each corner radius removes from every Rev J element, not just rooms. At 34 ft the SE and SW stairs each lose about 190 of their 305 SF, so they would not fit. At 20 ft the corners remove about 343 SF per level, the two corner stairs slide along their walls instead of shrinking, and the corner mechanical rooms lose about 110 SF, made up in a new 900 SF metal-building mech bay beside the storage annex. Recommended radius: 20 ft. All positions are assumed until a plan revision is drawn.",
+      "image": "concepts/render_srm_concept_plan_revk_study.png"
+    },
+    {
+      "date": "2026-10-08",
       "tag": "Concept",
       "title": "Interior cutaway and Level 1 plan",
-      "text": "The bowl as drawn in Set Rev D: 120 × 144 ft event floor, 4 mats, 1,100 telescopic lower seats, 1,100 fixed upper seats stepping down from the L2 running loop. Rounding the corners (34 ft radius, assumed) affects only the NW, N and NE mechanical rooms and the SW flex room.",
+      "text": "The bowl as drawn in Set Rev D: 120 x 144 ft event floor, 4 mats, 1,100 telescopic lower seats, 1,100 fixed upper seats stepping down from the L2 running loop. This view uses the 34 ft corner radius of the first concept; the Rev K study below shows why 20 ft is the buildable radius.",
       "image": "concepts/render_srm_concept_interior.png"
     },
     {
@@ -45,8 +52,8 @@
   ],
   "upcoming": [
     {
-      "title": "Plan Rev K study",
-      "text": "Redraw the four corner rooms for the curved envelope and make up the lost mechanical area.",
+      "title": "Plan Rev K sheet",
+      "text": "Turn the study into an issued revision (P2-A-101 Rev K) once the 20 ft radius is approved: recompute areas, egress and mech.",
       "status": "Next"
     },
     {
@@ -77,6 +84,11 @@
   ],
   "gallery": [
     {
+      "src": "concepts/render_srm_concept_plan_revk_study.png",
+      "title": "Plan Rev K study (R = 20 ft)",
+      "caption": "Corner stairs relocated, mech made up in a new metal-building bay, and the cost of each radius."
+    },
+    {
       "src": "concepts/render_srm_concept_aerial_ne.png",
       "title": "Aerial from northeast",
       "caption": "Concrete arena with the storage annex (north) and restroom pop-out (east) in metal."
@@ -98,8 +110,8 @@
     },
     {
       "src": "concepts/render_srm_concept_plan.png",
-      "title": "Level 1 plan",
-      "caption": "Approved Rev J layout inside the radiused outline. Hatched rooms lose area at the corners."
+      "title": "Level 1 plan (34 ft radius concept)",
+      "caption": "Approved Rev J layout inside the first concept outline. Hatched rooms lose area; the Rev K study shows the buildable 20 ft resolution."
     },
     {
       "src": "concepts/render_revD_aerial_sw.png",
