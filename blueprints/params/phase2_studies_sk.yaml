@@ -1,0 +1,23 @@
+# phase2_studies_sk.yaml: inputs for the two height STUDY sheets P2-SK-01 (mech / elec bay) and P2-SK-02 (NE drum).
+# Studies, not set revisions. Read by studies/src/p2_sk_heights.py. Plan geometry = p2_plan_rev_n_geom.py (P2-A-101 Rev N / A-102 Rev I).
+meta:
+  source: "Shane 2026-10-09 3:56 PM CT, KEYSTONE chat (two close-up study sheets to decide the bay and drum heights)"
+  date: "October 2026"
+heights:
+  l2_ff: {value: 17.75, status: DECIDED, source: "D-061 (L2 FF 17'-9\")"}
+  ring_roof: {value: 32.75, status: ASSUMED, source: "phase2_elev_rev_g.yaml heights_override (L2 + 15 ft, ASSUMED); A-201 Rev K"}
+  high_roof: {value: 42.0, status: ASSUMED, source: "phase2_elev.yaml arena_roof_top (42 ft ASSUMED); A-201 Rev K"}
+  annex: {value: 16.0, status: ASSUMED, source: "D-067 one storey; phase2_elev_rev_k.yaml annex.height_ft (16 ft ASSUMED)"}
+  bay: {value: 16.0, status: ASSUMED, source: "phase2_massing_rev_f.yaml bay.height_ft / phase2_elev_rev_k.yaml rev_k.bay_height_ft (16 ft ASSUMED)"}
+  drum: {value: 32.75, status: ASSUMED, source: "phase2_elev_rev_k.yaml rev_k.drum_height (= ring roof, ASSUMED)"}
+sk01_options:
+  - {id: a, z: 16.0, title: "(a) 16 ft, as drawn", note: "Matches the annex. Least wall, lowest cost. Own low roof drains on its own.", status: ASSUMED, source: "as drawn (A-901 F / A-201 K)"}
+  - {id: b, z: 24.0, title: "(b) 24 ft, taller (ASSUMED)", note: "Only if MEP equipment needs it (TBD). More wall and cost. Still a low roof.", status: ASSUMED, source: "Shane 3:56 PM CT example value (e.g. 24 ft), ASSUMED"}
+  - {id: c, z: 32.75, title: "(c) 32.75 ft, flush with ring", note: "Most wall and cost. Reads as part of the ring. Roof drains with the ring roof (TBD).", status: ASSUMED, source: "ring roof height (ASSUMED)"}
+sk02_options:
+  - {id: a, z: 32.75, title: "(a) flush with ring roof, as drawn", note: "Quiet; drum reads as a curve on the corner only.", status: ASSUMED, source: "as drawn (A-901 F / A-201 K)"}
+  - {id: b, z: 40.75, title: "(b) tower, +8 ft (ASSUMED)", note: "Corner marker in the SRM HQ style (D-074). More wall, cost, flashing.", status: ASSUMED, source: "Shane 3:56 PM CT example (+8 ft), ASSUMED; D-074 SRM HQ reference"}
+  - {id: c, z: 24.42, title: "(c) stop at the stair (24.4 ft)", note: "L2 17.75 + 80 in headroom (IBC 2021 1011.3) + roof TBD. Only if no stair to the roof.", status: ASSUMED, source: "D-061 L2 FF + IBC 2021 1011.3 minimum headroom 80 in; roof structure depth TBD"}
+roof_access:
+  text: "Stair to the roof: IBC 2021 1011.12 requires it only for 4 or more stories above grade plane. This building has 2, so not by that section (verify with the AHJ, D-008). Rooftop equipment access: IMC 2021 306.5 (a permanent ladder may serve). TBD."
+  source: "IBC 2021 1011.12; IMC 2021 306.5; D-008 AHJ OPEN"
