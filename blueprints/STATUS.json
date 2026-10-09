@@ -2,13 +2,13 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-09T10:27:02-05:00",
+  "updated_at": "2026-10-09T13:22:44-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
   "phase2_percent": 85,
   "current_ticket": "P2-T-017",
-  "current_ticket_title": "D-086: old NE stair strip = 30 MECH (remote). New P2-A-101 Rev N, P2-G-003 Rev N (in review); A-102 Rev I unchanged",
+  "current_ticket_title": "D-087: bus loop cut. New P2-C-101 Rev G, P2-A-901 Rev E, P2-A-201 Rev J (in review); A-101 N / A-102 I / G-003 N in review",
   "sheets_done": [
     "P1-G-001 Rev E (principal, approved)",
     "P1-A-101 Rev A (approved)",
@@ -20,15 +20,16 @@
     "P2-A-101 Rev M / G-003 Rev M (D-082..D-084; superseded by Rev N)",
     "P2-A-102 Rev I (in review; drum door at 235 deg, D-083)",
     "P2-A-101 Rev N (in review; 30 MECH (remote), D-086)",
-    "P2-G-003 Rev N (in review; mech 4.95 % vs 5 %; 86,964 GSF unchanged)"
+    "P2-G-003 Rev N (in review; mech 4.95 % vs 5 %; 86,964 GSF unchanged)",
+    "C-101 Rev G / A-901 Rev E / A-201 Rev J (in review; bus loop cut, D-087)"
   ],
   "sheets_in_progress": [],
-  "last_commit": "688fc51",
+  "last_commit": "d87d3bb",
   "branch": "grok/keystone",
   "open_decisions": 16,
   "blocked_on": "P1: support-wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012, $39M working number only); trademark (D-042). G-001 / set / PR on hold.",
-  "what_changed": "D-086: old NE stair strip = 30 MECH (remote), 67 SF. Mechanical 4,234 -> 4,302 SF = 4.95 % of GSF vs 5 % (47 SF short). GSF unchanged (86,964). D-085: drum door landing left for the architect.",
-  "what_to_verify": "30 MECH (remote) does not touch the MECH / ELEC BAY (22.3 ft) and has no door; access TBD (abuts MECH (NE) 18.4 ft). Architect: drum door landing (D-085). X7/X11 discharge TBD.",
-  "next_action": "Shane reviews A-101 N and G-003 N. Set Rev D handoff patch still not applied (validate fixes). G-001 / combined set / PR only on go.",
-  "question_for_shane": "Approve A-101 N / A-102 I / G-003 N? 30 MECH (remote) has no door: reach it through MECH (NE) 22, merge it into 22, or leave to the MEP engineer?"
+  "what_changed": "D-087: bus loop cut (service stays at S1); team bus + van drop-off curbside along the parking drive aisle, ASSUMED, TBD (D-006). No exit / discharge change. C-101 G, A-901 E, A-201 J drawn.",
+  "what_to_verify": "Land need about 10-15 ac (planning range, not code, ASSUMED): bldg 1.3 + parking 4.5-6 (550-730 sp, 1 per 3-4 seats, 350 SF) + plaza/walk/service 1.5 + stormwater 1-1.5 + setbacks 1.5-3; pending Madison County parking ordinance + parcel (D-006).",
+  "next_action": "Shane reviews C-101 G, A-901 E, A-201 J (+ A-101 N, G-003 N). Site sheets still show the Set Rev D building (A-101 J). G-001 C cover still mentions the loop. G-001 / set / PR on hold.",
+  "question_for_shane": "Approve C-101 G / A-901 E / A-201 J? Carry the current building (A-101 N: R 20 corners, 30 ft drum, bay) onto the site + massing sheets next?"
 }

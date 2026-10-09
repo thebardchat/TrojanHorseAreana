@@ -1,6 +1,6 @@
-# KEYSTONE — 2026-10-09 10:27 AM CT
+# KEYSTONE — 2026-10-09 1:22 PM CT
 HEALTH: YELLOW · P1 50% · P2 85% · Ticket P2-T-017
-WHAT CHANGED: D-086: old NE stair strip = 30 MECH (remote), 67 SF. Mechanical 4,234 -> 4,302 SF = 4.95 % of GSF vs 5 % (47 SF short). GSF unchanged (86,964). D-085: drum door landing left for the architect.
-WHAT TO VERIFY: 30 MECH (remote) does not touch the MECH / ELEC BAY (22.3 ft) and has no door; access TBD (abuts MECH (NE) 18.4 ft). Architect: drum door landing (D-085). X7/X11 discharge TBD.
-NEXT ACTION: Shane reviews A-101 N and G-003 N. Set Rev D handoff patch still not applied (validate fixes). G-001 / combined set / PR only on go.
-QUESTION FOR SHANE: Approve A-101 N / A-102 I / G-003 N? 30 MECH (remote) has no door: reach it through MECH (NE) 22, merge it into 22, or leave to the MEP engineer?
+WHAT CHANGED: D-087: bus loop cut (service stays at S1); team bus + van drop-off curbside along the parking drive aisle, ASSUMED, TBD (D-006). No exit / discharge change. C-101 G, A-901 E, A-201 J drawn.
+WHAT TO VERIFY: Land need about 10-15 ac (planning range, not code, ASSUMED): bldg 1.3 + parking 4.5-6 (550-730 sp, 1 per 3-4 seats, 350 SF) + plaza/walk/service 1.5 + stormwater 1-1.5 + setbacks 1.5-3; pending Madison County parking ordinance + parcel (D-006).
+NEXT ACTION: Shane reviews C-101 G, A-901 E, A-201 J (+ A-101 N, G-003 N). Site sheets still show the Set Rev D building (A-101 J). G-001 C cover still mentions the loop. G-001 / set / PR on hold.
+QUESTION FOR SHANE: Approve C-101 G / A-901 E / A-201 J? Carry the current building (A-101 N: R 20 corners, 30 ft drum, bay) onto the site + massing sheets next?
