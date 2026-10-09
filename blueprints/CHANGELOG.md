@@ -731,3 +731,6 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message â€
 - A-201 Rev K: Rev J showed the old NE tower and square corners. Rev K: drum, bay (16 ft ASSUMED), thin R 20 tangent lines, key plan corners radiused, X6 on the drum.
 - New: params/phase2_site_rev_h.yaml, phase2_massing_rev_f.yaml, phase2_elev_rev_k.yaml; p2_c_101_rev_h.py, p2_a_901_rev_f.py, p2_a_201_rev_k.py. phase2.yaml v28.
 - STATUS sheets_done merged (A-101 L / M and C-101 G / A-901 E / A-201 J lines folded into superseded entries); history kept here.
+
+## 2026-10-09 4:29 PM CT â€” Architect Handoff Approvals
+- New folder blueprints/architect_handoff_approvals/: copies of P2-SK-01_MechBay_Height.pdf and P2-SK-02_Drum_Height.pdf (studies, commit e7a8b13) + README.md index (question, options, status PENDING Shane / architect). Shane 4:29 PM CT.
