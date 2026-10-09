@@ -1,0 +1,90 @@
+# phase2_plan_rev_m.yaml: overrides for P2-A-101 Rev M, P2-A-102 Rev I and P2-G-003 Rev M (Phase 2, concept envelope; D-082, D-083, D-084).
+# Read by phase2/src/p2_plan_rev_m_geom.py (used by p2_a_101_rev_m.py, p2_a_102_rev_i.py, p2_g_003_rev_m.py) together with
+# params/phase2_plan_rev_j.yaml (plan Rev J, D-072, Set Rev D), phase2_plan_rev_k.yaml (envelope R, ST-3, ST-4, moved exits) and
+# phase2_plan_rev_g_l2.yaml (L2 loop corner). Rev L / H and the frozen Set Rev D are not touched; this is a new file. ASSUMED until the architect confirms.
+
+meta:
+  revision: M
+  sheets: [P2-A-101 Rev M, P2-A-102 Rev I, P2-G-003 Rev M]
+  base_plan: phase2_plan_rev_j.yaml
+  base_plan_note: "D-084: east side back to plan Rev J (D-072). phase2_plan_rev_j.yaml = handoff_2026-10-04/keystone_repo.patch, read-only; with it p2_a_plan.py --rev J regenerates ARENA's P2-A-101_RevJ.pdf byte-identical (checked 2026-10-09)."
+  skip_l1_rooms: [storage_annex]
+  bump_rooms: [rr_wb, mech_e2]
+  previous: {file: phase2_plan_rev_l.yaml, sheets: "P2-A-101 Rev L / P2-A-102 Rev H / P2-G-003 Rev L", source: "P2-T-017 commit 6881c44 (D-081)"}
+  source: "Shane 2026-10-09 9:39 AM CT, KEYSTONE chat (D-082, D-083, D-084)"
+  status: ASSUMED
+
+stairs:
+  ST-2:
+    kind: drum
+    centre: [182.0, 262.5]
+    diameter_ft: 30.0
+    wall_allowance_ft: 1.3
+    basis: "D-082: drum 29 -> 30 ft for more stair-fit margin. Centre kept at the D-081 point (ASSUMED); west edge x 167, south edge y 247.5 (loop north edge y 246)."
+    status: ASSUMED
+    source: "D-082 (Shane 2026-10-09 9:39 AM CT); centre D-081 / P2-G-002 Rev E; wall allowance as P2-G-002 Rev E"
+  stair_in_drum:
+    size_ft: [24.083, 12.667]
+    basis: "D-061 / D-052 stair, long side east-west, centred in the drum; dashed fit check only"
+    status: ASSUMED
+    source: "D-061; D-052; D-051; P2-G-003 Rev K stair line"
+
+mech_bay:
+  rect: [134, 252, 164, 282]
+  basis: "Unchanged from Rev L (x 134-164); 3.0 ft to the 30 ft drum (west edge x 167)"
+  status: ASSUMED
+  source: "D-081 / P2-G-002 Rev E recommendation"
+
+exits:
+  X6:
+    at: [197.0, 262.5]
+    basis: "ST-2 discharge on the drum's east face, to open ground NE"
+    status: ASSUMED
+    source: "phase2_plan_rev_k.yaml X6 (east face); D-082"
+
+level_2:
+  stretch_n:
+    rect: [49, 246, 167, 252]
+    basis: "North stretch strip ends at x 167 (drum west edge)"
+    status: ASSUMED
+    source: "P2-G-002 Rev E ('strip ends about x 167'); D-082"
+  landing:
+    rect: [167, 246, 210, 252]
+    basis: "Strip east of x 167 less the drum: ST-2 approach landing and NE corner (not programmed)"
+    status: ASSUMED
+    source: "phase2_plan_rev_g_l2.yaml landing (method)"
+  drum_door:
+    angle_deg: 235
+    width_in: 64
+    swing: "into the drum (direction of egress), so the loop width is not reduced"
+    basis: "D-083: door slides west along the arc from 240 deg (Rev H) to 235 deg, the most westerly centre that keeps a 64 in door pair (P2-G-002 Rev E stair-door basis) inside the building (west jamb y <= 252)"
+    status: ASSUMED
+    source: "D-083 (Shane 2026-10-09 9:39 AM CT); P2-G-002 Rev E (64 in per door pair; stair door 54.8 in required)"
+  door_landing_rule:
+    min_length_in: 44
+    min_width_in: 76
+    basis: "IBC 2021 1010.1.5 (1010.1.6 in IBC 2018): landing width not less than the stair or door width, whichever is greater (76 in stair, D-052); length in the direction of travel not less than 44 in; door fully open may reduce a required dimension by 7 in max"
+    status: CITED
+    source: "IBC 2021 1010.1.5 (UpCodes / ICC, read 2026-10-09); D-052 (76 in stairs)"
+
+east_side_checks:
+  paths:
+    - {id: T1, label: "event floor centre -> V2 -> EXIT (E) -> X7 (on the wall)", pts: [[116, 140], [116, 179.09], [210, 179.09]], source: "phase2_life_safety_rev_d.yaml travel T1 (handoff patch; P2-A-111 Rev D)"}
+    - {id: T7, label: "women's room (2) far corner -> east-wall door (y 125) -> public corridor -> X11", pts: [[239.5, 152.6], [214, 152.6], [214, 125], [206, 125], [206, 112], [210, 112]], branch_at: 3, source: "phase2_life_safety_rev_d.yaml travel T7"}
+    - {id: T8, label: "men's room (2) far corner -> door -> public corridor -> X11", pts: [[188.5, 133.7], [188.5, 121], [206, 121], [206, 112], [210, 112]], branch_at: 2, source: "phase2_life_safety_rev_d.yaml travel T8"}
+  limits: {travel_ft: 250, common_path_ft: 75, dead_end_ft: 20, corridor_min_in: 44, source: "IBC 2021 T1017.2 (A, sprinklered), T1006.2.1 (Group A), 1020.5, T1020.3 (as P2-G-002 Rev D)"}
+  rev_d_results: {T1_ft: 133, common_women_ft: 61, common_men_ft: 30, dead_end_ft: 5, source: "phase2_code_rev_d.yaml travel + phase2_life_safety_rev_d.yaml common_path (Set Rev D)"}
+  women_door_y: [121, 129]
+  source: "plan Rev J (D-072) zones pc_e / exit_e, doors X7 / X11; P2-A-111 Rev D"
+
+baseline:
+  rev_lh: {l1_footprint_sf: 57861, l2_area_sf: 29033, total_gsf: 86894, source: "P2-G-003 Rev L (P2-T-017, D-081)"}
+  set_rev_d: {l1_footprint_sf: 56861, l2_area_sf: 28933, total_gsf: 85793, source: "P2-G-003 Rev K (frozen, Set Rev D)"}
+
+program_rev_k:
+  l1_gross_incl_annex_bump: 56713
+  l2_gross: 28186
+  l1_plus_l2_gross: 84899
+  program_footprint: 58195
+  program_total_gsf: 86381
+  source: "P2-G-003 Rev K (frozen, Set Rev D); program lines unchanged by D-074..D-084"

@@ -702,3 +702,11 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - Sync from origin/main: p2_a_101_rev_k.py, p2_a_102_rev_g.py, p2_g_002_rev_e.py + phase2_plan_rev_k.yaml, phase2_plan_rev_g_l2.yaml + their PDF/DXF; regenerated PDFs byte-identical to ARENA's approved files. `source` lines added to the K / G params (validate), one mech-bay basis note reworded (banned number); outputs unchanged.
 - New: phase2_plan_rev_l.yaml, p2_plan_rev_l_geom.py, p2_a_101_rev_l.py (--rev L), p2_a_102_rev_h.py (--rev H), p2_g_003_rev_l.py (--rev L). Base = approved Rev K / G geometry (DXF read). L1 57,861 / L2 29,033 / TOTAL 86,894 GSF (+682 vs Rev K/G 86,212; +1,101 vs Set Rev D 85,793).
 - phase2.yaml v24: A-101 K/L, A-102 G/H, G-002 E, G-003 L registered. Set Rev D patch (handoff_2026-10-04/keystone_repo.patch) still NOT applied: it trips validate (missing sources; a banned number inside frozen-sheet text).
+
+## 2026-10-09 9:39 AM CT — P2-T-017 cont. · D-082 / D-083 / D-084 (A-101 M, A-102 I, G-003 M)
+- DECISIONS_ARENA.md: D-082 (30 ft drum), D-083 (drum door west, IBC 2021 1010.1.5 landing), D-084 (east side = D-072 / plan Rev J). Same rows appended to ARENA _KEYSTONE/DECISIONS_ARENA.md.
+- New: params/phase2_plan_rev_j.yaml (from handoff_2026-10-04/keystone_repo.patch, read only; regenerates the Set Rev D P2-A-101 Rev J byte-identical), params/phase2_plan_rev_m.yaml, p2_plan_rev_m_geom.py, p2_a_101_rev_m.py (--rev M), p2_a_102_rev_i.py (--rev I), p2_g_003_rev_m.py (--rev M).
+- Areas: L1 57,896 / L2 29,068 / TOTAL 86,964 GSF; +35 / +35 / +70 vs Rev L/H; +1,035 / +135 / +1,171 vs Set Rev D.
+- Stair fit 1.49 ft spare (was 0.49). Drum door 235 deg: 61.7 in to the loop edge; full 76 x 44 in landing reaches 4.9 in onto the loop (finding, architect).
+- East side: T1 133 ft, common path 61 / 30 ft, corridor 96 in, dead end 5.2 ft, X7 / X11 / X8 on the wall (ASSUMED, Set Rev D method).
+- phase2.yaml v25: A-101 M, A-102 I, G-003 M registered. Revs K/L, G/H, E, L untouched. G-001, combined set, PR on hold.
