@@ -2,7 +2,7 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-09T16:29:48-05:00",
+  "updated_at": "2026-10-09T16:41:46-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
@@ -11,7 +11,7 @@
   "current_ticket_title": "Current building on site / massing / elevations: new P2-C-101 Rev H, P2-A-901 Rev F, P2-A-201 Rev K (in review); A-101 N / A-102 I / G-003 N in review",
   "sheets_done": [
     "P1-G-001 Rev E (principal, approved)",
-    "P1-A-101 Rev A (approved)",
+    "P1-A-101 Rev A (approved, frozen); Rev B in review (walls + existing conditions, D-088)",
     "P1-P-001 Rev A (plumbing scope narrative)",
     "Phase 2 Schematic Set Rev D (approved + frozen, D-073; ARENA copies)",
     "P2-A-101 Rev K + P2-A-102 Rev G (approved, D-079 / D-080)",
@@ -24,12 +24,12 @@
     "P2-A-201 Rev K (in review; Rev N outline: drum, bay, R 20 tangents; D-087 text kept)"
   ],
   "sheets_in_progress": [],
-  "last_commit": "0f0e3e2",
+  "last_commit": "441a66a",
   "branch": "grok/keystone",
   "open_decisions": 16,
   "blocked_on": "P1: support-wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012, $39M working number only); trademark (D-042). G-001 / set / PR on hold.",
-  "what_changed": "Architect Handoff Approvals folder added: SK-01 bay height + SK-02 drum height studies, PENDING Shane / architect (Shane 4:29 PM CT).",
+  "what_changed": "D-088 (Shane photos 2026-10-09): P1-A-101 Rev B, walls N/S/E/W, doors APPROX, AC units, exit sign, coach area, mats. Room size unchanged.",
   "what_to_verify": "Bay height 16 ft ASSUMED (A-901 F, A-201 K); drum height = ring roof ASSUMED. Land need about 10-15 ac stays a planning range (ASSUMED, D-006).",
   "next_action": "Shane reviews C-101 H, A-901 F, A-201 K (+ A-101 N, A-102 I, G-003 N). G-001 C cover still mentions the loop. G-001 / set / PR on hold.",
-  "question_for_shane": "Approve C-101 H / A-901 F / A-201 K (current building, 86,964 GSF)? OK with the mech / elec bay at 16 ft ASSUMED?"
+  "question_for_shane": "Does the NE exit from Rev A exist (not in the 10-09 photos)? Which door count should the pad estimate use (G-001 Rev E assumes 4)?"
 }
