@@ -741,3 +741,7 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - Moves vs Rev A: south door now near the SW corner (Rev A: mid-wall); west exit at the centre (Rev A: 0.65 from north). Rev A's NE exit not in the photo list: dashed red, verify.
 - P1-G-001 Rev E conflicts (reported, not redesigned): "~188 LF of padded wall after 4 doors" assumes 4 doors (photos name 3); "Walls to pad: TBD" / all 4 walls assumed, while photos show existing pads on W and N.
 - Photos kept on the box only (/workspace/arena_refs/phase1_room/), not in the repo.
+
+## 2026-10-09 4:49 PM CT — D-089 · P1-A-101 Rev C · P1-G-002 Rev A cost sheet (R-026)
+- D-089: NE small EXIT-ONLY door confirmed (4 doors). P1-A-101 Rev C (new params/phase1_a101_rev_c.yaml, p1_a_101_rev_c.py): NE door solid; Rev B kept.
+- R-026 + params/phase1_cost.yaml + phase1/src/p1_g_002.py: mats 2,475 SF, pads 188 LF / 94 panels (NFPA 286 / Class A). Mats + pads incl. 10 % contingency: Low $39,404 / Mid $61,775 / High $76,897. W0 clear-out, W2, W3, LED: TBD lines. Published list prices with URLs.

@@ -447,7 +447,25 @@ sheets:
         inputs: "params/phase1.yaml + params/phase1_a101_rev_b.yaml"
         content: wall names N / S / E / W, doors per photos (APPROX), AC units, exit sign, coach area, mats (existing); room size unchanged
         source: "Shane photos 2026-10-09 (D-088, KEYSTONE chat 4:39 PM CT)"
+      C:
+        file: P1-A-101_RevC
+        frozen: false
+        generator: phase1/src/p1_a_101_rev_c.py
+        inputs: "params/phase1.yaml + params/phase1_a101_rev_c.yaml"
+        content: Rev B + the NE small EXIT-ONLY door drawn solid (4 doors)
+        source: "Shane 2026-10-09 4:49 PM CT (D-089)"
     source: "prompt §9 (sheet list, title block); Shane 2026-10-03 10:06 PM CT (content); scale chosen by KEYSTONE to fit 11x17"
+  P1-G-002:
+    title: COST SHEET
+    subtitle: "MATS + WALL PADS (PRELIMINARY)"
+    revisions:
+      A:
+        file: P1-G-002_RevA
+        frozen: false
+        generator: phase1/src/p1_g_002.py
+        inputs: params/phase1_cost.yaml (research R-026)
+        source: "Shane 2026-10-09 4:49 PM CT (cost analysis of the Phase 1 room)"
+    source: "Shane 2026-10-09 4:49 PM CT"
   P1-G-001:
     title: SCOPE SHEET
     subtitle: "PHASE 1 — REMODEL OF EXISTING WRESTLING ROOM"

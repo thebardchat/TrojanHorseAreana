@@ -1,0 +1,41 @@
+# phase1_a101_rev_c.yaml: P1-A-101 Rev C = Rev B + D-089 (NE exit-only door confirmed, Shane 2026-10-09 4:49 PM CT).
+# Rev B header kept:
+# phase1_a101_rev_b.yaml: P1-A-101 Rev B overrides (wall orientation + existing conditions from Shane's photos, D-088).
+# Read by phase1/src/p1_a_101_rev_b.py --rev B on top of params/phase1.yaml. Rev A (frozen) is not touched. Room size unchanged.
+# Every position here is APPROX, read from photos, NOT measured. Sheet x = feet east of the west inside face; y = feet north of the south inside face.
+meta:
+  revision: C
+  file: P1-A-101_RevC
+  subtitle: "WRESTLING ROOM — WALLS + EXISTING CONDITIONS"
+  source: "Shane photos 2026-10-09 (KEYSTONE chat 4:39 PM CT, D-088); photos on the box at /workspace/arena_refs/phase1_room/ (not in the repo)"
+walls:
+  south: {label: "SOUTH WALL — COACH'S WALL", source: "Shane photos 2026-10-09 (D-088)"}
+  west: {label: "WEST WALL — FAR END (EXIT)", source: "Shane photos 2026-10-09 (D-088)"}
+  north: {label: "NORTH WALL — PADDED ('HHS' PAD)", source: "Shane photos 2026-10-09 (D-088)"}
+  east: {label: "EAST WALL — WALKWAY", source: "Shane photos 2026-10-09 (D-088)"}
+doors:
+  exit_south: {wall: south, along_wall_from: west, fraction_approx: 0.1, tag: ["RED STEEL DOOR — APPROX.", "near the SW corner"],
+               basis: "photo of the coach's wall: door at the west end, past the wall AC", source: "Shane photos 2026-10-09 (D-088)"}
+  exit_west: {wall: west, along_wall_from: north, fraction_approx: 0.5, tag: ["RED EXIT DOOR — APPROX. (photos)", "near centre; EXIT sign above"],
+              source: "Shane photos 2026-10-09 (D-088: near the center)"}
+  hallway_door: {wall: east, along_wall_from: north, fraction_approx: 0.7, tag: ["OPEN DOOR TO WALKWAY — APPROX.", "through the open restrooms", "(position kept from Rev A)"],
+                 source: "Shane photos 2026-10-09 (D-088: east wall); position along the wall kept from Rev A (aerial markup, D-026)"}
+  exit_northeast: {wall: east, along_wall_from: north, fraction_approx: 0.3, tag: ["SMALL EXIT-ONLY DOOR — APPROX.", "NE end of the east wall (D-089)", "width TBD (3'-0\" ASSUMED)"],
+                   source: "Shane 2026-10-09 4:49 PM CT (D-089: small EXIT-ONLY door at the NE corner of the east wall); position kept from Rev A (aerial markup, D-026)"}
+existing:   # rect = [x0, y0, x1, y1] ft, APPROX
+  - {id: rubber, kind: zone, rect: [0, 0, 45, 3], label: "BLACK RUBBER FLOOR STRIP (south side)", source: "Shane photos 2026-10-09 (D-088)"}
+  - {id: coach, kind: zone, rect: [14, 0, 40, 6], label: "COACH AREA: desk, wall TV, corkboard, locker rack, mat carts", source: "Shane photos 2026-10-09 (D-088)"}
+  - {id: red_mat, kind: zone, rect: [3, 5, 13, 13], label: "SMALL RED MAT", source: "Shane photos 2026-10-09 (D-088)"}
+  - {id: comp_mat, kind: zone, rect: [3, 15, 42, 53], label: "COMPETITION MAT, red / black (most of the room)", source: "Shane photos 2026-10-09 (D-088)"}
+  - {id: ac_s, kind: point, xy: [9, 0], label: "WALL AC (existing)", source: "Shane photos 2026-10-09 (D-088)"}
+  - {id: ac_n, kind: point, xy: [22.5, 55], label: "SMALL WALL AC (existing)", source: "Shane photos 2026-10-09 (D-088)"}
+  - {id: ball_rack, kind: point, xy: [36, 55], label: "STABILITY BALL RACK", source: "Shane photos 2026-10-09 (D-088)"}
+  - {id: exit_sign, kind: point, xy: [0, 27.5], label: "EXIT SIGN (existing)", source: "Shane photos 2026-10-09 (D-088)"}
+notes:
+  - "Room size unchanged: 55'-0\" N-S x 45'-0\" E-W inside (Shane tape 2026-10-03); CLG 10'-0\"."
+  - "Wall names, doors, AC units, exit sign, coach area and mats: from Shane's photos 2026-10-09 (D-088). Positions APPROX, NOT measured."
+  - "Doors 3'-0\" x 7'-0\" HM, swing out: ASSUMED STANDARD, VERIFY (as Rev A)."
+  - "4 doors: S red steel door, W exit, E open door to the walkway, NE small EXIT-ONLY door (D-089, Shane 4:49 PM CT)."
+  - "Existing wall pads: west wall (both sides of the exit) and north wall. Condition / height TBD."
+  - "Walls 8\" CMU ASSUMED. Support wing not yet measured (dashed, schematic)."
+source: "Shane photos 2026-10-09 (D-088), KEYSTONE chat 4:39 PM CT"

@@ -1,0 +1,158 @@
+# phase1_cost.yaml: Phase 1 wrestling room cost analysis (P1-G-002 Rev A, research R-026). Shane 2026-10-09 4:49 PM CT.
+# Prices = published web list prices read 2026-10-09 (URL on each). PRELIMINARY: not a quote or bid. mat_bands = indexes into mat_prices.
+meta:
+  source: Shane 2026-10-09 4:49 PM CT, KEYSTONE chat (cost analysis of the Phase 1 room); research R-026
+  price_date: list prices read 2026-10-09
+quantities:
+  mat_sf: 2475
+  mat_basis: 55 x 45 = 2,475 SF (phase1.yaml wrestling_room, Shane tape 2026-10-03)
+  perimeter_lf: 200
+  doors: 4
+  door_width_ft: 3
+  pad_lf: 188
+  pad_panels: 94
+  pad_height_ft: 6
+  tape_seam_lf: 385
+  tape_roll_lf: 180
+  tape_rolls: 3
+  source: phase1.yaml W1 pad_estimate (200 - 12 = 188 LF, 94 panels); D-089 (4 doors); KEYSTONE takeoff for tape
+mat_prices:
+- brand: AK Athletic standard roll-up 42 x 42 x 1-3/8 in
+  price: 7497.0
+  sf: 1764
+  url: https://akathletics.com/products/standard-roll-up-wrestling-mat-42-x-42
+  source: https://akathletics.com/products/standard-roll-up-wrestling-mat-42-x-42
+- brand: Zebra Home Roll-Out 5 x 10 ft (home use)
+  price: 215.0
+  sf: 50
+  url: https://www.zebraathletics.com/Zebra-Home-Roll-Out-Mats
+  source: https://www.zebraathletics.com/Zebra-Home-Roll-Out-Mats
+- brand: Great Call RapidRoll 42 x 42 (NCAA)
+  price: 8999.99
+  sf: 1764
+  url: https://greatcallathletics.com/products/42-x-42-official-ncaa-wrestling-mat-collegiate-tournament-approved
+  source: https://greatcallathletics.com/products/42-x-42-official-ncaa-wrestling-mat-collegiate-tournament-approved
+- brand: Resilite FLEX3 12 x 12 (home use, 1-5/8 in)
+  price: 950.0
+  sf: 144
+  url: https://www.resilite.com/collections/home-use-flex3-wrestling-mats
+  source: https://www.resilite.com/collections/home-use-flex3-wrestling-mats
+- brand: Dollamur FLEXI-Roll 42 x 42 x 1-5/8 in
+  price: 13499.99
+  sf: 1764
+  url: https://www.bsnsports.com/p/dollamur-wrestling-mat-42-x-42-x-1-58/
+  source: https://www.bsnsports.com/p/dollamur-wrestling-mat-42-x-42-x-1-58/
+- brand: Dollamur FLEXI-Roll 42 x 42 x 2 in
+  price: 14999.99
+  sf: 1764
+  url: https://www.bsnsports.com/p/dollamur-wrestling-mat-42-x-42-x-2/
+  source: https://www.bsnsports.com/p/dollamur-wrestling-mat-42-x-42-x-2/
+- brand: Sanderson / Cael Sanderson
+  price: null
+  sf: null
+  url: null
+  note: no published price found 2026-10-09; quote required
+  source: R-026 (web list prices read 2026-10-09)
+mat_bands:
+  low: 0
+  mid: 3
+  high: 5
+  note: custom 55 x 45 sizes are quoted by the maker; $/SF from listed sizes, ASSUMED to scale
+  source: KEYSTONE choice of bands from mat_prices (R-026)
+pad_prices:
+- band: low
+  name: Mansion Athletics 2x6 Class A (NFPA 286 tested as a unit)
+  price: 165.75
+  url: https://mansionathletics.com/2x6-wall-padding-class-1084318-tennis-court-equipment-backstop-pads.html
+  source: https://mansionathletics.com/2x6-wall-padding-class-1084318-tennis-court-equipment-backstop-pads.html
+- band: other
+  name: AK Athletics FlameSafe Class A 2x6 (NFPA 286)
+  price: 219.0
+  url: https://akathletics.com/products/flame-safe-class-a-fire-rated-wood-backed-gym-wall-padding-panels-2-x-6
+  source: https://akathletics.com/products/flame-safe-class-a-fire-rated-wood-backed-gym-wall-padding-panels-2-x-6
+- band: mid
+  name: Greatmats Safety Fire Rated Impact 2x6, nailing lip (NFPA 286 foam)
+  price: 284.32
+  url: https://www.greatmats.com/wall-pads/safety-fire-impact-wall-pads-2x6-lipb.php
+  source: https://www.greatmats.com/wall-pads/safety-fire-impact-wall-pads-2x6-lipb.php
+- band: high
+  name: Jaypro WallGuard Fire/Impact 2x6 Z-clip (MSRP)
+  price: 354.0
+  url: https://shop.jayprosports.com/Wall-Padding--WallGuard-FireImpact-Rated-2-ft-x-6-ft-Z-Clip-Top-Bottom-_p_4855.html
+  source: https://shop.jayprosports.com/Wall-Padding--WallGuard-FireImpact-Rated-2-ft-x-6-ft-Z-Clip-Top-Bottom-_p_4855.html
+pad_install_per_panel:
+  low: 100
+  mid: 125
+  high: 150
+  note: range $100-150 / panel (cited); mid = midpoint
+  url: https://dgfloors.com/wall-padding/
+  source: https://dgfloors.com/wall-padding/
+mat_freight:
+  low: 240
+  mid: 1220
+  high: 1300
+  note: AK Ultra Shock comparison table $240 / $1,220; Great Call flat $1,300
+  urls:
+  - https://www.akathleticshop.com/ak-athletic-equipment-ultra-shock-mats-42-x-42-ultra-shock-roll-up-wrestling-mat/
+  - https://greatcallathletics.com/products/42-x-42-official-ncaa-wrestling-mat-collegiate-tournament-approved
+  source: https://www.akathleticshop.com/ak-athletic-equipment-ultra-shock-mats-42-x-42-ultra-shock-roll-up-wrestling-mat/
+tape_per_roll:
+  low: 27.52
+  mid: 44.99
+  high: 61.49
+  note: JVCC WMT-7 3 in x 60 yd listings
+  url: https://www.findtape.com/JVCC-WMT-7-Wrestling-Mat-Tape/p747/
+  source: https://www.findtape.com/JVCC-WMT-7-Wrestling-Mat-Tape/p747/
+mat_install:
+  value: 0
+  status: ASSUMED
+  note: roll-out mats laid and taped by staff / team (no published labor price); verify
+  source: KEYSTONE ASSUMED (no published labor price)
+pad_freight:
+  status: TBD
+  note: 'pads ship by truck freight (listings: ''Shipping Method: Freight''); quote'
+  source: R-026 (web list prices read 2026-10-09)
+contingency_pct: 10
+used_options:
+- name: Resilite used Classic 625, 29 x 52'7" (as-is)
+  price: 5760
+  url: https://www.resilite.com/products/classic-wrestling-mat-classic-625-462-x-50-navy-and-orange-copy
+  source: https://www.resilite.com/products/classic-wrestling-mat-classic-625-462-x-50-navy-and-orange-copy
+- name: Resilite reconditioning program (clean, repair, recoat; 1-yr warranty)
+  price: null
+  url: https://www.resilite.com/pages/ordering-and-shipping
+  note: call for price
+  source: https://www.resilite.com/pages/ordering-and-shipping
+- name: Used 8 x 40 ft mat, Craigslist Tulsa (example)
+  price: 600
+  url: https://tulsa.craigslist.org/app/d/nowata-nice-used-x-40-wrestling-mat/7859837584.html
+  source: https://tulsa.craigslist.org/app/d/nowata-nice-used-x-40-wrestling-mat/7859837584.html
+tbd_lines:
+- id: W0
+  text: Clear the room; relocate desk, TV, lockers, mat carts to the support wing / storage
+  value: TBD
+  note: staff / custodial; destination TBD (support wing not measured)
+  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
+- id: W2
+  text: Restore water / plumbing repair (licensed plumber)
+  value: TBD
+  note: no number in the Phase 1 docs; cause unknown (D-002)
+  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
+- id: W3
+  text: Restroom split, 1 M + 1 F single-user, full 2010 ADA
+  value: TBD
+  note: no number in the Phase 1 docs; support wing not measured
+  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
+- id: NFPA
+  text: NFPA 286 assembly test report for the pads
+  value: in pad price
+  note: ask the vendor before purchase (phase1.yaml W1 purchase_note)
+  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
+- id: LED
+  text: LED lighting (optional)
+  value: TBD
+  note: not in the Phase 1 docs yet; optional
+  source: Shane 2026-10-09 4:49 PM CT scope; phase1.yaml W1-W3 (no numbers)
+procurement_note: 'School-board purchases at or over $40,000 go to competitive bid (Ala. Code 16-13B-1, per Examiners Feb 2025; MEDIUM confidence; phase1.yaml approvals_refs). Low total is just under it;
+  Mid and High are over: plan for a bid (confirm with the district).'
+source: Shane 2026-10-09 4:49 PM CT, KEYSTONE chat (cost analysis); R-026
