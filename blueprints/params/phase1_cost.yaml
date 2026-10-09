@@ -157,20 +157,25 @@ led:
     low: 10
     mid: 11
     high: 12
+    source: ASSUMED from Shane's photos 2026-10-09 (about 10-12 existing 4 ft fixtures; Shane 4:50 PM CT)
   count_status: ASSUMED
   count_basis: about 10-12 existing 4 ft fixtures seen in Shane's photos 2026-10-09; one-for-one replacement, 2,475 SF, CLG 10 ft
   price:
     low: 67.2
     mid: 76.13
     high: 168.0
+    source: R-026 (led.items URLs, list prices 2026-10-09)
   items:
   - band: low
     name: GLT LW4 4 ft LED wrap, 4,000 lm, 34 W
     url: https://www.beeslighting.com/products/glt-lw4-40l-40k-d10-4ft-led-wrap-light-34-watts-4400-lumens-4000k-120-277v
+    source: https://www.beeslighting.com/products/glt-lw4-40l-40k-d10-4ft-led-wrap-light-34-watts-4400-lumens-4000k-120-277v
   - band: mid
     name: Lithonia FML4W 4 ft LED wrap, 4,000-6,000 lm
     url: https://www.homedepot.com/p/Lithonia-Lighting-Contractor-Select-4-ft-40-Watt-4000-5000-6000-Lumens-Integrated-LED-Dimmable-White-Wraparound-Light-Fixture-4000K-FML4W-48-ALO6-SEF-840-MVOLT/313845712
+    source: https://www.homedepot.com/p/Lithonia-Lighting-Contractor-Select-4-ft-40-Watt-4000-5000-6000-Lumens-Integrated-LED-Dimmable-White-Wraparound-Light-Fixture-4000K-FML4W-48-ALO6-SEF-840-MVOLT/313845712
   - band: high
     name: Auvolar A-WR4FT 4 ft wrap with 90-min emergency battery
     url: https://www.auvolar.com/p/led-wraparound-a-wr4ft
+    source: https://www.auvolar.com/p/led-wraparound-a-wr4ft
   source: Shane 2026-10-09 4:50 PM CT (LED IN, team installs); prices R-026
