@@ -1,6 +1,6 @@
 {
   "status": "PRELIMINARY — CONCEPTUAL DESIGN — NOT FOR CONSTRUCTION",
-  "updated": "2026-10-08",
+  "updated": "2026-10-09",
   "hero": {
     "src": "concepts/render_srm_concept_aerial_ne.png",
     "alt": "Aerial concept of the Trojan Horse Arena: radiused concrete arena with two metal-building pop-outs"
@@ -28,6 +28,13 @@
     ]
   },
   "updates": [
+    {
+      "date": "2026-10-09",
+      "tag": "Sheet",
+      "title": "P2-A-102 Rev G drawn: Level 2 inside the curved envelope",
+      "text": "Rev K approved. Level 2 plan on the project sheet format as a new file (Rev F stays frozen). The NE stair tower is entered from the north warm-up strip, and the running loop's NE corner is rounded so it stays 7 ft wide. Level 2 area is 28,692 SF and total is 86,212 GSF, about 420 more than Rev J. This corrects the Rev K sheet's Level 2 figure. Everything is assumed until the architect confirms.",
+      "image": "concepts/P2-A-102_RevG_sheet.png"
+    },
     {
       "date": "2026-10-08",
       "tag": "Sheet",
@@ -59,8 +66,8 @@
   ],
   "upcoming": [
     {
-      "title": "Level 2 sheet (A-102 Rev G) and exit capacity",
-      "text": "Redraw the running loop corners and the NE landing; recheck exit capacity with the moved exits.",
+      "title": "Exit capacity recheck and area sheet",
+      "text": "Recheck exits with the moved stairs and tower (P2-G-002), then carry the corrected areas to P2-G-003 Rev L.",
       "status": "Next"
     },
     {
@@ -94,6 +101,11 @@
       "src": "concepts/P2-A-101_RevK_sheet.png",
       "title": "P2-A-101 Rev K (R = 20 ft)",
       "caption": "Level 1 plan sheet with the corner stairs, cylindrical NE tower inside the envelope, and the new mech bay."
+    },
+    {
+      "src": "concepts/P2-A-102_RevG_sheet.png",
+      "title": "P2-A-102 Rev G (Level 2)",
+      "caption": "Level 2 plan: tower landing, rounded NE loop corner, corrected areas."
     },
     {
       "src": "concepts/render_srm_concept_aerial_ne.png",

@@ -1,0 +1,30 @@
+# phase2_plan_rev_g_l2.yaml: P2-A-102 Rev G (Level 2) overrides (Phase 2, concept envelope, D-074 / D-077 / D-078 / D-079).
+# Read by phase2/src/p2_a_102_rev_g.py with params/phase2_plan_rev_i.yaml (Level 2 as Rev F) and params/phase2_plan_rev_k.yaml.
+# Rev F is FROZEN; this is a new file. Everything below is ASSUMED until the architect confirms.
+
+meta:
+  revision: G
+  file: P2-A-102_RevG
+  source: "Shane 2026-10-09 ('approve Rev K, draw the Level 2 sheet')"
+  status: ASSUMED
+
+loop_corner:
+  centre: [190, 232]        # centre of the envelope's NE corner arc (R = 20)
+  inner_radius_ft: 13       # inner edge of the loop rounded about the same centre
+  basis: "The R = 20 ft envelope arc cuts the loop's NE outer corner (210, 246). With a square inner corner (203, 239) the clear width falls to 5.2 ft against 7 ft (2 lanes x 42 in). Rounding the inner edge to R 13 about the same centre restores 7 ft and cuts 4.6 SF from the E tier corner (the drawn tier has 330 SF over program, so seat count 1,100 is kept)."
+  status: ASSUMED
+
+stretch_n:
+  rect: [49, 246, 168, 252]
+  basis: "Rev F strip ended at x 185.917 at the old ST-2; now ends at x 168 where the tower begins."
+  status: ASSUMED
+
+landing:
+  rect: [168, 246, 210, 252]
+  basis: "Strip east of x 168 between the loop's north edge and the north wall, less the tower: ST-2 approach landing and the NE corner (not programmed)."
+  status: ASSUMED
+
+tower_door:
+  at: [170.93, 250.63]      # SW face of the tower (225 deg), opens into the strip landing
+  basis: "Tower is entered from the 6 ft strip, not from the loop; the loop outer edge y = 246 and the tower south edge y = 247.7 leave only 1.7 ft."
+  status: ASSUMED
