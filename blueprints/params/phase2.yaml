@@ -52,6 +52,7 @@
 #     new A-101 L, A-102 H, G-003 L (params/phase2_plan_rev_l.yaml).
 # v25, 2026-10-09 9:39 AM CT (P2-T-017 cont.): D-082 30 ft drum, D-083 drum door west, D-084 east side = plan Rev J:
 #     new A-101 M, A-102 I, G-003 M (params/phase2_plan_rev_j.yaml + phase2_plan_rev_m.yaml).
+# v26, 2026-10-09 10:11 AM CT: D-086 old NE stair strip = MECH (remote): new A-101 N, G-003 N (params/phase2_plan_rev_n.yaml).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -554,6 +555,12 @@ sheets:
         generator: phase2/src/p2_g_003_rev_m.py
         inputs: "params/phase2_plan_rev_m.yaml (program lines from Rev K) + p2_plan_rev_m_geom.py (drawn areas of A-101 M / A-102 I)"
         source: "Shane 2026-10-09 9:39 AM CT (D-082, D-083, D-084; area table L1 / L2 / TOTAL GSF / change vs Rev L/H and Set Rev D)"
+      N:
+        file: P2-G-003_RevN
+        frozen: false
+        generator: phase2/src/p2_g_003_rev_n.py
+        inputs: "params/phase2_plan_rev_n.yaml + p2_plan_rev_n_geom.py (drawn areas of A-101 N / A-102 I)"
+        source: "Shane 2026-10-09 10:11 AM CT (D-086; mechanical % vs 5 %, D-072)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
   P2-A-101:
     title: OVERALL FLOOR PLAN — LEVEL 1
@@ -627,6 +634,12 @@ sheets:
         generator: phase2/src/p2_a_101_rev_m.py
         inputs: "params/phase2_plan_rev_j.yaml + phase2_plan_rev_k.yaml + phase2_plan_rev_l.yaml + phase2_plan_rev_m.yaml"
         source: "Shane 2026-10-09 9:39 AM CT (D-082: 30 ft drum; D-084: east side = D-072 / plan Rev J)"
+      N:
+        file: P2-A-101_RevN
+        frozen: false
+        generator: phase2/src/p2_a_101_rev_n.py
+        inputs: "p2_plan_rev_m_geom.py inputs + params/phase2_plan_rev_n.yaml"
+        source: "Shane 2026-10-09 10:11 AM CT (D-086: old NE stair strip = MECH (remote))"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2

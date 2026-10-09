@@ -710,3 +710,9 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - Stair fit 1.49 ft spare (was 0.49). Drum door 235 deg: 61.7 in to the loop edge; full 76 x 44 in landing reaches 4.9 in onto the loop (finding, architect).
 - East side: T1 133 ft, common path 61 / 30 ft, corridor 96 in, dead end 5.2 ft, X7 / X11 / X8 on the wall (ASSUMED, Set Rev D method).
 - phase2.yaml v25: A-101 M, A-102 I, G-003 M registered. Revs K/L, G/H, E, L untouched. G-001, combined set, PR on hold.
+
+## 2026-10-09 10:11 AM CT — D-085 / D-086 · A-101 N, G-003 N
+- D-085 logged (drum door landing overlap left for the architect; no redraw).
+- D-086: old NE stair strip on Level 1 = 30 MECH (remote), 67 SF (not connected to the MECH / ELEC BAY; access TBD). New: params/phase2_plan_rev_n.yaml, p2_plan_rev_n_geom.py, p2_a_101_rev_n.py (--rev N), p2_g_003_rev_n.py (--rev N).
+- Mechanical 4,234 -> 4,302 SF = 4.87 % -> 4.95 % of GSF vs 5 % (D-072 method; Set Rev D 4.1 %). GSF unchanged: 57,896 / 29,068 / 86,964.
+- phase2.yaml v26. A-102 Rev I unchanged (Level 2 not touched). G-001, combined set, PR on hold.

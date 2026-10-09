@@ -1,0 +1,31 @@
+# phase2_plan_rev_n.yaml: overrides for P2-A-101 Rev N and P2-G-003 Rev N (Phase 2, concept envelope; D-086).
+# Read by phase2/src/p2_plan_rev_n_geom.py (used by p2_a_101_rev_n.py, p2_g_003_rev_n.py) on top of phase2_plan_rev_m.yaml
+# (and through it phase2_plan_rev_j.yaml, _rev_k, _rev_g_l2). Level 2 (P2-A-102 Rev I) is not changed. New file; Rev M and the frozen Set Rev D are not touched.
+
+meta:
+  revision: N
+  sheets: [P2-A-101 Rev N, P2-G-003 Rev N]
+  base: phase2_plan_rev_m.yaml
+  previous: {file: phase2_plan_rev_m.yaml, sheets: "P2-A-101 Rev M / P2-A-102 Rev I / P2-G-003 Rev M", source: "P2-T-017 commit 2f57828 (D-082..D-084)"}
+  source: "Shane 2026-10-09 10:11 AM CT, KEYSTONE chat (D-086)"
+  status: ASSUMED
+
+level_1_add:
+  - tag: 30
+    id: mech_remote
+    name: "MECH (remote)"
+    rect: [185.917, 246, 210, 258.667]
+    clip: "inside the envelope box (R = 20 ft corner), net of the 30 ft ST-2 drum"
+    prog: mechanical
+    note: "old NE stair (ST-2) strip, unassigned since the drum moved north (D-081). Marked remote because it does not touch the MECH / ELEC BAY (29). No door drawn; access TBD (no redesign)."
+    source: "Shane 2026-10-09 10:11 AM CT (D-086: old NE stair strip becomes mechanical; 'MECH (remote)' if it does not connect to the mechanical bay)"
+
+mech_target:
+  pct_of_gsf: 5.0
+  method: "sum of L1 mechanical rooms (prog: mechanical, net of stairs) + MECH / ELEC BAY, divided by total GSF (D-057). Reproduces Set Rev D: 3,496 / 85,793 = 4.1 %."
+  bay_tag: 29
+  source: "D-072 (total mech about 4.1 % vs 5 % planning, MEP OPEN); R-014 (mechanical 5 % of gross)"
+
+baseline:
+  rev_mi: {l1_footprint_sf: 57896, l2_area_sf: 29068, total_gsf: 86964, source: "P2-G-003 Rev M (D-082..D-084)"}
+  set_rev_d: {l1_footprint_sf: 56861, l2_area_sf: 28933, total_gsf: 85793, mech_sf: 3496, source: "P2-G-003 Rev K (frozen, Set Rev D); mech from phase2_plan_rev_j.yaml rooms"}
