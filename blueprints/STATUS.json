@@ -2,7 +2,7 @@
   "agent": "KEYSTONE",
   "project": "Hazel Green Regional Athletic Complex / Trojan Horse Arena",
   "schema_version": 2,
-  "updated_at": "2026-10-09T13:40:59-05:00",
+  "updated_at": "2026-10-09T16:29:48-05:00",
   "health": "YELLOW",
   "active_phase": "P1+P2 (parallel; P1 jumps the line when its data arrives)",
   "phase1_percent": 50,
@@ -24,11 +24,11 @@
     "P2-A-201 Rev K (in review; Rev N outline: drum, bay, R 20 tangents; D-087 text kept)"
   ],
   "sheets_in_progress": [],
-  "last_commit": "74da53f",
+  "last_commit": "0f0e3e2",
   "branch": "grok/keystone",
   "open_decisions": 16,
   "blocked_on": "P1: support-wing data + photos (D-002). P2: owner (D-007), AHJ (D-008), site (D-006), budget (D-012, $39M working number only); trademark (D-042). G-001 / set / PR on hold.",
-  "what_changed": "Current building (A-101 N / A-102 I: R 20 corners, 30 ft drum, bay, east side D-072/D-084) on C-101 H (86,964 GSF, +1,171 vs Rev G), A-901 F, A-201 K. D-087 kept. No new decision.",
+  "what_changed": "Architect Handoff Approvals folder added: SK-01 bay height + SK-02 drum height studies, PENDING Shane / architect (Shane 4:29 PM CT).",
   "what_to_verify": "Bay height 16 ft ASSUMED (A-901 F, A-201 K); drum height = ring roof ASSUMED. Land need about 10-15 ac stays a planning range (ASSUMED, D-006).",
   "next_action": "Shane reviews C-101 H, A-901 F, A-201 K (+ A-101 N, A-102 I, G-003 N). G-001 C cover still mentions the loop. G-001 / set / PR on hold.",
   "question_for_shane": "Approve C-101 H / A-901 F / A-201 K (current building, 86,964 GSF)? OK with the mech / elec bay at 16 ft ASSUMED?"
