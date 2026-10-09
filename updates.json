@@ -23,15 +23,22 @@
       ],
       [
         "R = 20 ft",
-        "recommended corner radius (study)"
+        "corner radius, approved"
       ]
     ]
   },
   "updates": [
     {
       "date": "2026-10-08",
+      "tag": "Sheet",
+      "title": "P2-A-101 Rev K drawn: curved envelope, 20 ft corners",
+      "text": "Level 1 block plan on the project sheet format, as a new file (Rev J stays frozen). Corner radius 20 ft. The SE and SW stairs slide along their walls, the NE stair is now a cylindrical tower inside the building envelope landing on the running loop, and a new 900 SF metal-building mech bay sits beside the storage annex, clear of the north exit. Level 1 footprint +659 SF, Level 2 -197 SF, total about +460 GSF. Everything is assumed until the architect confirms; the Level 2 sheet and exit capacity are the next rechecks.",
+      "image": "concepts/P2-A-101_RevK_sheet.png"
+    },
+    {
+      "date": "2026-10-08",
       "tag": "Study",
-      "title": "Plan Rev K study: resolving the curved corners",
+      "title": "Plan Rev K study (now drawn as the sheet below)",
       "text": "We measured what each corner radius removes from every Rev J element, not just rooms. At 34 ft the SE and SW stairs each lose about 190 of their 305 SF, so they would not fit. At 20 ft the corners remove about 343 SF per level, the two corner stairs slide along their walls instead of shrinking, and the corner mechanical rooms lose about 110 SF, made up in a new 900 SF metal-building mech bay beside the storage annex. Recommended radius: 20 ft. All positions are assumed until a plan revision is drawn.",
       "image": "concepts/render_srm_concept_plan_revk_study.png"
     },
@@ -52,13 +59,13 @@
   ],
   "upcoming": [
     {
-      "title": "Plan Rev K sheet",
-      "text": "Turn the study into an issued revision (P2-A-101 Rev K) once the 20 ft radius is approved: recompute areas, egress and mech.",
+      "title": "Level 2 sheet (A-102 Rev G) and exit capacity",
+      "text": "Redraw the running loop corners and the NE landing; recheck exit capacity with the moved exits.",
       "status": "Next"
     },
     {
       "title": "Structural review",
-      "text": "Curved shell, tier structure depth (needs 1'-6\" or less) and the long-span roof.",
+      "text": "Curved shell, 120 ft roof span, and tier depth of 1'-6\" or less.",
       "status": "Needs engineer"
     },
     {
@@ -84,9 +91,9 @@
   ],
   "gallery": [
     {
-      "src": "concepts/render_srm_concept_plan_revk_study.png",
-      "title": "Plan Rev K study (R = 20 ft)",
-      "caption": "Corner stairs relocated, mech made up in a new metal-building bay, and the cost of each radius."
+      "src": "concepts/P2-A-101_RevK_sheet.png",
+      "title": "P2-A-101 Rev K (R = 20 ft)",
+      "caption": "Level 1 plan sheet with the corner stairs, cylindrical NE tower inside the envelope, and the new mech bay."
     },
     {
       "src": "concepts/render_srm_concept_aerial_ne.png",
