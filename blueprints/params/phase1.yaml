@@ -465,6 +465,13 @@ sheets:
         generator: phase1/src/p1_g_002.py
         inputs: params/phase1_cost.yaml (research R-026)
         source: "Shane 2026-10-09 4:49 PM CT (cost analysis of the Phase 1 room)"
+      B:
+        file: P1-G-002_RevB
+        frozen: false
+        generator: phase1/src/p1_g_002.py
+        inputs: params/phase1_cost.yaml (research R-026b)
+        note: "supersedes Rev A (pre-scope change, included install); content = current Rev A output + note"
+        source: "Shane 2026-10-09 4:55 PM CT (issue materials-only sheet as Rev B)"
     source: "Shane 2026-10-09 4:49 PM CT"
   P1-G-001:
     title: SCOPE SHEET

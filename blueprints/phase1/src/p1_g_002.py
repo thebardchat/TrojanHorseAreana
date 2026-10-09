@@ -2,7 +2,7 @@
 
 Low / Mid / High from published list prices (params/phase1_cost.yaml, each with a URL; research R-026). Not a quote or bid.
 Run from the repo root:
-  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_002.py --rev A [--out-dir DIR]
+  /workspace/.venv-keystone/bin/python blueprints/phase1/src/p1_g_002.py --rev {A,B} [--out-dir DIR]  (B = A + supersede note)
 """
 from __future__ import annotations
 
@@ -70,6 +70,8 @@ def build(rev):
     sh.text(x0, top, "PHASE 1 WRESTLING ROOM — MATERIALS COST (mats, wall pads, LED)", size=18, bold=True)
     sh.text(x0, top - 0.3, f"Room cleared: 100 % of the {q['mat_sf']:,} SF floor (55' x 45') gets mat. Pads 6 ft high on the whole perimeter less {q['doors']} doors: "
             f"{q['perimeter_lf']} - {q['doors']} x {q['door_width_ft']} ft = {q['pad_lf']} LF = {q['pad_panels']} panels.", size=10.5)
+    if rev == "B":
+        sh.text(x0 + 10.4, top - 0.5 + 0.25 * 2, "Supersedes Rev A (pre-scope change, included install)", size=10.5, color="#C00000")
     sh.text(x0, top - 0.5, "Materials only: the team clears, relocates and installs ($0, by owner). Water / restrooms out of scope. List prices 2026-10-09; not a quote. Tax, pad freight, custom sizes extra.", size=10.5, color=INK_MUTED)
     # table
     cx = [x0, x0 + 3.7, x0 + 5.6, x0 + 7.15, x0 + 8.7, x0 + 10.25]
@@ -130,11 +132,11 @@ def build(rev):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rev", choices=["A"], required=True)
+    ap.add_argument("--rev", choices=["A", "B"], required=True)
     ap.add_argument("--out-dir")
     a = ap.parse_args()
     out = Path(a.out_dir) if a.out_dir else None
-    pdf = (out or BP / "phase1" / "out" / "pdf") / "P1-G-002_RevA.pdf"
+    pdf = (out or BP / "phase1" / "out" / "pdf") / f"P1-G-002_Rev{a.rev}.pdf"
     pdf.parent.mkdir(parents=True, exist_ok=True)
     sh, tot, sub = build(a.rev)
     sh.render_pdf(pdf, title="P1-G-002 Rev A Phase 1 cost sheet")
