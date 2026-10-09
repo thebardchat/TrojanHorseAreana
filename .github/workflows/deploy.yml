@@ -10,8 +10,15 @@ jobs:
       deployments: write
     steps:
       - uses: actions/checkout@v4
+      # Publish ONLY the public site files. The rest of the repo (blueprints/, research, decisions,
+      # status, cost estimates, scripts) stays in git but is never served. Add a path here to publish it.
+      - name: Assemble public site
+        run: |
+          mkdir -p _site
+          cp index.html updates.json hazel-green-complex-3d.html _site/
+          cp -r concepts _site/concepts
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name=trojan-horse-arena --branch=main
+          command: pages deploy _site --project-name=trojan-horse-arena --branch=main
