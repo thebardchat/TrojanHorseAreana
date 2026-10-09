@@ -54,6 +54,7 @@
 #     new A-101 M, A-102 I, G-003 M (params/phase2_plan_rev_j.yaml + phase2_plan_rev_m.yaml).
 # v26, 2026-10-09 10:11 AM CT: D-086 old NE stair strip = MECH (remote): new A-101 N, G-003 N (params/phase2_plan_rev_n.yaml).
 # v27, 2026-10-09 1:05 PM CT: D-087 bus loop cut: new C-101 G, A-901 E, A-201 J (params/phase2_site_rev_g.yaml, _massing_rev_e, _elev_rev_j).
+# v28, 2026-10-09 1:23 PM CT: current building (A-101 N / A-102 I) on new C-101 H, A-901 F, A-201 K (params/phase2_site_rev_h.yaml, _massing_rev_f, _elev_rev_k).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -751,6 +752,12 @@ sheets:
         generator: phase2/src/p2_a_201_rev_j.py
         inputs: "params/phase2_elev.yaml + phase2_elev_rev_j.yaml (Rev I = Set Rev D, handoff_2026-10-04)"
         source: "Shane 2026-10-09 1:05 PM CT (D-087: bus drop loop label and note removed)"
+      K:
+        file: P2-A-201_RevK
+        frozen: false
+        generator: phase2/src/p2_a_201_rev_k.py
+        inputs: "params/phase2_elev.yaml + phase2_elev_rev_k.yaml + p2_plan_rev_n_geom.py (A-101 Rev N / A-102 Rev I)"
+        source: "Shane 2026-10-09 1:23 PM CT (standard next step: Rev J showed the old outline, so Rev K)"
     source: "Shane 2026-10-04 5:27 AM CT"
   P2-A-301:
     title: BUILDING SECTIONS
@@ -835,6 +842,12 @@ sheets:
         generator: phase2/src/p2_c_101_rev_g.py
         inputs: "params/phase2_site.yaml + phase2_site_rev_g.yaml + phase2_plan_rev_j.yaml (Rev F = Set Rev D, not registered here; handoff_2026-10-04)"
         source: "Shane 2026-10-09 1:05 PM CT (D-087: cut the bus loop; service stays at S1; drop-off curbside along the parking drive aisle, ASSUMED)"
+      H:
+        file: P2-C-101_RevH
+        frozen: false
+        generator: phase2/src/p2_c_101_rev_h.py
+        inputs: "params/phase2_site.yaml + phase2_site_rev_h.yaml + p2_plan_rev_n_geom.py (P2-A-101 Rev N / A-102 Rev I)"
+        source: "Shane 2026-10-09 1:23 PM CT (standard next step: current building on the site sheet; D-087 kept)"
     source: "Shane 2026-10-04 7:44 AM CT"
   P2-G-002:
     title: CODE ANALYSIS (SCHEMATIC)
@@ -947,6 +960,12 @@ sheets:
         generator: phase2/src/p2_a_901_rev_e.py
         inputs: "params/phase2_massing.yaml + phase2_massing_rev_e.yaml + phase2_site_rev_g.yaml + phase2_plan_rev_j.yaml (Rev D = Set Rev D, handoff_2026-10-04)"
         source: "Shane 2026-10-09 1:05 PM CT (D-087: no bus loop in the massing)"
+      F:
+        file: P2-A-901_RevF
+        frozen: false
+        generator: phase2/src/p2_a_901_rev_f.py
+        inputs: "params/phase2_massing.yaml + phase2_massing_rev_f.yaml + phase2_site_rev_h.yaml + p2_plan_rev_n_geom.py (A-101 Rev N / A-102 Rev I)"
+        source: "Shane 2026-10-09 1:23 PM CT (standard next step: current building in the massing; D-087 kept)"
     source: "Shane 2026-10-04 12:10 PM CT; BACKLOG P2-T-011"
 
 sets:

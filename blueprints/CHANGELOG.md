@@ -723,3 +723,11 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message â€
 - Checked and not revised: A-111 Rev D, G-002 Rev D / E (no bus loop shown). G-001 Rev C cover mentions the loop (on hold).
 - STATUS: land-need planning note (10-15 ac, ASSUMED).
 - phase2.yaml v27: C-101 G, A-901 E, A-201 J registered.
+
+## 2026-10-09 1:23 PM CT â€” current building onto C-101 H, A-901 F, A-201 K (no new decision)
+- Building = P2-A-101 Rev N / A-102 Rev I via p2_plan_rev_n_geom.py: R 20 ft corners, 30 ft drum (true circle / ARC in the C-101 DXF), mech / elec bay, east side per D-072 / D-084, exits X1 / X9 / X10 as Rev K, X6 on the drum.
+- C-101 Rev H: D-057 table L1 / L2 / TOTAL / delta vs Rev G (Set Rev D): 57,896 / 29,068 / 86,964 vs 56,861 / 28,933 / 85,793 (+1,035 / +135 / +1,171). D-087 kept (no loop, curbside drop-off label).
+- A-901 Rev F: ring and drum as extruded polygons (Prism class, facets sorted, back faces culled); bay 16 ft ASSUMED. D-087 kept.
+- A-201 Rev K: Rev J showed the old NE tower and square corners. Rev K: drum, bay (16 ft ASSUMED), thin R 20 tangent lines, key plan corners radiused, X6 on the drum.
+- New: params/phase2_site_rev_h.yaml, phase2_massing_rev_f.yaml, phase2_elev_rev_k.yaml; p2_c_101_rev_h.py, p2_a_901_rev_f.py, p2_a_201_rev_k.py. phase2.yaml v28.
+- STATUS sheets_done merged (A-101 L / M and C-101 G / A-901 E / A-201 J lines folded into superseded entries); history kept here.
