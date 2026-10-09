@@ -9,10 +9,22 @@
     "title": "Design direction",
     "text": "The main arena takes its cues from the SRM Concrete corporate headquarters: radiused corners, no right angles, board-formed concrete, floor-to-deck glass and slender exposed columns. Metal-building pop-outs (storage annex and restroom core) are proposed as a Summertown Metals build. This is a concept study on the approved Phase 2 envelope (210 × 252 ft, 2 levels, 2,200 seats). No agreements are in place and no logos or marks are used.",
     "facts": [
-      ["210 × 252 ft", "footprint, 2 levels"],
-      ["2,200", "seats (1,100 + 1,100)"],
-      ["4 × 42 ft", "wrestling mats, 2 × 2"],
-      ["4 rooms", "affected by the curved corners"]
+      [
+        "210 × 252 ft",
+        "footprint, 2 levels"
+      ],
+      [
+        "2,200",
+        "seats (1,100 + 1,100)"
+      ],
+      [
+        "4 × 42 ft",
+        "wrestling mats, 2 × 2"
+      ],
+      [
+        "4 rooms",
+        "affected by the curved corners"
+      ]
     ]
   },
   "updates": [
@@ -32,22 +44,68 @@
     }
   ],
   "upcoming": [
-    {"title": "Plan Rev K study", "text": "Redraw the four corner rooms for the curved envelope and make up the lost mechanical area.", "status": "Next"},
-    {"title": "Structural review", "text": "Curved shell, tier structure depth (needs 1'-6\" or less) and the long-span roof.", "status": "Needs engineer"},
-    {"title": "Parcel and code pre-application", "text": "Site search, code edition and a conversation with the authority having jurisdiction.", "status": "Open"},
-    {"title": "Champion Walk donor bricks", "text": "Pricing for 4×8 single-name and 8×8 family-business bricks.", "status": "Open"},
-    {"title": "Contractor pricing", "text": "Get a contractor or estimator to price the approved set before any fundraising use.", "status": "Open"},
-    {"title": "Trademark search", "text": "Clear the Trojan Horse Arena name and badge.", "status": "Open"}
+    {
+      "title": "Plan Rev K study",
+      "text": "Redraw the four corner rooms for the curved envelope and make up the lost mechanical area.",
+      "status": "Next"
+    },
+    {
+      "title": "Structural review",
+      "text": "Curved shell, tier structure depth (needs 1'-6\" or less) and the long-span roof.",
+      "status": "Needs engineer"
+    },
+    {
+      "title": "Parcel and code pre-application",
+      "text": "Site search, code edition and a conversation with the authority having jurisdiction.",
+      "status": "Open"
+    },
+    {
+      "title": "Champion Walk donor bricks",
+      "text": "Pricing for 4×8 single-name and 8×8 family-business bricks.",
+      "status": "Open"
+    },
+    {
+      "title": "Contractor pricing",
+      "text": "Get a contractor or estimator to price the approved set before any fundraising use.",
+      "status": "Open"
+    },
+    {
+      "title": "Trademark search",
+      "text": "Clear the Trojan Horse Arena name and badge.",
+      "status": "Open"
+    }
   ],
   "gallery": [
-    {"src": "concepts/render_srm_concept_aerial_ne.png", "title": "Aerial from northeast", "caption": "Concrete arena with the storage annex (north) and restroom pop-out (east) in metal."},
-    {"src": "concepts/render_srm_concept_aerial_se.png", "title": "Aerial from southeast", "caption": "Floor-to-deck glass ring, slender columns and the east pop-out."},
-    {"src": "concepts/render_srm_concept_portal.png", "title": "Portal and Champion Walk", "caption": "Freestanding limestone portal (50 ft max) and the 40 ft walk at the doors."},
-    {"src": "concepts/render_srm_concept_interior.png", "title": "Interior cutaway", "caption": "Cut at the Level 2 floor, 17'-9\": event floor, mats, both seating tiers and the running loop."},
-    {"src": "concepts/render_srm_concept_plan.png", "title": "Level 1 plan", "caption": "Approved Rev J layout inside the radiused outline. Hatched rooms lose area at the corners."},
-    {"src": "concepts/render_revD_aerial_sw.png", "title": "Approved massing (Rev D)", "caption": "The rectangular massing from the approved Phase 2 set, for comparison."}
+    {
+      "src": "concepts/render_srm_concept_aerial_ne.png",
+      "title": "Aerial from northeast",
+      "caption": "Concrete arena with the storage annex (north) and restroom pop-out (east) in metal."
+    },
+    {
+      "src": "concepts/render_srm_concept_aerial_se.png",
+      "title": "Aerial from southeast",
+      "caption": "Floor-to-deck glass ring, slender columns and the east pop-out."
+    },
+    {
+      "src": "concepts/render_srm_concept_portal.png",
+      "title": "Portal and Champion Walk",
+      "caption": "Freestanding limestone portal (50 ft max) and the 40 ft walk at the doors."
+    },
+    {
+      "src": "concepts/render_srm_concept_interior.png",
+      "title": "Interior cutaway",
+      "caption": "Cut at the Level 2 floor, 17'-9\": event floor, mats, both seating tiers and the running loop."
+    },
+    {
+      "src": "concepts/render_srm_concept_plan.png",
+      "title": "Level 1 plan",
+      "caption": "Approved Rev J layout inside the radiused outline. Hatched rooms lose area at the corners."
+    },
+    {
+      "src": "concepts/render_revD_aerial_sw.png",
+      "title": "Approved massing (Rev D)",
+      "caption": "The rectangular massing from the approved Phase 2 set, for comparison."
+    }
   ],
-  "documents": [
-    {"href": "blueprints/phase2/out/pdf/Phase2_Schematic_Set_RevD.pdf", "title": "Phase 2 Schematic Set Rev D", "text": "13 sheets, approved and frozen. Preliminary, not for construction."}
-  ]
+  "documents": []
 }
