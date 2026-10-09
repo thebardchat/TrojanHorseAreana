@@ -48,6 +48,8 @@
 #     annex; D-068 approvals (A-111 A, A-401 A, A-103 A, G-002 A frozen); D-069 restroom space OPEN. New revs on plan Rev H.
 # v23, 2026-10-04 3:31 PM CT: D-069 DECIDED (Option 2): east restroom bump-out (core 2) on plan Rev I; G-003 K, A-101 I, A-111 C, A-401 C,
 #     C-101 E, A-901 C, A-201 H.
+# v24, 2026-10-09 (P2-T-017): A-101 K, A-102 G (approved, D-079 / D-080) + G-002 E registered from the Claude Code line; D-081 drum:
+#     new A-101 L, A-102 H, G-003 L (params/phase2_plan_rev_l.yaml).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -538,6 +540,12 @@ sheets:
         frozen: false
         inputs: "params/phase2_program.yaml (rev_k) + params/phase2_plan_rev_i.yaml"
         source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); program Rev K = Rev J + restroom bump-out 1,680 SF gross"
+      L:
+        file: P2-G-003_RevL
+        frozen: false
+        generator: phase2/src/p2_g_003_rev_l.py
+        inputs: "params/phase2_plan_rev_l.yaml (program lines from Rev K) + p2_plan_rev_l_geom.py (drawn areas of A-101 L / A-102 H)"
+        source: "Shane 2026-10-09 (D-081; P2-T-017: program + area table L1 / L2 / TOTAL GSF / delta vs last rev)"
     source: "Shane 2026-10-03 10:45 PM CT (P2-T-003b: one-page test-fit sheet, PDF + DXF)"
   P2-A-101:
     title: OVERALL FLOOR PLAN — LEVEL 1
@@ -592,6 +600,19 @@ sheets:
         frozen: false
         inputs: "params/phase2_plan_rev_i.yaml + params/phase2_program.yaml (rev_k)"
         source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); Plan Rev I: east bump-out 30 x 56 ft at EXIT (E), X7 moved to the bump-out east face"
+      K:
+        file: P2-A-101_RevK
+        frozen: true
+        approved: "Shane 2026-10-09 (D-079: 'approve Rev K, draw the Level 2 sheet')"
+        generator: phase2/src/p2_a_101_rev_k.py
+        inputs: "params/phase2_plan_rev_i.yaml + params/phase2_plan_rev_k.yaml"
+        source: "Shane 2026-10-08 (D-078: approve R = 20 ft and draw Rev K; ST-2 inside the building); Claude Code session, synced from origin/main in P2-T-017 (Rev J / Set Rev D registration still in handoff_2026-10-04/keystone_repo.patch)"
+      L:
+        file: P2-A-101_RevL
+        frozen: false
+        generator: phase2/src/p2_a_101_rev_l.py
+        inputs: "params/phase2_plan_rev_i.yaml + phase2_plan_rev_k.yaml + phase2_plan_rev_l.yaml (base checked against ARENA P2-A-101_RevK.dxf)"
+        source: "Shane 2026-10-09 (D-081: NE stair tower = 29 ft drum; P2-T-017 GO 8:06 AM CT; base = approved Rev K files 8:13 AM CT)"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-102:
     title: OVERALL FLOOR PLAN — LEVEL 2
@@ -630,6 +651,19 @@ sheets:
         frozen: false
         inputs: params/phase2_plan_rev_f.yaml
         source: "Shane 2026-10-04 10:27 AM CT (D-061 DECIDED Option B: L2 17'-9\", 21 in upper risers, front row 7'-6\" clear over all exit paths, no low band; stairs 31 risers / longer stair footprint; D-060 settled: event lockers 3,600 SF); Rev E frozen"
+      G:
+        file: P2-A-102_RevG
+        frozen: true
+        approved: "Shane 2026-10-09 (D-080: 'approve Rev G, do the exit recheck')"
+        generator: phase2/src/p2_a_102_rev_g.py
+        inputs: "params/phase2_plan_rev_i.yaml + phase2_plan_rev_k.yaml + phase2_plan_rev_g_l2.yaml"
+        source: "Shane 2026-10-09 (D-079: draw the Level 2 sheet); Claude Code session, synced from origin/main in P2-T-017"
+      H:
+        file: P2-A-102_RevH
+        frozen: false
+        generator: phase2/src/p2_a_102_rev_h.py
+        inputs: "params/phase2_plan_rev_i.yaml + phase2_plan_rev_k.yaml + phase2_plan_rev_g_l2.yaml + phase2_plan_rev_l.yaml (base checked against ARENA P2-A-102_RevG.dxf)"
+        source: "Shane 2026-10-09 (D-081: NE stair tower = 29 ft drum; P2-T-017)"
     source: "Shane 2026-10-03 11:39 PM CT"
   P2-A-201:
     title: EXTERIOR ELEVATIONS
@@ -772,6 +806,13 @@ sheets:
         frozen: false
         inputs: "params/phase2_code_rev_b.yaml + params/phase2_plan_rev_h.yaml + params/phase2_program.yaml (rev_i)"
         source: "Shane 2026-10-04 1:21-1:22 PM CT (D-054 chairs-only, D-064 Option 2, D-065 Option 1, D-066 40 ft walk, D-067 storage room); chairs-only design case, posted loads per configuration (1004.9), chairs-only fixtures"
+      E:
+        file: P2-G-002_RevE
+        frozen: false
+        generator: phase2/src/p2_g_002_rev_e.py
+        inputs: "p2_a_102_rev_g.py geometry (phase2_plan_rev_i.yaml + _rev_k + _rev_g_l2)"
+        note: "exit recheck for A-101 K / A-102 G; finding F1 closed by D-081; approval of Rev E itself not logged. Revs C / D (Set Rev D) still in handoff_2026-10-04/keystone_repo.patch"
+        source: "Shane 2026-10-09 (D-080: 'approve Rev G, do the exit recheck'); Claude Code session, synced from origin/main in P2-T-017"
     source: "Shane 2026-10-04 10:48 AM CT; BACKLOG P2-T-007"
   P2-A-111:
     title: LIFE SAFETY PLAN (SCHEMATIC) — LEVELS 1 + 2

@@ -696,3 +696,9 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 - 2026-10-05 5:25 PM CT: p2_a_plan now imports palette.py; output identical.
 - 2026-10-05 5:25 PM CT: p2_g_002 now imports palette.py; output identical.
 - 2026-10-05 5:25 PM CT: p2_g_003 now imports palette.py; output identical.
+
+## 2026-10-09 — P2-T-017 · D-081 NE stair drum (A-101 L, A-102 H, G-003 L)
+- Sync: DECISIONS_ARENA.md mirrored through D-081 (D-081 row also added in ARENA _KEYSTONE); KEYSTONE_PROMPT_v1.3.2_ERRATA.md; handoff_2026-10-08/ (Claude Code handoff + ARENA CLAUDE.md copy).
+- Sync from origin/main: p2_a_101_rev_k.py, p2_a_102_rev_g.py, p2_g_002_rev_e.py + phase2_plan_rev_k.yaml, phase2_plan_rev_g_l2.yaml + their PDF/DXF; regenerated PDFs byte-identical to ARENA's approved files. `source` lines added to the K / G params (validate), one mech-bay basis note reworded (banned number); outputs unchanged.
+- New: phase2_plan_rev_l.yaml, p2_plan_rev_l_geom.py, p2_a_101_rev_l.py (--rev L), p2_a_102_rev_h.py (--rev H), p2_g_003_rev_l.py (--rev L). Base = approved Rev K / G geometry (DXF read). L1 57,861 / L2 29,033 / TOTAL 86,894 GSF (+682 vs Rev K/G 86,212; +1,101 vs Set Rev D 85,793).
+- phase2.yaml v24: A-101 K/L, A-102 G/H, G-002 E, G-003 L registered. Set Rev D patch (handoff_2026-10-04/keystone_repo.patch) still NOT applied: it trips validate (missing sources; a banned number inside frozen-sheet text).

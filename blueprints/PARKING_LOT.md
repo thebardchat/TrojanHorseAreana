@@ -23,3 +23,4 @@ If Shane asks later: a cited R-file on what *scaled* versions would mean here (r
 
 - From the 2026-10-03 intake: an early Gemini prompt used Kelly Green #006B3C + gold. **Rejected.** Red and black, never green. Kept here only so nobody brings it back.
 - The repo's public landing page (`index.html`, protected) calls the project "A strategy battle arena built in the ShaneBrain ecosystem." That doesn't describe the athletic complex. KEYSTONE won't edit it (protected file). Shane, your call.
+- 2026-10-09 (Shane, D-074 context, P2-T-017): lobby feature stair styled like a concrete pour chute (SRM HQ reference), for Shane to decide. Not drawn, not sized, not in params.

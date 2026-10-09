@@ -1,0 +1,71 @@
+# phase2_plan_rev_l.yaml: P2-T-017 overrides for P2-A-101 Rev L, P2-A-102 Rev H and P2-G-003 Rev L (Phase 2, concept envelope, D-081).
+# Read by phase2/src/p2_a_101_rev_l.py, p2_a_102_rev_h.py and p2_g_003_rev_l.py together with params/phase2_plan_rev_i.yaml (the plan file
+# P2-A-101 Rev K / A-102 Rev G were drawn from), params/phase2_plan_rev_k.yaml (envelope R, ST-3, ST-4, moved exits) and params/phase2_plan_rev_g_l2.yaml (L2 loop corner).
+# Rev K / Rev G / Rev E and the frozen Set Rev D are not touched; this is a new file. Everything below is ASSUMED until the architect confirms.
+
+meta:
+  revision: L
+  sheets: [P2-A-101 Rev L, P2-A-102 Rev H, P2-G-003 Rev L]
+  base_plan: phase2_plan_rev_i.yaml
+  base_plan_note: "Base = the approved ARENA files P2-A-101_RevK / P2-A-102_RevG / P2-G-002_RevE (Shane 2026-10-09 8:13 AM CT). Their DXF geometry was read and matches phase2_plan_rev_i.yaml + phase2_plan_rev_k.yaml + phase2_plan_rev_g_l2.yaml exactly (PDF bytes and DXF entities regenerate identical). FINDING: that east side is plan Rev I (bump-out y 161.09-217.09, X7 on its east face at x 240, no X11, MECH (E) 1,720 SF), not plan Rev J (D-072: bump-out y 119.09-175.09, PUBLIC CORRIDOR (E), X7 on the wall, X11, phase2_plan_rev_j.yaml). Rev L keeps the approved Rev K east side (no silent redesign); areas are the same either way."
+  skip_l1_rooms: [storage_annex, rr_mb, rr_wb, df_jan]
+  source: "Shane 2026-10-09 (D-081, verbal via Claude Code session; P2-T-017 GO 8:06 AM CT; base files 8:13 AM CT); p2_a_101_rev_k.py SKIP set"
+  status: ASSUMED
+
+stairs:
+  ST-2:
+    kind: drum
+    centre: [182.0, 262.5]
+    diameter_ft: 29.0
+    wall_allowance_ft: 1.3
+    basis: "D-080 finding F1: the 20 ft tower cannot hold the 12.667 x 24.083 ft two-flight 76 in stair (diagonal 27.2 ft). 29 ft drum, inside about 27.7 ft (wall allowance 1.3 ft as P2-G-002 Rev E). Centre moved from (178, 257.7) to (182, 262.5) as recommended on P2-G-002 Rev E."
+    status: ASSUMED
+    source: "D-081 (Shane 2026-10-09); P2-G-002 Rev E finding F1 + recommendation (D-080); D-061 (31 risers), D-052 (76 in stairs)"
+  stair_in_drum:
+    size_ft: [24.083, 12.667]
+    basis: "D-061 / D-052 stair (two 76 in flights side by side + landings), long side east-west, centred in the drum; drawn dashed as a fit check, not a stair design"
+    status: ASSUMED
+    source: "D-061; D-052; D-051 (landing = width); P2-G-003 Rev K stair line (12.67 x 24.08 ft)"
+
+mech_bay:
+  rect: [134, 252, 164, 282]
+  basis: "Bay slides 2 ft west (was x 136-166) to clear the drum (west edge x 167.5); EXIT (N) passage at X5 (x 123.85-131.85) still discharges to open ground between the annex (x 122) and the bay (x 134). Same 30 x 30 ft = 900 SF, one storey."
+  status: ASSUMED
+  source: "P2-G-002 Rev E recommendation (D-080); D-081"
+
+exits:
+  X6:
+    at: [196.5, 262.5]
+    basis: "ST-2 discharge on the drum's east face (as Rev K: east face), to open ground NE of the building"
+    status: ASSUMED
+    source: "phase2_plan_rev_k.yaml exits_moved X6 (east face); D-081"
+
+level_2:
+  stretch_n:
+    rect: [49, 246, 167, 252]
+    basis: "North stretch strip ends at x 167, just west of the drum (P2-G-002 Rev E: 'strip ends about x 167'); was x 168 on Rev G"
+    status: ASSUMED
+    source: "P2-G-002 Rev E recommendation (D-080); D-081"
+  landing:
+    rect: [167, 246, 210, 252]
+    basis: "Strip east of x 167 between the loop's north edge (y 246) and the north wall, less the drum: ST-2 approach landing and the NE corner (not programmed)"
+    status: ASSUMED
+    source: "phase2_plan_rev_g_l2.yaml landing (method); D-081"
+  drum_door:
+    angle_deg: 240
+    basis: "Door on the drum's SW face (240 deg from east) opening into the strip landing at about y 249.9 (Rev G: 225 deg on the 20 ft tower). Not a door on the loop."
+    status: ASSUMED
+    source: "phase2_plan_rev_g_l2.yaml tower_door (method); P2-G-002 Rev E finding F2"
+
+baseline:
+  rev_kg: {l1_footprint_sf: 57520, l2_area_sf: 28692, total_gsf: 86212, source: "D-079: P2-A-102 Rev G area check (corrects the A-101 Rev K sheet's L2 28,736 / TOTAL 86,256)"}
+  g003_k: {l1_footprint_sf: 56861, l2_area_sf: 28933, total_gsf: 85793, source: "P2-G-003 Rev K (frozen, Set Rev D) drawn size; A-101 J / A-102 F unchanged in area"}
+  expected_by_request: {delta_gsf: 682, total_gsf: 86475, source: "P2-T-017 request (Shane 2026-10-09 8:06 AM CT): 'expect +682 -> 86,475 GSF but compute, don't assume'"}
+
+program_rev_k:
+  l1_gross_incl_annex_bump: 56713
+  l2_gross: 28186
+  l1_plus_l2_gross: 84899
+  program_footprint: 58195
+  program_total_gsf: 86381
+  source: "P2-G-003 Rev K (frozen, Set Rev D; program lines unchanged by D-074..D-081: the drum, envelope and bay are not program lines)"
