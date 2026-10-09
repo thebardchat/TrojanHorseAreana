@@ -734,3 +734,10 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message �
 
 ## 2026-10-09 4:29 PM CT — Architect Handoff Approvals
 - New folder blueprints/architect_handoff_approvals/: copies of P2-SK-01_MechBay_Height.pdf and P2-SK-02_Drum_Height.pdf (studies, commit e7a8b13) + README.md index (question, options, status PENDING Shane / architect). Shane 4:29 PM CT.
+
+## 2026-10-09 4:39 PM CT — D-088 · P1-A-101 Rev B (wall orientation + existing conditions)
+- DECISIONS.md: D-088 (source "Shane photos 2026-10-09"): S = coach's wall, W = far end with exit, N = padded 'HHS' wall, E = open door to the walkway / support wing; mats, AC units, exit sign.
+- New: params/phase1_a101_rev_b.yaml, phase1/src/p1_a_101_rev_b.py (--rev B). Rev A frozen, regenerates identical. Room 55 x 45 ft, CLG 10 ft unchanged. Positions APPROX from photos.
+- Moves vs Rev A: south door now near the SW corner (Rev A: mid-wall); west exit at the centre (Rev A: 0.65 from north). Rev A's NE exit not in the photo list: dashed red, verify.
+- P1-G-001 Rev E conflicts (reported, not redesigned): "~188 LF of padded wall after 4 doors" assumes 4 doors (photos name 3); "Walls to pad: TBD" / all 4 walls assumed, while photos show existing pads on W and N.
+- Photos kept on the box only (/workspace/arena_refs/phase1_room/), not in the repo.
