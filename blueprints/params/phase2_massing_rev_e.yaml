@@ -1,0 +1,57 @@
+# phase2_massing_rev_e.yaml: P2-A-901 Rev E overrides. Read by phase2/src/p2_a_901_rev_e.py --rev E with params/phase2_massing.yaml.
+# Rev E, 2026-10-09 1:05 PM CT (Shane, D-087, KEYSTONE chat): bus drop loop cut; team bus + van drop-off curbside along the parking drive
+# aisle (ASSUMED, TBD, D-006); service stays at S1. Otherwise = Rev D (copied from the Set Rev D handoff, phase2_massing_rev_d.yaml).
+# Rev D header (kept for history):
+# phase2_massing_rev_d.yaml: P2-A-901 Rev D overrides. Read by phase2/src/p2_a_901.py --rev D with params/phase2_massing.yaml.
+# Rev D, 2026-10-04 evening (Shane, D-072; Claude Code session): plan Rev J — restroom bump-out 30 x 56 ft slid 42 ft south (entirely
+# south of EXIT (E)), X7 back on the building wall, new exit X11; C-101 Rev F site. Rev C inputs stay in phase2_massing_rev_c.yaml.
+# Rev C header (kept for history):
+# phase2_massing_rev_c.yaml: P2-A-901 Rev C overrides (Phase 2, BACKLOG P2-T-012). Read by phase2/src/p2_a_901.py --rev C together with
+# params/phase2_massing.yaml (Rev A: views, colours, model set-up unchanged).
+# Rev C, 2026-10-04 (Shane 3:31 PM CT, D-069 closed = Option 2): plan Rev I (east restroom bump-out 30 x 56 ft, one storey, X7 on its east face),
+# C-101 Rev E site (walk / apron unchanged). Rev B unchanged.
+
+meta:
+  revision: E
+  file: P2-A-901_RevE
+  model_file: P2-A-901_RevE_massing
+  drawn_by: "Drawn by KEYSTONE (AI) for Shane Brazelton"
+  source: "Shane 2026-10-09 1:05 PM CT, KEYSTONE chat (D-087: no bus loop); Rev D = Shane 2026-10-04 evening (D-072)"
+
+inputs:
+  plan_l1: params/phase2_plan_rev_j.yaml
+  site_rev: rev_g
+  text: "P2-A-101 Rev J (annex + east restroom bump-out 42 ft south of EXIT (E), X7 on the wall, X11); P2-C-101 Rev G (bus loop cut, D-087); heights as Rev A (P2-A-201 Rev I)"
+  source: "phase2.yaml sheets P2-A-101 Rev I, P2-C-101 Rev E"
+
+annex:
+  height_ft: 16
+  height_status: ASSUMED
+  height_basis: "one storey, flat roof 16 ft ASSUMED (chair trucks 5-6 ft tall + stage carts; below the 17'-9\" L2 FF and the 32.75 ft ring roof); shown on P2-A-201 Rev H north elevation"
+  source: "D-067 (one-storey annex, Shane 1:22 PM CT); KEYSTONE ASSUMED height"
+
+bumpout:
+  height_ft: 16
+  height_status: ASSUMED
+  height_basis: "one storey, flat roof 16 ft ASSUMED (same as the annex, below the 17'-9\" L2 FF); restroom ceiling + plumbing vent space TBD (MEP)"
+  source: "D-069 (Shane 3:31 PM CT: one-storey bump-out); phase2_plan_rev_i.yaml building.bumpout; KEYSTONE ASSUMED height"
+
+colors:
+  band: {hex: "#D9B79A", note: "walk bands 6 ft (paved; brick later possible, D-044)", source: "KEYSTONE drafting tone (C-101 Rev D legend)"}
+  screening: {hex: "#CFE3D2", note: "screening bay (D-065), floor zone only", source: "KEYSTONE drafting tone"}
+
+decisions:
+  - {id: D-054, text: "chairs-only floor is the design case — no stage / chairs modelled (layout TBD)", source: "DECISIONS.md D-054"}
+  - {id: D-065, text: "screening bay in the lobby's east side, shown as a floor zone in the cutaway", source: "DECISIONS.md D-065"}
+  - {id: D-066, text: "40 ft walk = 28 ft brick + 6 ft bands, around both portal piers", source: "DECISIONS.md D-066"}
+  - {id: D-067, text: "storage annex 70 x 30 ft on the north wall, one storey (16 ft ASSUMED), S1 on its north face", source: "DECISIONS.md D-067"}
+  - {id: D-069, text: "restroom core 2 in a one-storey bump-out 30 x 56 ft on the east wall (16 ft ASSUMED)", source: "DECISIONS.md D-069"}
+  - {id: D-072, text: "bump-out slid 42 ft south, entirely south of EXIT (E); public corridor (E) inside (not modelled); X7 back on the wall, X11 new", source: "_KEYSTONE/DECISIONS_ARENA.md D-072"}
+  - {id: D-087, text: "bus loop cut; team bus + van drop-off curbside along the parking drive aisle (ASSUMED, TBD, D-006); service at S1", source: "_KEYSTONE/DECISIONS_ARENA.md D-087 (Shane 2026-10-09 1:05 PM CT)"}
+open_items: []
+
+source: "KEYSTONE 2026-10-04 (Shane 3:31 PM CT); params/phase2_massing.yaml; phase2_plan_rev_i.yaml; phase2_site.yaml rev_e"
+decisions_head: "DECISIONS MODELLED — SHANE 2026-10-04 + 2026-10-09 (D-072, D-087)"
+bumpout_label: "RESTROOM BUMP-OUT 30' x 56', 16' ASSUMED (D-072) · X11 S, X7 N"
+bumpout_cut_label: "restroom bump-out, cut (D-072)"
+sources: "Sources: params/phase2_massing.yaml, phase2_massing_rev_d.yaml; phase2_plan_rev_j.yaml; phase2_elev_rev_g.yaml; phase2_elev.yaml; phase2_site.yaml + phase2_site_rev_g.yaml (rev_g); phase2_sect.yaml; D-034, D-043, D-045, D-046, D-050, D-054, D-061, D-065 to D-067, D-069, D-072, D-087; Shane 2026-10-04 evening + 2026-10-09 1:05 PM CT. P2-A-201 Rev I shows the annex + bump-out."

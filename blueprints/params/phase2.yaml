@@ -53,6 +53,7 @@
 # v25, 2026-10-09 9:39 AM CT (P2-T-017 cont.): D-082 30 ft drum, D-083 drum door west, D-084 east side = plan Rev J:
 #     new A-101 M, A-102 I, G-003 M (params/phase2_plan_rev_j.yaml + phase2_plan_rev_m.yaml).
 # v26, 2026-10-09 10:11 AM CT: D-086 old NE stair strip = MECH (remote): new A-101 N, G-003 N (params/phase2_plan_rev_n.yaml).
+# v27, 2026-10-09 1:05 PM CT: D-087 bus loop cut: new C-101 G, A-901 E, A-201 J (params/phase2_site_rev_g.yaml, _massing_rev_e, _elev_rev_j).
 # Rules (prompt v1.1 §8): every value carries `source`. Unknown = TBD. No dimensions in this file yet:
 # the reference plan's dimension strings and scale bar are inconsistent and ignored (D-017).
 # Sources: "concept sheet" | "reference plan (Phase2-floor-plan-flat.png)" | "Shane 2026-10-03" | D-### | R-###
@@ -744,6 +745,12 @@ sheets:
         frozen: false
         inputs: "params/phase2_elev.yaml + params/phase2_elev_rev_f.yaml + params/phase2_elev_rev_g.yaml + params/phase2_elev_rev_h.yaml + params/phase2_plan_rev_i.yaml"
         source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); elevations show the storage annex (D-067) and the bump-out, both one storey 16 ft ASSUMED"
+      J:
+        file: P2-A-201_RevJ
+        frozen: false
+        generator: phase2/src/p2_a_201_rev_j.py
+        inputs: "params/phase2_elev.yaml + phase2_elev_rev_j.yaml (Rev I = Set Rev D, handoff_2026-10-04)"
+        source: "Shane 2026-10-09 1:05 PM CT (D-087: bus drop loop label and note removed)"
     source: "Shane 2026-10-04 5:27 AM CT"
   P2-A-301:
     title: BUILDING SECTIONS
@@ -822,6 +829,12 @@ sheets:
         frozen: false
         inputs: "params/phase2_site.yaml (rev_e) + params/phase2_plan_rev_i.yaml"
         source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); building outline adds the east bump-out, X7 discharge east"
+      G:
+        file: P2-C-101_RevG
+        frozen: false
+        generator: phase2/src/p2_c_101_rev_g.py
+        inputs: "params/phase2_site.yaml + phase2_site_rev_g.yaml + phase2_plan_rev_j.yaml (Rev F = Set Rev D, not registered here; handoff_2026-10-04)"
+        source: "Shane 2026-10-09 1:05 PM CT (D-087: cut the bus loop; service stays at S1; drop-off curbside along the parking drive aisle, ASSUMED)"
     source: "Shane 2026-10-04 7:44 AM CT"
   P2-G-002:
     title: CODE ANALYSIS (SCHEMATIC)
@@ -928,6 +941,12 @@ sheets:
         frozen: false
         inputs: "params/phase2_massing.yaml + params/phase2_massing_rev_c.yaml + params/phase2_plan_rev_i.yaml + params/phase2_site.yaml (rev_e)"
         source: "Shane 2026-10-04 3:31 PM CT (D-069 CLOSED = Option 2: second restroom pair in a one-storey bump-out opposite the lobby core; east concourse + SW FLEX unchanged, D-039); bump-out box 16 ft ASSUMED"
+      E:
+        file: P2-A-901_RevE
+        frozen: false
+        generator: phase2/src/p2_a_901_rev_e.py
+        inputs: "params/phase2_massing.yaml + phase2_massing_rev_e.yaml + phase2_site_rev_g.yaml + phase2_plan_rev_j.yaml (Rev D = Set Rev D, handoff_2026-10-04)"
+        source: "Shane 2026-10-09 1:05 PM CT (D-087: no bus loop in the massing)"
     source: "Shane 2026-10-04 12:10 PM CT; BACKLOG P2-T-011"
 
 sets:

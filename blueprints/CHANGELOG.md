@@ -716,3 +716,10 @@ Shane, Grok chat, 8:36 AM CT (correction; supersedes the stopped 8:35 message â€
 - D-086: old NE stair strip on Level 1 = 30 MECH (remote), 67 SF (not connected to the MECH / ELEC BAY; access TBD). New: params/phase2_plan_rev_n.yaml, p2_plan_rev_n_geom.py, p2_a_101_rev_n.py (--rev N), p2_g_003_rev_n.py (--rev N).
 - Mechanical 4,234 -> 4,302 SF = 4.87 % -> 4.95 % of GSF vs 5 % (D-072 method; Set Rev D 4.1 %). GSF unchanged: 57,896 / 29,068 / 86,964.
 - phase2.yaml v26. A-102 Rev I unchanged (Level 2 not touched). G-001, combined set, PR on hold.
+
+## 2026-10-09 1:05 PM CT â€” D-087 bus loop cut (C-101 G, A-901 E, A-201 J)
+- DECISIONS_ARENA.md: D-087 (cut the bus loop; service stays at S1; team bus + van drop-off curbside along the parking drive aisle, ASSUMED, TBD with the parcel, D-006).
+- New: params/phase2_site_rev_g.yaml, phase2_massing_rev_e.yaml, phase2_elev_rev_j.yaml; phase2/src/p2_c_101_rev_g.py (--rev G), p2_a_901_rev_e.py (--rev E), p2_a_201_rev_j.py (--rev J). Each is the Set Rev D handoff generator (checked: C-101 F and A-901 D regenerate byte-identical from the handoff patch in a scratch copy) with the bus loop removed. Building on these sheets is still Set Rev D (A-101 J).
+- Checked and not revised: A-111 Rev D, G-002 Rev D / E (no bus loop shown). G-001 Rev C cover mentions the loop (on hold).
+- STATUS: land-need planning note (10-15 ac, ASSUMED).
+- phase2.yaml v27: C-101 G, A-901 E, A-201 J registered.

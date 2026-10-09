@@ -1,0 +1,44 @@
+# phase2_site_rev_g.yaml: P2-C-101 Rev G (and P2-A-901 Rev E) site overrides (D-087: bus loop cut). Read by phase2/src/p2_c_101_rev_g.py and
+# p2_a_901_rev_e.py on top of params/phase2_site.yaml. The building / walk / service block is the Rev F block of the Set Rev D handoff
+# (handoff_2026-10-04/keystone_repo.patch, phase2_site.yaml rev_f), unchanged. New file; phase2_site.yaml and frozen revisions are not touched.
+
+rev_g:
+  revision: G
+  plan_file: phase2_plan_rev_j.yaml
+  building:
+    rect: [0, 0, 210, 252]
+    tower: [185.917, 252, 210, 258.667]
+    prior_rect: [0, 0, 210, 252]
+    prior_tower: [185.917, 252, 210, 258.667]
+    annex: [52, 252, 122, 282]
+    bumpout: [210, 119.09, 240, 175.09]
+    basis: "outline = P2-A-101 Rev I as drawn: 210 x 252 ft + NE stair tower 24.08 x 6.67 ft + storage annex 70 x 30 ft (D-067) + one-storey restroom bump-out 30 x 56 ft = 1,680 SF on the east wall at V2 / EXIT (E) (D-069); X7 moves 30 ft east to the bump-out east face"
+    source: "phase2_plan_rev_j.yaml building + projection + annex + bumpout (moved 42 ft south, D-072); Shane 2026-10-04 3:31 PM CT (D-069) + evening (D-072)"
+  walk:
+    brick: [99, -30, 127, 0]
+    band_w: [[93, 0], [99, 0], [99, -30], [91, -30], [91, -36], [99, -36], [99, -42], [85, -42], [85, -24], [93, -24]]
+    mirror_x: 226
+    pier_ft: 8
+    width_at_doors_ft: 40
+    width_at_portal_ft: 40
+    need_in: 467.0
+    basis: "unchanged from Rev D (D-066): 28 ft brick + 6 ft bands = 40 ft = 480 in >= 467.0 in (E1 standing margin, P2-G-002 Rev B)"
+    source: "D-066 (Shane 2026-10-04 1:22 PM CT); site rev_d walk"
+  service:
+    apron: [52, 282, 85, 306]
+    drive_turn_y: 290
+    basis: "unchanged from Rev D: S1 on the annex north wall (y 282, x 68.5); the bump-out is on the east side, clear of the service yard"
+    source: "phase2_plan_rev_i.yaml S1; D-034; D-067; site rev_d service"
+  area_table:
+    rule: "D-057: L1 footprint, L2 area, TOTAL GSF, change vs Rev H (p2_testfit.summary_k drawn / drawn_d); program = P2-G-003 Rev K (footprint F, L2 gross, total = F + L2); no cap, no margin (D-056)"
+    source: "D-057; D-069; P2-G-003 Rev K"
+  bus_loop:
+    status: CUT
+    basis: "D-087 changes the south bus drop loop part of D-034 (loop removed from the site diagram); service stays at north door S1"
+    source: "Shane 2026-10-09 1:05 PM CT, KEYSTONE chat (D-087)"
+  drop_off:
+    text: "Team bus + van drop-off: curbside along the parking drive aisle (ASSUMED, TBD with the parcel, D-006)"
+    label_at: [178, -95]
+    status: ASSUMED
+    source: "Shane 2026-10-09 1:05 PM CT (D-087); location TBD with the parcel (D-006); label_at = where the cut loop was drawn (diagram only)"
+  source: "Shane 2026-10-09 1:05 PM CT, KEYSTONE chat (D-087: cut the bus loop; C-101 Rev G). Building, walk and service as Rev F (Set Rev D, D-072)"
