@@ -1,5 +1,11 @@
 # CHANGELOG — KEYSTONE
 
+
+## 2026-10-10 ~6:15 AM CT — R-027 Madison County AL parking / land need (D-006)
+- New: `research/R-027-madison-county-parking-land-need.md`. Unincorporated Madison County AL: **no zoning parking minimum** (county Commercial Inspection FAQ; same finding as R-006). Commercial Site Plan + IFC apparatus access (26 ft along long side) still required.
+- Planning comparison only (Huntsville Art. 70): **1 space / 4 seats** → 2,200 / 4 = **550 spectator spaces ASSUMED**. Stall floor 550 × 180 SF ≈ 2.27 ac (aisles/stormwater TBD). ADA Table 208.2 at 550 → 11 accessible / 2 van.
+- Wrong-state trap: "Madison County Zoning Resolution Outer Region" web hit is Madison County **Tennessee** — not used.
+- D-006 stays OPEN. C-101 / G-001 / set / PR not revised (in review / on hold). No invented staff-parking add-on.
 ## 2026-10-04 ~6:10 AM CT · P1-T-008 · P1-P-001 Rev A plumbing / water restore scope narrative
 - **Unblocked Phase 1 ticket** taken ahead of P2-T-009 A-301 (Phase 1 outranks; P1-T-005…007 still wait on Dr. Headen / support-wing measurements).
 - **params/phase1.yaml:** structured `existing.plumbing` fields for the sheet — `fixture_inventory.items` (2 showers, 1 private toilet, 2 toilets, 1 urinal, sinks TBD, 1 water fountain/sink; all OOS), `scope_of_work.items`, `open_asks.items`, `licensed_trade` (note + R-004.3 cite), `cross_refs` to frozen P1-G-001 Rev D / P1-A-101 Rev A package. New `sheets.P1-P-001` register (Rev A). Every group sourced; no invented pipe sizes or costs. D-002 stays OPEN.
